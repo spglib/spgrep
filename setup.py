@@ -22,7 +22,6 @@ REQUIRED = ["setuptools", "setuptools_scm", "wheel", "numpy>=1.20.1", "spglib>=1
 EXTRAS = {
     "dev": [
         "pytest",
-        "pytest-cov",
         "pre-commit",
         "black",
         "mypy",

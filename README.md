@@ -29,7 +29,7 @@ sphinx-autobuild docs docs_build
 # open localhost:8000 in your browser
 ```
 
-Confirm the version number via setuptools-scm
+Confirm the version number via `setuptools-scm`
 ```shell
 python -m setuptools_scm
 # e.g. 0.1.dev1+g7aa164a.d20220704
