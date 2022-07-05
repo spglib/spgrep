@@ -8,6 +8,7 @@ from typing_extensions import TypeAlias  # for Python<3.10
 
 NDArrayInt: TypeAlias = NDArray[np.int_]
 NDArrayFloat: TypeAlias = NDArray[np.float_]
+NDArrayComplex: TypeAlias = NDArray[np.complex_]
 
 
 def is_integer_array(array: NDArrayFloat, rtol: float = 1e-5, atol: float = 1e-8) -> bool:

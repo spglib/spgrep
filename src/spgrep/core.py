@@ -49,6 +49,7 @@ def get_spacegroup_irreps_from_symmetry(
     rotations: array, (num_sym, 3, 3)
         Assume a fractional coordinates `x` are transformed by the i-th symmetry operation as follows:
             np.dot(rotations[i, :, :], x) + translations[i, :]
+        Note that rotations and translations can be specified in conventional cell.
     translations: array, (num_sym, 3)
     kpoint: array, (3, )
         Reciprocal vector with respect to reciprocal lattice of `lattice`
@@ -68,7 +69,7 @@ def get_crystallographic_pointgroup_irreps_from_symmetry(
 
     Parameters
     ----------
-    rotations: array, (num_sym, 3, 3)
+    rotations: array, (order, 3, 3)
         Assume a point coordinates `x` are transformed into `np.dot(rotations[i, :, :], x)` by the i-th symmetry operation.
 
     Returns
