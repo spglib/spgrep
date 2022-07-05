@@ -1,0 +1,106 @@
+# Formulation
+
+## Overview
+
+Irreps of crystallographic point groups or space groups are calculated in following steps:
+
+1. Construct regular representation (crystallographic point group) or projective regular representation (space group).
+1. Construct random matrix that commutes with (projective) regular representation and obtain irreps by diagonalizing it.
+1. Symmetrize the obtained irrep matrices by subduced representation.
+
+## Regular representation
+
+Given a finite group {math}`G = \{ R_{k} \}_{k=1}^{|G|}`, the regular representation of {math}`G` is defined as
+```{math}
+  \Gamma^{(\mathrm{reg})}(G_{k})_{ij}
+    = \delta( G_{i}^{-1} G_{k} G_{j} ),
+```
+where {math}`\delta(\cdot)` takes one for identity operation and zero for others.
+
+## Projective regular representation
+
+**TODO**
+
+## Obtaining all Irreps from (projective) regular representation
+
+Inspired by Refs. [^Net73] and [^TVdV17].
+
+For a finite group {math}`G` and its (projective) regular representation {math}`\Gamma^{(\mathrm{reg})}`,
+```{math}
+  \tilde{H}_{ij}
+    = \sum_{R \in G} \sum_{k=1}^{|G|} \sum_{l=1}^{|G|} \Gamma^{(\mathrm{reg})}(R)_{ik} H_{kl} \Gamma^{(\mathrm{reg})}(R)_{jl}^{\ast}
+```
+is also Hermite and commute with {math}`\Gamma^{(\mathrm{reg})}`, where {math}`\mathbf{H}` is any Hermite matrix.
+Consider the spectral decomposition of {math}`\tilde{\mathbf{H}}`,
+```{math}
+  \tilde{\mathbf{H}} = \sum_{\lambda} \lambda \sum_{n=1}^{ d_{\lambda} } \mathbf{v}_{\lambda n} \mathbf{v}_{\lambda n}^{\dagger} \\
+  \lambda \in \mathbb{R}, \mathbf{v}_{\lambda n}^{\dagger} \mathbf{v}_{\lambda' n'} = \delta_{\lambda \lambda'} \delta_{n n'}.
+```
+Then, the regular representation is block-diagonalized with {math}`\mathbf{V} = ( \mathbf{v}_{\lambda_{1} 1} \dots \mathbf{v}_{\lambda_{1} d_{\lambda_{1}}} \dots )`,
+```{math}
+  \left[ \mathbf{V}^{\dagger} \mathbf{\Gamma}^{(\mathrm{reg})}(R) \mathbf{V} \right]_{\lambda n, \lambda' n'} (\lambda - \lambda') = 0
+```
+
+{math}`\mathbf{V}_{\lambda} = ( \mathbf{v}_{\lambda 1} \dots \mathbf{v}_{\lambda_{1} d_{\lambda}} ) \in \mathbb{C}^{ |G| \times d_{\lambda} }` forms Irrep,
+```{math}
+  \mathbf{\Gamma}^{(\lambda)}(R)
+    = \mathbf{V}_{\lambda}^{\dagger} \mathbf{\Gamma}^{(\mathrm{reg})}(R) \mathbf{V}_{\lambda}
+    \quad
+    \in \mathbb{C}^{ d_{\lambda} \times d_{\lambda} }
+```
+The regular representation contains all Irreps of the group up to unitary transformation as
+```{math}
+  \Gamma^{(reg)} = \sum_{\alpha} d_{\alpha} \Gamma^{(\alpha)},
+```
+where {math}`d_{\alpha}` is dimension of Irrep labeled as {math}`\alpha`, and the summation is taken over all Irreps up to unitary transformation.
+Thus, this procedure produces all Irreps exhaustively.
+For an infinite group, the above procedure also holds replacing regular representation into projective regular representation.
+
+Also, we can check the obtained Irreps are enough by checking the following equality
+
+```{math}
+---
+label: all_irreps_dim_sum
+---
+    \sum_{\alpha} d_{\alpha}^{2} &= |G| \\
+    \sum_{ g \in G } | \chi^{(\alpha)}(g) |^2 &= |G| \\
+    \sum_{g \in G} \chi^{(\alpha)}(g)^{\ast} \chi^{(\beta)}(g) &= |G| \delta_{\alpha, \beta},
+```
+where {math}`\chi^{(\alpha)}` is character of irrep {math}`\Gamma^{(\alpha)}`.
+
+Note that Eqs. :eq:`all_irreps_dim_sum` also holds for projective representations.
+
+## Working Example
+Consider crystallographic point group {math}`3m` associated with {math}`P3m1` (No. 156).
+The matrix representation of this crystallographic point group is
+
+```{math}
+    \mathcal{P}
+    &=
+    \left\{
+        g_0=e,
+        g_1,
+        g_2=g_1^{-1},
+        g_3,
+        g_4=g_1^{-1} * g_3,
+        g_5=g_1 * g_3
+    \right\} \\
+    \quad \mbox{where}\quad
+    g_1
+    &=
+    \begin{pmatrix}
+        0 & -1 & 0 \\
+        1 & -1 & 0 \\
+        0 & 0  & 1 \\
+    \end{pmatrix} \\
+    g_3
+    &=
+    \begin{pmatrix}
+        0 & -1 & 0\\
+        -1 & 0 & 0\\
+        0 & 0 & 1\\
+    \end{pmatrix}.
+```
+
+[^Net73]: N. Neto, Acta Cryst. A, 29(4) 464–472 (1973).
+[^TVdV17]: John C. Thomas and Anton Van der Ven, J. Mech. Phys. Solids 107, 76–95, (2017).
