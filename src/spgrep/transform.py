@@ -3,7 +3,7 @@ from typing import Literal
 import numpy as np
 from spglib import get_spacegroup_type
 
-from spgrep.utils import NDArrayFloat, NDArrayInt
+from spgrep.utils import NDArrayFloat, NDArrayInt, ndarray2d_to_integer_tuple
 
 
 def transform_symmetry_and_kpoint(
@@ -11,8 +11,8 @@ def transform_symmetry_and_kpoint(
     rotations: NDArrayInt,
     translations: NDArrayFloat,
     kpoint: NDArrayFloat,
-) -> tuple[NDArrayFloat, NDArrayFloat, NDArrayFloat]:
-    """Return symmetry and k-vector coefficients in transformed coordinates.
+) -> tuple[NDArrayInt, NDArrayFloat, NDArrayFloat]:
+    """Return symmetry and k-vector coefficients in transformed coordinates. This function does not unique duplicated symmetry operations after applying transformation_matrix.
 
     Let a given transformation_matrix be ``P``.
     Symmetry operation (R, t) is transformed to
@@ -25,11 +25,50 @@ def transform_symmetry_and_kpoint(
     transformed_rotations = np.array(
         [pinv @ rotation @ transformation_matrix for rotation in rotations]
     )
+    transformed_rotations = np.around(transformed_rotations).astype(int)
     transformed_translations = np.array([pinv @ translation for translation in translations])
     # k -> P^T k
     transformed_kpoint = transformation_matrix.T @ kpoint
 
     return transformed_rotations, transformed_translations, transformed_kpoint
+
+
+def unique_primitive_symmetry(
+    rotations: NDArrayInt, translations: NDArrayFloat
+) -> tuple[NDArrayInt, NDArrayFloat, list[int]]:
+    """Unique duplicated symmetry operations.
+
+    Parameters
+    ----------
+    rotations: array, (num_sym, 3, 3)
+    translations: array, (num_sym, 3)
+
+    Returns
+    -------
+    unique_rotations: array, (new_num_sym, 3, 3)
+    unique_translations: array, (new_num_sym, 3)
+    mapping_to_primitive_symmetry: array, (num_sym, )
+        ``(rotations[i], translations[i])`` is transformed to ``(unique_rotations[j], unique_translations[j])`` where ``j = mapping_to_primitive_symmetry[i]``.
+    """
+    rotations_int: list[tuple[tuple[int]]] = []
+
+    unique_rotations = []
+    unique_translations = []
+    mapping_to_primitive_symmetry = [-1 for _ in range(len(rotations))]
+    for i, (rotation, translation) in enumerate(zip(rotations, translations)):
+        rotation_int = ndarray2d_to_integer_tuple(rotation)
+        try:
+            j = rotations_int.index(rotation_int)
+            # Duplicated symmetry operation
+            mapping_to_primitive_symmetry[i] = j
+        except ValueError:
+            # New symmetry operation
+            unique_rotations.append(rotation)
+            unique_translations.append(translation)
+            mapping_to_primitive_symmetry[i] = i
+            rotations_int.append(rotation_int)
+
+    return np.array(unique_rotations), np.array(unique_translations), mapping_to_primitive_symmetry
 
 
 def get_primitive_transformation_matrix(hall_number: int) -> NDArrayFloat:
