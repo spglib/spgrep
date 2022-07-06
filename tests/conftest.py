@@ -2,10 +2,9 @@ from __future__ import annotations
 
 import numpy as np
 import pytest
+from spglib import get_symmetry_from_database
 
-from spgrep.utils import NDArrayInt
-
-# from spglib import get_symmetry_from_database
+from spgrep.utils import NDArrayFloat, NDArrayInt
 
 
 @pytest.fixture
@@ -51,6 +50,15 @@ def C3v() -> NDArrayInt:
     ])
     # fmt: on
     return rotations
+
+
+@pytest.fixture
+def P3m1() -> tuple[NDArrayInt, NDArrayFloat]:
+    # P3m1 (No. 156)
+    symmetry = get_symmetry_from_database(hall_number=446)
+    rotations = symmetry["rotations"]
+    translations = symmetry["translations"]
+    return rotations, translations
 
 
 # @pytest.fixture

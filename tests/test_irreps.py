@@ -1,5 +1,10 @@
 import numpy as np
+import pytest
 
+from spgrep.core import (
+    get_spacegroup_irreps,
+    get_spacegroup_irreps_from_primitive_symmetry,
+)
 from spgrep.irreps import get_character, get_irreps, get_regular_representation
 
 
@@ -10,7 +15,7 @@ def test_get_character(C3v):
     assert np.allclose(actual, expect)
 
 
-def test_get_irreps(C3v):
+def test_get_irreps_C3v(C3v):
     reg = get_regular_representation(C3v)
     irreps = get_irreps(reg)
     # Check dimensions
@@ -25,3 +30,22 @@ def test_get_irreps(C3v):
     )
     characters_actual = np.array([get_character(irrep) for irrep in irreps])
     assert np.allclose(characters_actual, characters_expect)
+
+
+def test_get_spacegroup_irreps_from_primitive_symmetry(P3m1):
+    rotations, translations = P3m1
+    kpoint = np.array([1 / 2, 0, 0])  # M point
+    get_spacegroup_irreps_from_primitive_symmetry(rotations, translations, kpoint)
+
+
+@pytest.mark.skip
+def test_get_irreps_Ia3d_H(Ia3d_H):
+    pass
+
+
+def test_get_spacegroup_irreps(corundum_cell):
+    lattice, positions, numbers = corundum_cell
+    # kpoint: T for hR
+    # kpoint = np.array([1 / 2, 1 / 2, -1 / 2])
+    kpoint = np.array([0, 1, 1 / 2])
+    irreps = get_spacegroup_irreps(*corundum_cell, kpoint=kpoint)  # noqa: F841

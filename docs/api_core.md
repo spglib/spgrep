@@ -5,7 +5,7 @@
 ```
 
 ```{eval-rst}
-    .. autofunction:: spgrep.get_spacegroup_irreps_from_symmetry
+    .. autofunction:: spgrep.get_spacegroup_irreps_from_primitive_symmetry
 ```
 
 ```{eval-rst}
