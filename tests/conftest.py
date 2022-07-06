@@ -53,19 +53,20 @@ def C3v() -> NDArrayInt:
 
 
 @pytest.fixture
-def P3m1() -> tuple[NDArrayInt, NDArrayFloat]:
-    # P3m1 (No. 156)
-    symmetry = get_symmetry_from_database(hall_number=446)
+def P42mnm() -> tuple[NDArrayInt, NDArrayFloat]:
+    # P4_2/mnm (No. 136)
+    symmetry = get_symmetry_from_database(hall_number=419)
     rotations = symmetry["rotations"]
     translations = symmetry["translations"]
     return rotations, translations
 
 
-# @pytest.fixture
-# def Ia3d_H() -> tuple(NDArrayInt, NDArrayFloat, NDArrayFloat):
-#     symmetry = get_symmetry_from_database(hall_number=530)
-#     rotations = symmetry["rotations"]
-#     translations = symmetry["translations"]
+@pytest.fixture
+def Ia3d() -> tuple[NDArrayInt, NDArrayFloat]:
+    symmetry = get_symmetry_from_database(hall_number=530)
+    rotations = symmetry["rotations"]
+    translations = symmetry["translations"]
+    return rotations, translations
 
 
 @pytest.fixture

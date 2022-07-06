@@ -27,6 +27,7 @@ def transform_symmetry_and_kpoint(
     )
     transformed_rotations = np.around(transformed_rotations).astype(int)
     transformed_translations = np.array([pinv @ translation for translation in translations])
+    transformed_translations = np.remainder(transformed_translations, 1)
     # k -> P^T k
     transformed_kpoint = transformation_matrix.T @ kpoint
 

@@ -3,6 +3,7 @@ from __future__ import annotations
 import numpy as np
 from spglib import get_symmetry_dataset
 
+from spgrep.group import get_factor_system_from_little_group, get_little_group
 from spgrep.irreps import get_irreps, get_regular_representation
 from spgrep.transform import (
     get_primitive_transformation_matrix,
@@ -69,6 +70,7 @@ def get_spacegroup_irreps_from_primitive_symmetry(
     rotations: NDArrayInt,
     translations: NDArrayFloat,
     kpoint: NDArrayFloat,
+    rtol: float = 1e-5,
 ) -> list[NDArrayComplex]:
     """Compute all irreducible representations of given space group up to unitary transformation.
     Note that rotations and translations should be specified in a primitive cell.
@@ -81,13 +83,26 @@ def get_spacegroup_irreps_from_primitive_symmetry(
     translations: array, (num_sym, 3)
     kpoint: array, (3, )
         Reciprocal vector with respect to reciprocal lattice
+    rtol: float
+        Relative tolerance for computing little group
 
     Returns
     -------
     irreps: list of Irreps with (order, dim, dim)
     """
+    # Sanity check to use primitive cell
+    for rotation, translation in zip(rotations, translations):
+        if np.allclose(rotation, np.eye(3), rtol=rtol) and not np.allclose(
+            translation, 0, rtol=rtol
+        ):
+            raise ValueError("Specify symmetry operations in primitive cell!")
 
-    # TODO: check "primitive-ness"
+    little_rotations, little_translations = get_little_group(rotations, translations, kpoint, rtol)
+    factor_system = get_factor_system_from_little_group(
+        little_rotations, little_translations, kpoint
+    )
+
+    print(factor_system)
     raise NotImplementedError
 
 

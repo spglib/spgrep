@@ -32,9 +32,10 @@ def test_get_irreps_C3v(C3v):
     assert np.allclose(characters_actual, characters_expect)
 
 
-def test_get_spacegroup_irreps_from_primitive_symmetry(P3m1):
-    rotations, translations = P3m1
-    kpoint = np.array([1 / 2, 0, 0])  # M point
+@pytest.mark.skip
+def test_get_spacegroup_irreps_from_primitive_symmetry(P42mnm):
+    rotations, translations = P42mnm
+    kpoint = np.array([0, 1 / 2, 0])  # X point
     get_spacegroup_irreps_from_primitive_symmetry(rotations, translations, kpoint)
 
 
@@ -43,6 +44,7 @@ def test_get_irreps_Ia3d_H(Ia3d_H):
     pass
 
 
+@pytest.mark.skip
 def test_get_spacegroup_irreps(corundum_cell):
     lattice, positions, numbers = corundum_cell
     # kpoint: T for hR

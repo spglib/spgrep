@@ -5,6 +5,7 @@ from itertools import product
 import numpy as np
 
 from spgrep.utils import (
+    NDArrayComplex,
     NDArrayFloat,
     NDArrayInt,
     is_integer_array,
@@ -31,16 +32,25 @@ def is_matrix_group(rotations: NDArrayInt) -> bool:
     return True
 
 
-def get_factor_system(rotations: NDArrayInt, translations: NDArrayFloat, kpoint: NDArrayFloat):
-    """
+def get_factor_system_from_little_group(
+    little_rotations: NDArrayInt,
+    little_translations: NDArrayFloat,
+    kpoint: NDArrayFloat,
+) -> NDArrayComplex:
+    """Calculate factor system of projective representation of given little group:
 
+    .. math::
+       D^{\\mathbf{k}}_{p}(S_{i}) D^{\\mathbf{k}}_{p}(S_{j})
+       = \\exp \\left( -i \\mathbf{g}_{i} \\cdot \\mathbf{w}_{j} \\right) D^{\\mathbf{k}}_{p}(S_{k})
+
+    where :math:`S_{i}S_{j} = S_{k}` and :math:`\\mathbf{g}_{i} = S_{i}^{-1} \\mathbf{k} - \\mathbf{k}`.
 
     Parameters
     ----------
-    rotations: array, (order, 3, 3)
-        Assume a fractional coordinates `x` are transformed by the i-th symmetry operation as follows:
-            np.dot(rotations[i, :, :], x) + translations[i, :]
-    translations: array, (order, 3)
+    little_rotations: array, (order, 3, 3)
+        Linear parts of coset of little group stabilizing ``kpoint``.
+    little_translations: array, (order, 3)
+        Translation parts of coset of little group stabilizing ``kpoint``.
     kpoint: array, (3, )
 
     Returns
@@ -48,7 +58,19 @@ def get_factor_system(rotations: NDArrayInt, translations: NDArrayFloat, kpoint:
     factor_system: array, (order, order)
         Factor system of small representation of given space group and kpoint.
     """
-    raise NotImplementedError
+    n = len(little_rotations)
+
+    residuals = np.zeros((n, 3))
+    for i, rotation in enumerate(little_rotations):
+        # Never take modulus!
+        residuals[i] = rotation.T @ kpoint - kpoint
+
+    factor_system = np.zeros((n, n), dtype=np.complex_)
+    for i, residual in enumerate(residuals):
+        for j, translation in enumerate(little_translations):
+            factor_system[i, j] = np.exp(-2j * np.pi * np.dot(residual, translation))
+
+    return factor_system
 
 
 def get_little_group(
@@ -69,4 +91,4 @@ def get_little_group(
         little_rotations.append(rotation)
         little_translations.append(translation)
 
-    return little_rotations, little_translations
+    return np.array(little_rotations), np.array(little_translations)
