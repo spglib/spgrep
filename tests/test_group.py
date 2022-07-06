@@ -19,9 +19,12 @@ def test_get_little_group_and_factor_system(P42mnm):
     kpoint = np.array([0, 1 / 2, 0])  # X point
 
     # Check little group
-    little_rotations, little_translations = get_little_group(rotations, translations, kpoint)
+    little_rotations, little_translations, mapping_little_group = get_little_group(
+        rotations, translations, kpoint
+    )
     assert little_rotations.shape == (8, 3, 3)
     assert little_translations.shape == (8, 3)
+    assert len(mapping_little_group) == 8
 
     # Check factor system
     factor_system = get_factor_system_from_little_group(

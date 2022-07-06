@@ -1,6 +1,6 @@
-## Small representation of space group
+# Small representation of space group
 
-### Reciprocal lattice and transformation
+## Reciprocal lattice and transformation
 
 Let {math}`\mathbf{A} = (\mathbf{a}_{1} \mathbf{a}_{2} \mathbf{a}_{3})` be basis of {math}`L_{\mathcal{T}}`, which is lattice of translational group {math}`{\mathcal{T}}`.
 We choose basis of the (crystallographic) reciprocal vectors as
@@ -18,8 +18,7 @@ When basis vectors {math}`\mathbf{A}` is transformed to {math}`\mathbf{A}' := \m
     ```
 - Coefficients of reciprocal vector {math}`\mathbf{k} = 2 \pi \mathbf{B} \mathbf{k}_{f}` is transformed to {math}`\mathbf{k}_{f}' := \mathbf{P}^{\top} \mathbf{k}_{f}`.
 
-
-### Irreducible representation of translation subgroup
+## Irreducible representation of translation subgroup
 
 Consider the following irreps of translation subgroup {math}`\mathcal{T}` of space group {math}`\mathcal{G}`,
 ```{math}
@@ -63,7 +62,7 @@ Be careful the basis for calculating inner product in Eq. {eq}`eq_point_group_in
 
 [^footnote1]: We interchangeably denote an inner product of two vectors as {math}`\mathbf{a} \cdot \mathbf{b}` or {math}`(\mathbf{a}, \mathbf{b})`.
 
-### Little group
+## Little group
 
 Let {math}`\mathcal{P}` be point group of space group {math}`\mathcal{G}`.
 We define little co-group of {math}`\mathbf{k}`,
@@ -102,7 +101,7 @@ We can decompose space group {math}`\mathcal{G}` as
 Then, for Bloch function {math}`\Psi_{\mathbf{k}_{1}}(\mathbf{r})`, {math}`(T_{i}, \mathbf{x}_{i}) \mathcal{G}^{\mathbf{k}_{1}} \Psi_{\mathbf{k}_{1}}(\mathbf{r})` is Bloch function for {math}`\mathbf{k}_{i}`.
 Thus, our task to calculate irreps of {math}`\mathcal{G}` is boiled down to calculating irreps of little group {math}`\mathcal{G}^{\mathbf{k}}`, which is called small representation.
 
-### Projective representation
+## Projective representation
 
 A projective representation of group {math}`G` is a non-singular matrix function {math}`\Delta` on {math}`G` if it satisfied the following conditions:
 For each group product {math}`G_{k} = G_{i}G_{j}`, there exists scalar function {math}`\mu` (factor system) such that
@@ -115,7 +114,7 @@ and
   \quad \mbox{(cocycle condition)}.
 ```
 
-### Small representation
+## Small representation
 
 Let {math}`\Gamma^{\mathbf{k}}_{p}` be irrep of {math}`\mathcal{G}^{\mathbf{k}}`, for {math}`S_{i}S_{j} = S_{k}`,
 ```{math}

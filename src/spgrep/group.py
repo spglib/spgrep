@@ -78,17 +78,38 @@ def get_little_group(
     translations: NDArrayFloat,
     kpoint: NDArrayFloat,
     rtol: float = 1e-5,
-) -> tuple[NDArrayInt, NDArrayFloat]:
-    """Return coset of little group of given space group which stabilize kpoint under rotations."""
+) -> tuple[NDArrayInt, NDArrayFloat, NDArrayInt]:
+    """Return coset of little group of given space group which stabilize kpoint under rotations.
+
+    Parameters
+    ----------
+    rotations: array, (order, 3, 3)
+    translations: array, (order, 3)
+    kpoint: array, (3, )
+
+    Returns
+    -------
+    little_rotations: array, (little_group_order, 3, 3)
+    little_translations: array, (little_group_order, 3)
+    mapping_little_group: array, (little_group_order, )
+        Let ``i = mapping_little_group[idx]``.
+        (rotations[i], translations[i]) belongs to the little group of given space space group and kpoint.
+    """
     little_rotations = []
     little_translations = []
+    mapping_little_group = []
 
-    for rotation, translation in zip(rotations, translations):
+    for i, (rotation, translation) in enumerate(zip(rotations, translations)):
         residual = rotation.T @ kpoint - kpoint
         residual = residual - np.rint(residual)
         if not np.allclose(residual, 0, rtol=rtol):
             continue
         little_rotations.append(rotation)
         little_translations.append(translation)
+        mapping_little_group.append(i)
 
-    return np.array(little_rotations), np.array(little_translations)
+    return (
+        np.array(little_rotations),
+        np.array(little_translations),
+        np.array(mapping_little_group),
+    )

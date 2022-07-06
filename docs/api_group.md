@@ -5,7 +5,7 @@
 ```
 
 ```{eval-rst}
-    .. autofunction:: spgrep.group.get_factor_system
+    .. autofunction:: spgrep.group.get_factor_system_from_little_group
 ```
 
 ```{eval-rst}

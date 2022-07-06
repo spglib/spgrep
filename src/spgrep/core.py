@@ -4,7 +4,11 @@ import numpy as np
 from spglib import get_symmetry_dataset
 
 from spgrep.group import get_factor_system_from_little_group, get_little_group
-from spgrep.irreps import get_irreps, get_regular_representation
+from spgrep.irreps import (
+    get_irreps,
+    get_projective_regular_representation,
+    get_regular_representation,
+)
 from spgrep.transform import (
     get_primitive_transformation_matrix,
     transform_symmetry_and_kpoint,
@@ -71,24 +75,31 @@ def get_spacegroup_irreps_from_primitive_symmetry(
     translations: NDArrayFloat,
     kpoint: NDArrayFloat,
     rtol: float = 1e-5,
-) -> list[NDArrayComplex]:
+    max_num_random_generations: int = 4,
+) -> tuple[list[NDArrayComplex], NDArrayInt]:
     """Compute all irreducible representations of given space group up to unitary transformation.
     Note that rotations and translations should be specified in a primitive cell.
 
     Parameters
     ----------
-    rotations: array, (num_sym, 3, 3)
+    rotations: array, (order, 3, 3)
         Assume a fractional coordinates `x` are transformed by the i-th symmetry operation as follows:
             np.dot(rotations[i, :, :], x) + translations[i, :]
-    translations: array, (num_sym, 3)
+    translations: array, (order, 3)
     kpoint: array, (3, )
         Reciprocal vector with respect to reciprocal lattice
     rtol: float
-        Relative tolerance for computing little group
+        Relative tolerance
+    max_num_random_generations: int
+        Maximal number of trials to generate random matrix
 
     Returns
     -------
-    irreps: list of Irreps with (order, dim, dim)
+    irreps: list of Irreps with (little_group_order, dim, dim)
+        Let ``i = mapping_little_group[idx]``. ``irreps[alpha][i, :, :]`` is the ``alpha``-th irreducible matrix representation of ``(rotations[i], translations[i])``.
+    mapping_little_group: array, (little_group_order, )
+        Let ``i = mapping_little_group[idx]``.
+        (rotations[i], translations[i]) belongs to the little group of given space space group and kpoint.
     """
     # Sanity check to use primitive cell
     for rotation, translation in zip(rotations, translations):
@@ -97,13 +108,27 @@ def get_spacegroup_irreps_from_primitive_symmetry(
         ):
             raise ValueError("Specify symmetry operations in primitive cell!")
 
-    little_rotations, little_translations = get_little_group(rotations, translations, kpoint, rtol)
+    little_rotations, little_translations, mapping_little_group = get_little_group(
+        rotations, translations, kpoint, rtol
+    )
     factor_system = get_factor_system_from_little_group(
         little_rotations, little_translations, kpoint
     )
+    reg = get_projective_regular_representation(little_rotations, factor_system)
+    small_reps = get_irreps(reg, rtol, max_num_random_generations)
 
-    print(factor_system)
-    raise NotImplementedError
+    irreps = []
+    for rep in small_reps:
+        phases = np.array(
+            [
+                np.exp(-2j * np.pi * np.dot(kpoint, translation))
+                for translation in little_translations
+            ]
+        )
+        irreps.append(rep * phases[:, None, None])
+
+    # TODO: symmetrize irreps
+    return irreps, mapping_little_group
 
 
 def get_crystallographic_pointgroup_irreps_from_symmetry(
