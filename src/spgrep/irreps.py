@@ -42,8 +42,41 @@ def get_regular_representation(rotations: NDArrayInt) -> NDArrayInt:
     return reg
 
 
+def get_projective_regular_representation(
+    rotations: NDArrayInt, factor_system: NDArrayComplex
+) -> NDArrayComplex:
+    """Calculate regular representation of space group with factor system.
+
+    Parameters
+    ----------
+    rotations: array, (order, 3, 3)
+    factor_system: array, (order, order)
+
+    Returns
+    -------
+    reg: array, (order, order, order)
+        ``reg[k]`` is a representation matrix for ``rotations[k]``.
+        If and only if ``np.dot(rotations[k], rotations[j]) == rotations[i]``, ``reg[k, i, j] == factor_system[k, j]``.
+    """
+    n = len(rotations)
+    reg = np.zeros((n, n, n), dtype=np.complex_)
+    rotations_list = [ndarray2d_to_integer_tuple(r) for r in rotations]
+
+    for k, gk in enumerate(rotations):
+        for j, gj in enumerate(rotations):
+            gkj = np.dot(gk, gj)
+            try:
+                i = rotations_list.index(ndarray2d_to_integer_tuple(gkj))
+            except ValueError:
+                raise ValueError("Given matrices should form group.")
+
+            reg[k, i, j] = factor_system[k, j]
+
+    return reg
+
+
 def get_irreps(
-    reg: NDArrayInt,
+    reg: NDArrayComplex,
     rtol: float = 1e-5,
     max_num_random_generations: int = 4,
 ) -> list[NDArrayComplex]:
@@ -84,7 +117,7 @@ def get_irreps(
 
 
 def _get_irreps_from_matrix(
-    reg: NDArrayFloat, matrix: NDArrayComplex, rtol: float
+    reg: NDArrayComplex, matrix: NDArrayComplex, rtol: float
 ) -> list[NDArrayComplex]:
     # eigvecs[:, i] is the normalized eigenvector to eigvals[i]
     eigvals, eigvecs = np.linalg.eigh(matrix)
@@ -132,7 +165,7 @@ def _get_irreps_from_matrix(
     return sorted_irreps
 
 
-def get_character(representation: NDArrayComplex) -> NDArrayFloat:
+def get_character(representation: NDArrayComplex) -> NDArrayComplex:
     """Calculate character of representation
 
     Parameters
@@ -143,5 +176,5 @@ def get_character(representation: NDArrayComplex) -> NDArrayFloat:
     -------
     character: array, (order, )
     """
-    character = np.einsum("ijj->i", representation).astype(float)
+    character = np.einsum("ijj->i", representation)
     return character

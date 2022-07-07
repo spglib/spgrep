@@ -1,8 +1,20 @@
 from __future__ import annotations
 
-from spglib import get_symmetry
+import numpy as np
+from spglib import get_symmetry_dataset
 
-from spgrep.utils import NDArrayFloat, NDArrayInt
+from spgrep.group import get_factor_system_from_little_group, get_little_group
+from spgrep.irreps import (
+    get_irreps,
+    get_projective_regular_representation,
+    get_regular_representation,
+)
+from spgrep.transform import (
+    get_primitive_transformation_matrix,
+    transform_symmetry_and_kpoint,
+    unique_primitive_symmetry,
+)
+from spgrep.utils import NDArrayComplex, NDArrayFloat, NDArrayInt
 
 
 def get_spacegroup_irreps(
@@ -10,8 +22,9 @@ def get_spacegroup_irreps(
     positions: NDArrayFloat,
     numbers: NDArrayInt,
     kpoint: NDArrayFloat,
+    reciprocal_lattice: NDArrayFloat | None = None,
     symprec: float = 1e-5,
-):
+) -> tuple[list[NDArrayComplex], NDArrayInt, NDArrayFloat, NDArrayInt]:
     """Compute all irreducible representations of space group of given structure up to unitary transformation.
 
     Parameters
@@ -23,47 +36,147 @@ def get_spacegroup_irreps(
     numbers: array, (num_atoms, )
         Integer list specifying atomic species
     kpoint: array, (3, )
-        Reciprocal vector with respect to reciprocal lattice of `lattice`
+        Reciprocal vector with respect to ``reciprocal_lattice``
+    reciprocal_lattice: (Optional) array, (3, 3)
+        ``reciprocal_lattice[i, :]`` is the i-th basis vector of reciprocal lattice for ``kpoint`` without `2 * pi factor`.
+        If not specified, ``reciprocal_lattice`` is set to ``np.linalg.inv(lattice).T``.
     symprec: float
 
     Returns
     -------
-    TODO
+    irreps: list of Irreps with (little_group_order, dim, dim)
+        ``irreps[alpha][i, :, :]`` is the ``alpha``-th irreducible matrix representation of ``(little_rotations[i], little_translations[i])``.
+    rotations: array, (num_sym, 3, 3)
+    translations: array, (num_sym, 3)
+    mapping_little_group: array, (little_group_order, )
+        Let ``i = mapping_little_group[idx]``.
+        (rotations[i], translations[i]) belongs to the little group of given space space group and kpoint.
     """
-    cell = (lattice, positions, numbers)
-    symmetry = get_symmetry(cell, symprec=symprec)
-    return get_spacegroup_irreps_from_symmetry(
-        rotations=symmetry["rotations"],
-        translations=symmetry["translations"],
-        kpoint=kpoint,
+    # Transform given `kpoint` in dual of `lattice`
+    dual_lattice = np.linalg.inv(lattice).T
+    if reciprocal_lattice is None:
+        reciprocal_lattice = dual_lattice
+    # kpoint @ reciprocal_lattice == kpoint_conv @ dual_lattice
+    kpoint_conv = kpoint @ reciprocal_lattice @ np.linalg.inv(dual_lattice)
+
+    dataset = get_symmetry_dataset(cell=(lattice, positions, numbers), symprec=symprec)
+    rotations = dataset["rotations"]
+    translations = dataset["translations"]
+
+    # Transform to primitive
+    to_primitive = get_primitive_transformation_matrix(dataset["hall_number"])
+    prim_rotations, prim_translations, prim_kpoint = transform_symmetry_and_kpoint(
+        to_primitive, rotations, translations, kpoint_conv
+    )
+    # mapping_to_prim: [0..num_sym) -> [0..order)
+    uniq_prim_rotations, uniq_prim_translations, mapping_to_prim = unique_primitive_symmetry(
+        prim_rotations, prim_translations
     )
 
+    # mapping_prim_little_group: [0..prim_little_group_order) -> [0..order)
+    prim_irreps, mapping_prim_little_group = get_spacegroup_irreps_from_primitive_symmetry(
+        rotations=uniq_prim_rotations,
+        translations=uniq_prim_translations,
+        kpoint=prim_kpoint,
+    )
+    remapping_prim_little_group = {}  # [0..order) -> [0..prim_little_group_order)
+    for i, idx in enumerate(mapping_prim_little_group):
+        remapping_prim_little_group[idx] = i
 
-def get_spacegroup_irreps_from_symmetry(
-    rotations: NDArrayInt, translations: NDArrayFloat, kpoint: NDArrayFloat
-):
+    mapping_little_group = []  # [0..little_group_order) -> [0..num_sym)
+    mapping_conv_to_prim_little_group = (
+        []
+    )  # [0..little_group_order) -> [0..prim_little_group_order)
+    shifts = []  # (little_group_order, )
+    for i in range(len(mapping_to_prim)):
+        idx_prim = mapping_to_prim[i]  # in [0..order)
+        idx_prim_little = remapping_prim_little_group.get(
+            idx_prim
+        )  # in [0..prim_little_group_order)
+        if idx_prim_little is None:
+            continue
+
+        mapping_little_group.append(i)
+        mapping_conv_to_prim_little_group.append(idx_prim_little)
+        shifts.append(prim_translations[i] - uniq_prim_translations[idx_prim])
+
+    # Adjust phase by centering translation
+    phases = np.array([np.exp(-2j * np.pi * np.dot(prim_kpoint, shift)) for shift in shifts])
+    irreps = []
+    for prim_irrep in prim_irreps:
+        # prim_irrep: (little_group_order, dim, dim)
+        irrep = prim_irrep[mapping_conv_to_prim_little_group] * phases[:, None, None]
+        irreps.append(irrep)
+
+    return irreps, rotations, translations, np.array(mapping_little_group)
+
+
+def get_spacegroup_irreps_from_primitive_symmetry(
+    rotations: NDArrayInt,
+    translations: NDArrayFloat,
+    kpoint: NDArrayFloat,
+    rtol: float = 1e-5,
+    max_num_random_generations: int = 4,
+) -> tuple[list[NDArrayComplex], NDArrayInt]:
     """Compute all irreducible representations of given space group up to unitary transformation.
+    Note that rotations and translations should be specified in a primitive cell.
 
     Parameters
     ----------
-    rotations: array, (num_sym, 3, 3)
+    rotations: array, (order, 3, 3)
         Assume a fractional coordinates `x` are transformed by the i-th symmetry operation as follows:
             np.dot(rotations[i, :, :], x) + translations[i, :]
-        Note that rotations and translations can be specified in conventional cell.
-    translations: array, (num_sym, 3)
+    translations: array, (order, 3)
     kpoint: array, (3, )
-        Reciprocal vector with respect to reciprocal lattice of `lattice`
+        Reciprocal vector with respect to reciprocal lattice
+    rtol: float
+        Relative tolerance
+    max_num_random_generations: int
+        Maximal number of trials to generate random matrix
 
     Returns
     -------
-    TODO
+    irreps: list of Irreps with (little_group_order, dim, dim)
+        Let ``i = mapping_little_group[idx]``. ``irreps[alpha][i, :, :]`` is the ``alpha``-th irreducible matrix representation of ``(rotations[i], translations[i])``.
+    mapping_little_group: array, (little_group_order, )
+        Let ``i = mapping_little_group[idx]``.
+        (rotations[i], translations[i]) belongs to the little group of given space space group and kpoint.
     """
-    raise NotImplementedError
+    # Sanity check to use primitive cell
+    for rotation, translation in zip(rotations, translations):
+        if np.allclose(rotation, np.eye(3), rtol=rtol) and not np.allclose(
+            translation, 0, rtol=rtol
+        ):
+            raise ValueError("Specify symmetry operations in primitive cell!")
+
+    little_rotations, little_translations, mapping_little_group = get_little_group(
+        rotations, translations, kpoint, rtol
+    )
+    factor_system = get_factor_system_from_little_group(
+        little_rotations, little_translations, kpoint
+    )
+    reg = get_projective_regular_representation(little_rotations, factor_system)
+    small_reps = get_irreps(reg, rtol, max_num_random_generations)
+
+    irreps = []
+    for rep in small_reps:
+        phases = np.array(
+            [
+                np.exp(-2j * np.pi * np.dot(kpoint, translation))
+                for translation in little_translations
+            ]
+        )
+        irreps.append(rep * phases[:, None, None])
+
+    # TODO: symmetrize irreps
+    return irreps, mapping_little_group
 
 
 def get_crystallographic_pointgroup_irreps_from_symmetry(
     rotations: NDArrayInt,
-):
+    rtol: float = 1e-5,
+    max_num_random_generations: int = 4,
+) -> list[NDArrayComplex]:
     """Compute all irreducible representations of given crystallographic point group up to unitary transformation.
     Assume matrix representation of given crystallographic point group is in "standard" setting shown in Table 3.2.3.3 of International Table for Crystallography Vol. A (2016).
 
@@ -71,9 +184,16 @@ def get_crystallographic_pointgroup_irreps_from_symmetry(
     ----------
     rotations: array, (order, 3, 3)
         Assume a point coordinates `x` are transformed into `np.dot(rotations[i, :, :], x)` by the i-th symmetry operation.
+    rtol: float
+        Relative tolerance to distinguish difference eigenvalues
+    max_num_random_generations: int
+        Maximal number of trials to generate random matrix
 
     Returns
     -------
-    TODO
+    irreps: list of Irreps with (order, dim, dim)
     """
-    raise NotImplementedError
+    reg = get_regular_representation(rotations)
+    irreps = get_irreps(reg, rtol, max_num_random_generations)
+    # TODO: symmetrize irreps
+    return irreps
