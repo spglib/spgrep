@@ -45,7 +45,7 @@ Then, the regular representation is block-diagonalized with {math}`\mathbf{V} = 
 ```
 The regular representation contains all Irreps of the group up to unitary transformation as
 ```{math}
-  \Gamma^{(reg)} = \sum_{\alpha} d_{\alpha} \Gamma^{(\alpha)},
+  \Gamma^{(\mathrm{reg})} = \sum_{\alpha} d_{\alpha} \Gamma^{(\alpha)},
 ```
 where {math}`d_{\alpha}` is dimension of Irrep labeled as {math}`\alpha`, and the summation is taken over all Irreps up to unitary transformation.
 Thus, this procedure produces all Irreps exhaustively.
@@ -108,8 +108,17 @@ The matrix representation of this crystallographic point group is
 
 Consider space group {math}`P4_{2}/mnm` (No. 136) at {math}`X=(0\frac{1}{2}0)`.
 
-Consider irreps of space group {math}`Ia\overline{3}d` (No. 230) at {math}`H=(\frac{1}{2}\overline{\frac{1}{2}}\frac{1}{2})_{\mathrm{primitive}}`.
-(corresponding to {math}`G^{4}_{96}` in Ref. [^BC09])
+Consider irreps of space group {math}`\mathcal{G} = Ia\overline{3}d` (No. 230) at {math}`H=(\frac{1}{2}\overline{\frac{1}{2}}\frac{1}{2})_{\mathrm{primitive}}` (corresponding to {math}`G^{4}_{96}` in Ref. [^BC09]).
+
+```{math}
+  \overline{\mathcal{G}}^{\mathbf{k}}| \cong m\overline{3}m,
+  \quad
+  \left| \overline{\mathcal{G}}^{\mathbf{k}} \right| = 48
+```
+
+```{math}
+  \Gamma^{(\mathrm{reg})} = 2\Gamma^{(H_{1})} + 2\Gamma^{(H_{2})} + 6\Gamma^{(H_{3})}
+```
 
 
 [^Net73]: N. Neto, Acta Cryst. A, 29(4) 464–472 (1973).
