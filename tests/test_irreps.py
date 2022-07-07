@@ -6,6 +6,7 @@ from spgrep.core import (
     get_spacegroup_irreps_from_primitive_symmetry,
 )
 from spgrep.irreps import get_character, get_irreps, get_regular_representation
+from spgrep.transform import transform_symmetry_and_kpoint, unique_primitive_symmetry
 from spgrep.utils import (
     NDArrayComplex,
     NDArrayFloat,
@@ -38,7 +39,7 @@ def test_get_irreps_C3v(C3v):
     assert np.allclose(characters_actual, characters_expect)
 
 
-def test_get_spacegroup_irreps_from_primitive_symmetry(P42mnm):
+def test_get_spacegroup_irreps_from_primitive_symmetry_P42mnm(P42mnm):
     rotations, translations = P42mnm
     kpoint = np.array([0, 1 / 2, 0])  # X point
     irreps, mapping_little_group = get_spacegroup_irreps_from_primitive_symmetry(
@@ -55,9 +56,44 @@ def test_get_spacegroup_irreps_from_primitive_symmetry(P42mnm):
         )
 
 
-@pytest.mark.skip
-def test_get_irreps_Ia3d_H(Ia3d_H):
-    pass
+def test_get_spacegroup_irreps_from_primitive_symmetry_Ia3d(Ia3d):
+    rotations, translations = Ia3d
+    kpoint_conv = np.array([0, 1, 0])  # H point in conventional dual
+
+    # TODO: Refactor to function
+    # Transform to primitive
+    to_primitive = np.array(
+        [
+            [-1 / 2, 1 / 2, 1 / 2],
+            [1 / 2, -1 / 2, 1 / 2],
+            [1 / 2, 1 / 2, -1 / 2],
+        ]
+    )
+    primitive_rotations, primitive_translations, primitive_kpoint = transform_symmetry_and_kpoint(
+        to_primitive, rotations, translations, kpoint_conv
+    )
+    primitive_rotations, primitive_translations, mapping = unique_primitive_symmetry(
+        primitive_rotations, primitive_translations
+    )
+    assert primitive_rotations.shape == (48, 3, 3)
+    assert primitive_translations.shape == (48, 3)
+    assert np.allclose(primitive_kpoint, np.array([1 / 2, -1 / 2, 1 / 2]))
+
+    primitive_irreps, mapping_little_group = get_spacegroup_irreps_from_primitive_symmetry(
+        rotations=primitive_rotations,
+        translations=primitive_translations,
+        kpoint=primitive_kpoint,
+    )
+    # 48 = 2^2 + 2^2 + 2^2 + 6^2
+    assert len(primitive_irreps) == 4
+    assert [irrep.shape[1] for irrep in primitive_irreps] == [2, 2, 2, 6]
+
+    little_primitive_rotations = primitive_rotations[mapping_little_group]
+    little_primitive_translations = primitive_translations[mapping_little_group]
+    for irrep in primitive_irreps:
+        assert check_spacegroup_representation(
+            little_primitive_rotations, little_primitive_translations, primitive_kpoint, irrep
+        )
 
 
 @pytest.mark.skip

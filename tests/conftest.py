@@ -63,6 +63,7 @@ def P42mnm() -> tuple[NDArrayInt, NDArrayFloat]:
 
 @pytest.fixture
 def Ia3d() -> tuple[NDArrayInt, NDArrayFloat]:
+    # Ia3d (No. 230)
     symmetry = get_symmetry_from_database(hall_number=530)
     rotations = symmetry["rotations"]
     translations = symmetry["translations"]

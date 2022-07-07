@@ -18,6 +18,19 @@ def transform_symmetry_and_kpoint(
     Symmetry operation (R, t) is transformed to
         (P, 0)^-1 (R, t) (P, 0) = (P^-1 R P, P^-1 t).
     Coefficients of k-vector are transformed to P.T @ kpoint.
+
+    Parameters
+    ----------
+    transformation_matrix: array, (3, 3)
+    rotations: array, (num_sym, 3, 3)
+    translations: array, (num_sym, 3)
+    kpoint: array, (3, )
+
+    Returns
+    -------
+    transformed_rotations: array, (num_sym, 3, 3)
+    transformed_translations: array, (num_sym, 3)
+    transformed_kpoint: array, (3, )
     """
 
     # (R, t) -> (P^-1 R P, P^-1 t)
@@ -35,7 +48,7 @@ def transform_symmetry_and_kpoint(
 
 
 def unique_primitive_symmetry(
-    rotations: NDArrayInt, translations: NDArrayFloat
+    rotations: NDArrayInt, translations: NDArrayFloat, rtol: float = 1e-5
 ) -> tuple[NDArrayInt, NDArrayFloat, list[int]]:
     """Unique duplicated symmetry operations.
 

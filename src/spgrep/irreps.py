@@ -165,7 +165,7 @@ def _get_irreps_from_matrix(
     return sorted_irreps
 
 
-def get_character(representation: NDArrayComplex) -> NDArrayFloat:
+def get_character(representation: NDArrayComplex) -> NDArrayComplex:
     """Calculate character of representation
 
     Parameters
@@ -176,6 +176,5 @@ def get_character(representation: NDArrayComplex) -> NDArrayFloat:
     -------
     character: array, (order, )
     """
-    # Character is always real
-    character = np.real(np.einsum("ijj->i", representation))
+    character = np.einsum("ijj->i", representation)
     return character
