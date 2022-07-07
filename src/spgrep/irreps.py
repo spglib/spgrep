@@ -81,7 +81,7 @@ def get_irreps(
     rtol: float = 1e-5,
     max_num_random_generations: int = 4,
 ) -> list[NDArrayComplex]:
-    """Decompose given (projective) regular representation and obtain all Irreps.
+    """Decompose given (projective) regular representation and obtain all unitary Irreps.
 
     Parameters
     ----------
@@ -94,7 +94,7 @@ def get_irreps(
 
     Returns
     -------
-    irreps: list of Irreps with (order, dim, dim)
+    irreps: list of unitary Irreps with (order, dim, dim)
     """
     n = reg.shape[0]
 
@@ -160,8 +160,8 @@ def _get_irreps_from_matrix(
     irreps: list[NDArrayComplex] = []
     characters: list[NDArrayFloat] = []
     for eigval, list_eigvecs in eigenspaces:
-        # Stack eigenvectors in column wise
-        transformation = np.transpose(list_eigvecs)
+        # QR decomposition of column-wise vectors gives Gram-Schmidt orthonormalized vectors in column wise.
+        transformation = np.linalg.qr(np.transpose(list_eigvecs))[0]
         irrep = np.einsum("li,klm,mj->kij", np.conj(transformation), reg, transformation)
         character = get_character(irrep)
 

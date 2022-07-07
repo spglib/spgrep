@@ -16,7 +16,14 @@ For any factor system {math}`\mu`, the following representation holds the orthog
 ```
 We refer this representation to projective regular representation.
 
-## Obtaining all Irreps from (projective) regular representation
+The projective regular representation is a unitary representation when absolute of its factor system is one:
+```{math}
+  \sum_{l} \Delta^{(\mathrm{reg})}(G_{k})_{il} \Delta^{(\mathrm{reg})}(G_{k})_{jl}^{\ast}
+  = \delta_{ij} \left| \mu(G_{k}, G_{k}^{-1}G_{i}) \right|^{2}.
+```
+The factor system defined in "[](little_group.md)" satisfies this condition.
+
+## Obtaining all irreps from (projective) regular representation
 
 Inspired by Refs. [^Net73] and [^TVdV17].
 
