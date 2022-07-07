@@ -39,8 +39,8 @@ def transform_symmetry_and_kpoint(
         [pinv @ rotation @ transformation_matrix for rotation in rotations]
     )
     transformed_rotations = np.around(transformed_rotations).astype(int)
+    # Never take modulus for translations here!
     transformed_translations = np.array([pinv @ translation for translation in translations])
-    transformed_translations = np.remainder(transformed_translations, 1)
     # k -> P^T k
     transformed_kpoint = transformation_matrix.T @ kpoint
 
@@ -78,7 +78,7 @@ def unique_primitive_symmetry(
         except ValueError:
             # New symmetry operation
             unique_rotations.append(rotation)
-            unique_translations.append(translation)
+            unique_translations.append(np.remainder(translation, 1))
             mapping_to_primitive_symmetry[i] = i
             rotations_int.append(rotation_int)
 

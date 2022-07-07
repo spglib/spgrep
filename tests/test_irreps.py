@@ -1,5 +1,4 @@
 import numpy as np
-import pytest
 
 from spgrep.core import (
     get_spacegroup_irreps,
@@ -96,13 +95,22 @@ def test_get_spacegroup_irreps_from_primitive_symmetry_Ia3d(Ia3d):
         )
 
 
-@pytest.mark.skip
 def test_get_spacegroup_irreps(corundum_cell):
-    lattice, positions, numbers = corundum_cell
-    # kpoint: T for hR
-    # kpoint = np.array([1 / 2, 1 / 2, -1 / 2])
+    # Corundum structure, R-3c (No. 167)
+    # T point for hR
     kpoint = np.array([0, 1, 1 / 2])
-    irreps = get_spacegroup_irreps(*corundum_cell, kpoint=kpoint)  # noqa: F841
+    irreps, rotations, translations, mapping = get_spacegroup_irreps(*corundum_cell, kpoint=kpoint)
+    # order=12, 12 = 2^2 + 2^2 + 2^2
+    assert len(irreps) == 3
+    assert [irrep.shape[1] for irrep in irreps] == [2, 2, 2]
+    assert set(mapping) == set(range(36))  # order of little co-group in conventional
+
+    little_rotations = rotations[mapping]
+    little_translations = translations[mapping]
+    for irrep in irreps:
+        assert check_spacegroup_representation(
+            little_rotations, little_translations, kpoint, irrep
+        )
 
 
 def check_spacegroup_representation(
@@ -111,13 +119,8 @@ def check_spacegroup_representation(
     kpoint: NDArrayFloat,
     rep: NDArrayComplex,
 ):
+    """Check definition of representation. This function works for primitive and conventional cell."""
     little_rotations_int = [ndarray2d_to_integer_tuple(rotation) for rotation in little_rotations]
-    dim = rep.shape[1]
-
-    # (E, 0) -> identity
-    idx_e = little_rotations_int.index(ndarray2d_to_integer_tuple(np.eye(3)))
-    if not np.allclose(rep[idx_e], np.eye(dim)):
-        return False
 
     # Check if ``rep`` preserves multiplication
     for r1, t1, m1 in zip(little_rotations, little_translations, rep):

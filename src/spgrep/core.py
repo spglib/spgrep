@@ -12,6 +12,7 @@ from spgrep.irreps import (
 from spgrep.transform import (
     get_primitive_transformation_matrix,
     transform_symmetry_and_kpoint,
+    unique_primitive_symmetry,
 )
 from spgrep.utils import NDArrayComplex, NDArrayFloat, NDArrayInt
 
@@ -23,7 +24,7 @@ def get_spacegroup_irreps(
     kpoint: NDArrayFloat,
     reciprocal_lattice: NDArrayFloat | None = None,
     symprec: float = 1e-5,
-) -> list[NDArrayComplex]:
+) -> tuple[list[NDArrayComplex], NDArrayInt, NDArrayFloat, NDArrayInt]:
     """Compute all irreducible representations of space group of given structure up to unitary transformation.
 
     Parameters
@@ -43,7 +44,13 @@ def get_spacegroup_irreps(
 
     Returns
     -------
-    irreps: list of Irreps with (order, dim, dim)
+    irreps: list of Irreps with (little_group_order, dim, dim)
+        ``irreps[alpha][i, :, :]`` is the ``alpha``-th irreducible matrix representation of ``(little_rotations[i], little_translations[i])``.
+    rotations: array, (num_sym, 3, 3)
+    translations: array, (num_sym, 3)
+    mapping_little_group: array, (little_group_order, )
+        Let ``i = mapping_little_group[idx]``.
+        (rotations[i], translations[i]) belongs to the little group of given space space group and kpoint.
     """
     # Transform given `kpoint` in dual of `lattice`
     dual_lattice = np.linalg.inv(lattice).T
@@ -53,21 +60,55 @@ def get_spacegroup_irreps(
     kpoint_conv = kpoint @ reciprocal_lattice @ np.linalg.inv(dual_lattice)
 
     dataset = get_symmetry_dataset(cell=(lattice, positions, numbers), symprec=symprec)
+    rotations = dataset["rotations"]
+    translations = dataset["translations"]
 
+    # Transform to primitive
     to_primitive = get_primitive_transformation_matrix(dataset["hall_number"])
-    primitive_rotations, primitive_translations, primitive_kpoint = transform_symmetry_and_kpoint(
-        to_primitive, dataset["rotations"], dataset["translations"], kpoint_conv
+    prim_rotations, prim_translations, prim_kpoint = transform_symmetry_and_kpoint(
+        to_primitive, rotations, translations, kpoint_conv
+    )
+    # mapping_to_prim: [0..num_sym) -> [0..order)
+    uniq_prim_rotations, uniq_prim_translations, mapping_to_prim = unique_primitive_symmetry(
+        prim_rotations, prim_translations
     )
 
-    primitive_irreps = get_spacegroup_irreps_from_primitive_symmetry(
-        rotations=primitive_rotations,
-        translations=primitive_translations,
-        kpoint=primitive_kpoint,
+    # mapping_prim_little_group: [0..prim_little_group_order) -> [0..order)
+    prim_irreps, mapping_prim_little_group = get_spacegroup_irreps_from_primitive_symmetry(
+        rotations=uniq_prim_rotations,
+        translations=uniq_prim_translations,
+        kpoint=prim_kpoint,
     )
+    remapping_prim_little_group = {}  # [0..order) -> [0..prim_little_group_order)
+    for i, idx in enumerate(mapping_prim_little_group):
+        remapping_prim_little_group[idx] = i
 
-    # TODO
-    raise NotImplementedError
-    return primitive_irreps
+    mapping_little_group = []  # [0..little_group_order) -> [0..num_sym)
+    mapping_conv_to_prim_little_group = (
+        []
+    )  # [0..little_group_order) -> [0..prim_little_group_order)
+    shifts = []  # (little_group_order, )
+    for i in range(len(mapping_to_prim)):
+        idx_prim = mapping_to_prim[i]  # in [0..order)
+        idx_prim_little = remapping_prim_little_group.get(
+            idx_prim
+        )  # in [0..prim_little_group_order)
+        if idx_prim_little is None:
+            continue
+
+        mapping_little_group.append(i)
+        mapping_conv_to_prim_little_group.append(idx_prim_little)
+        shifts.append(prim_translations[i] - uniq_prim_translations[idx_prim])
+
+    # Adjust phase by centering translation
+    phases = np.array([np.exp(-2j * np.pi * np.dot(prim_kpoint, shift)) for shift in shifts])
+    irreps = []
+    for prim_irrep in prim_irreps:
+        # prim_irrep: (little_group_order, dim, dim)
+        irrep = prim_irrep[mapping_conv_to_prim_little_group] * phases[:, None, None]
+        irreps.append(irrep)
+
+    return irreps, rotations, translations, np.array(mapping_little_group)
 
 
 def get_spacegroup_irreps_from_primitive_symmetry(

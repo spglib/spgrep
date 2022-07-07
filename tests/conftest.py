@@ -2,9 +2,8 @@ from __future__ import annotations
 
 import numpy as np
 import pytest
-from spglib import get_symmetry_from_database
 
-from spgrep.utils import NDArrayFloat, NDArrayInt
+from spgrep.utils import NDArrayFloat, NDArrayInt, get_symmetry_from_hall_number
 
 
 @pytest.fixture
@@ -55,19 +54,13 @@ def C3v() -> NDArrayInt:
 @pytest.fixture
 def P42mnm() -> tuple[NDArrayInt, NDArrayFloat]:
     # P4_2/mnm (No. 136)
-    symmetry = get_symmetry_from_database(hall_number=419)
-    rotations = symmetry["rotations"]
-    translations = symmetry["translations"]
-    return rotations, translations
+    return get_symmetry_from_hall_number(hall_number=419)
 
 
 @pytest.fixture
 def Ia3d() -> tuple[NDArrayInt, NDArrayFloat]:
     # Ia3d (No. 230)
-    symmetry = get_symmetry_from_database(hall_number=530)
-    rotations = symmetry["rotations"]
-    translations = symmetry["translations"]
-    return rotations, translations
+    return get_symmetry_from_hall_number(hall_number=530)
 
 
 @pytest.fixture
