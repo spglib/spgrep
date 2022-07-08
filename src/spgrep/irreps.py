@@ -200,3 +200,31 @@ def get_character(representation: NDArrayComplex) -> NDArrayComplex:
     """
     character = np.einsum("ijj->i", representation)
     return character
+
+
+def frobenius_schur_indicator(irrep: NDArrayComplex) -> int:
+    """Inspect given irrep is real, pseudo-real, or not unitary equivalent.
+
+    .. math::
+       \\mathrm{indicator} =
+       \\frac{1}{|G|} \\sum_{ g \\in G } \\chi(g^{2})
+
+    Parameters
+    ----------
+    irrep: array, (order, dim, dim)
+
+    Returns
+    -------
+    indicator: int
+        If indicator==1, it is real Reps.
+        If indicator==-1, it is psedu-real Reps.
+        Otherwise, it and adjoint Reps. are not equivalent.
+    """
+    order = irrep.shape[0]
+    indicator = np.sum(irrep * irrep.T) / order
+    indicator = int(np.around(np.real(indicator)))
+
+    if indicator > 1:
+        raise ValueError(f"Given representation is not irreducible: indicator={indicator}")
+
+    return indicator

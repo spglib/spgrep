@@ -15,3 +15,7 @@
 ```{eval-rst}
     .. autofunction:: spgrep.irreps.get_character
 ```
+
+```{eval-rst}
+    .. autofunction:: spgrep.irreps.frobenius_schur_indicator
+```

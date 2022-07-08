@@ -1,5 +1,7 @@
 # On-the-fly irreps generation
 
+General references [^BC09] [^ITO96]
+
 ## Regular representation
 
 Given a finite group {math}`G = \{ R_{k} \}_{k=1}^{|G|}`, the regular representation of {math}`G` is defined as
@@ -70,9 +72,42 @@ label: all_irreps_dim_sum
 ```
 where {math}`\chi^{(\alpha)}` is character of irrep {math}`\Gamma^{(\alpha)}`.
 
-Note that Eqs. :eq:`all_irreps_dim_sum` also holds for projective representations.
+Note that Eqs. {eq}`all_irreps_dim_sum` also holds for projective representations.
 
-## Working Example
+## Reality of irrep
+
+Let {math}`(\Gamma, \mathrm{Span}_{\mathbb{C}} \{ \mathbf{v}_{i} \}_{i=1}^{d} )` be a unitary (projective) irrep of group {math}`G`.
+Then, its conjugate (projective) representation is {math}`(\Gamma^{\ast}, \mathrm{Span}_{\mathbb{C}} \{ \mathbf{v}_{i}^{\ast} \}_{i=1}^{d} )`.
+There are three cases for {math}`\Gamma` and {math}`\Gamma^{\ast}`:
+1. {math}`\Gamma` is real: {math}`\Gamma` and {math}`\Gamma^{\ast}` are equivalent and can be taken as real matrices.
+2. {math}`\Gamma` is pseudo-real: {math}`\Gamma` and {math}`\Gamma^{\ast}` are equivalent but can be taken as real matrices.
+3. {math}`\Gamma` is not equivalent to {math}`\Gamma^{\ast}`.
+These cases are classified with Frobenius-Schur indicator:
+```{math}
+  \frac{1}{|G|} \sum_{ g \in G } \chi(g^{2})
+  = \begin{cases}
+    1 & \mbox{($\Gamma$ is real)} \\
+    -1 & \mbox{($\Gamma$ is pseudo-real)} \\
+    0 & \mbox{($\Gamma$ is not equivalent to $\Gamma^{\ast}$)} \\
+  \end{cases}.
+```
+
+We sometimes need to restrict irrep under a vector space over {math}`\mathbb{R}` (instead of {math}`\mathbb{C}`), which is called physically irreducible representation [^SHW91].
+When {math}`\Gamma` is real, **TODO**.
+
+When {math}`\Gamma` is pseudo-real or not equivalent to {math}`\Gamma^{\ast}`, transform conjugated basis pair to real vectors by unitary matrix:
+  ```{math}
+    (\mathbf{v}_{i} \, \mathbf{v}_{i}^{\ast})
+    \begin{pmatrix}
+      \frac{1}{2} & -\frac{i}{2} \\
+      \frac{1}{2} & \frac{i}{2}
+    \end{pmatrix}
+    = (\mathop{\mathrm{Re}} \mathbf{v}_{i} \, \mathop{\mathrm{Im}} \mathbf{v}_{i}).
+  ```
+  There is ambiguity to order vectors as {math}`(\mathbf{v}_{i} \, \mathbf{v}_{i}^{\ast})` or {math}`(\mathbf{v}_{i}^{\ast} \, \mathbf{v}_{i})`.
+  We choose the former if {math}`\mathop{\mathrm{Im}} \mathbf{v}_{i}` is greater than {math}`\mathbf{0}` in lexicographic order and vice versa.
+
+## Working example
 
 ### Crystallographic point group
 
@@ -127,7 +162,9 @@ Consider irreps of space group {math}`\mathcal{G} = Ia\overline{3}d` (No. 230) a
   \Gamma^{(\mathrm{reg})} = 2\Gamma^{(H_{1})} + 2\Gamma^{(H_{2})} + 6\Gamma^{(H_{3})}
 ```
 
-
 [^Net73]: N. Neto, Acta Cryst. A, 29(4) 464–472 (1973).
 [^TVdV17]: John C. Thomas and Anton Van der Ven, J. Mech. Phys. Solids 107, 76–95, (2017).
 [^BC09]: C. Bradley and A. P. Cracknell, The mathematical theory of symmetry in solids (Oxford, London, 2009).
+[^SHW91]: Harold T. Stokes, Dorian M. Hatch, and James D. Wells, 
+Phys. Rev. B 43, 11010 (1991).
+[^ITO96]: T. Inui, Y. Tanabe, and Y. Onodera, Group theory and its applications in physics (Springer, Berlin, 1996).
