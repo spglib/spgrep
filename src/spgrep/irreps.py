@@ -5,7 +5,6 @@ from warnings import warn
 
 import numpy as np
 
-from spgrep.matrix import block_diagonalize
 from spgrep.utils import (
     NDArrayComplex,
     NDArrayFloat,
@@ -61,7 +60,7 @@ def get_projective_regular_representation(
         If and only if ``np.dot(rotations[k], rotations[j]) == rotations[i]``, ``reg[k, i, j] == factor_system[k, j]``.
     """
     n = len(rotations)
-    reg = np.zeros((n, n, n), dtype=np.cdouble)
+    reg = np.zeros((n, n, n), dtype=np.complex_)
     rotations_list = [ndarray2d_to_integer_tuple(r) for r in rotations]
 
     for k, gk in enumerate(rotations):
@@ -101,8 +100,8 @@ def get_irreps(
 
     # For (m, i), reg[m, i, :] has only one nonzero entry.
     # To reduce computational time, suppress reg to only nonzero elements
-    reg_nonzero = np.zeros((n, n), dtype=np.cdouble)
-    lookup = np.zeros((n, n), dtype=np.intc)
+    reg_nonzero = np.zeros((n, n), dtype=np.complex_)
+    lookup = np.zeros((n, n), dtype=int)
     for m, i in product(range(n), repeat=2):
         idx = np.nonzero(reg[m, i, :])[0]
         reg_nonzero[m, i] = reg[m, i, idx]
@@ -114,7 +113,7 @@ def get_irreps(
         hermite_random = rng.random((n, n)) + rng.random((n, n)) * 1j
         hermite_random += np.conj(hermite_random.T)
 
-        hermite_random_reordered = np.zeros((n, n, n), dtype=np.cdouble)
+        hermite_random_reordered = np.zeros((n, n, n), dtype=np.complex_)
         meshi, meshj = np.meshgrid(range(n), range(n))
         # hermite_random_reordered[m, i, j] = hermite_random[lookup[m, i], lookup[m, j]]
         for m in range(n):
@@ -130,7 +129,7 @@ def get_irreps(
         )
 
         # Decompose to subspaces corresponding to Irreps
-        irreps = _get_irreps_from_matrix(reg_nonzero, lookup, matrix, rtol)
+        irreps = _get_irreps_from_matrix(reg, matrix, rtol)
 
         if np.sum([irrep.shape[1] ** 2 for irrep in irreps]) == n:
             return irreps
@@ -140,7 +139,7 @@ def get_irreps(
 
 
 def _get_irreps_from_matrix(
-    reg_nonzero: NDArrayComplex, lookup, matrix: NDArrayComplex, rtol: float
+    reg: NDArrayComplex, matrix: NDArrayComplex, rtol: float
 ) -> list[NDArrayComplex]:
     # eigvecs[:, i] is the normalized eigenvector to eigvals[i]
     eigvals, eigvecs = np.linalg.eigh(matrix)
@@ -157,13 +156,13 @@ def _get_irreps_from_matrix(
         if is_new_space:
             eigenspaces.append((eigval, [eigvec]))
 
-    order = reg_nonzero.shape[0]
+    order = reg.shape[0]
     irreps: list[NDArrayComplex] = []
     characters: list[NDArrayFloat] = []
     for eigval, list_eigvecs in eigenspaces:
         # QR decomposition of column-wise vectors gives Gram-Schmidt orthonormalized vectors in column wise.
         transformation = np.linalg.qr(np.transpose(list_eigvecs))[0]
-        irrep = block_diagonalize(reg_nonzero, lookup, transformation)
+        irrep = np.einsum("li,klm,mj->kij", np.conj(transformation), reg, transformation)
         character = get_character(irrep)
 
         # Check if this is really irrep by character
