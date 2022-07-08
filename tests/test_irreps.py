@@ -23,7 +23,7 @@ def test_get_character(C3v):
 
 def test_get_irreps_C3v(C3v):
     reg = get_regular_representation(C3v)
-    irreps = get_irreps(reg)
+    irreps = get_irreps(reg.astype(np.cdouble))
     # Check dimensions
     assert [irrep.shape[1] for irrep in irreps] == [1, 1, 2]
     # Check characters
