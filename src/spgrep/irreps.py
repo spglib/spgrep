@@ -162,9 +162,11 @@ def _get_irreps_from_matrix(
     for eigval, list_eigvecs in eigenspaces:
         # QR decomposition of column-wise vectors gives Gram-Schmidt orthonormalized vectors in column wise.
         transformation = np.linalg.qr(np.transpose(list_eigvecs))[0]
-        irrep = np.einsum("li,klm,mj->kij", np.conj(transformation), reg, transformation)
-        character = get_character(irrep)
 
+        # Compute character before irrep to avoid calculating duplicated irreps
+        character = np.einsum(
+            "li,klm,mi->k", np.conj(transformation), reg, transformation, optimize="greedy"
+        )
         # Check if this is really irrep by character
         if not np.isclose(np.sum(np.conj(character) * character), order):
             continue
@@ -177,9 +179,14 @@ def _get_irreps_from_matrix(
             if np.isclose(product, order, rtol=rtol):
                 is_unique = False
                 break
-        if is_unique:
-            irreps.append(irrep)
-            characters.append(character)
+        if not is_unique:
+            continue
+
+        irrep = np.einsum(
+            "li,klm,mj->kij", np.conj(transformation), reg, transformation, optimize="greedy"
+        )
+        irreps.append(irrep)
+        characters.append(character)
 
     # sort Irreps by (dim, minus of sum of characters)
     argidx = sorted(range(len(irreps)), key=lambda i: (irreps[i].shape[1], -np.sum(characters[i])))
@@ -198,7 +205,7 @@ def get_character(representation: NDArrayComplex) -> NDArrayComplex:
     -------
     character: array, (order, )
     """
-    character = np.einsum("ijj->i", representation)
+    character = np.einsum("ijj->i", representation, optimize="greedy")
     return character
 
 
