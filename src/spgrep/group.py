@@ -65,7 +65,7 @@ def get_factor_system_from_little_group(
         # Never take modulus!
         residuals[i] = rotation.T @ kpoint - kpoint
 
-    factor_system = np.zeros((n, n), dtype=np.complex_)
+    factor_system = np.zeros((n, n), dtype=np.cdouble)
     for i, residual in enumerate(residuals):
         for j, translation in enumerate(little_translations):
             factor_system[i, j] = np.exp(-2j * np.pi * np.dot(residual, translation))

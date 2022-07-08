@@ -1,9 +1,11 @@
 from __future__ import annotations
 
+from itertools import product
 from warnings import warn
 
 import numpy as np
 
+from spgrep.matrix import block_diagonalize
 from spgrep.utils import (
     NDArrayComplex,
     NDArrayFloat,
@@ -59,7 +61,7 @@ def get_projective_regular_representation(
         If and only if ``np.dot(rotations[k], rotations[j]) == rotations[i]``, ``reg[k, i, j] == factor_system[k, j]``.
     """
     n = len(rotations)
-    reg = np.zeros((n, n, n), dtype=np.complex_)
+    reg = np.zeros((n, n, n), dtype=np.cdouble)
     rotations_list = [ndarray2d_to_integer_tuple(r) for r in rotations]
 
     for k, gk in enumerate(rotations):
@@ -80,7 +82,7 @@ def get_irreps(
     rtol: float = 1e-5,
     max_num_random_generations: int = 4,
 ) -> list[NDArrayComplex]:
-    """Decompose given (projective) regular representation and obtain all Irreps.
+    """Decompose given (projective) regular representation and obtain all unitary Irreps.
 
     Parameters
     ----------
@@ -93,9 +95,18 @@ def get_irreps(
 
     Returns
     -------
-    irreps: list of Irreps with (order, dim, dim)
+    irreps: list of unitary Irreps with (order, dim, dim)
     """
     n = reg.shape[0]
+
+    # For (m, i), reg[m, i, :] has only one nonzero entry.
+    # To reduce computational time, suppress reg to only nonzero elements
+    reg_nonzero = np.zeros((n, n), dtype=np.cdouble)
+    lookup = np.zeros((n, n), dtype=np.intc)
+    for m, i in product(range(n), repeat=2):
+        idx = np.nonzero(reg[m, i, :])[0]
+        reg_nonzero[m, i] = reg[m, i, idx]
+        lookup[m, i] = idx
 
     rng = np.random.default_rng(seed=0)
     for _ in range(max_num_random_generations):
@@ -103,11 +114,23 @@ def get_irreps(
         hermite_random = rng.random((n, n)) + rng.random((n, n)) * 1j
         hermite_random += np.conj(hermite_random.T)
 
+        hermite_random_reordered = np.zeros((n, n, n), dtype=np.cdouble)
+        meshi, meshj = np.meshgrid(range(n), range(n))
+        # hermite_random_reordered[m, i, j] = hermite_random[lookup[m, i], lookup[m, j]]
+        for m in range(n):
+            hermite_random_reordered[m] = hermite_random[lookup[m, meshi], lookup[m, meshj]]
+
         # Construct matrix which commute with regular representation
-        matrix = np.einsum("mik,kl,mjl->ij", reg, hermite_random, np.conj(reg))
+        # Equivalent to np.einsum("mik,kl,mjl->ij", reg, hermite_random, np.conj(reg)),
+        # but einsum version takes O(n^5), whereas this implementation takes O(n^3).
+        # Broadcast to "mij" and sum over "m"
+        matrix = np.sum(
+            reg_nonzero[:, :, None] * hermite_random_reordered * np.conj(reg_nonzero[:, None, :]),
+            axis=0,
+        )
 
         # Decompose to subspaces corresponding to Irreps
-        irreps = _get_irreps_from_matrix(reg, matrix, rtol)
+        irreps = _get_irreps_from_matrix(reg_nonzero, lookup, matrix, rtol)
 
         if np.sum([irrep.shape[1] ** 2 for irrep in irreps]) == n:
             return irreps
@@ -117,7 +140,7 @@ def get_irreps(
 
 
 def _get_irreps_from_matrix(
-    reg: NDArrayComplex, matrix: NDArrayComplex, rtol: float
+    reg_nonzero: NDArrayComplex, lookup, matrix: NDArrayComplex, rtol: float
 ) -> list[NDArrayComplex]:
     # eigvecs[:, i] is the normalized eigenvector to eigvals[i]
     eigvals, eigvecs = np.linalg.eigh(matrix)
@@ -134,13 +157,13 @@ def _get_irreps_from_matrix(
         if is_new_space:
             eigenspaces.append((eigval, [eigvec]))
 
-    order = reg.shape[0]
+    order = reg_nonzero.shape[0]
     irreps: list[NDArrayComplex] = []
     characters: list[NDArrayFloat] = []
     for eigval, list_eigvecs in eigenspaces:
-        # Stack eigenvectors in column wise
-        transformation = np.transpose(list_eigvecs)
-        irrep = np.einsum("li,klm,mj->kij", np.conj(transformation), reg, transformation)
+        # QR decomposition of column-wise vectors gives Gram-Schmidt orthonormalized vectors in column wise.
+        transformation = np.linalg.qr(np.transpose(list_eigvecs))[0]
+        irrep = block_diagonalize(reg_nonzero, lookup, transformation)
         character = get_character(irrep)
 
         # Check if this is really irrep by character
@@ -178,3 +201,31 @@ def get_character(representation: NDArrayComplex) -> NDArrayComplex:
     """
     character = np.einsum("ijj->i", representation)
     return character
+
+
+def frobenius_schur_indicator(irrep: NDArrayComplex) -> int:
+    """Inspect given irrep is real, pseudo-real, or not unitary equivalent.
+
+    .. math::
+       \\mathrm{indicator} =
+       \\frac{1}{|G|} \\sum_{ g \\in G } \\chi(g^{2})
+
+    Parameters
+    ----------
+    irrep: array, (order, dim, dim)
+
+    Returns
+    -------
+    indicator: int
+        If indicator==1, it is real Reps.
+        If indicator==-1, it is psedu-real Reps.
+        Otherwise, it and adjoint Reps. are not equivalent.
+    """
+    order = irrep.shape[0]
+    indicator = np.sum(irrep * irrep.T) / order
+    indicator = int(np.around(np.real(indicator)))
+
+    if indicator > 1:
+        raise ValueError(f"Given representation is not irreducible: indicator={indicator}")
+
+    return indicator

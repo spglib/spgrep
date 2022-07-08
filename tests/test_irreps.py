@@ -37,6 +37,9 @@ def test_get_irreps_C3v(C3v):
     characters_actual = np.array([get_character(irrep) for irrep in irreps])
     assert np.allclose(characters_actual, characters_expect)
 
+    for irrep in irreps:
+        assert is_unitary(irrep)
+
 
 def test_get_spacegroup_irreps_from_primitive_symmetry_P42mnm(P42mnm):
     rotations, translations = P42mnm
@@ -53,6 +56,7 @@ def test_get_spacegroup_irreps_from_primitive_symmetry_P42mnm(P42mnm):
         assert check_spacegroup_representation(
             little_rotations, little_translations, kpoint, irrep
         )
+        assert is_unitary(irrep)
 
 
 def test_get_spacegroup_irreps_from_primitive_symmetry_Ia3d(Ia3d):
@@ -93,6 +97,7 @@ def test_get_spacegroup_irreps_from_primitive_symmetry_Ia3d(Ia3d):
         assert check_spacegroup_representation(
             little_primitive_rotations, little_primitive_translations, primitive_kpoint, irrep
         )
+        assert is_unitary(irrep)
 
 
 def test_get_spacegroup_irreps(corundum_cell):
@@ -111,6 +116,7 @@ def test_get_spacegroup_irreps(corundum_cell):
         assert check_spacegroup_representation(
             little_rotations, little_translations, kpoint, irrep
         )
+        assert is_unitary(irrep)
 
 
 def check_spacegroup_representation(
@@ -134,4 +140,12 @@ def check_spacegroup_representation(
             if not np.allclose(m12, m1 @ m2):
                 return False
 
+    return True
+
+
+def is_unitary(representation: NDArrayComplex) -> bool:
+    dim = representation.shape[1]
+    for matrix in representation:
+        if not np.allclose(matrix @ np.conj(matrix.T), np.eye(dim)):
+            return False
     return True
