@@ -1,0 +1,2 @@
+src/spgrep/*.c
+src/spgrep/*.pyx

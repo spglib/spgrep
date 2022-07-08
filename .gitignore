@@ -132,3 +132,6 @@ dmypy.json
 docs_build
 
 .vscode/
+.DS_Store
+*.lprof
+*.html

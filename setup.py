@@ -5,7 +5,8 @@
 import io
 import os
 
-from setuptools import find_packages, setup
+import numpy as np
+from setuptools import Extension, find_packages, setup
 
 # Package meta-data.
 NAME = "spgrep"
@@ -28,6 +29,7 @@ REQUIRED = [
 # What packages are optional?
 EXTRAS = {
     "dev": [
+        "Cython==0.29.30",
         "pytest",
         "pre-commit",
         "black",
@@ -42,6 +44,22 @@ EXTRAS = {
         "sphinx-book-theme",
     ],
 }
+
+# Extension module
+USE_CYTHON = bool(os.environ.get("USE_CYTHON"))
+if USE_CYTHON:
+    from Cython.Build import cythonize
+
+    extensions = cythonize(
+        [
+            Extension("spgrep.matrix", ["src/spgrep/matrix.pyx"], include_dirs=[np.get_include()]),
+        ],
+        compiler_directives={"language_level": "3"},
+    )
+else:
+    extensions = [
+        Extension("spgrep.matrix", ["src/spgrep/matrix.c"], include_dirs=[np.get_include()]),
+    ]
 
 # The rest you shouldn't have to touch too much :)
 # ------------------------------------------------
@@ -81,6 +99,7 @@ setup(
     setup_requires=["setuptools_scm", "numpy"],
     install_requires=REQUIRED,
     extras_require=EXTRAS,
+    ext_modules=extensions,
     include_package_data=True,
     license="BSD",
     test_suite="tests",

@@ -19,6 +19,7 @@ conda create -n spgrep python=3.10 pip
 conda activate spgrep
 git clone git@github.com:spglib/spgrep.git
 cd spgrep
+USE_CYTHON=True python setup.py build
 pip install -e ".[dev,docs]"
 pre-commit install
 ```
