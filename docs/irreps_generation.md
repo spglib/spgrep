@@ -7,9 +7,9 @@ General references [^BC09] [^ITO96]
 Given a finite group {math}`G = \{ R_{k} \}_{k=1}^{|G|}`, the regular representation of {math}`G` is defined as
 ```{math}
   \Gamma^{(\mathrm{reg})}(G_{k})_{ij}
-    = \delta( G_{i}^{-1} G_{k} G_{j} ),
+    = \delta( G_{i}, G_{k} G_{j} ),
 ```
-where {math}`\delta(\cdot)` takes one for identity operation and zero for others.
+where {math}`\delta(\cdot, \cdot)` takes one iff two elements are equal.
 
 For any factor system {math}`\mu`, the following representation holds the orthogonality theorem,
 ```{math}
@@ -23,18 +23,18 @@ The projective regular representation is a unitary representation when absolute 
   \sum_{l} \Delta^{(\mathrm{reg})}(G_{k})_{il} \Delta^{(\mathrm{reg})}(G_{k})_{jl}^{\ast}
   = \delta_{ij} \left| \mu(G_{k}, G_{k}^{-1}G_{i}) \right|^{2}.
 ```
-The factor system defined in "[](little_group.md)" satisfies this condition.
+The factor system defined in "[](spacegroup_irreps.md)" satisfies this condition.
 
 ## Obtaining all irreps from (projective) regular representation
 
-Inspired by Refs. [^Net73] and [^TVdV17].
+Refs. [^Net73], [^TVdV17], [^MM11], and [^PVW17].
 
 For a finite group {math}`G` and its (projective) regular representation {math}`\Gamma^{(\mathrm{reg})}`,
 ```{math}
-  \tilde{H}_{ij}
-    = \sum_{R \in G} \sum_{k=1}^{|G|} \sum_{l=1}^{|G|} \Gamma^{(\mathrm{reg})}(R)_{ik} H_{kl} \Gamma^{(\mathrm{reg})}(R)_{jl}^{\ast}
+  \tilde{\mathbf{H}}
+    = \sum_{R \in G} \mathbf{\Gamma}^{(\mathrm{reg})}(R) \mathbf{H} \mathbf{\Gamma}^{(\mathrm{reg})}(R^{-1})
 ```
-is also Hermite and commute with {math}`\Gamma^{(\mathrm{reg})}`, where {math}`\mathbf{H}` is any Hermite matrix.
+is also Hermite and commute with {math}`\Gamma^{(\mathrm{reg})}` [^footnote0], where {math}`\mathbf{H}` is any Hermite matrix.
 Consider the spectral decomposition of {math}`\tilde{\mathbf{H}}`,
 ```{math}
   \tilde{\mathbf{H}} = \sum_{\lambda} \lambda \sum_{n=1}^{ d_{\lambda} } \mathbf{v}_{\lambda n} \mathbf{v}_{\lambda n}^{\dagger} \\
@@ -44,6 +44,17 @@ Then, the regular representation is block-diagonalized with {math}`\mathbf{V} = 
 ```{math}
   \left[ \mathbf{V}^{\dagger} \mathbf{\Gamma}^{(\mathrm{reg})}(R) \mathbf{V} \right]_{\lambda n, \lambda' n'} (\lambda - \lambda') = 0
 ```
+
+[^footnote0]: The derivation is as follows:
+    ```{math}
+      \mathbf{\Delta}^{(\mathrm{reg})}(S) \mathbf{U} \mathbf{\Delta}^{(\mathrm{reg})}(S)^{-1}
+      &= \mathbf{\Delta}^{(\mathrm{reg})}(S) \sum_{P \in H} \mathbf{\Delta}^{(\mathrm{reg})}(P) \mathbf{\Delta}^{(\mathrm{reg})}(P)^{-1} \mathbf{\Delta}^{(\mathrm{reg})}(S)^{-1} \\
+      &= \sum_{P \in H} \mu(S, P) \mathbf{\Delta}^{(\mathrm{reg})}(SP) \left( \mu(S, P) \mathbf{\Delta}^{(\mathrm{reg})}(SP) \right)^{-1} \\
+      &= \sum_{P \in H} \mathbf{\Delta}^{(\mathrm{reg})}(P) \mathbf{\Delta}^{(\mathrm{reg})}(P)^{-1} \\
+      &= \mathbf{U}
+    ```
+    Be careful that {math}`\mathbf{\Delta}^{(\mathrm{reg})}(S^{-1}) = \mu(S, S^{-1}) \mu(E, E) \mathbf{\Delta}^{(\mathrm{reg})}(S)^{-1}`.
+
 
 {math}`\mathbf{V}_{\lambda} = ( \mathbf{v}_{\lambda 1} \dots \mathbf{v}_{\lambda_{1} d_{\lambda}} ) \in \mathbb{C}^{ |G| \times d_{\lambda} }` forms Irrep,
 ```{math}
@@ -74,7 +85,86 @@ where {math}`\chi^{(\alpha)}` is character of irrep {math}`\Gamma^{(\alpha)}`.
 
 Note that Eqs. {eq}`all_irreps_dim_sum` also holds for projective representations.
 
-## Reality of irrep
+## Subduced and induced representations for solvable group
+
+Consider projective irrep {math}`\Gamma` with factor system {math}`\mu` for solvable group {math}`G`,
+```{math}
+  R \phi_{j} = \sum_{i=1}^{d} \phi_{i} \Gamma(R)_{ij} \quad (R \in G, i = 1, \dots, d).
+```
+Let {math}`H` be invariant subgroup of {math}`G` such that {math}`G/H = \mathbb{Z}_{p}` ({math}`p` is prime and {math}`r^{p}=e`),
+```{math}
+  G = \coprod_{m=0}^{p-1} r^{m} H.
+```
+
+Let one of irrep decomposed from subduced representation {math}`\Gamma \downarrow H` be {math}`(\Delta, \mathrm{Span}\{ \psi_{i} \}_{i})`.
+The following representations are also irrep over {math}`H`:
+```{math}
+  \Delta^{(m)}(S)
+    &:= \frac{ \mu(S, r^{m}) }{ \mu(r^{m}, S_{m}) } \Delta(S_{m})
+    \quad (S \in H, m = 0, \dots, p-1) \\
+  S_{m}
+    &:= r^{-m} S r^{m} (\in H)
+```
+There are two cases for {math}`\{ \Delta^{(m)} \}_{m=0, \dots, p-1}`:
+1. They are mutually inequivalent: {math}`\Gamma \downarrow H \cong \sum_{m=0}^{p-1} \Delta^{(m)}`
+2. They are all equivalent: {math}`\Gamma \downarrow H \cong p \Delta`
+
+### Case-1: conjugated irreps are mutually inequivalent
+
+For case-1, the induced representation {math}`\Delta \uparrow G` is irrep [^footnote1] [^footnote2]:
+```{math}
+  \Delta \uparrow G (r^{m} S)_{i:, j:}
+    &= \mathbb{I}[i \equiv j + m] \frac{ \mu(r^{m}S, r^{j}) }{ \mu(r^{i}, S_{j} ) } \Delta( S_{j} )
+    \quad (S \in H).\\
+  \Delta \uparrow G (S)
+    &= \begin{pmatrix}
+      \Delta^{(0)}(S) & & & \\
+      & \Delta^{(1)}(S) & & \\
+      & & \ddots & \\
+      & & & \Delta^{(p-1)}(S)
+    \end{pmatrix}
+    \quad (S \in H) \\
+  \Delta \uparrow G (r)
+    &= \begin{pmatrix}
+      \mathbf{0} & \mathbf{0} & \mathbf{0} & \cdots & \mathbf{0} & \frac{\mu(r, r^{p-1})}{\mu(E,E)} \mathbf{1} \\
+      \frac{\mu(r, E)}{\mu(r,E)} \mathbf{1} & \mathbf{0} & \mathbf{0} & \cdots & \mathbf{0} & \mathbf{0} \\
+      \mathbf{0} & \frac{\mu(r, r)}{\mu(r^{2},E)} \mathbf{1} & \mathbf{0} & \cdots & \mathbf{0} & \mathbf{0} \\
+      \vdots     & \vdots     & \vdots     &        & \vdots     & \vdots \\
+      \mathbf{0} & \mathbf{0} & \mathbf{0} & \cdots & \frac{\mu(r, r^{p-2})}{\mu(r^{p-1},E)} \mathbf{1} & \mathbf{0}
+    \end{pmatrix}.
+```
+
+### Case-2: conjugated irreps are equivalent
+
+[^footnote1]: This follows from Frobenius reciprocity theorem. In this case, {math}`\Delta` appears only once in {math}`\Gamma \downarrow H`.
+Thus, {math}`\Gamma` appears only once in {math}`\Delta \uparrow G`.
+
+[^footnote2]: We can choose factor system to satisfy {math}`\mu(E, R) = \mu(R, E) = 1 (\forall R \in G)`, and then {math}`\Delta^{(0)} = \Delta`
+
+For case-2, the induced representation {math}`\Delta \uparrow G` is reducible.
+Let one of intertwiner between {math}`\Delta^{(0)}` and {math}`\Delta^{(1)}` be {math}`\mathbf{U}`,
+```{math}
+  \mathbf{\Delta}^{(0)}(S) \mathbf{U} = \mathbf{U} \mathbf{\Delta}^{(1)}(S)
+  \quad (\forall S \in H).
+```
+The intertwiner is unique up to scalar multiplication: if {math}`\mathbf{U}` and {math}`\mathbf{U}'` are intertwiner between {math}`\Delta^{(0)}` and {math}`\Delta^{(1)}`, {math}`\mathbf{U}^{-1}\mathbf{U}'` should be written as {math}`c\mathbf{I}` with some complex number {math}`c` from Schur's lemma.
+The following matrix is an intertwiner for projective representations, {math}`\Delta^{(0)}` and {math}`\Delta^{(1)}`,
+```{math}
+  \mathbf{U} = \sum_{S \in H} \mathbf{\Delta}^{(0)}(S) \mathbf{B} \mathbf{\Delta}^{(1)}(S)^{-1},
+```
+where {math}`\mathbf{B}` is any matrix.
+We scale {math}`\mathbf{U}` such that {math}`\mathbf{U}^{p} = \mathbf{1}`.
+
+The induced representation {math}`\Delta \uparrow G` is decomposed to {math}`p` irreps {math}`\{ \Delta_{q} \}_{q=0}^{p-1}`,
+```{math}
+  \mathbf{\Delta_{q}}(S) &= \mathbf{\Delta}(S) \quad (S \in H) \\
+  \mathbf{\Delta_{q}}(r) &= \frac{1}{\omega_{q}} \mathbf{U} \\
+  \omega_{q}
+    &:= \left( \frac{\prod_{m=1}^{p-1} \mu(r, r^{m})}{\mu(E, E)} \right)^{\frac{1}{p}} \exp \left( \frac{2 \pi i q}{p} \right).
+```
+
+
+## Reality of (projective) irrep
 
 Let {math}`(\Gamma, \mathrm{Span}_{\mathbb{C}} \{ \mathbf{v}_{i} \}_{i=1}^{d} )` be a unitary (projective) irrep of group {math}`G`.
 Then, its conjugate (projective) representation is {math}`(\Gamma^{\ast}, \mathrm{Span}_{\mathbb{C}} \{ \mathbf{v}_{i}^{\ast} \}_{i=1}^{d} )`.
@@ -111,7 +201,8 @@ When {math}`\Gamma` is pseudo-real or not equivalent to {math}`\Gamma^{\ast}`, t
 
 ### Crystallographic point group
 
-Consider crystallographic point group {math}`3m` associated with {math}`P3m1` (No. 156).
+#### {math}`C_{3v}` associated with {math}`P3m1` (No. 156)
+
 The matrix representation of this crystallographic point group is
 
 ```{math}
@@ -143,14 +234,72 @@ The matrix representation of this crystallographic point group is
 ```
 
 ```{math}
-\Gamma^{(\mathrm{ref})} = \Gamma^{(A_{1})} + \Gamma^{(A_{2})} + 2\Gamma^{(E)}
+\Gamma^{(\mathrm{reg})} = \Gamma^{(A_{1})} + \Gamma^{(A_{2})} + 2\Gamma^{(E)}
 ```
+
+To symmetrize multi-dimensional irrep {math}`\Gamma^{(E)}`, consider its subduced representation over {math}`\{ g_{0}, g_{1}, g_{2} \} \cong C_{3}`.
+```{math}
+  \Gamma^{(E)} \downarrow C_{3} = \Delta^{(\,^{1}E)} + \Delta^{(\,^{2}E)}
+```
+
+|                       | {math}`g_{0}` | {math}`g_{1}` | {math}`g_{2}` |
+| :-------------------- | ------------- | ------------- | ------------- |
+| {math}`\Delta^{(\,^{1}E)}` | 1 | {math}`\omega=e^{i\frac{2}{3}\pi}` | {math}`\omega^{\ast}` |
+| {math}`\Delta^{(\,^{2}E)}` | 1 | {math}`\omega^{\ast}` | {math}`\omega` |
+
+When we choose {math}`g_{1}` as generator of {math}`C_{3}`, we select {math}`\Delta^{(E2)}` for generating induced representation [^footnote4].
+Since {math}`\Delta^{(\,^{1}E)}` and {math}`\Delta^{(\,^{2}E)}` are inequivalent, induced representation {math}`\Gamma^{(E, sym)} = \Delta^{(\,^{2}E)} \uparrow C_{3v}` is irreducible.
+
+[^footnote4]: Of course it is arbitrary which irreps to choose.
+    Here, we choose irrep with the smallest angle of character of {math}`g_{1}` in {math}`(-\pi, \pi]`.
+    Then, {math}`\mathrm{arg}(\chi^{(\,^{1}E)}(g_{1})) = \frac{2}{3}\pi` and {math}`\mathrm{arg}(\chi^{(\,^{2}E)}(g_{1})) = -\frac{2}{3}\pi`.
+    Hence, we select {math}`\Delta^{(\,^{2}E)}`.
 
 ### Space group
 
-Consider space group {math}`P4_{2}/mnm` (No. 136) at {math}`X=(0\frac{1}{2}0)`.
+#### {math}`P4_{2}/mnm` (No. 136) at {math}`X=(0\frac{1}{2}0)`
 
-Consider irreps of space group {math}`\mathcal{G} = Ia\overline{3}d` (No. 230) at {math}`H=(\frac{1}{2}\overline{\frac{1}{2}}\frac{1}{2})_{\mathrm{primitive}}` (corresponding to {math}`G^{4}_{96}` in Ref. [^BC09]).
+The little co-group is
+```{math}
+  \overline{\mathcal{G}}^{\mathbf{k}}
+  &= \left\{
+    g_{0} = e,
+    g_{1},
+    g_{2},
+    g_{3} = g_{1} g_{2},
+    g_{4},
+    g_{5} = g_{1} g_{4},
+    g_{6} = g_{2} g_{4},
+    g_{7} = g_{1} g_{2} g_{4}
+  \right\}
+  \cong mmm, \\
+  \mathrm{where} \quad
+  g_{1} &= \mathrm{diag}(-1, -1, -1) \\
+  g_{2} &= \mathrm{diag}(-1, -1, 1) \\
+  g_{4} &= \mathrm{diag}(1, -1, -1).
+```
+
+```{math}
+  \Gamma^{(\mathrm{reg})} = 2 \Gamma^{(X_{1})} + 2 \Gamma^{(X_{2})}
+```
+
+To symmetrize, consider subduced representation over {math}`\{ g_{0}, g_{2}, g_{4}, g_{6} \} \cong mm2` and {math}`\{ g_{0}, g_{4} \} \cong m`:
+```{math}
+  \Gamma^{(X_{1})} \downarrow mm2 &= \Delta^{(X_{1})} \\
+  \Delta^{(X_{1})} \downarrow m &= \Theta^{(X_{1}, 1)} + \Theta^{(X_{1}, 2)}
+```
+
+|                             | {math}`g_{0}` | {math}`g_{4}` |
+| :-------------------------- | ------------- | ------------: |
+| {math}`\Theta^{(X_{1}, 1)}` | 1             | 1             |
+| {math}`\Theta^{(X_{1}, 2)}` | 1             | -1            |
+
+Since {math}`\Theta^{(X_{1}, 1)}` and {math}`\Theta^{(X_{1}, 2)}` are inequivalent, {math}`\Theta^{(X_{1}, 2)} \uparrow mm2` is irrep.
+
+
+#### {math}`\mathcal{G} = Ia\overline{3}d` (No. 230) at {math}`H=(\frac{1}{2}\overline{\frac{1}{2}}\frac{1}{2})_{\mathrm{primitive}}`
+
+(corresponding to {math}`G^{4}_{96}` in Ref. [^BC09])
 
 ```{math}
   \overline{\mathcal{G}}^{\mathbf{k}}| \cong m\overline{3}m,
@@ -168,3 +317,5 @@ Consider irreps of space group {math}`\mathcal{G} = Ia\overline{3}d` (No. 230) a
 [^SHW91]: Harold T. Stokes, Dorian M. Hatch, and James D. Wells, 
 Phys. Rev. B 43, 11010 (1991).
 [^ITO96]: T. Inui, Y. Tanabe, and Y. Onodera, Group theory and its applications in physics (Springer, Berlin, 1996).
+[^MM11]: T. Maehara and K. Murota, SIAM J. Matrix Anal. Appl. 32, 2, 605–620 (2011).
+[^PVW17]: Hoi Chun Po, A. Vishwanath, and H. Watanabe, Nat. Commun. 8(1):50 (2017).
