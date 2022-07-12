@@ -18,7 +18,7 @@ def transform_symmetry_and_kpoint(
 
     Let a given transformation_matrix be ``P``.
     Symmetry operation (R, t) is transformed to
-        (P, 0)^-1 (R, t) (P, 0) = (P^-1 R P, P^-1 t).
+    (P, 0)^-1 (R, t) (P, 0) = (P^-1 R P, P^-1 t).
     Coefficients of k-vector are transformed to P.T @ kpoint.
 
     Parameters

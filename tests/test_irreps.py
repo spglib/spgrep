@@ -4,10 +4,21 @@ from spgrep.core import (
     get_spacegroup_irreps,
     get_spacegroup_irreps_from_primitive_symmetry,
 )
+from spgrep.group import (
+    get_cayley_table,
+    get_factor_system_from_little_group,
+    get_little_group,
+)
 from spgrep.irreps import (
     get_character,
+    get_intertwiner,
     get_irreps_from_regular,
+    get_projective_regular_representation,
     get_regular_representation,
+    is_equivalent_irrep,
+    is_projective_representation,
+    is_unitary,
+    symmetrize_irrep,
 )
 from spgrep.transform import transform_symmetry_and_kpoint, unique_primitive_symmetry
 from spgrep.utils import (
@@ -27,7 +38,10 @@ def test_get_character(C3v):
 
 def test_get_irreps_C3v(C3v):
     reg = get_regular_representation(C3v)
-    irreps = get_irreps_from_regular(reg.astype(np.cdouble))
+    table = get_cayley_table(C3v)
+    irreps = get_irreps_from_regular(
+        reg=reg.astype(np.cdouble),
+    )
     # Check dimensions
     assert [irrep.shape[1] for irrep in irreps] == [1, 1, 2]
     # Check characters
@@ -43,6 +57,19 @@ def test_get_irreps_C3v(C3v):
 
     for irrep in irreps:
         assert is_unitary(irrep)
+
+    # Test symmetrization for ordinary representation
+    chain = [
+        ([2, 0, 1], 3),  # C3v -> C3, the order of indices does not matter
+        ([0], 1),  # C3 -> C1
+    ]
+    table = get_cayley_table(C3v)
+    factor_system = np.ones((6, 6), dtype=np.complex_)
+    for irrep in irreps:
+        new_irrep = symmetrize_irrep(irrep, table, factor_system, chain)
+        character = get_character(irrep)
+        character_sym = get_character(new_irrep)
+        assert is_equivalent_irrep(character_sym, character)
 
 
 def test_get_spacegroup_irreps_from_primitive_symmetry_P42mnm(P42mnm):
@@ -61,6 +88,31 @@ def test_get_spacegroup_irreps_from_primitive_symmetry_P42mnm(P42mnm):
             little_rotations, little_translations, kpoint, irrep
         )
         assert is_unitary(irrep)
+
+
+def test_symmetrize_small_representation_P42mnm(P42mnm):
+    rotations, translations = P42mnm
+    kpoint = np.array([0, 1 / 2, 0])  # X point
+    little_rotations, little_translations, _ = get_little_group(rotations, translations, kpoint)
+    factor_system = get_factor_system_from_little_group(
+        little_rotations, little_translations, kpoint
+    )
+    reg = get_projective_regular_representation(little_rotations, factor_system)
+    table = get_cayley_table(little_rotations)
+    small_reps = get_irreps_from_regular(reg)
+
+    # TODO: automate chain choice
+    chain = [
+        ([2, 6, 0, 4], 1),  # mmm -> mm2
+        ([4, 0], 2),  # mm2 -> m
+        ([0], 4),  # m -> 1
+    ]
+    for irrep in small_reps:
+        new_irrep = symmetrize_irrep(irrep, table, factor_system, chain)
+        character = get_character(irrep)
+        character_sym = get_character(new_irrep)
+        assert is_equivalent_irrep(character_sym, character)
+        assert is_projective_representation(new_irrep, table, factor_system)
 
 
 def test_get_spacegroup_irreps_from_primitive_symmetry_Ia3d(Ia3d):
@@ -84,7 +136,8 @@ def test_get_spacegroup_irreps_from_primitive_symmetry_Ia3d(Ia3d):
     )
     assert primitive_rotations.shape == (48, 3, 3)
     assert primitive_translations.shape == (48, 3)
-    assert np.allclose(primitive_kpoint, np.array([1 / 2, -1 / 2, 1 / 2]))
+    kpoint_prim = np.array([1 / 2, -1 / 2, 1 / 2])
+    assert np.allclose(primitive_kpoint, kpoint_prim)
 
     primitive_irreps, mapping_little_group = get_spacegroup_irreps_from_primitive_symmetry(
         rotations=primitive_rotations,
@@ -147,9 +200,27 @@ def check_spacegroup_representation(
     return True
 
 
-def is_unitary(representation: NDArrayComplex) -> bool:
-    dim = representation.shape[1]
-    for matrix in representation:
-        if not np.allclose(matrix @ np.conj(matrix.T), np.eye(dim)):
-            return False
-    return True
+def test_intertwiner():
+    rep1 = np.array(
+        [
+            [[1.0 - 0.0j, 0.0 + 0.0j], [0.0 + 0.0j, 1.0 - 0.0j]],
+            [[0.0 + 0.0j, 1.0 - 0.0j], [1.0 - 0.0j, 0.0 + 0.0j]],
+            [[-0.0 - 1.0j, 0.0 + 0.0j], [0.0 + 0.0j, -0.0 + 1.0j]],
+            [[0.0 + 0.0j, -0.0 - 1.0j], [-0.0 + 1.0j, 0.0 + 0.0j]],
+        ]
+    )
+    rep2 = np.array(
+        [
+            [[1.0 - 0.0j, 0.0 + 0.0j], [0.0 + 0.0j, 1.0 - 0.0j]],
+            [[0.0 + 0.0j, 1.0 - 0.0j], [1.0 - 0.0j, 0.0 + 0.0j]],
+            [[-0.0 + 1.0j, 0.0 - 0.0j], [0.0 - 0.0j, 0.0 - 1.0j]],
+            [[0.0 - 0.0j, -0.0 + 1.0j], [0.0 - 1.0j, 0.0 - 0.0j]],
+        ]
+    )
+
+    intertwiner = get_intertwiner(rep1, rep2)
+    assert is_equivalent_irrep(get_character(rep1), get_character(rep2))
+    assert np.allclose(
+        np.einsum("kil,lj->kij", rep1, intertwiner),
+        np.einsum("il,klj->kij", intertwiner, rep2),
+    )

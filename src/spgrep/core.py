@@ -149,6 +149,7 @@ def get_spacegroup_irreps_from_primitive_symmetry(
         ):
             raise ValueError("Specify symmetry operations in primitive cell!")
 
+    # Small representations of little group
     little_rotations, little_translations, mapping_little_group = get_little_group(
         rotations, translations, kpoint, rtol
     )

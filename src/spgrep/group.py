@@ -37,6 +37,36 @@ def get_cayley_table(rotations: NDArrayInt) -> NDArrayInt:
     return np.array(table)
 
 
+def get_identity_index(table: NDArrayInt) -> int:
+    """Return index for identity of group"""
+    order = table.shape[0]
+    for i in range(order):
+        if np.all(table[i, :] == np.arange(order)):
+            return i
+
+    raise ValueError("Unreachable!")
+
+
+def get_inverse_index(table: NDArrayInt, idx: int) -> int:
+    order = table.shape[0]
+    id_idx = get_identity_index(table)
+    for i in range(order):
+        if table[idx, i] == id_idx:
+            return i
+
+    raise ValueError("Unreachable!")
+
+
+def get_order(table: NDArrayInt, idx: int) -> int:
+    id_idx = get_identity_index(table)
+    ret = 1
+    tmp = idx
+    while tmp != id_idx:
+        tmp = table[tmp, idx]
+        ret += 1
+    return ret
+
+
 def is_matrix_group(rotations: NDArrayInt) -> bool:
     """
     Return True iff given integer matrices forms group.
