@@ -5,6 +5,10 @@
 ```
 
 ```{eval-rst}
+    .. autofunction:: spgrep.group.get_cayley_table
+```
+
+```{eval-rst}
     .. autofunction:: spgrep.group.get_factor_system_from_little_group
 ```
 

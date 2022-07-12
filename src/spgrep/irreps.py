@@ -5,12 +5,8 @@ from warnings import warn
 
 import numpy as np
 
-from spgrep.utils import (
-    NDArrayComplex,
-    NDArrayFloat,
-    NDArrayInt,
-    ndarray2d_to_integer_tuple,
-)
+from spgrep.group import get_cayley_table
+from spgrep.utils import NDArrayComplex, NDArrayFloat, NDArrayInt
 
 
 def get_regular_representation(rotations: NDArrayInt) -> NDArrayInt:
@@ -27,18 +23,11 @@ def get_regular_representation(rotations: NDArrayInt) -> NDArrayInt:
         If and only if ``np.dot(rotations[k], rotations[j]) == rotations[i]``, ``reg[k, i, j] == 1``.
     """
     n = len(rotations)
+    table = get_cayley_table(rotations)
+
     reg = np.zeros((n, n, n), dtype=int)
-    rotations_list = [ndarray2d_to_integer_tuple(r) for r in rotations]
-
-    for k, gk in enumerate(rotations):
-        for j, gj in enumerate(rotations):
-            gkj = np.dot(gk, gj)
-            try:
-                i = rotations_list.index(ndarray2d_to_integer_tuple(gkj))
-            except ValueError:
-                raise ValueError("Given matrices should form group.")
-
-            reg[k, i, j] = 1
+    for k, j in product(range(n), repeat=2):
+        reg[k, table[k, j], j] = 1
 
     return reg
 
@@ -60,23 +49,16 @@ def get_projective_regular_representation(
         If and only if ``np.dot(rotations[k], rotations[j]) == rotations[i]``, ``reg[k, i, j] == factor_system[k, j]``.
     """
     n = len(rotations)
+    table = get_cayley_table(rotations)
+
     reg = np.zeros((n, n, n), dtype=np.complex_)
-    rotations_list = [ndarray2d_to_integer_tuple(r) for r in rotations]
-
-    for k, gk in enumerate(rotations):
-        for j, gj in enumerate(rotations):
-            gkj = np.dot(gk, gj)
-            try:
-                i = rotations_list.index(ndarray2d_to_integer_tuple(gkj))
-            except ValueError:
-                raise ValueError("Given matrices should form group.")
-
-            reg[k, i, j] = factor_system[k, j]
+    for k, j in product(range(n), repeat=2):
+        reg[k, table[k, j], j] = factor_system[k, j]
 
     return reg
 
 
-def get_irreps(
+def get_irreps_from_regular(
     reg: NDArrayComplex,
     rtol: float = 1e-5,
     max_num_random_generations: int = 4,
@@ -132,6 +114,49 @@ def get_irreps(
         irreps = _get_irreps_from_matrix(reg, matrix, rtol)
 
         if np.sum([irrep.shape[1] ** 2 for irrep in irreps]) == n:
+            return irreps
+
+    warn("Failed to search all irreps. Try increasing max_num_random_generations.")
+    return []
+
+
+def decompose_representation(
+    representation: NDArrayComplex,
+    rtol: float = 1e-5,
+    max_num_random_generations: int = 4,
+) -> list[NDArrayComplex]:
+    """Decompose given (projective) representation into all unitary irreps.
+
+    Parameters
+    ----------
+    representation: array, (order, dim0, dim0)
+        (Projective) representation. representation[k] is a representation matrix for the k-th operation.
+    rtol: float
+        Relative tolerance to distinguish difference eigenvalues
+    max_num_random_generations: int
+        Maximal number of trials to generate random matrix
+
+    Returns
+    -------
+    irreps: list of unitary Irreps with (order, dim, dim)
+    """
+    dim0 = representation.shape[1]
+
+    rng = np.random.default_rng(seed=0)
+    for _ in range(max_num_random_generations):
+        # Randomly generate Hermite matrix
+        hermite_random = rng.random((dim0, dim0)) + rng.random((dim0, dim0)) * 1j
+        hermite_random += np.conj(hermite_random.T)
+
+        # Construct matrix which commute with regular representation
+        matrix = np.einsum(
+            "mik,kl,mjl->ij", representation, hermite_random, np.conj(representation)
+        )
+
+        # Decompose to subspaces corresponding to Irreps
+        irreps = _get_irreps_from_matrix(representation, matrix, rtol)
+
+        if np.sum([irrep.shape[1] for irrep in irreps]) == dim0:
             return irreps
 
     warn("Failed to search all irreps. Try increasing max_num_random_generations.")

@@ -4,7 +4,11 @@ from spgrep.core import (
     get_spacegroup_irreps,
     get_spacegroup_irreps_from_primitive_symmetry,
 )
-from spgrep.irreps import get_character, get_irreps, get_regular_representation
+from spgrep.irreps import (
+    get_character,
+    get_irreps_from_regular,
+    get_regular_representation,
+)
 from spgrep.transform import transform_symmetry_and_kpoint, unique_primitive_symmetry
 from spgrep.utils import (
     NDArrayComplex,
@@ -23,7 +27,7 @@ def test_get_character(C3v):
 
 def test_get_irreps_C3v(C3v):
     reg = get_regular_representation(C3v)
-    irreps = get_irreps(reg.astype(np.cdouble))
+    irreps = get_irreps_from_regular(reg.astype(np.cdouble))
     # Check dimensions
     assert [irrep.shape[1] for irrep in irreps] == [1, 1, 2]
     # Check characters
