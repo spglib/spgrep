@@ -1,32 +1,85 @@
 from __future__ import annotations
 
-from itertools import product
-
 import numpy as np
 
 from spgrep.utils import (
     NDArrayComplex,
     NDArrayFloat,
     NDArrayInt,
-    is_integer_array,
     ndarray2d_to_integer_tuple,
 )
+
+
+def get_cayley_table(rotations: NDArrayInt) -> NDArrayInt:
+    """Calculate Group multiplication table
+
+    Parameters
+    ----------
+    rotations: (order, 3, 3)
+
+    Returns
+    -------
+    table: (order, order)
+        ``table[i, j] = k`` if ``rotations[i] @ rotations[j] == rotations[k]``
+    """
+    rotations_list = [ndarray2d_to_integer_tuple(r) for r in rotations]
+
+    order = rotations.shape[0]
+    table = [[-1 for _ in range(order)] for _ in range(order)]
+    for i, gi in enumerate(rotations):
+        for j, gj in enumerate(rotations):
+            gk = gi @ gj
+            k = rotations_list.index(ndarray2d_to_integer_tuple(gk))
+            if table[i][j] != -1:
+                ValueError("Should specify a matrix group.")
+            table[i][j] = k
+
+    return np.array(table)
+
+
+def get_identity_index(table: NDArrayInt) -> int:
+    """Return index for identity of group"""
+    order = table.shape[0]
+    for i in range(order):
+        if np.all(table[i, :] == np.arange(order)):
+            return i
+
+    raise ValueError("Unreachable!")
+
+
+def get_inverse_index(table: NDArrayInt, idx: int) -> int:
+    order = table.shape[0]
+    id_idx = get_identity_index(table)
+    for i in range(order):
+        if table[idx, i] == id_idx:
+            return i
+
+    raise ValueError("Unreachable!")
+
+
+def get_order(table: NDArrayInt, idx: int) -> int:
+    id_idx = get_identity_index(table)
+    ret = 1
+    tmp = idx
+    while tmp != id_idx:
+        tmp = table[tmp, idx]
+        ret += 1
+    return ret
 
 
 def is_matrix_group(rotations: NDArrayInt) -> bool:
     """
     Return True iff given integer matrices forms group.
     """
-    rotations_set = {ndarray2d_to_integer_tuple(r) for r in rotations}
+    try:
+        table = get_cayley_table(rotations)
+    except ValueError:
+        return False
 
-    for g1, g2 in product(rotations, repeat=2):
-        # g1^-1 * g2 should be included in rotations_set
-        g1_inv = np.linalg.inv(g1)
-        if not is_integer_array(g1_inv):
-            return False
-        g1_inv = np.around(g1_inv).astype(int)
-        g1_inv_g2 = np.dot(g1_inv, g2)
-        if ndarray2d_to_integer_tuple(g1_inv_g2) not in rotations_set:
+    # Check if each element appears only once in a row
+    order = rotations.shape[0]
+    for i in range(order):
+        if set(table[i]) != set(range(order)):
             return False
 
     return True

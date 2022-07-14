@@ -5,7 +5,7 @@ from spglib import get_symmetry_dataset
 
 from spgrep.group import get_factor_system_from_little_group, get_little_group
 from spgrep.irreps import (
-    get_irreps,
+    get_irreps_from_regular,
     get_projective_regular_representation,
     get_regular_representation,
 )
@@ -149,6 +149,7 @@ def get_spacegroup_irreps_from_primitive_symmetry(
         ):
             raise ValueError("Specify symmetry operations in primitive cell!")
 
+    # Small representations of little group
     little_rotations, little_translations, mapping_little_group = get_little_group(
         rotations, translations, kpoint, rtol
     )
@@ -156,7 +157,7 @@ def get_spacegroup_irreps_from_primitive_symmetry(
         little_rotations, little_translations, kpoint
     )
     reg = get_projective_regular_representation(little_rotations, factor_system)
-    small_reps = get_irreps(reg, rtol, max_num_random_generations)
+    small_reps = get_irreps_from_regular(reg, rtol, max_num_random_generations)
 
     irreps = []
     for rep in small_reps:
@@ -194,6 +195,6 @@ def get_crystallographic_pointgroup_irreps_from_symmetry(
     irreps: list of Irreps with (order, dim, dim)
     """
     reg = get_regular_representation(rotations)
-    irreps = get_irreps(reg, rtol, max_num_random_generations)
+    irreps = get_irreps_from_regular(reg, rtol, max_num_random_generations)
     # TODO: symmetrize irreps
     return irreps

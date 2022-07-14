@@ -9,6 +9,6 @@ Irreps of crystallographic point groups or space groups are calculated in follow
 1. Symmetrize the obtained irrep matrices by subduced representation.
 
 ```{toctree}
-  Little group <little_group>
+  Irreps of space group <spacegroup_irreps>
   On-the-fly irreps generation <irreps_generation>
 ```
