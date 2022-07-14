@@ -133,3 +133,5 @@ docs_build
 
 .vscode/
 .DS_Store
+*.txt
+*.lprof

@@ -28,3 +28,18 @@ def get_symmetry_from_hall_number(hall_number: int) -> tuple[NDArrayInt, NDArray
     rotations = symmetry["rotations"]
     translations = symmetry["translations"]
     return rotations, translations
+
+
+def is_prime(n: int) -> bool:
+    for i in range(2, n):
+        if n % i == 0:
+            return False
+    return True
+
+
+def nroot(z: np.complex_, n: int) -> np.complex_:
+    """Return `n`-th power root of `z` with the minimum angle"""
+    root = z ** (1 / n)
+    r = np.absolute(root)
+    angle = np.remainder(np.angle(root), 2 * np.pi / n)
+    return r * np.exp(1j * angle)

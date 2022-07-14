@@ -4,8 +4,8 @@ import numpy as np
 from spglib import get_symmetry_dataset
 
 from spgrep.group import get_factor_system_from_little_group, get_little_group
-from spgrep.irreps import (
-    get_irreps_from_regular,
+from spgrep.irreps import get_irreps_from_regular
+from spgrep.representation import (
     get_projective_regular_representation,
     get_regular_representation,
 )
