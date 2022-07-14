@@ -2,16 +2,14 @@
 
 ## Subduced and induced representations for solvable group
 
-Consider projective irrep {math}`\Gamma` with factor system {math}`\mu` for solvable group {math}`G`,
-```{math}
-  R \phi_{j} = \sum_{i=1}^{d} \phi_{i} \Gamma(R)_{ij} \quad (R \in G, i = 1, \dots, d).
-```
 Let {math}`H` be invariant subgroup of {math}`G` such that {math}`G/H = \mathbb{Z}_{p}` ({math}`p` is prime and {math}`r^{p}=e`),
 ```{math}
   G = \coprod_{m=0}^{p-1} r^{m} H.
 ```
-
-Let one of irrep decomposed from subduced representation {math}`\Gamma \downarrow H` be {math}`(\Delta, \mathrm{Span}\{ \psi_{i} \}_{i})`.
+Consider projective irrep {math}`\Delta` with factor system {math}`\mu` for {math}`H`,
+```{math}
+  S \psi_{j} = \sum_{i=1}^{d} \psi_{i} \Delta(S)_{ij} \quad (R \in H, i = 1, \dots, d).
+```
 The following representations are also irrep over {math}`H`:
 ```{math}
   \Delta^{(m)}(S)
@@ -21,8 +19,8 @@ The following representations are also irrep over {math}`H`:
     &:= r^{-m} S r^{m} (\in H)
 ```
 There are two cases for {math}`\{ \Delta^{(m)} \}_{m=0, \dots, p-1}`:
-1. They are mutually inequivalent: {math}`\Gamma \downarrow H \cong \sum_{m=0}^{p-1} \Delta^{(m)}`
-2. They are all equivalent: {math}`\Gamma \downarrow H \cong p \Delta`
+1. They are mutually inequivalent: {math}`\Delta \uparrow G \downarrow H \cong \sum_{m=0}^{p-1} \Delta^{(m)}`
+2. They are all equivalent: {math}`\Delta \uparrow G \downarrow H \cong p \Delta`
 
 ### Case-1: conjugated irreps are mutually inequivalent
 
@@ -77,7 +75,6 @@ The induced representation {math}`\Delta \uparrow G` is decomposed to {math}`p` 
   \omega_{q}
     &:= \left( \frac{\prod_{m=1}^{p-1} \mu(r, r^{m})}{\mu(E, E)} \right)^{\frac{1}{p}} \exp \left( \frac{2 \pi i q}{p} \right).
 ```
-
 
 ## Reality of (projective) irrep
 
@@ -152,24 +149,6 @@ The matrix representation of this crystallographic point group is
 \Gamma^{(\mathrm{reg})} = \Gamma^{(A_{1})} + \Gamma^{(A_{2})} + 2\Gamma^{(E)}
 ```
 
-To symmetrize multi-dimensional irrep {math}`\Gamma^{(E)}`, consider its subduced representation over {math}`\{ g_{0}, g_{1}, g_{2} \} \cong C_{3}`.
-```{math}
-  \Gamma^{(E)} \downarrow C_{3} = \Delta^{(\,^{1}E)} + \Delta^{(\,^{2}E)}
-```
-
-|                       | {math}`g_{0}` | {math}`g_{1}` | {math}`g_{2}` |
-| :-------------------- | ------------- | ------------- | ------------- |
-| {math}`\Delta^{(\,^{1}E)}` | 1 | {math}`\omega=e^{i\frac{2}{3}\pi}` | {math}`\omega^{\ast}` |
-| {math}`\Delta^{(\,^{2}E)}` | 1 | {math}`\omega^{\ast}` | {math}`\omega` |
-
-When we choose {math}`g_{1}` as generator of {math}`C_{3}`, we select {math}`\Delta^{(E2)}` for generating induced representation [^footnote4].
-Since {math}`\Delta^{(\,^{1}E)}` and {math}`\Delta^{(\,^{2}E)}` are inequivalent, induced representation {math}`\Gamma^{(E, sym)} = \Delta^{(\,^{2}E)} \uparrow C_{3v}` is irreducible.
-
-[^footnote4]: Of course it is arbitrary which irreps to choose.
-    Here, we choose irrep with the smallest angle of character of {math}`g_{1}` in {math}`(-\pi, \pi]`.
-    Then, {math}`\mathrm{arg}(\chi^{(\,^{1}E)}(g_{1})) = \frac{2}{3}\pi` and {math}`\mathrm{arg}(\chi^{(\,^{2}E)}(g_{1})) = -\frac{2}{3}\pi`.
-    Hence, we select {math}`\Delta^{(\,^{2}E)}`.
-
 ### Space group
 
 #### {math}`P4_{2}/mnm` (No. 136) at {math}`X=(0\frac{1}{2}0)`
@@ -198,20 +177,6 @@ The little co-group is
   \Gamma^{(\mathrm{reg})} = 2 \Gamma^{(X_{1})} + 2 \Gamma^{(X_{2})}
 ```
 
-To symmetrize, consider subduced representation over {math}`\{ g_{0}, g_{2}, g_{4}, g_{6} \} \cong mm2` and {math}`\{ g_{0}, g_{4} \} \cong m`:
-```{math}
-  \Gamma^{(X_{1})} \downarrow mm2 &= \Delta^{(X_{1})} \\
-  \Delta^{(X_{1})} \downarrow m &= \Theta^{(X_{1}, 1)} + \Theta^{(X_{1}, 2)}
-```
-
-|                             | {math}`g_{0}` | {math}`g_{4}` |
-| :-------------------------- | ------------- | ------------: |
-| {math}`\Theta^{(X_{1}, 1)}` | 1             | 1             |
-| {math}`\Theta^{(X_{1}, 2)}` | 1             | -1            |
-
-Since {math}`\Theta^{(X_{1}, 1)}` and {math}`\Theta^{(X_{1}, 2)}` are inequivalent, {math}`\Theta^{(X_{1}, 2)} \uparrow mm2` is irrep.
-
-
 #### {math}`\mathcal{G} = Ia\overline{3}d` (No. 230) at {math}`H=(\frac{1}{2}\overline{\frac{1}{2}}\frac{1}{2})_{\mathrm{primitive}}`
 
 (corresponding to {math}`G^{4}_{96}` in Ref. [^BC09])
@@ -228,3 +193,5 @@ Since {math}`\Theta^{(X_{1}, 1)}` and {math}`\Theta^{(X_{1}, 2)}` are inequivale
 
 [^SHW91]: Harold T. Stokes, Dorian M. Hatch, and James D. Wells, 
 Phys. Rev. B 43, 11010 (1991).
+
+[^BC09]: C. Bradley and A. P. Cracknell, The mathematical theory of symmetry in solids (Oxford, London, 2009).
