@@ -9,16 +9,14 @@ from spgrep.group import (
     get_factor_system_from_little_group,
     get_little_group,
 )
-from spgrep.irreps import (
+from spgrep.irreps import get_irreps_from_regular, is_equivalent_irrep, symmetrize_irrep
+from spgrep.representation import (
     get_character,
     get_intertwiner,
-    get_irreps_from_regular,
     get_projective_regular_representation,
     get_regular_representation,
-    is_equivalent_irrep,
     is_projective_representation,
     is_unitary,
-    symmetrize_irrep,
 )
 from spgrep.transform import transform_symmetry_and_kpoint, unique_primitive_symmetry
 from spgrep.utils import (
