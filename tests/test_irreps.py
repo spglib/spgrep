@@ -1,4 +1,5 @@
 import numpy as np
+import pytest
 
 from spgrep.core import (
     get_spacegroup_irreps,
@@ -9,11 +10,14 @@ from spgrep.group import (
     get_factor_system_from_little_group,
     get_little_group,
 )
-from spgrep.irreps import get_irreps_from_regular, is_equivalent_irrep, symmetrize_irrep
+from spgrep.irreps import (
+    get_irreps_from_regular,
+    get_irreps_from_solvable_group_chain,
+    is_equivalent_irrep,
+)
 from spgrep.representation import (
     get_character,
     get_intertwiner,
-    get_projective_regular_representation,
     get_regular_representation,
     is_projective_representation,
     is_unitary,
@@ -56,18 +60,18 @@ def test_get_irreps_C3v(C3v):
     for irrep in irreps:
         assert is_unitary(irrep)
 
-    # Test symmetrization for ordinary representation
-    chain = [
-        ([2, 0, 1], 3),  # C3v -> C3, the order of indices does not matter
-        ([0], 1),  # C3 -> C1
-    ]
-    table = get_cayley_table(C3v)
+    # G0 = {0}
+    # G1 = {0, 1, 2}
+    # G2 = {0, 1, 2, 3, 4, 5}
     factor_system = np.ones((6, 6), dtype=np.complex_)
-    for irrep in irreps:
-        new_irrep = symmetrize_irrep(irrep, table, factor_system, chain)
-        character = get_character(irrep)
-        character_sym = get_character(new_irrep)
-        assert is_equivalent_irrep(character_sym, character)
+    irreps2 = get_irreps_from_solvable_group_chain(
+        table,
+        factor_system,
+        solvable_chain_generators=[1, 3],
+    )
+    assert np.sum([irrep.shape[1] ** 2 for irrep in irreps2]) == 6
+    for irrep in irreps2:
+        assert is_projective_representation(irrep, table, factor_system)
 
 
 def test_get_spacegroup_irreps_from_primitive_symmetry_P42mnm(P42mnm):
@@ -95,22 +99,20 @@ def test_symmetrize_small_representation_P42mnm(P42mnm):
     factor_system = get_factor_system_from_little_group(
         little_rotations, little_translations, kpoint
     )
-    reg = get_projective_regular_representation(little_rotations, factor_system)
     table = get_cayley_table(little_rotations)
-    small_reps = get_irreps_from_regular(reg)
 
-    # TODO: automate chain choice
-    chain = [
-        ([2, 6, 0, 4], 1),  # mmm -> mm2
-        ([4, 0], 2),  # mm2 -> m
-        ([0], 4),  # m -> 1
-    ]
-    for irrep in small_reps:
-        new_irrep = symmetrize_irrep(irrep, table, factor_system, chain)
-        character = get_character(irrep)
-        character_sym = get_character(new_irrep)
-        assert is_equivalent_irrep(character_sym, character)
-        assert is_projective_representation(new_irrep, table, factor_system)
+    # G0 = {0}
+    # G1 = {0, 4}
+    # G2 = {0, 2, 4, 6}
+    # G3 = {0, 1, 2, 3, 4, 5, 6, 7}
+    irreps2 = get_irreps_from_solvable_group_chain(
+        table,
+        factor_system,
+        solvable_chain_generators=[4, 2, 1],
+    )
+    assert np.sum([irrep.shape[1] ** 2 for irrep in irreps2]) == 8
+    for irrep in irreps2:
+        assert is_projective_representation(irrep, table, factor_system)
 
 
 def test_get_spacegroup_irreps_from_primitive_symmetry_Ia3d(Ia3d):
@@ -153,6 +155,47 @@ def test_get_spacegroup_irreps_from_primitive_symmetry_Ia3d(Ia3d):
             little_primitive_rotations, little_primitive_translations, primitive_kpoint, irrep
         )
         assert is_unitary(irrep)
+
+
+@pytest.mark.skip
+def test_symmetrize_small_representation_Ia3d(Ia3d):
+    rotations, translations = Ia3d
+    kpoint_conv = np.array([0, 1, 0])  # H point in conventional dual
+
+    # Transform to primitive
+    to_primitive = np.array(
+        [
+            [-1 / 2, 1 / 2, 1 / 2],
+            [1 / 2, -1 / 2, 1 / 2],
+            [1 / 2, 1 / 2, -1 / 2],
+        ]
+    )
+    primitive_rotations, primitive_translations, primitive_kpoint = transform_symmetry_and_kpoint(
+        to_primitive, rotations, translations, kpoint_conv
+    )
+    primitive_rotations, primitive_translations, mapping = unique_primitive_symmetry(
+        primitive_rotations, primitive_translations
+    )
+
+    little_rotations, little_translations, _ = get_little_group(
+        primitive_rotations, primitive_translations, primitive_kpoint
+    )
+    factor_system = get_factor_system_from_little_group(
+        little_rotations, little_translations, primitive_kpoint
+    )
+    table = get_cayley_table(little_rotations)
+
+    raise NotImplementedError
+    chain_generators = []
+
+    irreps2 = get_irreps_from_solvable_group_chain(
+        table,
+        factor_system,
+        solvable_chain_generators=chain_generators,
+    )
+    assert np.sum([irrep.shape[1] ** 2 for irrep in irreps2]) == 48
+    for irrep in irreps2:
+        assert is_projective_representation(irrep, table, factor_system)
 
 
 def test_get_spacegroup_irreps(corundum_cell):

@@ -7,7 +7,7 @@ import numpy as np
 
 from spgrep.group import get_identity_index, get_inverse_index, get_order
 from spgrep.representation import get_character, get_intertwiner
-from spgrep.utils import NDArrayComplex, NDArrayFloat, NDArrayInt
+from spgrep.utils import NDArrayComplex, NDArrayFloat, NDArrayInt, is_prime, nroot
 
 
 def get_irreps_from_regular(
@@ -171,24 +171,22 @@ def _get_irreps_from_matrix(
     return sorted_irreps
 
 
-def symmetrize_irrep(
-    irrep: NDArrayComplex,
+def get_irreps_from_solvable_group_chain(
     table: NDArrayInt,
     factor_system: NDArrayComplex,
-    solvable_group_chain: list[tuple[list[int], int]],
+    solvable_chain_generators: list[int],
     rtol: float = 1e-5,
     max_num_random_generations: int = 4,
 ):
-    """Standardize given unitary (projective) irrep.
+    """Calculate symmetrized irreps from given chain of solvable group.
 
     Parameters
     ----------
-    irrep: array, (order, dim, dim)
     table: array, (order, order)
         Cayley table
     factor_system: array, (order, order)
-    solvable_group_chain: list of (indices of subgroup, single generator of coset, index of coset decomposition)
-        TODO
+    solvable_group_chain: list of single generator of coset
+
     rtol: float
         Relative tolerance to distinguish difference eigenvalues
     max_num_random_generations: int
@@ -196,167 +194,129 @@ def symmetrize_irrep(
 
     Returns
     -------
-    symmetrized_irrep: array, (order, dim, dim)
+    irreps: list of unitary projective irrep with (order, dim, dim)
     """
-    order = irrep.shape[0]
-    return _symmetrize_irrep(
-        irrep=irrep,
-        table=table,
-        factor_system=factor_system,
-        group=list(range(order)),
-        solvable_group_chain=solvable_group_chain,
-        rtol=rtol,
-        max_num_random_generations=max_num_random_generations,
-    )
+    identity = get_identity_index(table)
+    group = [identity]  # int -> GroupIdx
+    irreps = [np.ones((1, 1, 1), dtype=np.complex_)]
+    for r in solvable_chain_generators:
+        p = get_order(table, r)  # Should be prime number
+        if not is_prime(p):
+            warn("Order of generators should be prime number.")
+            return []
 
+        # Power of `r`, rm[m] = r^m
+        # Power of inverse of `coset_generator`, rminv[m] = r^-m
+        rm = [identity]
+        rinvm = [identity]
+        rinv = get_inverse_index(table, r)
+        for m in range(1, p):
+            rm.append(table[rm[m - 1], r])
+            rinvm.append(table[rinvm[m - 1], rinv])
 
-def _symmetrize_irrep(
-    irrep: NDArrayComplex,
-    table: NDArrayInt,
-    factor_system: NDArrayComplex,
-    group: list[int],  # int -> GroupIdx
-    solvable_group_chain: list[tuple[list[int], int]],
-    rtol: float = 1e-5,
-    max_num_random_generations: int = 4,
-):
-    dim = irrep.shape[1]
-    if dim == 1:
-        # One-dimensional unitary irrep is unique
-        return irrep
-
-    # Let the i-th operation be ops[i] (i: GroupIdx).
-    # Let i = group[si], irrep[i] is for the i-th operation.
-    subgroup, r = solvable_group_chain[0]  # subgroup: int -> GroupIdx
-    p = get_order(table, r)  # Should be prime number
-
-    # GroupIdx -> int for `group`
-    group_remapping = {}
-    for i, gi in enumerate(group):
-        group_remapping[gi] = i
-    subgroup_remapped = [group_remapping[si] for si in subgroup]  # list[int]
-
-    # GroupIdx -> int for `subgroup`
-    subgroup_remapping = {}
-    for i, si in enumerate(subgroup):
-        subgroup_remapping[si] = i
-
-    decomposed = decompose_representation(
-        irrep[subgroup_remapped], rtol, max_num_random_generations
-    )
-
-    # Choose one of irreps decomposed from subduced representation
-    if len(decomposed) == 1:
-        subduced_irrep = decomposed[0]
-    else:
-        # TODO: triply degenerated case
-        if len(decomposed) % 3 == 0:
-            raise NotImplementedError
-
-        # Sort decomposed irreps by angle of character of coset representative
-        characters = [get_character(ir) for ir in decomposed]
-        next_coset_generator = subgroup_remapping[solvable_group_chain[1][1]]
-        angles = np.angle([character[next_coset_generator] for character in characters])
-
-        subduced_irrep = decomposed[np.argmin(angles)]
-
-    # Symmetrize irrep from subduced representation recursively
-    if subduced_irrep.shape[1] == 1:
-        # One-dimensional unitary irrep is unique
-        symmetrized_subduced_irrep = subduced_irrep
-    else:
-        symmetrized_subduced_irrep = _symmetrize_irrep(
-            subduced_irrep,  # (sub_order/gen_order, dim0, dim0)
-            table=table,
-            factor_system=factor_system,
-            group=subgroup,
-            solvable_group_chain=solvable_group_chain[1:],
-            rtol=rtol,
-            max_num_random_generations=max_num_random_generations,
-        )
-
-    # Power of `coset_generator`, rm[m] = r^m
-    rm = [get_identity_index(table)]
-    # Power of inverse of `coset_generator`, rminv[m] = r^-m
-    rinv = get_inverse_index(table, r)
-    rinvm = [get_identity_index(table)]
-    for m in range(1, p):
-        rm.append(table[rm[m - 1], r])
-        rinvm.append(table[rinvm[m - 1], rinv])
-
-    # Conjugated irreps with `symmetrized_subduced_irrep`
-    conjugated_irreps = []
-    for j in range(p):
-        conj_irrep = []
-        for sk in subgroup:
-            sj = table[rinvm[j], table[sk, rm[j]]]
-            conj_irrep.append(
-                factor_system[sk, rm[j]]
-                / factor_system[rm[j], sj]
-                * symmetrized_subduced_irrep[subgroup_remapping[sj]]
-            )
-        conjugated_irreps.append(np.array(conj_irrep))
-
-    # Check conjugated irreps are mutually equivalent or not, and construct induced representation
-    conjugated_characters = [get_character(conj_irrep) for conj_irrep in conjugated_irreps]
-    if is_equivalent_irrep(conjugated_characters[0], conjugated_characters[1]):
-        # Self conjugated
-        intertwiner = get_intertwiner(conjugated_irreps[0], conjugated_irreps[1])
-
-        # Scale intertwiner s.t. intertwiner^p == identity
-        scale = intertwiner.copy()
-        for _ in range(p - 1):
-            scale = np.dot(intertwiner, scale)
-        intertwiner /= scale[0, 0] ** (1 / p)
-
-        omega = np.prod([factor_system[r, rm[m]] for m in range(1, p)]) ** (1 / p)
-        character = get_character(irrep)
-        found = False
-        for q in range(p):
-            omegaq = omega * np.exp(2j * np.pi * q / p)
-            delta_r = intertwiner / omegaq  # Rep. matrix for r
-            delta_rm = [
-                np.eye(intertwiner.shape[0], dtype=np.complex_)
-            ]  # delta_rm[m] is rep. matrix for r^m
-            for m in range(1, p):
-                delta_rm.append(factor_system[r, rm[m]] * delta_r @ delta_rm[m - 1])
-
-            symmetrized_irrep = np.zeros((len(group), dim, dim), dtype=np.complex_)
-            for m in range(p):
-                for sk in subgroup:
-                    idx = table[rm[m], sk]
-                    symmetrized_irrep[group_remapping[idx]] = (
-                        factor_system[rm[m], sk]
-                        * delta_rm[m]
-                        @ symmetrized_subduced_irrep[subgroup_remapping[sk]]
-                    )
-
-            if is_equivalent_irrep(character, get_character(symmetrized_irrep)):
-                found = True
-                break
-        if not found:
-            raise ValueError("Unreachable!")
-    else:
-        # Mutually inequivalent
-        symmetrized_irrep = np.zeros((len(group), dim, dim), dtype=np.complex_)
-        dim_sub = dim // p
+        # Extend group by generator `r`
+        subgroup = group[:]
+        group = []
         for m in range(p):
-            for sk in subgroup:
-                idx = table[rm[m], sk]
-                for j in range(p):
-                    i = (j + m) % p
-                    sj = table[rinvm[j], table[sk, rm[j]]]
-                    symmetrized_irrep[
-                        group_remapping[idx],
-                        i * dim_sub : (i + 1) * dim_sub,
-                        j * dim_sub : (j + 1) * dim_sub,
-                    ] = (
-                        factor_system[idx, rm[j]]
-                        / factor_system[rm[i], sj]
-                        * symmetrized_subduced_irrep[subgroup_remapping[sj]]
-                    )
+            group.extend([table[rm[m], s] for s in subgroup])
+        group.sort()
 
-    # Symmetrize given irrep by generating induced representation
-    return symmetrized_irrep
+        subgroup_remapping = {}  # GroupIdx -> int for `subgroup`
+        for i, si in enumerate(subgroup):
+            subgroup_remapping[si] = i
+        group_remapping = {}  # GroupIdx -> int for `group`
+        for i, gi in enumerate(group):
+            group_remapping[gi] = i
+
+        # Consider induced representation and their decomposition
+        next_sub_irreps = []
+        for sub_irrep in irreps:
+            dim = sub_irrep.shape[1]
+
+            # Conjugated irreps with `sub_irrep`
+            conj_sub_irreps = []
+            for j in range(p):
+                conj_sub_irrep = []
+                for s in subgroup:
+                    sj = table[rinvm[j], table[s, rm[j]]]
+                    conj_sub_irrep.append(
+                        factor_system[s, rm[j]]
+                        / factor_system[rm[j], sj]
+                        * sub_irrep[subgroup_remapping[sj]]
+                    )
+                conj_sub_irreps.append(np.array(conj_sub_irrep))
+
+            # Check conjugated irreps are mutually equivalent or not, and construct induced representation
+            conj_characters = [get_character(conj_sub_irrep) for conj_sub_irrep in conj_sub_irreps]
+            if is_equivalent_irrep(conj_characters[0], conj_characters[1]):
+                # Self-conjugated case
+
+                # Scale intertwiner s.t. intertwiner^p == identity
+                intertwiner = get_intertwiner(
+                    conj_sub_irreps[0], conj_sub_irreps[1], rtol, max_num_random_generations
+                )
+                scale = intertwiner.copy()
+                for _ in range(p - 1):
+                    scale = np.dot(intertwiner, scale)
+                intertwiner /= scale[0, 0] ** (1 / p)
+
+                omega = nroot(np.prod([factor_system[r, rm[m]] for m in range(1, p)]), p)
+                for q in range(p):
+                    omegaq = omega * np.exp(2j * np.pi * q / p)
+                    delta_r = intertwiner / omegaq  # Rep. matrix for r
+                    delta_rm = [
+                        np.eye(intertwiner.shape[0], dtype=np.complex_)
+                    ]  # delta_rm[m] is rep. matrix for r^m
+                    for m in range(1, p):
+                        delta_rm.append(factor_system[r, rm[m]] * delta_r @ delta_rm[m - 1])
+
+                    next_irrep = np.zeros((len(group), dim, dim), dtype=np.complex_)
+                    for m in range(p):
+                        for s in subgroup:
+                            idx = table[rm[m], s]
+                            next_irrep[group_remapping[idx]] = (
+                                factor_system[rm[m], s]
+                                * delta_rm[m]
+                                @ sub_irrep[subgroup_remapping[s]]
+                            )
+                    next_sub_irreps.append(next_irrep)
+            else:
+                # Mutually inequivalent
+                next_irrep = np.zeros((len(group), dim * p, dim * p), dtype=np.complex_)
+                for m in range(p):
+                    for s in subgroup:
+                        idx = table[rm[m], s]
+                        for j in range(p):
+                            i = (j + m) % p
+                            sj = table[rinvm[j], table[s, rm[j]]]
+                            next_irrep[
+                                group_remapping[idx],
+                                i * dim : (i + 1) * dim,
+                                j * dim : (j + 1) * dim,
+                            ] = (
+                                factor_system[idx, rm[j]]
+                                / factor_system[rm[i], sj]
+                                * sub_irrep[subgroup_remapping[sj]]
+                            )
+                next_sub_irreps.append(next_irrep)
+
+        # Unique irreps so far
+        irreps.clear()
+        sub_characters = []  # type: ignore
+        for sub_irrep in next_sub_irreps:
+            # Skip duplicated irrep
+            character = get_character(sub_irrep)
+            if any([is_equivalent_irrep(character, c) for c in sub_characters]):
+                continue
+
+            irreps.append(sub_irrep)
+            sub_characters.append(character)
+
+    if group != list(range(table.shape[0])):
+        warn("Generators are not sufficient to traverse group.")
+        return []
+
+    return irreps
 
 
 def is_equivalent_irrep(character1: NDArrayComplex, character2: NDArrayComplex) -> bool:
