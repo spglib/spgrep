@@ -1,5 +1,4 @@
 import numpy as np
-import pytest
 
 from spgrep.core import (
     get_spacegroup_irreps,
@@ -157,7 +156,6 @@ def test_get_spacegroup_irreps_from_primitive_symmetry_Ia3d(Ia3d):
         assert is_unitary(irrep)
 
 
-@pytest.mark.skip
 def test_symmetrize_small_representation_Ia3d(Ia3d):
     rotations, translations = Ia3d
     kpoint_conv = np.array([0, 1, 0])  # H point in conventional dual

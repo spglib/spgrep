@@ -32,3 +32,4 @@ exclude = '''
 exclude = [
   'docs',
 ]
+warn_no_return = false
