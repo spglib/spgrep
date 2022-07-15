@@ -1,10 +1,17 @@
 from __future__ import annotations
 
+from typing import Literal
+
 import numpy as np
 from spglib import get_symmetry_dataset
 
-from spgrep.group import get_factor_system_from_little_group, get_little_group
-from spgrep.irreps import get_irreps_from_regular
+from spgrep.group import (
+    get_cayley_table,
+    get_factor_system_from_little_group,
+    get_little_group,
+)
+from spgrep.irreps import get_irreps_from_regular, get_irreps_from_solvable_group_chain
+from spgrep.pointgroup import get_pointgroup_chain_generators
 from spgrep.representation import (
     get_projective_regular_representation,
     get_regular_representation,
@@ -22,8 +29,11 @@ def get_spacegroup_irreps(
     positions: NDArrayFloat,
     numbers: NDArrayInt,
     kpoint: NDArrayFloat,
+    method: Literal["Neto", "random"] = "Neto",
     reciprocal_lattice: NDArrayFloat | None = None,
     symprec: float = 1e-5,
+    rtol: float = 1e-5,
+    max_num_random_generations: int = 4,
 ) -> tuple[list[NDArrayComplex], NDArrayInt, NDArrayFloat, NDArrayInt]:
     """Compute all irreducible representations of space group of given structure up to unitary transformation.
 
@@ -35,12 +45,20 @@ def get_spacegroup_irreps(
         Fractional coordinates of sites
     numbers: array, (num_atoms, )
         Integer list specifying atomic species
+    method: str, 'Neto' or 'random'
+        'Neto': construct irreps from a fixed chain of subgroups of little co-group
+        'random': construct irreps by numerically diagonalizing a random matrix commute with regular representation
     kpoint: array, (3, )
         Reciprocal vector with respect to ``reciprocal_lattice``
     reciprocal_lattice: (Optional) array, (3, 3)
         ``reciprocal_lattice[i, :]`` is the i-th basis vector of reciprocal lattice for ``kpoint`` without `2 * pi factor`.
         If not specified, ``reciprocal_lattice`` is set to ``np.linalg.inv(lattice).T``.
     symprec: float
+        Parameter for searching symmetry operation in Spglib
+    rtol: float
+        Relative tolerance for comparing float values
+    max_num_random_generations: int
+        Maximal number of trials to generate random matrix
 
     Returns
     -------
@@ -78,6 +96,9 @@ def get_spacegroup_irreps(
         rotations=uniq_prim_rotations,
         translations=uniq_prim_translations,
         kpoint=prim_kpoint,
+        method=method,
+        rtol=rtol,
+        max_num_random_generations=max_num_random_generations,
     )
     remapping_prim_little_group = {}  # [0..order) -> [0..prim_little_group_order)
     for i, idx in enumerate(mapping_prim_little_group):
@@ -115,6 +136,7 @@ def get_spacegroup_irreps_from_primitive_symmetry(
     rotations: NDArrayInt,
     translations: NDArrayFloat,
     kpoint: NDArrayFloat,
+    method: Literal["Neto", "random"] = "Neto",
     rtol: float = 1e-5,
     max_num_random_generations: int = 4,
 ) -> tuple[list[NDArrayComplex], NDArrayInt]:
@@ -129,6 +151,9 @@ def get_spacegroup_irreps_from_primitive_symmetry(
     translations: array, (order, 3)
     kpoint: array, (3, )
         Reciprocal vector with respect to reciprocal lattice
+    method: str, 'Neto' or 'random'
+        'Neto': construct irreps from a fixed chain of subgroups of little co-group
+        'random': construct irreps by numerically diagonalizing a random matrix commute with regular representation
     rtol: float
         Relative tolerance
     max_num_random_generations: int
@@ -156,8 +181,22 @@ def get_spacegroup_irreps_from_primitive_symmetry(
     factor_system = get_factor_system_from_little_group(
         little_rotations, little_translations, kpoint
     )
-    reg = get_projective_regular_representation(little_rotations, factor_system)
-    small_reps = get_irreps_from_regular(reg, rtol, max_num_random_generations)
+
+    if method == "Neto":
+        table = get_cayley_table(little_rotations)
+        solvable_chain_generators = get_pointgroup_chain_generators(little_rotations)
+        small_reps = get_irreps_from_solvable_group_chain(
+            table,
+            factor_system,
+            solvable_chain_generators,
+            rtol=rtol,
+            max_num_random_generations=max_num_random_generations,
+        )
+    elif method == "random":
+        reg = get_projective_regular_representation(little_rotations, factor_system)
+        small_reps = get_irreps_from_regular(reg, rtol, max_num_random_generations)
+    else:
+        raise ValueError(f"Unknown method to compute irreps: {method}")
 
     irreps = []
     for rep in small_reps:
@@ -175,6 +214,7 @@ def get_spacegroup_irreps_from_primitive_symmetry(
 
 def get_crystallographic_pointgroup_irreps_from_symmetry(
     rotations: NDArrayInt,
+    method: Literal["Neto", "random"] = "Neto",
     rtol: float = 1e-5,
     max_num_random_generations: int = 4,
 ) -> list[NDArrayComplex]:
@@ -185,6 +225,9 @@ def get_crystallographic_pointgroup_irreps_from_symmetry(
     ----------
     rotations: array, (order, 3, 3)
         Assume a point coordinates `x` are transformed into `np.dot(rotations[i, :, :], x)` by the i-th symmetry operation.
+    method: str, 'Neto' or 'random'
+        'Neto': construct irreps from a fixed chain of subgroups of little co-group
+        'random': construct irreps by numerically diagonalizing a random matrix commute with regular representation
     rtol: float
         Relative tolerance to distinguish difference eigenvalues
     max_num_random_generations: int
@@ -194,7 +237,21 @@ def get_crystallographic_pointgroup_irreps_from_symmetry(
     -------
     irreps: list of Irreps with (order, dim, dim)
     """
-    reg = get_regular_representation(rotations)
-    irreps = get_irreps_from_regular(reg, rtol, max_num_random_generations)
-    # TODO: symmetrize irreps
+    if method == "Neto":
+        order = len(rotations)
+        table = get_cayley_table(rotations)
+        solvable_chain_generators = get_pointgroup_chain_generators(rotations)
+        irreps = get_irreps_from_solvable_group_chain(
+            table,
+            factor_system=np.ones((order, order), dtype=np.complex_),
+            solvable_chain_generators=solvable_chain_generators,
+            rtol=rtol,
+            max_num_random_generations=max_num_random_generations,
+        )
+    elif method == "random":
+        reg = get_regular_representation(rotations)
+        irreps = get_irreps_from_regular(reg, rtol, max_num_random_generations)
+    else:
+        raise ValueError(f"Unknown method to compute irreps: {method}")
+
     return irreps
