@@ -124,6 +124,14 @@ def get_primitive_transformation_matrix(hall_number: int) -> NDArrayFloat:
                 [0, 1 / 2, 1 / 2],
             ]
         )
+    elif centering == "B":
+        return np.array(
+            [
+                [1 / 2, 0, -1 / 2],
+                [0, 1, 0],
+                [1 / 2, 0, 1 / 2],
+            ]
+        )
     elif centering == "C":
         return np.array(
             [

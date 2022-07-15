@@ -672,8 +672,9 @@ def _get_generators(pg_symbol, idx, gens):
     return _get_generators(next_pg_symbol, next_idx, gens)
 
 
-def match_pointgroup(prim_rotations: NDArrayInt) -> tuple[NDArrayInt, list[int]]:
-    """Match given crystallographic point group with standardized ones in primitive basis.
+def get_pointgroup_chain_generators(prim_rotations: NDArrayInt) -> list[int]:
+    """Calculate generators of given crystallographic point group in primitive basis.
+    The returned generators give a normal series whose factor groups are all Abelian.
 
     Parameters
     ----------
@@ -681,27 +682,29 @@ def match_pointgroup(prim_rotations: NDArrayInt) -> tuple[NDArrayInt, list[int]]
 
     Returns
     -------
-    std_rotations: (order, 3, 3)
-    mapping: list
-        prim_rotations[i] == std_rotations[mapping[i]]
+    generators: list[int]
+        Let G0 := prim_rotations and G_{i} := G_{i-1} / < generators[i] > (i = 0, 1, ...).
+        Then, G_{i} is normal subgroup of G_{i-1} and factor group G_{i-1}/G_{i} is Abelian.
     """
     pg_symbol, _, P = get_pointgroup(prim_rotations)
     Pinv = np.linalg.inv(P)
 
+    # Match given crystallographic point group with standardized ones in primitive basis.
     order = len(prim_rotations)
-    for std_rotations in pg_dataset[pg_symbol]:
+    for idx, std_rotations in enumerate(pg_dataset[pg_symbol]):
         matched = [ndarray2d_to_integer_tuple(Pinv @ r @ P) for r in prim_rotations]
 
         success = True
-        mapping = [-1 for _ in range(order)]
+        mapping = [-1 for _ in range(order)]  # s.t. prim_rotations[mapping[i]] == std_rotations[i]
         for i, ri in enumerate(std_rotations):
             try:
-                idx = matched.index(ri)  # type: ignore
+                j = matched.index(ri)  # type: ignore
             except ValueError:
                 success = False
                 break
-            mapping[idx] = i
+            mapping[i] = j
         if success:
-            return np.array(std_rotations), mapping
+            generators = get_generators(pg_symbol, idx)
+            return [mapping[g] for g in generators]
 
     ValueError("Failed to match with tabulated point groups.")  # type: ignore

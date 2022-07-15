@@ -186,6 +186,8 @@ def get_irreps_from_solvable_group_chain(
         Cayley table
     factor_system: array, (order, order)
     solvable_group_chain: list of single generator of coset
+        Let G0 := G and G_{i} := G_{i-1} / < solvable_chain_generators[i] > (i = 0, 1, ...).
+        Then, G_{i} is normal subgroup of G_{i-1} and factor group G_{i-1}/G_{i} is Abelian.
 
     rtol: float
         Relative tolerance to distinguish difference eigenvalues
@@ -199,7 +201,9 @@ def get_irreps_from_solvable_group_chain(
     identity = get_identity_index(table)
     group = [identity]  # int -> GroupIdx
     irreps = [np.ones((1, 1, 1), dtype=np.complex_)]
-    for r in solvable_chain_generators:
+
+    # Extend subgroups from identity to whole
+    for r in solvable_chain_generators[::-1]:
         p = get_order(table, r)  # Should be prime number
         if not is_prime(p):
             warn("Order of generators should be prime number.")

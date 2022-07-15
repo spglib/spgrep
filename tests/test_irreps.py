@@ -14,6 +14,7 @@ from spgrep.irreps import (
     get_irreps_from_solvable_group_chain,
     is_equivalent_irrep,
 )
+from spgrep.pointgroup import get_pointgroup_chain_generators
 from spgrep.representation import (
     get_character,
     get_intertwiner,
@@ -59,14 +60,12 @@ def test_get_irreps_C3v(C3v):
     for irrep in irreps:
         assert is_unitary(irrep)
 
-    # G0 = {0}
-    # G1 = {0, 1, 2}
-    # G2 = {0, 1, 2, 3, 4, 5}
+    solvable_chain_generators = get_pointgroup_chain_generators(C3v)
     factor_system = np.ones((6, 6), dtype=np.complex_)
     irreps2 = get_irreps_from_solvable_group_chain(
         table,
         factor_system,
-        solvable_chain_generators=[1, 3],
+        solvable_chain_generators=solvable_chain_generators,
     )
     assert np.sum([irrep.shape[1] ** 2 for irrep in irreps2]) == 6
     for irrep in irreps2:
@@ -100,14 +99,11 @@ def test_symmetrize_small_representation_P42mnm(P42mnm):
     )
     table = get_cayley_table(little_rotations)
 
-    # G0 = {0}
-    # G1 = {0, 4}
-    # G2 = {0, 2, 4, 6}
-    # G3 = {0, 1, 2, 3, 4, 5, 6, 7}
+    solvable_chain_generators = get_pointgroup_chain_generators(little_rotations)
     irreps2 = get_irreps_from_solvable_group_chain(
         table,
         factor_system,
-        solvable_chain_generators=[4, 2, 1],
+        solvable_chain_generators=solvable_chain_generators,
     )
     assert np.sum([irrep.shape[1] ** 2 for irrep in irreps2]) == 8
     for irrep in irreps2:
@@ -183,8 +179,7 @@ def test_symmetrize_small_representation_Ia3d(Ia3d):
     )
     table = get_cayley_table(little_rotations)
 
-    raise NotImplementedError
-    chain_generators = []
+    chain_generators = get_pointgroup_chain_generators(little_rotations)
 
     irreps2 = get_irreps_from_solvable_group_chain(
         table,
