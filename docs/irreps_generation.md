@@ -94,7 +94,7 @@ These cases are classified with Frobenius-Schur indicator:
   \end{cases}.
 ```
 
-We sometimes need to restrict irrep under a vector space over {math}`\mathbb{R}` (instead of {math}`\mathbb{C}`), which is called physically irreducible representation [^SHW91].
+We sometimes need to restrict irrep under a vector space over {math}`\mathbb{R}` (instead of {math}`\mathbb{C}`), which is called physically irreducible representation {cite}`PhysRevB.43.11010`.
 When {math}`\Gamma` is real, **TODO**.
 
 When {math}`\Gamma` is pseudo-real or not equivalent to {math}`\Gamma^{\ast}`, transform conjugated basis pair to real vectors by unitary matrix:
@@ -179,7 +179,7 @@ The little co-group is
 
 #### {math}`\mathcal{G} = Ia\overline{3}d` (No. 230) at {math}`H=(\frac{1}{2}\overline{\frac{1}{2}}\frac{1}{2})_{\mathrm{primitive}}`
 
-(corresponding to {math}`G^{4}_{96}` in Ref. [^BC09])
+(corresponding to {math}`G^{4}_{96}` in Ref. {cite}`Bradley2009-ze`)
 
 ```{math}
   \overline{\mathcal{G}}^{\mathbf{k}}| \cong m\overline{3}m,
@@ -191,7 +191,8 @@ The little co-group is
   \Gamma^{(\mathrm{reg})} = 2\Gamma^{(H_{1})} + 2\Gamma^{(H_{2})} + 6\Gamma^{(H_{3})}
 ```
 
-[^SHW91]: Harold T. Stokes, Dorian M. Hatch, and James D. Wells, 
-Phys. Rev. B 43, 11010 (1991).
+## References
 
-[^BC09]: C. Bradley and A. P. Cracknell, The mathematical theory of symmetry in solids (Oxford, London, 2009).
+```{bibliography}
+:filter: docname in docnames
+```

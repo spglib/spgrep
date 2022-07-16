@@ -40,6 +40,7 @@ extensions = [
     "sphinx.ext.viewcode",
     "sphinx.ext.autosummary",
     "sphinx.ext.mathjax",
+    "sphinxcontrib.bibtex",
     "myst_parser",
 ]
 
@@ -62,6 +63,9 @@ autodoc_type_aliases = {}
 # napoleon_type_aliases = {}
 napoleon_use_rtype = True
 napoleon_use_ivar = True
+
+# https://pypi.org/project/sphinxcontrib-bibtex/
+bibtex_bibfiles = ["references.bib"]
 
 # MyST
 myst_enalbe_extensions = [

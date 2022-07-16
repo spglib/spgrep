@@ -38,6 +38,7 @@ EXTRAS = {
     "docs": [
         "sphinx",
         "sphinx-autobuild",
+        "sphinxcontrib-bibtex",
         "myst-parser",
         "sphinx-book-theme",
     ],

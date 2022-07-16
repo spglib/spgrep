@@ -1,6 +1,6 @@
 # Formulation
 
-General references [^BC09] [^ITO96]
+General references {cite}`Bradley2009-ze,Inui1996-et`
 
 ## Overview
 
@@ -24,7 +24,8 @@ Option-B
   On-the-fly irreps generation from solvable group chain <irreps_generation>
 ```
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+## References
 
-[^BC09]: C. Bradley and A. P. Cracknell, The mathematical theory of symmetry in solids (Oxford, London, 2009).
-[^ITO96]: T. Inui, Y. Tanabe, and Y. Onodera, Group theory and its applications in physics (Springer, Berlin, 1996).
+```{bibliography}
+:filter: docname in docnames
+```
