@@ -50,6 +50,11 @@ def get_spacegroup_irreps(
         'random': construct irreps by numerically diagonalizing a random matrix commute with regular representation
     kpoint: array, (3, )
         Reciprocal vector with respect to ``reciprocal_lattice``
+        For pure translation :math:`\\mathbf{t}`, returned irrep :math:`\\Gamma^{(\\alpha)}` takes
+
+        .. math::
+            \\Gamma^{(\\alpha)}((E, \\mathbf{t})) = e^{ -i\\mathbf{k}\\cdot\\mathbf{t} } \\mathbf{1}.
+
     reciprocal_lattice: (Optional) array, (3, 3)
         ``reciprocal_lattice[i, :]`` is the i-th basis vector of reciprocal lattice for ``kpoint`` without `2 * pi factor`.
         If not specified, ``reciprocal_lattice`` is set to ``np.linalg.inv(lattice).T``.
@@ -150,7 +155,12 @@ def get_spacegroup_irreps_from_primitive_symmetry(
             np.dot(rotations[i, :, :], x) + translations[i, :]
     translations: array, (order, 3)
     kpoint: array, (3, )
-        Reciprocal vector with respect to reciprocal lattice
+        Reciprocal vector with respect to reciprocal lattice.
+        For pure translation :math:`\\mathbf{t}`, returned irrep :math:`\\Gamma^{(\\alpha)}` takes
+
+        .. math::
+            \\Gamma^{(\\alpha)}((E, \\mathbf{t})) = e^{ -i\\mathbf{k}\\cdot\\mathbf{t} } \\mathbf{1}.
+
     method: str, 'Neto' or 'random'
         'Neto': construct irreps from a fixed chain of subgroups of little co-group
         'random': construct irreps by numerically diagonalizing a random matrix commute with regular representation
