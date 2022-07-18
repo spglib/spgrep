@@ -17,11 +17,14 @@ Option-B
   ```
 2. Use induced representation
 
+## Subpages
 
 ```{toctree}
+  :maxdepth: 1
   Irreps of space group <spacegroup_irreps>
   On-the-fly irreps generation from regular representation <irreps_from_regular>
   On-the-fly irreps generation from solvable group chain <irreps_generation>
+  Isotropy subgroup <isotropy_subgroup>
 ```
 
 ## References

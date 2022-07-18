@@ -17,6 +17,9 @@ A typical procedure to use irreps is as follows:
             = e^{ -i\mathbf{k}\cdot\mathbf{v} } \overline{\Gamma}^{ (\mathbf{k}, \alpha) } ( (\mathbf{R}, \mathbf{v}) )
     ```
 
+## Subpages
+
 ```{toctree}
+    :maxdepth: 1
     Lattice vibration <phonon>
 ```
