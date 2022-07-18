@@ -87,7 +87,7 @@ myst_dmath_double_inline = True
 # a list of builtin themes.
 #
 html_theme = "sphinx_book_theme"
-html_title = "spgrep " + version
+html_title = project + " " + version
 html_theme_options = {
     "navigation_with_keys": True,
 }
