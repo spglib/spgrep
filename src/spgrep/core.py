@@ -184,7 +184,6 @@ def get_spacegroup_irreps_from_primitive_symmetry(
         ):
             raise ValueError("Specify symmetry operations in primitive cell!")
 
-    # Small representations of little group
     little_rotations, little_translations, mapping_little_group = get_little_group(
         rotations, translations, kpoint, rtol
     )
@@ -192,10 +191,11 @@ def get_spacegroup_irreps_from_primitive_symmetry(
         little_rotations, little_translations, kpoint
     )
 
+    # Compute irreps of little co-group
     if method == "Neto":
         table = get_cayley_table(little_rotations)
         solvable_chain_generators = get_pointgroup_chain_generators(little_rotations)
-        small_reps = get_irreps_from_solvable_group_chain(
+        little_cogroup_irreps = get_irreps_from_solvable_group_chain(
             table,
             factor_system,
             solvable_chain_generators,
@@ -204,12 +204,13 @@ def get_spacegroup_irreps_from_primitive_symmetry(
         )
     elif method == "random":
         reg = get_projective_regular_representation(little_rotations, factor_system)
-        small_reps = get_irreps_from_regular(reg, rtol, max_num_random_generations)
+        little_cogroup_irreps = get_irreps_from_regular(reg, rtol, max_num_random_generations)
     else:
         raise ValueError(f"Unknown method to compute irreps: {method}")
 
+    # Small representations of little group
     irreps = []
-    for rep in small_reps:
+    for rep in little_cogroup_irreps:
         phases = np.array(
             [
                 np.exp(-2j * np.pi * np.dot(kpoint, translation))
@@ -218,7 +219,6 @@ def get_spacegroup_irreps_from_primitive_symmetry(
         )
         irreps.append(rep * phases[:, None, None])
 
-    # TODO: symmetrize irreps
     return irreps, mapping_little_group
 
 
