@@ -1,16 +1,78 @@
 from __future__ import annotations
 
 from itertools import product
+from typing import Literal
 from warnings import warn
 
 import numpy as np
 
-from spgrep.group import get_identity_index, get_inverse_index, get_order
-from spgrep.representation import get_character, get_intertwiner
+from spgrep.group import (
+    get_cayley_table,
+    get_identity_index,
+    get_inverse_index,
+    get_order,
+)
+from spgrep.pointgroup import get_pointgroup_chain_generators
+from spgrep.representation import (
+    get_character,
+    get_intertwiner,
+    get_projective_regular_representation,
+)
 from spgrep.utils import NDArrayComplex, NDArrayFloat, NDArrayInt, is_prime, nroot
 
 
-def get_irreps_from_regular(
+def enumerate_unitary_irreps(
+    rotations: NDArrayInt,
+    factor_system: NDArrayComplex | None = None,
+    method: Literal["Neto", "random"] = "Neto",
+    rtol: float = 1e-5,
+    max_num_random_generations: int = 4,
+) -> list[NDArrayComplex]:
+    """Enumerate all unitary irreps with of matrix group ``rotations`` with ``factor_system``.
+
+    Parameters
+    ----------
+    rotations: array, (order, 3, 3)
+    factor_system: array, (order, order)
+        If not specified, treat as ordinary representation.
+    method: str, 'Neto' or 'random'
+        'Neto': construct irreps from a fixed chain of subgroups of little co-group
+        'random': construct irreps by numerically diagonalizing a random matrix commute with regular representation
+    rtol: float
+        Relative tolerance to distinguish difference eigenvalues
+    max_num_random_generations: int
+        Maximal number of trials to generate random matrix
+
+    Returns
+    -------
+    irreps: list of unitary irreps with (order, dim, dim)
+    """
+    order = rotations.shape[0]
+    if factor_system is None:
+        factor_system = np.ones((order, order), dtype=np.complex_)
+
+    if method == "Neto":
+        table = get_cayley_table(rotations)
+        solvable_chain_generators = get_pointgroup_chain_generators(rotations)
+        irreps = enumerate_unitary_irreps_from_solvable_group_chain(
+            table,
+            factor_system,
+            solvable_chain_generators,
+            rtol=rtol,
+            max_num_random_generations=max_num_random_generations,
+        )
+    elif method == "random":
+        reg = get_projective_regular_representation(rotations, factor_system)
+        irreps = enumerate_unitary_irreps_from_regular_representation(
+            reg, rtol, max_num_random_generations
+        )
+    else:
+        raise ValueError(f"Unknown method to compute irreps: {method}")
+
+    return irreps
+
+
+def enumerate_unitary_irreps_from_regular_representation(
     reg: NDArrayComplex,
     rtol: float = 1e-5,
     max_num_random_generations: int = 4,
@@ -171,7 +233,7 @@ def _get_irreps_from_matrix(
     return sorted_irreps
 
 
-def get_irreps_from_solvable_group_chain(
+def enumerate_unitary_irreps_from_solvable_group_chain(
     table: NDArrayInt,
     factor_system: NDArrayComplex,
     solvable_chain_generators: list[int],

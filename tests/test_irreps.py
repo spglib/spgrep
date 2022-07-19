@@ -7,7 +7,7 @@ from spgrep.core import (
     get_spacegroup_irreps_from_primitive_symmetry,
 )
 from spgrep.group import get_cayley_table
-from spgrep.irreps import get_irreps_from_regular
+from spgrep.irreps import enumerate_unitary_irreps_from_regular_representation
 from spgrep.representation import (
     get_character,
     get_regular_representation,
@@ -25,7 +25,7 @@ from spgrep.utils import (
 
 def test_get_irreps_random_C3v(C3v):
     reg = get_regular_representation(C3v)
-    irreps = get_irreps_from_regular(
+    irreps = enumerate_unitary_irreps_from_regular_representation(
         reg=reg.astype(np.cdouble),
     )
     # Check dimensions

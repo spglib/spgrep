@@ -5,17 +5,8 @@ from typing import Literal
 import numpy as np
 from spglib import get_symmetry_dataset
 
-from spgrep.group import (
-    get_cayley_table,
-    get_factor_system_from_little_group,
-    get_little_group,
-)
-from spgrep.irreps import get_irreps_from_regular, get_irreps_from_solvable_group_chain
-from spgrep.pointgroup import get_pointgroup_chain_generators
-from spgrep.representation import (
-    get_projective_regular_representation,
-    get_regular_representation,
-)
+from spgrep.group import get_factor_system_from_little_group, get_little_group
+from spgrep.irreps import enumerate_unitary_irreps
 from spgrep.transform import (
     get_primitive_transformation_matrix,
     transform_symmetry_and_kpoint,
@@ -192,21 +183,9 @@ def get_spacegroup_irreps_from_primitive_symmetry(
     )
 
     # Compute irreps of little co-group
-    if method == "Neto":
-        table = get_cayley_table(little_rotations)
-        solvable_chain_generators = get_pointgroup_chain_generators(little_rotations)
-        little_cogroup_irreps = get_irreps_from_solvable_group_chain(
-            table,
-            factor_system,
-            solvable_chain_generators,
-            rtol=rtol,
-            max_num_random_generations=max_num_random_generations,
-        )
-    elif method == "random":
-        reg = get_projective_regular_representation(little_rotations, factor_system)
-        little_cogroup_irreps = get_irreps_from_regular(reg, rtol, max_num_random_generations)
-    else:
-        raise ValueError(f"Unknown method to compute irreps: {method}")
+    little_cogroup_irreps = enumerate_unitary_irreps(
+        little_rotations, factor_system, method, rtol, max_num_random_generations
+    )
 
     # Small representations of little group
     irreps = []
@@ -247,21 +226,11 @@ def get_crystallographic_pointgroup_irreps_from_symmetry(
     -------
     irreps: list of Irreps with (order, dim, dim)
     """
-    if method == "Neto":
-        order = len(rotations)
-        table = get_cayley_table(rotations)
-        solvable_chain_generators = get_pointgroup_chain_generators(rotations)
-        irreps = get_irreps_from_solvable_group_chain(
-            table,
-            factor_system=np.ones((order, order), dtype=np.complex_),
-            solvable_chain_generators=solvable_chain_generators,
-            rtol=rtol,
-            max_num_random_generations=max_num_random_generations,
-        )
-    elif method == "random":
-        reg = get_regular_representation(rotations)
-        irreps = get_irreps_from_regular(reg, rtol, max_num_random_generations)
-    else:
-        raise ValueError(f"Unknown method to compute irreps: {method}")
-
+    irreps = enumerate_unitary_irreps(
+        rotations,
+        factor_system=None,
+        method=method,
+        rtol=rtol,
+        max_num_random_generations=max_num_random_generations,
+    )
     return irreps

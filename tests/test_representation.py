@@ -1,6 +1,6 @@
 import numpy as np
 
-from spgrep.irreps import get_irreps_from_regular, is_equivalent_irrep
+from spgrep.irreps import enumerate_unitary_irreps, is_equivalent_irrep
 from spgrep.representation import (
     frobenius_schur_indicator,
     get_character,
@@ -43,7 +43,6 @@ def test_intertwiner():
 
 
 def test_frobenius_schur_indicator(C4):
-    reg = get_regular_representation(C4)
-    irreps = get_irreps_from_regular(reg)
+    irreps = enumerate_unitary_irreps(C4, method="random")
     indicators = [frobenius_schur_indicator(irrep) for irrep in irreps]
     assert sorted(indicators) == [0, 0, 1, 1]
