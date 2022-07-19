@@ -1,3 +1,5 @@
+from itertools import product
+
 import numpy as np
 import pytest
 
@@ -7,7 +9,11 @@ from spgrep.core import (
     get_spacegroup_irreps_from_primitive_symmetry,
 )
 from spgrep.group import get_cayley_table
-from spgrep.irreps import enumerate_unitary_irreps_from_regular_representation
+from spgrep.irreps import (
+    enumerate_unitary_irreps_from_regular_representation,
+    is_equivalent_irrep,
+)
+from spgrep.pointgroup import pg_dataset
 from spgrep.representation import (
     get_character,
     get_regular_representation,
@@ -45,25 +51,52 @@ def test_get_irreps_random_C3v(C3v):
         assert is_unitary(irrep)
 
 
-@pytest.mark.parametrize("method", [("Neto"), ("random")])
-def test_get_crystallographic_pointgroup_irreps_from_symmetry_C3v(method, C3v):
-    irreps = get_crystallographic_pointgroup_irreps_from_symmetry(C3v, method=method)
-    table = get_cayley_table(C3v)
-    factor_system = np.ones((6, 6), dtype=np.complex_)
-    assert np.sum([irrep.shape[1] ** 2 for irrep in irreps]) == 6
-    for irrep in irreps:
-        assert is_projective_representation(irrep, table, factor_system)
+@pytest.mark.parametrize(
+    "method",
+    [
+        ("Neto"),
+        ("random"),
+    ],
+)
+def test_get_crystallographic_pointgroup_irreps(method):
+    for pg_symbol, groups in pg_dataset.items():
+        for rotations in groups:
+            if pg_symbol != "4":
+                continue
+            print(pg_symbol)
+            irreps = get_crystallographic_pointgroup_irreps_from_symmetry(
+                np.array(rotations), method=method
+            )
+
+            # Check exhaustiveness
+            order = len(rotations)
+            assert np.sum([irrep.shape[1] ** 2 for irrep in irreps]) == order
+
+            # Check representation's property
+            table = get_cayley_table(np.array(rotations))
+            factor_system = np.ones((order, order), dtype=np.complex_)
+            for irrep in irreps:
+                assert is_projective_representation(irrep, table, factor_system)
+
+            assert is_unique_irreps(irreps)
 
 
 @pytest.mark.parametrize("method", [("Neto"), ("random")])
-def test_get_spacegroup_irreps_from_primitive_symmetry_P42mnm(method, P42mnm):
+@pytest.mark.parametrize(
+    "kpoint,shape_expect",
+    [
+        (np.array([0, 1 / 2, 0]), [2, 2]),  # X point
+        (np.array([0, 0, 1 / 2]), [2, 2, 2, 2]),  # Z point
+    ],
+)
+def test_get_spacegroup_irreps_from_primitive_symmetry_P42mnm(
+    method, kpoint, shape_expect, P42mnm
+):
     rotations, translations = P42mnm
-    kpoint = np.array([0, 1 / 2, 0])  # X point
     irreps, mapping_little_group = get_spacegroup_irreps_from_primitive_symmetry(
         rotations, translations, kpoint, method=method
     )
-    assert len(irreps) == 2
-    assert [irrep.shape[1] for irrep in irreps] == [2, 2]
+    assert [irrep.shape[1] for irrep in irreps] == shape_expect
 
     little_rotations = rotations[mapping_little_group]
     little_translations = translations[mapping_little_group]
@@ -73,11 +106,21 @@ def test_get_spacegroup_irreps_from_primitive_symmetry_P42mnm(method, P42mnm):
         )
         assert is_unitary(irrep)
 
+    assert is_unique_irreps(irreps)
+
 
 @pytest.mark.parametrize("method", [("Neto"), ("random")])
-def test_get_spacegroup_irreps_from_primitive_symmetry_Ia3d(method, Ia3d):
+@pytest.mark.parametrize(
+    "kpoint_conv,kpoint_prim_expect,shape_expect",
+    [
+        (np.array([0, 1, 0]), np.array([1 / 2, -1 / 2, 1 / 2]), [2, 2, 2, 6]),  # H point
+        (np.array([1 / 2, 1 / 2, 0]), np.array([0, 0, 1 / 2]), [2, 2]),  # N point
+    ],
+)
+def test_get_spacegroup_irreps_from_primitive_symmetry_Ia3d(
+    method, kpoint_conv, kpoint_prim_expect, shape_expect, Ia3d
+):
     rotations, translations = Ia3d
-    kpoint_conv = np.array([0, 1, 0])  # H point in conventional dual
 
     # TODO: Refactor to function
     # Transform to primitive
@@ -91,13 +134,12 @@ def test_get_spacegroup_irreps_from_primitive_symmetry_Ia3d(method, Ia3d):
     primitive_rotations, primitive_translations, primitive_kpoint = transform_symmetry_and_kpoint(
         to_primitive, rotations, translations, kpoint_conv
     )
-    primitive_rotations, primitive_translations, mapping = unique_primitive_symmetry(
+    primitive_rotations, primitive_translations, _ = unique_primitive_symmetry(
         primitive_rotations, primitive_translations
     )
     assert primitive_rotations.shape == (48, 3, 3)
     assert primitive_translations.shape == (48, 3)
-    kpoint_prim = np.array([1 / 2, -1 / 2, 1 / 2])
-    assert np.allclose(primitive_kpoint, kpoint_prim)
+    assert np.allclose(primitive_kpoint, kpoint_prim_expect)
 
     primitive_irreps, mapping_little_group = get_spacegroup_irreps_from_primitive_symmetry(
         rotations=primitive_rotations,
@@ -105,9 +147,8 @@ def test_get_spacegroup_irreps_from_primitive_symmetry_Ia3d(method, Ia3d):
         kpoint=primitive_kpoint,
         method=method,
     )
-    # 48 = 2^2 + 2^2 + 2^2 + 6^2
-    assert len(primitive_irreps) == 4
-    assert sorted(irrep.shape[1] for irrep in primitive_irreps) == [2, 2, 2, 6]
+    assert np.sum([irrep.shape[1] ** 2 for irrep in primitive_irreps]) == len(mapping_little_group)
+    assert sorted(irrep.shape[1] for irrep in primitive_irreps) == shape_expect
 
     little_primitive_rotations = primitive_rotations[mapping_little_group]
     little_primitive_translations = primitive_translations[mapping_little_group]
@@ -117,19 +158,24 @@ def test_get_spacegroup_irreps_from_primitive_symmetry_Ia3d(method, Ia3d):
         )
         assert is_unitary(irrep)
 
+    assert is_unique_irreps(primitive_irreps)
+
 
 @pytest.mark.parametrize("method", [("Neto"), ("random")])
-def test_get_spacegroup_irreps(method, corundum_cell):
+@pytest.mark.parametrize(
+    "kpoint,shape_expect,num_sym_expect",
+    [
+        (np.array([0, 1, 1 / 2]), [2, 2, 2], 36),  # T point for hR
+        (np.array([-1 / 2, 1 / 2, 1 / 2]), [2], 12),  # L point for hR
+    ],
+)
+def test_get_spacegroup_irreps(method, kpoint, shape_expect, num_sym_expect, corundum_cell):
     # Corundum structure, R-3c (No. 167)
-    # T point for hR
-    kpoint = np.array([0, 1, 1 / 2])
     irreps, rotations, translations, mapping = get_spacegroup_irreps(
         *corundum_cell, kpoint=kpoint, method=method
     )
-    # order=12, 12 = 2^2 + 2^2 + 2^2
-    assert len(irreps) == 3
-    assert [irrep.shape[1] for irrep in irreps] == [2, 2, 2]
-    assert set(mapping) == set(range(36))  # order of little co-group in conventional
+    assert [irrep.shape[1] for irrep in irreps] == shape_expect
+    assert len(mapping) == num_sym_expect  # order of little co-group in conventional
 
     little_rotations = rotations[mapping]
     little_translations = translations[mapping]
@@ -138,6 +184,16 @@ def test_get_spacegroup_irreps(method, corundum_cell):
             little_rotations, little_translations, kpoint, irrep
         )
         assert is_unitary(irrep)
+
+    assert is_unique_irreps(irreps)
+
+
+def is_unique_irreps(irreps: list[NDArrayComplex]):
+    characters = [get_character(irrep) for irrep in irreps]
+    for (i, ci), (j, cj) in product(enumerate(characters), repeat=2):
+        if is_equivalent_irrep(ci, cj) != (i == j):
+            return False
+    return True
 
 
 def check_spacegroup_representation(

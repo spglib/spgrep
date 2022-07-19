@@ -43,6 +43,6 @@ def test_intertwiner():
 
 
 def test_frobenius_schur_indicator(C4):
-    irreps = enumerate_unitary_irreps(C4, method="random")
+    irreps = enumerate_unitary_irreps(C4)
     indicators = [frobenius_schur_indicator(irrep) for irrep in irreps]
     assert sorted(indicators) == [0, 0, 1, 1]

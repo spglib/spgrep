@@ -18,7 +18,7 @@ from spgrep.representation import (
     get_intertwiner,
     get_projective_regular_representation,
 )
-from spgrep.utils import NDArrayComplex, NDArrayFloat, NDArrayInt, is_prime, nroot
+from spgrep.utils import NDArrayComplex, NDArrayFloat, NDArrayInt, nroot
 
 
 def enumerate_unitary_irreps(
@@ -266,10 +266,8 @@ def enumerate_unitary_irreps_from_solvable_group_chain(
 
     # Extend subgroups from identity to whole
     for r in solvable_chain_generators[::-1]:
-        p = get_order(table, r)  # Should be prime number
-        if not is_prime(p):
-            warn("Order of generators should be prime number.")
-            return []
+        # Should be power of prime number
+        p = get_order(table, r)
 
         # Power of `r`, rm[m] = r^m
         # Power of inverse of `coset_generator`, rminv[m] = r^-m
@@ -346,6 +344,11 @@ def enumerate_unitary_irreps_from_solvable_group_chain(
                                 @ sub_irrep[subgroup_remapping[s]]
                             )
                     next_sub_irreps.append(next_irrep)
+
+                """
+                if r == 2 and np.isclose(sub_irrep[1, 0, 0], -1):
+                    import pdb; pdb.set_trace()
+                """
             else:
                 # Mutually inequivalent
                 next_irrep = np.zeros((len(group), dim * p, dim * p), dtype=np.complex_)
