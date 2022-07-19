@@ -1,7 +1,8 @@
 import numpy as np
 
-from spgrep.irreps import is_equivalent_irrep
+from spgrep.irreps import get_irreps_from_regular, is_equivalent_irrep
 from spgrep.representation import (
+    frobenius_schur_indicator,
     get_character,
     get_intertwiner,
     get_regular_representation,
@@ -39,3 +40,10 @@ def test_intertwiner():
         np.einsum("kil,lj->kij", rep1, intertwiner),
         np.einsum("il,klj->kij", intertwiner, rep2),
     )
+
+
+def test_frobenius_schur_indicator(C4):
+    reg = get_regular_representation(C4)
+    irreps = get_irreps_from_regular(reg)
+    indicators = [frobenius_schur_indicator(irrep) for irrep in irreps]
+    assert sorted(indicators) == [0, 0, 1, 1]

@@ -3,51 +3,25 @@ from __future__ import annotations
 import numpy as np
 import pytest
 
+from spgrep.pointgroup import pg_dataset
 from spgrep.utils import NDArrayFloat, NDArrayInt, get_symmetry_from_hall_number
 
 
 @pytest.fixture
+def C4() -> NDArrayInt:
+    rotations = np.array(pg_dataset["4"][0])
+    return rotations
+
+
+@pytest.fixture
 def C3v() -> NDArrayInt:
-    # fmt: off
-    rotations = np.array([
-        # g0
-        [
-            [1, 0, 0],
-            [0, 1, 0],
-            [0, 0, 1],
-        ],
-        # g1 = 3+
-        [
-            [0, -1, 0],
-            [1, -1, 0],
-            [0, 0, 1],
-        ],
-        # g2 = g1^-1
-        [
-            [-1, 1, 0],
-            [-1, 0, 0],
-            [0, 0, 1],
-        ],
-        # g3 = m
-        [
-            [0, -1, 0],
-            [-1, 0, 0],
-            [0, 0, 1],
-        ],
-        # g4 = g1^-1 * g3
-        [
-            [-1, 1, 0],
-            [0, 1, 0],
-            [0, 0, 1],
-        ],
-        # g5 = g1 * g3
-        [
-            [1, 0, 0],
-            [1, -1, 0],
-            [0, 0, 1],
-        ],
-    ])
-    # fmt: on
+    # g0
+    # g1 = 3+
+    # g2 = g1^-1
+    # g3 = m
+    # g4 = g1^-1 * g3
+    # g5 = g1 * g3
+    rotations = np.array(pg_dataset["3m"][0])  # 3m1
     return rotations
 
 

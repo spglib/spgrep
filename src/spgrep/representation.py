@@ -136,7 +136,7 @@ def is_projective_representation(
 
 
 def frobenius_schur_indicator(irrep: NDArrayComplex) -> int:
-    """Inspect given irrep is real, pseudo-real, or not unitary equivalent.
+    """Inspect given unitary (projective) irrep is real, pseudo-real, or not unitary equivalent.
 
     .. math::
        \\mathrm{indicator} =
@@ -154,7 +154,7 @@ def frobenius_schur_indicator(irrep: NDArrayComplex) -> int:
         Otherwise, it and adjoint Reps. are not equivalent.
     """
     order = irrep.shape[0]
-    indicator = np.sum(irrep * irrep.T) / order
+    indicator = np.einsum("kij,kji->", irrep, irrep) / order
     indicator = int(np.around(np.real(indicator)))
 
     if indicator > 1:
