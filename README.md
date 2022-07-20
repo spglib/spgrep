@@ -1,4 +1,6 @@
 # spgrep
+[![testing](https://github.com/spglib/spgrep/actions/workflows/testing.yml/badge.svg)](https://github.com/spglib/spgrep/actions/workflows/testing.yml)
+
 On-the-fly generator of space-group irreducible representations
 
 ## Installation
