@@ -14,6 +14,7 @@ from spgrep.group import (
 )
 from spgrep.pointgroup import get_pointgroup_chain_generators
 from spgrep.representation import (
+    frobenius_schur_indicator,
     get_character,
     get_intertwiner,
     get_projective_regular_representation,
@@ -24,10 +25,11 @@ from spgrep.utils import NDArrayComplex, NDArrayFloat, NDArrayInt, nroot
 def enumerate_unitary_irreps(
     rotations: NDArrayInt,
     factor_system: NDArrayComplex | None = None,
+    real: bool = False,
     method: Literal["Neto", "random"] = "Neto",
     rtol: float = 1e-5,
     max_num_random_generations: int = 4,
-) -> list[NDArrayComplex]:
+) -> list[NDArrayComplex] | list[NDArrayFloat]:
     """Enumerate all unitary irreps with of matrix group ``rotations`` with ``factor_system``.
 
     Parameters
@@ -35,6 +37,8 @@ def enumerate_unitary_irreps(
     rotations: array, (order, 3, 3)
     factor_system: array, (order, order)
         If not specified, treat as ordinary representation.
+    real: bool, default=False
+        If True, return irreps over real vector space (so called physically irreducible representations)
     method: str, 'Neto' or 'random'
         'Neto': construct irreps from a fixed chain of subgroups of little co-group
         'random': construct irreps by numerically diagonalizing a random matrix commute with regular representation
@@ -69,7 +73,35 @@ def enumerate_unitary_irreps(
     else:
         raise ValueError(f"Unknown method to compute irreps: {method}")
 
-    return irreps
+    if not real:
+        return irreps
+
+    # Physically irreducible representation
+    conjugated_pairs = []
+    visited = [False for _ in range(len(irreps))]
+    characters = [get_character(irrep) for irrep in irreps]
+    for i, ci in enumerate(characters):
+        if visited[i]:
+            continue
+        visited[i] = True
+        inequivalent = False
+        for j, cj in enumerate(characters):
+            if visited[j]:
+                continue
+            if is_equivalent_irrep(np.conj(ci), cj):
+                conjugated_pairs.append((i, j))
+                visited[j] = True
+                inequivalent = True
+                break
+        if not inequivalent:
+            conjugated_pairs.append((i, i))
+
+    real_irreps = []
+    for conj_pair in conjugated_pairs:
+        irrep = irreps[conj_pair[0]]
+        real_irreps.append(get_real_irrep(irrep, rtol, max_num_random_generations))
+
+    return real_irreps
 
 
 def enumerate_unitary_irreps_from_regular_representation(
@@ -386,6 +418,52 @@ def enumerate_unitary_irreps_from_solvable_group_chain(
         return []
 
     return irreps
+
+
+def get_real_irrep(
+    irrep: NDArrayComplex,
+    rtol: float = 1e-5,
+    max_num_random_generations: int = 4,
+) -> NDArrayFloat:
+    """Compute physically irreducible representation (over real number) from given unitary irrep over complex number."""
+    order = irrep.shape[0]
+    dim = irrep.shape[1]
+
+    # Assume kpoint is commensurated
+    indicator = frobenius_schur_indicator(irrep)
+    if indicator == 1:
+        # Intertwiner with determinant=1
+        conj_irrep = np.transpose(np.conj(irrep), [0, 2, 1])
+        U = get_intertwiner(
+            irrep, conj_irrep, rtol=rtol, max_num_random_generations=max_num_random_generations
+        )
+        U = U / np.linalg.det(U)
+
+        # Take real or imaginary part of eigenvectors for new basis vectors
+        eigvals, eigvecs = np.linalg.eig(U)  # eigvecs[:, i] is the i-th eigenvector
+        real_eigvecs = []
+        for eigvec in np.transpose(eigvecs):
+            if not np.allclose(np.real(eigvec), 0, rtol=rtol):
+                real_eigvec = np.real(eigvec)
+            else:
+                real_eigvec = np.imag(eigvec)
+            real_eigvecs.append(real_eigvec / np.linalg.norm(real_eigvec))
+        S = np.transpose(real_eigvecs)
+
+        # Square root of intertwiner
+        T = S.T @ np.diag([nroot(eigval, 2) for eigval in eigvals]) @ S
+
+        real_irrep = np.real(np.einsum("il,klm,mj->kij", T, irrep, np.conj(T)))
+    elif indicator in [-1, 0]:
+        real_irrep = np.empty((order, 2 * dim, 2 * dim), dtype=np.float_)
+        # [ [Re D(g),  Im D(g)]
+        #   [-Im D(g), Re D(g)] ]
+        real_irrep[:, :dim, :dim] = np.real(irrep)
+        real_irrep[:, :dim, dim:] = np.imag(irrep)
+        real_irrep[:, dim:, :dim] = -np.imag(irrep)
+        real_irrep[:, dim:, dim:] = np.real(irrep)
+
+    return real_irrep
 
 
 def is_equivalent_irrep(character1: NDArrayComplex, character2: NDArrayComplex) -> bool:

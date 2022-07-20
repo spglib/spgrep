@@ -9,14 +9,10 @@ from spgrep.core import (
     get_spacegroup_irreps_from_primitive_symmetry,
 )
 from spgrep.group import get_cayley_table
-from spgrep.irreps import (
-    enumerate_unitary_irreps_from_regular_representation,
-    is_equivalent_irrep,
-)
+from spgrep.irreps import enumerate_unitary_irreps, is_equivalent_irrep
 from spgrep.pointgroup import pg_dataset
 from spgrep.representation import (
     get_character,
-    get_regular_representation,
     is_projective_representation,
     is_unitary,
 )
@@ -29,11 +25,10 @@ from spgrep.utils import (
 )
 
 
-def test_get_irreps_random_C3v(C3v):
-    reg = get_regular_representation(C3v)
-    irreps = enumerate_unitary_irreps_from_regular_representation(
-        reg=reg.astype(np.cdouble),
-    )
+@pytest.mark.parametrize("method", [("Neto"), ("random")])
+def test_get_irreps_random_C3v(method, C3v):
+    irreps = enumerate_unitary_irreps(C3v, method=method)
+
     # Check dimensions
     assert [irrep.shape[1] for irrep in irreps] == [1, 1, 2]
     # Check characters
@@ -51,13 +46,18 @@ def test_get_irreps_random_C3v(C3v):
         assert is_unitary(irrep)
 
 
-@pytest.mark.parametrize(
-    "method",
-    [
-        ("Neto"),
-        ("random"),
-    ],
-)
+def test_real_representation(C4):
+    real_irreps = enumerate_unitary_irreps(C4, real=True)
+    assert len(real_irreps) == 3
+
+    # Check representation's property
+    table = get_cayley_table(np.array(C4))
+    factor_system = np.ones((4, 4), dtype=np.complex_)
+    for irrep in real_irreps:
+        assert is_projective_representation(irrep, table, factor_system)
+
+
+@pytest.mark.parametrize("method", [("Neto"), ("random")])
 def test_get_crystallographic_pointgroup_irreps(method):
     for pg_symbol, groups in pg_dataset.items():
         for rotations in groups:

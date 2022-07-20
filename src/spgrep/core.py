@@ -184,7 +184,11 @@ def get_spacegroup_irreps_from_primitive_symmetry(
 
     # Compute irreps of little co-group
     little_cogroup_irreps = enumerate_unitary_irreps(
-        little_rotations, factor_system, method, rtol, max_num_random_generations
+        little_rotations,
+        factor_system,
+        method=method,
+        rtol=rtol,
+        max_num_random_generations=max_num_random_generations,
     )
 
     # Small representations of little group

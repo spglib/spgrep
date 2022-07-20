@@ -95,19 +95,62 @@ These cases are classified with Frobenius-Schur indicator:
 ```
 
 We sometimes need to restrict irrep under a vector space over {math}`\mathbb{R}` (instead of {math}`\mathbb{C}`), which is called physically irreducible representation {cite}`PhysRevB.43.11010`.
-When {math}`\Gamma` is real, **TODO**.
 
-When {math}`\Gamma` is pseudo-real or not equivalent to {math}`\Gamma^{\ast}`, transform conjugated basis pair to real vectors by unitary matrix:
-  ```{math}
-    (\mathbf{v}_{i} \, \mathbf{v}_{i}^{\ast})
-    \begin{pmatrix}
-      \frac{1}{2} & -\frac{i}{2} \\
-      \frac{1}{2} & \frac{i}{2}
-    \end{pmatrix}
-    = (\mathop{\mathrm{Re}} \mathbf{v}_{i} \, \mathop{\mathrm{Im}} \mathbf{v}_{i}).
-  ```
-  There is ambiguity to order vectors as {math}`(\mathbf{v}_{i} \, \mathbf{v}_{i}^{\ast})` or {math}`(\mathbf{v}_{i}^{\ast} \, \mathbf{v}_{i})`.
-  We choose the former if {math}`\mathop{\mathrm{Im}} \mathbf{v}_{i}` is greater than {math}`\mathbf{0}` in lexicographic order and vice versa.
+### (1) {math}`\Gamma` is real
+
+{cite}`Stokes:pc5025,Inui1996-et`
+
+In this case, since {math}`\Gamma` and {math}`\Gamma^{\ast}` are equivalent, there exists a symmetric unitary matrix with
+```{math}
+  \mathbf{\Gamma}(g) \mathbf{U} &= \mathbf{U} \mathbf{\Gamma}(g)^{\ast} \\
+  \mathbf{U}^{\dagger} \mathbf{U} &= \mathbf{1} \\
+  \mathbf{U}^{\top} &= \mathbf{U}.
+```
+We impose {math}`\det \mathbf{U} = 1` additionally to specify the intertwiner uniquely.
+
+The symmetric unitary matrix {math}`\mathbf{U}` can be diagonalized with real orthogonal matrix {math}`\mathbf{S}` as {math}`\mathbf{U} = \mathbf{S}^{-1} \mathbf{\Omega} \mathbf{S}` [^sym_unitary].
+For this symmetric unitary matrix {math}`\mathbf{U}`, we can choose its square root with
+```{math}
+  \mathbf{T} &:= \mathbf{S}^{-1} \mathbf{\Omega}^{1/2} \mathbf{S} \\
+  \mathbf{T}^{2} &= \mathbf{U} \\
+  \mathbf{T}^{\dagger} \mathbf{T} &= \mathbf{1} \\
+  \mathbf{T}^{\top} &= \mathbf{T}.
+```
+
+A transformed representation {math}`\mathbf{\Gamma}'(g) := \mathbf{T}\mathbf{\Gamma}(g)\mathbf{T}^{-1}` is real because
+```{math}
+  \mathbf{\Gamma}'(g)
+  &= \mathbf{T} \mathbf{U}^{-1} \mathbf{\Gamma}(g)^{\ast} \mathbf{U} \mathbf{T}^{-1} \\
+  &= \mathbf{T}^{-1} \mathbf{\Gamma}(g)^{\ast} \mathbf{T} \\
+  &= \mathbf{\Gamma}'(g)^{\ast}.
+```
+
+[^sym_unitary]: For symmetric unitary matrix {math}`\mathbf{U}`, if {math}`\mathbf{v}` is eigenvector of {math}`\mathbf{U}`, its conjugacy {math}`\mathbf{v}'` is also eigenvector.
+    Thus, we can take real part or imaginary part of {math}`\mathbf{v}` as a new basis vector.
+
+
+### (2, 3) {math}`\Gamma` is pseudo-real or not equivalent to {math}`\Gamma^{\ast}`
+
+transform conjugated basis pair to real vectors by unitary matrix:
+```{math}
+  (\mathbf{v}_{1}, \cdots, \mathbf{v}_{d}, \mathbf{v}_{1}^{\ast}, \cdots, \mathbf{v}_{d}^{\ast}) \mathbf{U}
+    &= \sqrt{2} (\mathrm{Re}\, \mathbf{v}_{1}, \cdots, \mathrm{Re}\, \mathbf{v}_{d}, \mathrm{Im}\, \mathbf{v}_{1}, \cdots, \mathrm{Im}\, \mathbf{v}_{d}) \\
+  \mathbf{U} &:= \frac{1}{\sqrt{2}}\begin{pmatrix}
+    \mathbf{1}_{d} & -i \mathbf{1}_{d} \\
+    \mathbf{1}_{d} & i \mathbf{1}_{d} \\
+  \end{pmatrix} \quad (\mathrm{Unitary}) \\
+  \mathbf{U}^{-1}
+  \begin{pmatrix}
+    \mathbf{D}(g) & \\
+    & \mathbf{D}(g)^{\ast}
+  \end{pmatrix}
+  \mathbf{U}
+  &= \begin{pmatrix}
+    \mathrm{Re}\, \mathbf{D}(g) & \mathrm{Im}\, \mathbf{D}(g) \\
+    -\mathrm{Im}\, \mathbf{D}(g) & \mathrm{Re}\, \mathbf{D}(g) \\
+  \end{pmatrix}
+  \quad (g \in G)
+```
 
 ## Working example
 
