@@ -90,7 +90,7 @@ def get_factor_system_from_little_group(
     little_translations: NDArrayFloat,
     kpoint: NDArrayFloat,
 ) -> NDArrayComplex:
-    """Calculate factor system of projective representation of given little group:
+    """Calculate factor system of projective representation of little co-group:
 
     .. math::
        D^{\\mathbf{k}}_{p}(S_{i}) D^{\\mathbf{k}}_{p}(S_{j})
@@ -109,7 +109,7 @@ def get_factor_system_from_little_group(
     Returns
     -------
     factor_system: array, (order, order)
-        Factor system of small representation of given space group and kpoint.
+        Factor system of representations of little co-group that have one-to-one correspondence to small representations
     """
     n = len(little_rotations)
 

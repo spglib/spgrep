@@ -5,17 +5,8 @@ from typing import Literal
 import numpy as np
 from spglib import get_symmetry_dataset
 
-from spgrep.group import (
-    get_cayley_table,
-    get_factor_system_from_little_group,
-    get_little_group,
-)
-from spgrep.irreps import get_irreps_from_regular, get_irreps_from_solvable_group_chain
-from spgrep.pointgroup import get_pointgroup_chain_generators
-from spgrep.representation import (
-    get_projective_regular_representation,
-    get_regular_representation,
-)
+from spgrep.group import get_factor_system_from_little_group, get_little_group
+from spgrep.irreps import enumerate_unitary_irreps
 from spgrep.transform import (
     get_primitive_transformation_matrix,
     transform_symmetry_and_kpoint,
@@ -50,6 +41,11 @@ def get_spacegroup_irreps(
         'random': construct irreps by numerically diagonalizing a random matrix commute with regular representation
     kpoint: array, (3, )
         Reciprocal vector with respect to ``reciprocal_lattice``
+        For pure translation :math:`\\mathbf{t}`, returned irrep :math:`\\Gamma^{(\\alpha)}` takes
+
+        .. math::
+            \\Gamma^{(\\alpha)}((E, \\mathbf{t})) = e^{ -i\\mathbf{k}\\cdot\\mathbf{t} } \\mathbf{1}.
+
     reciprocal_lattice: (Optional) array, (3, 3)
         ``reciprocal_lattice[i, :]`` is the i-th basis vector of reciprocal lattice for ``kpoint`` without `2 * pi factor`.
         If not specified, ``reciprocal_lattice`` is set to ``np.linalg.inv(lattice).T``.
@@ -150,7 +146,12 @@ def get_spacegroup_irreps_from_primitive_symmetry(
             np.dot(rotations[i, :, :], x) + translations[i, :]
     translations: array, (order, 3)
     kpoint: array, (3, )
-        Reciprocal vector with respect to reciprocal lattice
+        Reciprocal vector with respect to reciprocal lattice.
+        For pure translation :math:`\\mathbf{t}`, returned irrep :math:`\\Gamma^{(\\alpha)}` takes
+
+        .. math::
+            \\Gamma^{(\\alpha)}((E, \\mathbf{t})) = e^{ -i\\mathbf{k}\\cdot\\mathbf{t} } \\mathbf{1}.
+
     method: str, 'Neto' or 'random'
         'Neto': construct irreps from a fixed chain of subgroups of little co-group
         'random': construct irreps by numerically diagonalizing a random matrix commute with regular representation
@@ -174,7 +175,6 @@ def get_spacegroup_irreps_from_primitive_symmetry(
         ):
             raise ValueError("Specify symmetry operations in primitive cell!")
 
-    # Small representations of little group
     little_rotations, little_translations, mapping_little_group = get_little_group(
         rotations, translations, kpoint, rtol
     )
@@ -182,24 +182,18 @@ def get_spacegroup_irreps_from_primitive_symmetry(
         little_rotations, little_translations, kpoint
     )
 
-    if method == "Neto":
-        table = get_cayley_table(little_rotations)
-        solvable_chain_generators = get_pointgroup_chain_generators(little_rotations)
-        small_reps = get_irreps_from_solvable_group_chain(
-            table,
-            factor_system,
-            solvable_chain_generators,
-            rtol=rtol,
-            max_num_random_generations=max_num_random_generations,
-        )
-    elif method == "random":
-        reg = get_projective_regular_representation(little_rotations, factor_system)
-        small_reps = get_irreps_from_regular(reg, rtol, max_num_random_generations)
-    else:
-        raise ValueError(f"Unknown method to compute irreps: {method}")
+    # Compute irreps of little co-group
+    little_cogroup_irreps = enumerate_unitary_irreps(
+        little_rotations,
+        factor_system,
+        method=method,
+        rtol=rtol,
+        max_num_random_generations=max_num_random_generations,
+    )
 
+    # Small representations of little group
     irreps = []
-    for rep in small_reps:
+    for rep in little_cogroup_irreps:
         phases = np.array(
             [
                 np.exp(-2j * np.pi * np.dot(kpoint, translation))
@@ -208,7 +202,6 @@ def get_spacegroup_irreps_from_primitive_symmetry(
         )
         irreps.append(rep * phases[:, None, None])
 
-    # TODO: symmetrize irreps
     return irreps, mapping_little_group
 
 
@@ -237,21 +230,11 @@ def get_crystallographic_pointgroup_irreps_from_symmetry(
     -------
     irreps: list of Irreps with (order, dim, dim)
     """
-    if method == "Neto":
-        order = len(rotations)
-        table = get_cayley_table(rotations)
-        solvable_chain_generators = get_pointgroup_chain_generators(rotations)
-        irreps = get_irreps_from_solvable_group_chain(
-            table,
-            factor_system=np.ones((order, order), dtype=np.complex_),
-            solvable_chain_generators=solvable_chain_generators,
-            rtol=rtol,
-            max_num_random_generations=max_num_random_generations,
-        )
-    elif method == "random":
-        reg = get_regular_representation(rotations)
-        irreps = get_irreps_from_regular(reg, rtol, max_num_random_generations)
-    else:
-        raise ValueError(f"Unknown method to compute irreps: {method}")
-
+    irreps = enumerate_unitary_irreps(
+        rotations,
+        factor_system=None,
+        method=method,
+        rtol=rtol,
+        max_num_random_generations=max_num_random_generations,
+    )
     return irreps

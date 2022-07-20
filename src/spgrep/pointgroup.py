@@ -572,6 +572,7 @@ pg_dataset = {
 }
 
 # Figure 3.2.1.3 of ITA (2016)
+# tuple of (symbol of normal subgroup, coset representative)
 pg_solvable_chain = {
     "1": [],
     "-1": [(("1", 0), 1)],  # -x,-y,-z
@@ -605,7 +606,7 @@ pg_solvable_chain = {
         (("2", 2), 2),  # x,y,-z
     ],
     "mmm": [(("222", 0), 4)],  # -x,-y,-z
-    "4": [(("2", 2), 2)],  # -y,x,z
+    "4": [(("1", 0), 2)],  # -y,x,z  # Never decompose "4" to "2"!
     "-4": [(("2", 2), 2)],  # y,-x,-z
     "4/m": [(("4", 0), 4)],  # -x,-y,-z
     "422": [(("4", 0), 4)],  # -x,y,-z

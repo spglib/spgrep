@@ -1,6 +1,6 @@
 # Formulation
 
-General references [^BC09] [^ITO96]
+General references {cite}`Bradley2009-ze,Inui1996-et`
 
 ## Overview
 
@@ -17,14 +17,18 @@ Option-B
   ```
 2. Use induced representation
 
+## Subpages
 
 ```{toctree}
+  :maxdepth: 1
   Irreps of space group <spacegroup_irreps>
   On-the-fly irreps generation from regular representation <irreps_from_regular>
   On-the-fly irreps generation from solvable group chain <irreps_generation>
+  Isotropy subgroup <isotropy_subgroup>
 ```
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+## References
 
-[^BC09]: C. Bradley and A. P. Cracknell, The mathematical theory of symmetry in solids (Oxford, London, 2009).
-[^ITO96]: T. Inui, Y. Tanabe, and Y. Onodera, Group theory and its applications in physics (Springer, Berlin, 1996).
+```{bibliography}
+:filter: docname in docnames
+```

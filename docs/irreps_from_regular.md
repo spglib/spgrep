@@ -25,7 +25,7 @@ The factor system defined in "[](spacegroup_irreps.md)" satisfies this condition
 
 ## Obtaining all irreps from (projective) regular representation
 
-Refs. [^Net73], [^TVdV17], [^MM11], and [^PVW17].
+Refs. {cite}`Neto:a09740,THOMAS201776,doi:10.1137/090779966,Po2017`
 
 For a finite group {math}`G` and its (projective) regular representation {math}`\Gamma^{(\mathrm{reg})}`,
 ```{math}
@@ -83,9 +83,8 @@ where {math}`\chi^{(\alpha)}` is character of irrep {math}`\Gamma^{(\alpha)}`.
 
 Note that Eqs. {eq}`all_irreps_dim_sum` also holds for projective representations.
 
----
+## References
 
-[^Net73]: N. Neto, Acta Cryst. A, 29(4) 464–472 (1973).
-[^TVdV17]: John C. Thomas and Anton Van der Ven, J. Mech. Phys. Solids 107, 76–95, (2017).
-[^MM11]: T. Maehara and K. Murota, SIAM J. Matrix Anal. Appl. 32, 2, 605–620 (2011).
-[^PVW17]: Hoi Chun Po, A. Vishwanath, and H. Watanabe, Nat. Commun. 8(1):50 (2017).
+```{bibliography}
+:filter: docname in docnames
+```
