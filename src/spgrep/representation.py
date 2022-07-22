@@ -199,22 +199,18 @@ def _is_same_subspace(
     atol: float = 1e-8,
 ) -> bool:
     """
+    Return True if any linear combination A[i, j] exists such that
+        basis2[j] == sum_{i} basis1[i] * A[i, j]
+    which is equivalent to ``A.T @ basis1 == basis2``.
+
     Parameters
     ----------
     basis1: array, (dim_irrep, dim)
     basis2: array, (dim_irrep, dim)
     """
-    _, r1 = np.linalg.qr(basis1.T)
-    _, r2 = np.linalg.qr(basis2.T)
-
-    # If basis1 and basis2 are equivalent, r1 and r2 are the same up to U(1) phase
-    for i in range(r1.shape[0]):
-        if np.isclose(r2[i, i], 0, atol=atol):
-            continue
-        phase = r1[i, i] / r2[i, i]
-        break
-
-    return np.allclose(r1, r2 * phase, atol=atol)
+    # Solve basis1.T @ A = basis2.T
+    A, residual, _, _ = np.linalg.lstsq(basis1.T, basis2.T, rcond=None)
+    return np.all(residual < atol)
 
 
 def is_unitary(representation: NDArrayComplex) -> bool:
