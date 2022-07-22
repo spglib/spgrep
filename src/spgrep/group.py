@@ -130,7 +130,7 @@ def get_little_group(
     rotations: NDArrayInt,
     translations: NDArrayFloat,
     kpoint: NDArrayFloat,
-    rtol: float = 1e-5,
+    atol: float = 1e-8,
 ) -> tuple[NDArrayInt, NDArrayFloat, NDArrayInt]:
     """Return coset of little group of given space group which stabilize kpoint under rotations.
 
@@ -155,7 +155,7 @@ def get_little_group(
     for i, (rotation, translation) in enumerate(zip(rotations, translations)):
         residual = rotation.T @ kpoint - kpoint
         residual = residual - np.rint(residual)
-        if not np.allclose(residual, 0, rtol=rtol):
+        if not np.allclose(residual, 0, atol=atol):
             continue
         little_rotations.append(rotation)
         little_translations.append(translation)

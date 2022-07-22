@@ -66,7 +66,7 @@ def get_projective_regular_representation(
 def get_intertwiner(
     rep1: NDArrayComplex,
     rep2: NDArrayComplex,
-    rtol: float = 1e-5,
+    atol: float = 1e-8,
     max_num_random_generations: int = 4,
 ):
     """Calculate intertwiner matrix between ``rep1`` and ``rep2`` such that ``rep1 @ matrix == matrix @ rep2`` if they are equivalent.
@@ -78,8 +78,8 @@ def get_intertwiner(
         Unitary irrep
     rep2: array, (order, dim, dim)
         Unitary irrep
-    rtol: float
-        Relative tolerance to distinguish difference eigenvalues
+    atol: float
+        Absolute tolerance to distinguish difference eigenvalues
     max_num_random_generations: int
         Maximal number of trials to generate random matrix
 
@@ -94,7 +94,7 @@ def get_intertwiner(
     for _ in range(max_num_random_generations):
         random = rng.random((dim, dim)) + rng.random((dim, dim)) * 1j
         matrix = np.einsum("kil,lm,kjm->ij", rep1, random, np.conj(rep2))
-        if not np.allclose(matrix, 0, rtol=rtol):
+        if not np.allclose(matrix, 0, atol=atol):
             return matrix
 
     warn("Failed to search all irreps. Try increasing max_num_random_generations.")
@@ -129,12 +129,13 @@ def is_projective_representation(
     table: NDArrayInt,
     factor_system: NDArrayComplex,
     rtol: float = 1e-5,
+    atol: float = 1e-8,
 ) -> bool:
     for i, ri in enumerate(rep):
         for j, rj in enumerate(rep):
             actual = ri @ rj
             expect = rep[table[i, j]] * factor_system[i, j]
-            if not np.allclose(actual, expect, rtol=rtol):
+            if not np.allclose(actual, expect, rtol=rtol, atol=atol):
                 return False
 
     return True
