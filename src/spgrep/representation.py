@@ -139,12 +139,16 @@ def project_to_irrep(
     order = irrep.shape[0]
     dim_irrep = irrep.shape[1]
     dim = representation.shape[1]
+    if representation.shape != (order, dim, dim) or irrep.shape != (order, dim_irrep, dim_irrep):
+        raise ValueError("Given representation and irrep do not have consistent dimensions.")
 
     # Pre-compute number of independent basis vectors
     character_irrep = get_character(irrep)
     character = get_character(representation)
     num_basis = np.sum(np.conj(character_irrep) * character) / order
     num_basis = np.real(np.around(num_basis)).astype(int)
+    if num_basis == 0:
+        return []
 
     count = 0
     basis: list[NDArrayComplex] = []
@@ -156,7 +160,6 @@ def project_to_irrep(
         for j in range(dim_irrep):
             # basis_nj[i, :] is the i-th basis vector forms given irrep (i = 0, ... dim_irrep-1)
             # These basis vectors are mutually orthogonal by construction!
-            # Them, normalize basis vectors s.t. they are orthonormal.
             basis_nj = (
                 dim_irrep
                 / order
@@ -167,10 +170,12 @@ def project_to_irrep(
                     optimize="greedy",
                 )
             )
-            basis_nj /= np.linalg.norm(basis_nj, axis=0)
 
             if np.allclose(basis_nj, 0, atol=atol):
                 continue
+
+            # Them, normalize basis vectors s.t. they are orthonormal.
+            basis_nj /= np.linalg.norm(basis_nj, axis=1)[:, None]
 
             # Check if linearly independent with other basis vectors
             # Two subspaces spanned by orthonormal basis vectors V1 and V2 are the same if and only if
@@ -180,6 +185,8 @@ def project_to_irrep(
 
             basis.append(basis_nj)
             count += 1
+            if count == num_basis:
+                break
 
     if count != num_basis:
         warn(
@@ -202,8 +209,14 @@ def _is_same_subspace(
     """
     _, r1 = np.linalg.qr(basis1.T)
     _, r2 = np.linalg.qr(basis2.T)
+
     # If basis1 and basis2 are equivalent, r1 and r2 are the same up to U(1) phase
-    phase = r1[0, 0] / r2[0, 0]
+    for i in range(r1.shape[0]):
+        if np.isclose(r2[i, i], 0, atol=atol):
+            continue
+        phase = r1[i, i] / r2[i, i]
+        break
+
     return np.allclose(r1, r2 * phase, atol=atol)
 
 
