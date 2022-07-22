@@ -50,7 +50,7 @@ def transform_symmetry_and_kpoint(
 
 
 def unique_primitive_symmetry(
-    rotations: NDArrayInt, translations: NDArrayFloat, rtol: float = 1e-5
+    rotations: NDArrayInt, translations: NDArrayFloat
 ) -> tuple[NDArrayInt, NDArrayFloat, list[int]]:
     """Unique duplicated symmetry operations.
 

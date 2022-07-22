@@ -17,5 +17,9 @@
 ```
 
 ```{eval-rst}
+    .. autofunction:: spgrep.representation.project_to_irrep
+```
+
+```{eval-rst}
     .. autofunction:: spgrep.representation.frobenius_schur_indicator
 ```

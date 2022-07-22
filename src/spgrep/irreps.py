@@ -28,6 +28,7 @@ def enumerate_unitary_irreps(
     real: bool = False,
     method: Literal["Neto", "random"] = "Neto",
     rtol: float = 1e-5,
+    atol: float = 1e-8,
     max_num_random_generations: int = 4,
 ) -> list[NDArrayComplex] | list[NDArrayFloat]:
     """Enumerate all unitary irreps with of matrix group ``rotations`` with ``factor_system``.
@@ -62,13 +63,13 @@ def enumerate_unitary_irreps(
             table,
             factor_system,
             solvable_chain_generators,
-            rtol=rtol,
+            atol=atol,
             max_num_random_generations=max_num_random_generations,
         )
     elif method == "random":
         reg = get_projective_regular_representation(rotations, factor_system)
         irreps = enumerate_unitary_irreps_from_regular_representation(
-            reg, rtol, max_num_random_generations
+            reg, rtol=rtol, max_num_random_generations=max_num_random_generations
         )
     else:
         raise ValueError(f"Unknown method to compute irreps: {method}")
@@ -99,7 +100,9 @@ def enumerate_unitary_irreps(
     real_irreps = []
     for conj_pair in conjugated_pairs:
         irrep = irreps[conj_pair[0]]
-        real_irreps.append(get_real_irrep(irrep, rtol, max_num_random_generations))
+        real_irreps.append(
+            get_real_irrep(irrep, atol=atol, max_num_random_generations=max_num_random_generations)
+        )
 
     return real_irreps
 
@@ -157,7 +160,7 @@ def enumerate_unitary_irreps_from_regular_representation(
         )
 
         # Decompose to subspaces corresponding to Irreps
-        irreps = _get_irreps_from_matrix(reg, matrix, rtol)
+        irreps = _get_irreps_from_matrix(reg, matrix, rtol=rtol)
 
         if np.sum([irrep.shape[1] ** 2 for irrep in irreps]) == n:
             return irreps
@@ -196,11 +199,15 @@ def decompose_representation(
 
         # Construct matrix which commute with regular representation
         matrix = np.einsum(
-            "mik,kl,mjl->ij", representation, hermite_random, np.conj(representation)
+            "mik,kl,mjl->ij",
+            representation,
+            hermite_random,
+            np.conj(representation),
+            optimize="greedy",
         )
 
         # Decompose to subspaces corresponding to Irreps
-        irreps = _get_irreps_from_matrix(representation, matrix, rtol)
+        irreps = _get_irreps_from_matrix(representation, matrix, rtol=rtol)
 
         if np.sum([irrep.shape[1] for irrep in irreps]) == dim0:
             return irreps
@@ -210,7 +217,7 @@ def decompose_representation(
 
 
 def _get_irreps_from_matrix(
-    reg: NDArrayComplex, matrix: NDArrayComplex, rtol: float
+    reg: NDArrayComplex, matrix: NDArrayComplex, rtol: float = 1e-5
 ) -> list[NDArrayComplex]:
     # eigvecs[:, i] is the normalized eigenvector to eigvals[i]
     eigvals, eigvecs = np.linalg.eigh(matrix)
@@ -269,7 +276,7 @@ def enumerate_unitary_irreps_from_solvable_group_chain(
     table: NDArrayInt,
     factor_system: NDArrayComplex,
     solvable_chain_generators: list[int],
-    rtol: float = 1e-5,
+    atol: float = 1e-8,
     max_num_random_generations: int = 4,
 ):
     """Calculate symmetrized irreps from given chain of solvable group.
@@ -283,8 +290,8 @@ def enumerate_unitary_irreps_from_solvable_group_chain(
         Let G0 := G and G_{i} := G_{i-1} / < solvable_chain_generators[i] > (i = 0, 1, ...).
         Then, G_{i} is normal subgroup of G_{i-1} and factor group G_{i-1}/G_{i} is Abelian.
 
-    rtol: float
-        Relative tolerance to distinguish difference eigenvalues
+    atol: float
+        Absolute tolerance to distinguish difference eigenvalues
     max_num_random_generations: int
         Maximal number of trials to generate random matrix
 
@@ -349,7 +356,10 @@ def enumerate_unitary_irreps_from_solvable_group_chain(
 
                 # Scale intertwiner s.t. intertwiner^p == identity
                 intertwiner = get_intertwiner(
-                    conj_sub_irreps[0], conj_sub_irreps[1], rtol, max_num_random_generations
+                    conj_sub_irreps[0],
+                    conj_sub_irreps[1],
+                    atol=atol,
+                    max_num_random_generations=max_num_random_generations,
                 )
                 scale = intertwiner.copy()
                 for _ in range(p - 1):
@@ -376,11 +386,6 @@ def enumerate_unitary_irreps_from_solvable_group_chain(
                                 @ sub_irrep[subgroup_remapping[s]]
                             )
                     next_sub_irreps.append(next_irrep)
-
-                """
-                if r == 2 and np.isclose(sub_irrep[1, 0, 0], -1):
-                    import pdb; pdb.set_trace()
-                """
             else:
                 # Mutually inequivalent
                 next_irrep = np.zeros((len(group), dim * p, dim * p), dtype=np.complex_)
@@ -422,7 +427,7 @@ def enumerate_unitary_irreps_from_solvable_group_chain(
 
 def get_real_irrep(
     irrep: NDArrayComplex,
-    rtol: float = 1e-5,
+    atol: float = 1e-5,
     max_num_random_generations: int = 4,
 ) -> NDArrayFloat:
     """Compute physically irreducible representation (over real number) from given unitary irrep over complex number."""
@@ -435,7 +440,7 @@ def get_real_irrep(
         # Intertwiner with determinant=1
         conj_irrep = np.transpose(np.conj(irrep), [0, 2, 1])
         U = get_intertwiner(
-            irrep, conj_irrep, rtol=rtol, max_num_random_generations=max_num_random_generations
+            irrep, conj_irrep, atol=atol, max_num_random_generations=max_num_random_generations
         )
         U = U / np.linalg.det(U)
 
@@ -443,7 +448,7 @@ def get_real_irrep(
         eigvals, eigvecs = np.linalg.eig(U)  # eigvecs[:, i] is the i-th eigenvector
         real_eigvecs = []
         for eigvec in np.transpose(eigvecs):
-            if not np.allclose(np.real(eigvec), 0, rtol=rtol):
+            if not np.allclose(np.real(eigvec), 0, atol=atol):
                 real_eigvec = np.real(eigvec)
             else:
                 real_eigvec = np.imag(eigvec)
@@ -453,7 +458,7 @@ def get_real_irrep(
         # Square root of intertwiner
         T = S.T @ np.diag([nroot(eigval, 2) for eigval in eigvals]) @ S
 
-        real_irrep = np.real(np.einsum("il,klm,mj->kij", T, irrep, np.conj(T)))
+        real_irrep = np.real(np.einsum("il,klm,mj->kij", T, irrep, np.conj(T), optimize="greedy"))
     elif indicator in [-1, 0]:
         real_irrep = np.empty((order, 2 * dim, 2 * dim), dtype=np.float_)
         # [ [Re D(g),  Im D(g)]

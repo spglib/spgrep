@@ -14,17 +14,13 @@ from spgrep.group import get_cayley_table
 from spgrep.irreps import enumerate_unitary_irreps, is_equivalent_irrep
 from spgrep.pointgroup import pg_dataset
 from spgrep.representation import (
+    check_spacegroup_representation,
     get_character,
     is_projective_representation,
     is_unitary,
 )
 from spgrep.transform import transform_symmetry_and_kpoint, unique_primitive_symmetry
-from spgrep.utils import (
-    NDArrayComplex,
-    NDArrayFloat,
-    NDArrayInt,
-    ndarray2d_to_integer_tuple,
-)
+from spgrep.utils import NDArrayComplex
 
 
 @pytest.mark.parametrize("method", [("Neto"), ("random")])
@@ -195,28 +191,4 @@ def is_unique_irreps(irreps: list[NDArrayComplex]):
     for (i, ci), (j, cj) in product(enumerate(characters), repeat=2):
         if is_equivalent_irrep(ci, cj) != (i == j):
             return False
-    return True
-
-
-def check_spacegroup_representation(
-    little_rotations: NDArrayInt,
-    little_translations: NDArrayFloat,
-    kpoint: NDArrayFloat,
-    rep: NDArrayComplex,
-):
-    """Check definition of representation. This function works for primitive and conventional cell."""
-    little_rotations_int = [ndarray2d_to_integer_tuple(rotation) for rotation in little_rotations]
-
-    # Check if ``rep`` preserves multiplication
-    for r1, t1, m1 in zip(little_rotations, little_translations, rep):
-        for r2, t2, m2 in zip(little_rotations, little_translations, rep):
-            r12 = r1 @ r2
-            t12 = r1 @ t2 + t1
-            idx = little_rotations_int.index(ndarray2d_to_integer_tuple(r12))
-            # little_translations[idx] may differ from t12 by lattice translation.
-            m12 = rep[idx] * np.exp(-2j * np.pi * np.dot(kpoint, t12 - little_translations[idx]))
-
-            if not np.allclose(m12, m1 @ m2):
-                return False
-
     return True

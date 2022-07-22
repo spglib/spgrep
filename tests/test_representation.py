@@ -6,6 +6,7 @@ from spgrep.representation import (
     get_character,
     get_intertwiner,
     get_regular_representation,
+    project_to_irrep,
 )
 
 
@@ -40,6 +41,18 @@ def test_intertwiner():
         np.einsum("kil,lj->kij", rep1, intertwiner),
         np.einsum("il,klj->kij", intertwiner, rep2),
     )
+
+
+def test_project_to_irrep(C3v):
+    reg = get_regular_representation(C3v)
+    irreps = enumerate_unitary_irreps(C3v)
+
+    count = 0
+    for irrep in irreps:
+        projected = project_to_irrep(reg, irrep)
+        count += len(projected)
+
+    assert count == sum(irrep.shape[1] for irrep in irreps)
 
 
 def test_frobenius_schur_indicator(C4):

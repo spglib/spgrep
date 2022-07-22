@@ -24,6 +24,7 @@ def get_spacegroup_irreps(
     reciprocal_lattice: NDArrayFloat | None = None,
     symprec: float = 1e-5,
     rtol: float = 1e-5,
+    atol: float = 1e-8,
     max_num_random_generations: int = 4,
 ) -> tuple[list[NDArrayComplex], NDArrayInt, NDArrayFloat, NDArrayInt]:
     """Compute all irreducible representations of space group of given structure up to unitary transformation.
@@ -53,6 +54,8 @@ def get_spacegroup_irreps(
         Parameter for searching symmetry operation in Spglib
     rtol: float
         Relative tolerance for comparing float values
+    atol: float
+        Absolute tolerance to distinguish difference eigenvalues
     max_num_random_generations: int
         Maximal number of trials to generate random matrix
 
@@ -94,6 +97,7 @@ def get_spacegroup_irreps(
         kpoint=prim_kpoint,
         method=method,
         rtol=rtol,
+        atol=atol,
         max_num_random_generations=max_num_random_generations,
     )
     remapping_prim_little_group = {}  # [0..order) -> [0..prim_little_group_order)
@@ -134,6 +138,7 @@ def get_spacegroup_irreps_from_primitive_symmetry(
     kpoint: NDArrayFloat,
     method: Literal["Neto", "random"] = "Neto",
     rtol: float = 1e-5,
+    atol: float = 1e-8,
     max_num_random_generations: int = 4,
 ) -> tuple[list[NDArrayComplex], NDArrayInt]:
     """Compute all irreducible representations of given space group up to unitary transformation.
@@ -157,6 +162,8 @@ def get_spacegroup_irreps_from_primitive_symmetry(
         'random': construct irreps by numerically diagonalizing a random matrix commute with regular representation
     rtol: float
         Relative tolerance
+    atol: float
+        Absolute tolerance to distinguish difference eigenvalues
     max_num_random_generations: int
         Maximal number of trials to generate random matrix
 
@@ -170,13 +177,13 @@ def get_spacegroup_irreps_from_primitive_symmetry(
     """
     # Sanity check to use primitive cell
     for rotation, translation in zip(rotations, translations):
-        if np.allclose(rotation, np.eye(3), rtol=rtol) and not np.allclose(
-            translation, 0, rtol=rtol
+        if np.allclose(rotation, np.eye(3), rtol=rtol, atol=atol) and not np.allclose(
+            translation, 0, atol=atol
         ):
             raise ValueError("Specify symmetry operations in primitive cell!")
 
     little_rotations, little_translations, mapping_little_group = get_little_group(
-        rotations, translations, kpoint, rtol
+        rotations, translations, kpoint, atol=atol
     )
     factor_system = get_factor_system_from_little_group(
         little_rotations, little_translations, kpoint
@@ -188,6 +195,7 @@ def get_spacegroup_irreps_from_primitive_symmetry(
         factor_system,
         method=method,
         rtol=rtol,
+        atol=atol,
         max_num_random_generations=max_num_random_generations,
     )
 
@@ -209,6 +217,7 @@ def get_crystallographic_pointgroup_irreps_from_symmetry(
     rotations: NDArrayInt,
     method: Literal["Neto", "random"] = "Neto",
     rtol: float = 1e-5,
+    atol: float = 1e-8,
     max_num_random_generations: int = 4,
 ) -> list[NDArrayComplex]:
     """Compute all irreducible representations of given crystallographic point group up to unitary transformation.
@@ -223,6 +232,8 @@ def get_crystallographic_pointgroup_irreps_from_symmetry(
         'random': construct irreps by numerically diagonalizing a random matrix commute with regular representation
     rtol: float
         Relative tolerance to distinguish difference eigenvalues
+    atol: float
+        Absolute tolerance to distinguish difference eigenvalues
     max_num_random_generations: int
         Maximal number of trials to generate random matrix
 
@@ -235,6 +246,7 @@ def get_crystallographic_pointgroup_irreps_from_symmetry(
         factor_system=None,
         method=method,
         rtol=rtol,
+        atol=atol,
         max_num_random_generations=max_num_random_generations,
     )
     return irreps
