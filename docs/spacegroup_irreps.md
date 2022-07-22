@@ -52,12 +52,12 @@ For {math}`(\mathbf{R}, \mathbf{v}) \in \mathcal{G}`, {math}`(\mathbf{R}, \mathb
 Be careful the basis for calculating inner product in Eq. {eq}`eq_point_group_in_bloch_function`, when you use crystallographic coordinates [^footnote1]:
 ```{math}
   \mathbf{v} &=: \mathbf{A} \mathbf{v}_{f} \\
-  \mathbf{A} \mathbf{R} \mathbf{A}^{-1} &=: \mathbf{R}_{f} \quad \in \mathrm{SL}(3) \\
+  \mathbf{A}^{-1} \mathbf{R} \mathbf{A} &=: \mathbf{R}_{f} \quad \in \mathrm{SL}(3) \\
   (\mathbf{k}, \mathbf{R}^{-1} \mathbf{v})
     &= (\mathbf{R} \mathbf{k}, \mathbf{v}) \nonumber \\
     &= 2 \pi \left( ( \mathbf{A}^{\top} \mathbf{A}^{-1} ) \mathbf{R}_{f} ( \mathbf{A}^{\top} \mathbf{A}^{-1} )^{-1} \mathbf{k}_{f}, \mathbf{v}_{f} \right) \nonumber \\
     &= 2 \pi \left( \mathbf{R}_{f}^{\top} \mathbf{k}_{f}, \mathbf{v}_{f} \right)
-    \quad (\because \mathbf{R}_{f}^{\top} = \mathbf{A}^{-\top} \mathbf{R}^{-1} \mathbf{A}^{\top} ).
+    \quad (\because \mathbf{R}_{f}^{\top} = \mathbf{A}^{\top} \mathbf{R}^{-1} \mathbf{A}^{-\top} ).
 ```
 
 [^footnote1]: We interchangeably denote an inner product of two vectors as {math}`\mathbf{a} \cdot \mathbf{b}` or {math}`(\mathbf{a}, \mathbf{b})`.

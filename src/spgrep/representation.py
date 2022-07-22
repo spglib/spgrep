@@ -93,7 +93,7 @@ def get_intertwiner(
     rng = np.random.default_rng(0)
     for _ in range(max_num_random_generations):
         random = rng.random((dim, dim)) + rng.random((dim, dim)) * 1j
-        matrix = np.einsum("kil,lm,kjm->ij", rep1, random, np.conj(rep2))
+        matrix = np.einsum("kil,lm,kjm->ij", rep1, random, np.conj(rep2), optimize="greedy")
         if not np.allclose(matrix, 0, atol=atol):
             return matrix
 
@@ -112,8 +112,99 @@ def get_character(representation: NDArrayComplex) -> NDArrayComplex:
     -------
     character: array, (order, )
     """
-    character = np.einsum("ijj->i", representation, optimize="greedy")
+    character = np.einsum("ijj->i", representation, optimize="greedy").astype(np.complex_)
     return character
+
+
+def project_to_irrep(
+    representation: NDArrayComplex,
+    irrep: NDArrayComplex,
+    atol: float = 1e-8,
+) -> list[NDArrayComplex]:
+    """Construct basis functions for ``irrep`` by linear combinations of basis functions of ``representation``.
+
+    Parameters
+    ----------
+    representation: array, (order, dim, dim)
+    irrep: array, (order, dim_irrep, dim_irrep)
+        Unitary (projective) irrep with factor system s.t. :math:`\\mu(E, E) = 1`.
+    atol: float, default=1e-5
+        Absolute tolerance to compare basis vectors
+
+    Returns
+    -------
+    basis: list of array with (irrep_dim, dim)
+        Each basis vectors are orthonormal.
+    """
+    order = irrep.shape[0]
+    dim_irrep = irrep.shape[1]
+    dim = representation.shape[1]
+
+    # Pre-compute number of independent basis vectors
+    character_irrep = get_character(irrep)
+    character = get_character(representation)
+    num_basis = np.sum(np.conj(character_irrep) * character) / order
+    num_basis = np.real(np.around(num_basis)).astype(int)
+
+    count = 0
+    basis: list[NDArrayComplex] = []
+    for n in range(dim):
+        # Initial vector to be applied projection operator
+        phi = np.zeros(dim, dtype=np.complex_)
+        phi[n] = 1.0
+
+        for j in range(dim_irrep):
+            # basis_nj[i, :] is the i-th basis vector forms given irrep (i = 0, ... dim_irrep-1)
+            # These basis vectors are mutually orthogonal by construction!
+            # Them, normalize basis vectors s.t. they are orthonormal.
+            basis_nj = (
+                dim_irrep
+                / order
+                * np.einsum(
+                    "ki,km->im",
+                    np.conj(irrep[:, :, j]),
+                    representation[:, :, n],
+                    optimize="greedy",
+                )
+            )
+            basis_nj /= np.linalg.norm(basis_nj, axis=0)
+
+            if np.allclose(basis_nj, 0, atol=atol):
+                continue
+
+            # Check if linearly independent with other basis vectors
+            # Two subspaces spanned by orthonormal basis vectors V1 and V2 are the same if and only if
+            # triangular matrices R1 and R2 in QR decomposition of V1 and V2 are the same.
+            if any([_is_same_subspace(basis_nj, other) for other in basis]):
+                continue
+
+            basis.append(basis_nj)
+            count += 1
+
+    if count != num_basis:
+        warn(
+            f"Inconsistent number of independent basis vectors: expect={num_basis}, actual={count}"
+        )
+
+    return basis
+
+
+def _is_same_subspace(
+    basis1: NDArrayComplex,
+    basis2: NDArrayComplex,
+    atol: float = 1e-8,
+) -> bool:
+    """
+    Parameters
+    ----------
+    basis1: array, (dim_irrep, dim)
+    basis2: array, (dim_irrep, dim)
+    """
+    _, r1 = np.linalg.qr(basis1.T)
+    _, r2 = np.linalg.qr(basis2.T)
+    # If basis1 and basis2 are equivalent, r1 and r2 are the same up to U(1) phase
+    phase = r1[0, 0] / r2[0, 0]
+    return np.allclose(r1, r2 * phase, atol=atol)
 
 
 def is_unitary(representation: NDArrayComplex) -> bool:
@@ -160,7 +251,7 @@ def frobenius_schur_indicator(irrep: NDArrayComplex) -> int:
         Otherwise, it and adjoint Reps. are not equivalent.
     """
     order = irrep.shape[0]
-    indicator = np.einsum("kij,kji->", irrep, irrep) / order
+    indicator = np.einsum("kij,kji->", irrep, irrep, optimize="greedy") / order
     indicator = int(np.around(np.real(indicator)))
 
     if indicator > 1:

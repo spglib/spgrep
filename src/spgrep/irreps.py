@@ -199,7 +199,11 @@ def decompose_representation(
 
         # Construct matrix which commute with regular representation
         matrix = np.einsum(
-            "mik,kl,mjl->ij", representation, hermite_random, np.conj(representation)
+            "mik,kl,mjl->ij",
+            representation,
+            hermite_random,
+            np.conj(representation),
+            optimize="greedy",
         )
 
         # Decompose to subspaces corresponding to Irreps
@@ -454,7 +458,7 @@ def get_real_irrep(
         # Square root of intertwiner
         T = S.T @ np.diag([nroot(eigval, 2) for eigval in eigvals]) @ S
 
-        real_irrep = np.real(np.einsum("il,klm,mj->kij", T, irrep, np.conj(T)))
+        real_irrep = np.real(np.einsum("il,klm,mj->kij", T, irrep, np.conj(T), optimize="greedy"))
     elif indicator in [-1, 0]:
         real_irrep = np.empty((order, 2 * dim, 2 * dim), dtype=np.float_)
         # [ [Re D(g),  Im D(g)]
