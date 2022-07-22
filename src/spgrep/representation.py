@@ -146,18 +146,17 @@ def project_to_irrep(
     character_irrep = get_character(irrep)
     character = get_character(representation)
     num_basis = np.sum(np.conj(character_irrep) * character) / order
-    num_basis = np.real(np.around(num_basis)).astype(int)
+    num_basis = np.around(np.real(num_basis)).astype(int)
     if num_basis == 0:
         return []
 
     count = 0
     basis: list[NDArrayComplex] = []
     for n in range(dim):
-        # Initial vector to be applied projection operator
-        phi = np.zeros(dim, dtype=np.complex_)
-        phi[n] = 1.0
-
         for j in range(dim_irrep):
+            if count == num_basis:
+                break
+
             # basis_nj[i, :] is the i-th basis vector forms given irrep (i = 0, ... dim_irrep-1)
             # These basis vectors are mutually orthogonal by construction!
             basis_nj = (
@@ -185,8 +184,6 @@ def project_to_irrep(
 
             basis.append(basis_nj)
             count += 1
-            if count == num_basis:
-                break
 
     if count != num_basis:
         warn(

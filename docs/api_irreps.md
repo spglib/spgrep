@@ -1,6 +1,10 @@
 # Irreps
 
 ```{eval-rst}
+    .. autofunction:: spgrep.irreps.enumerate_small_representations
+```
+
+```{eval-rst}
     .. autofunction:: spgrep.irreps.enumerate_unitary_irreps
 ```
 
