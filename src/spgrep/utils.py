@@ -43,3 +43,23 @@ def nroot(z: np.complex_, n: int) -> np.complex_:
     r = np.absolute(root)
     angle = np.remainder(np.angle(root), 2 * np.pi / n)
     return r * np.exp(1j * angle)
+
+
+def contain_space(
+    basis1: NDArrayComplex,
+    basis2: NDArrayComplex,
+    atol: float = 1e-8,
+) -> bool:
+    """Return true if vector space spanned by ``basis2`` is contained in that by ``basis1``.
+    That is, return True if any linear combination A[i, j] exists such that
+        basis2[j] == sum_{i} basis1[i] * A[i, j]
+    which is equivalent to ``A.T @ basis1 == basis2``.
+
+    Parameters
+    ----------
+    basis1: array, (dim_irrep, dim)
+    basis2: array, (dim_irrep, dim)
+    """
+    # Solve basis1.T @ A = basis2.T
+    A, residual, _, _ = np.linalg.lstsq(basis1.T, basis2.T, rcond=None)
+    return np.all(residual < atol)

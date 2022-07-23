@@ -10,6 +10,7 @@ from spgrep.utils import (
     NDArrayComplex,
     NDArrayFloat,
     NDArrayInt,
+    contain_space,
     ndarray2d_to_integer_tuple,
 )
 
@@ -179,7 +180,7 @@ def project_to_irrep(
             # Check if linearly independent with other basis vectors
             # Two subspaces spanned by orthonormal basis vectors V1 and V2 are the same if and only if
             # triangular matrices R1 and R2 in QR decomposition of V1 and V2 are the same.
-            if any([_is_same_subspace(basis_nj, other) for other in basis]):
+            if any([contain_space(basis_nj, other) for other in basis]):
                 continue
 
             basis.append(basis_nj)
@@ -191,26 +192,6 @@ def project_to_irrep(
         )
 
     return basis
-
-
-def _is_same_subspace(
-    basis1: NDArrayComplex,
-    basis2: NDArrayComplex,
-    atol: float = 1e-8,
-) -> bool:
-    """
-    Return True if any linear combination A[i, j] exists such that
-        basis2[j] == sum_{i} basis1[i] * A[i, j]
-    which is equivalent to ``A.T @ basis1 == basis2``.
-
-    Parameters
-    ----------
-    basis1: array, (dim_irrep, dim)
-    basis2: array, (dim_irrep, dim)
-    """
-    # Solve basis1.T @ A = basis2.T
-    A, residual, _, _ = np.linalg.lstsq(basis1.T, basis2.T, rcond=None)
-    return np.all(residual < atol)
 
 
 def is_unitary(representation: NDArrayComplex) -> bool:
