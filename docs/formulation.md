@@ -25,6 +25,7 @@ Option-B
   On-the-fly irreps generation from regular representation <irreps_from_regular>
   On-the-fly irreps generation from solvable group chain <irreps_generation>
   Isotropy subgroup <isotropy_subgroup>
+  Symmetry-adapted basis <projection>
 ```
 
 ## References

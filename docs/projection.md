@@ -1,4 +1,4 @@
-# Examples of applications of irreps
+# Constructing symmetry-adapted basis
 
 A typical procedure to use irreps is as follows:
 
