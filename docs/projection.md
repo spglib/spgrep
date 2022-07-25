@@ -1,23 +1,18 @@
-# Examples of applications of irreps
+# Constructing symmetry-adapted basis
 
 A typical procedure to use irreps is as follows:
 
 1. Define an action of symmetry operations of a space group {math}`\mathcal{G}` on your interested objects
-2. Fourier-transform your selected basis {math}`\{ \phi^{(\mathbf{k})}_{i} \}_{\mathbf{k}, i}` such that
+1. Fourier-transform your selected basis {math}`\{ \phi^{(\mathbf{k})}_{i} \}_{\mathbf{k}, i}` such that
     ```{math}
         g \phi^{(\mathbf{k})}_{j} &= \sum_{i} \phi^{(\mathbf{k})}_{i} \Gamma^{(\mathbf{k})}_{ij} 
         \quad (g \in \mathcal{G}) \\
         \Gamma^{(\mathbf{k})}((E, \mathbf{t})) &= e^{ -i\mathbf{k}\cdot\mathbf{t} } \mathbf{1}
         \quad ( (E, \mathbf{t}) \in \mathcal{G}) \\
     ```
-3. Prepare little group {math}`\mathcal{G}^{\mathbf{q}}` by {func}`spgrep.group.get_little_group` and factor system of {math}`\overline{\mathcal{G}}^{\mathbf{q}}` by {func}`spgrep.group.get_factor_system_from_little_group`
-4. Compute unitary projective irreps {math}`\Delta^{ (\mathbf{k}, \alpha) }` of little co-group {math}`\overline{\mathcal{G}}^{\mathbf{k}}` by {func}`spgrep.irreps.enumerate_unitary_irreps`
-5. Apply projection operator by {func}`spgrep.representation.project_to_irrep`
-6. Compute small representations {math}`\Gamma^{ (\mathbf{k}, \alpha) }` of little group {math}`\mathcal{G}^{\mathbf{k}}` by
-    ```{math}
-        \Gamma^{ (\mathbf{k}, \alpha) }( (\mathbf{R}, \mathbf{v}) )
-            = e^{ -i\mathbf{k}\cdot\mathbf{v} } \Delta^{ (\mathbf{k}, \alpha) } ( (\mathbf{R}, \mathbf{v}) )
-    ```
+1. Prepare little group {math}`\mathcal{G}^{\mathbf{q}}` by {func}`spgrep.group.get_little_group`
+1. Compute unitary small representations {math}`\Gamma^{ (\mathbf{k}, \alpha) }` of little group {math}`\mathcal{G}^{\mathbf{k}}` by {func}`spgrep.irreps.enumerate_small_representations`
+1. Apply projection operator by {func}`spgrep.representation.project_to_irrep`
 
 ## Projection operator
 

@@ -10,6 +10,7 @@ from spgrep.utils import (
     NDArrayComplex,
     NDArrayFloat,
     NDArrayInt,
+    contain_space,
     ndarray2d_to_integer_tuple,
 )
 
@@ -146,18 +147,17 @@ def project_to_irrep(
     character_irrep = get_character(irrep)
     character = get_character(representation)
     num_basis = np.sum(np.conj(character_irrep) * character) / order
-    num_basis = np.real(np.around(num_basis)).astype(int)
+    num_basis = np.around(np.real(num_basis)).astype(int)
     if num_basis == 0:
         return []
 
     count = 0
     basis: list[NDArrayComplex] = []
     for n in range(dim):
-        # Initial vector to be applied projection operator
-        phi = np.zeros(dim, dtype=np.complex_)
-        phi[n] = 1.0
-
         for j in range(dim_irrep):
+            if count == num_basis:
+                break
+
             # basis_nj[i, :] is the i-th basis vector forms given irrep (i = 0, ... dim_irrep-1)
             # These basis vectors are mutually orthogonal by construction!
             basis_nj = (
@@ -180,13 +180,11 @@ def project_to_irrep(
             # Check if linearly independent with other basis vectors
             # Two subspaces spanned by orthonormal basis vectors V1 and V2 are the same if and only if
             # triangular matrices R1 and R2 in QR decomposition of V1 and V2 are the same.
-            if any([_is_same_subspace(basis_nj, other) for other in basis]):
+            if any([contain_space(basis_nj, other) for other in basis]):
                 continue
 
             basis.append(basis_nj)
             count += 1
-            if count == num_basis:
-                break
 
     if count != num_basis:
         warn(
@@ -194,30 +192,6 @@ def project_to_irrep(
         )
 
     return basis
-
-
-def _is_same_subspace(
-    basis1: NDArrayComplex,
-    basis2: NDArrayComplex,
-    atol: float = 1e-8,
-) -> bool:
-    """
-    Parameters
-    ----------
-    basis1: array, (dim_irrep, dim)
-    basis2: array, (dim_irrep, dim)
-    """
-    _, r1 = np.linalg.qr(basis1.T)
-    _, r2 = np.linalg.qr(basis2.T)
-
-    # If basis1 and basis2 are equivalent, r1 and r2 are the same up to U(1) phase
-    for i in range(r1.shape[0]):
-        if np.isclose(r2[i, i], 0, atol=atol):
-            continue
-        phase = r1[i, i] / r2[i, i]
-        break
-
-    return np.allclose(r1, r2 * phase, atol=atol)
 
 
 def is_unitary(representation: NDArrayComplex) -> bool:

@@ -8,6 +8,7 @@ import numpy as np
 
 from spgrep.group import (
     get_cayley_table,
+    get_factor_system_from_little_group,
     get_identity_index,
     get_inverse_index,
     get_order,
@@ -20,6 +21,64 @@ from spgrep.representation import (
     get_projective_regular_representation,
 )
 from spgrep.utils import NDArrayComplex, NDArrayFloat, NDArrayInt, nroot
+
+
+def enumerate_small_representations(
+    little_rotations: NDArrayInt,
+    little_translations: NDArrayFloat,
+    kpoint: NDArrayFloat,
+    method: Literal["Neto", "random"] = "Neto",
+    rtol: float = 1e-5,
+    atol: float = 1e-8,
+    max_num_random_generations: int = 4,
+):
+    """Enumerate all unitary small representations of little group.
+
+    Parameters
+    ----------
+    little_rotations: array, (order, 3, 3)
+    little_translations: array, (order, 3)
+    kpoint: array, (3, )
+    method: str, 'Neto' or 'random'
+        'Neto': construct irreps from a fixed chain of subgroups of little co-group
+        'random': construct irreps by numerically diagonalizing a random matrix commute with regular representation
+    rtol: float
+        Relative tolerance to distinguish difference eigenvalues
+    atol: float
+        Relative tolerance to compare
+    max_num_random_generations: int
+        Maximal number of trials to generate random matrix
+
+    Returns
+    -------
+    irreps: list of unitary small representations (irreps of little group) with (order, dim, dim)
+    """
+    factor_system = get_factor_system_from_little_group(
+        little_rotations, little_translations, kpoint
+    )
+
+    # Compute irreps of little co-group
+    little_cogroup_irreps = enumerate_unitary_irreps(
+        little_rotations,
+        factor_system,
+        method=method,
+        rtol=rtol,
+        atol=atol,
+        max_num_random_generations=max_num_random_generations,
+    )
+
+    # Small representations of little group
+    irreps = []
+    for rep in little_cogroup_irreps:
+        phases = np.array(
+            [
+                np.exp(-2j * np.pi * np.dot(kpoint, translation))
+                for translation in little_translations
+            ]
+        )
+        irreps.append(rep * phases[:, None, None])
+
+    return irreps
 
 
 def enumerate_unitary_irreps(
@@ -45,6 +104,8 @@ def enumerate_unitary_irreps(
         'random': construct irreps by numerically diagonalizing a random matrix commute with regular representation
     rtol: float
         Relative tolerance to distinguish difference eigenvalues
+    atol: float
+        Relative tolerance to compare
     max_num_random_generations: int
         Maximal number of trials to generate random matrix
 

@@ -5,8 +5,8 @@ from typing import Literal
 import numpy as np
 from spglib import get_symmetry_dataset
 
-from spgrep.group import get_factor_system_from_little_group, get_little_group
-from spgrep.irreps import enumerate_unitary_irreps
+from spgrep.group import get_little_group
+from spgrep.irreps import enumerate_small_representations, enumerate_unitary_irreps
 from spgrep.transform import (
     get_primitive_transformation_matrix,
     transform_symmetry_and_kpoint,
@@ -185,30 +185,17 @@ def get_spacegroup_irreps_from_primitive_symmetry(
     little_rotations, little_translations, mapping_little_group = get_little_group(
         rotations, translations, kpoint, atol=atol
     )
-    factor_system = get_factor_system_from_little_group(
-        little_rotations, little_translations, kpoint
-    )
 
-    # Compute irreps of little co-group
-    little_cogroup_irreps = enumerate_unitary_irreps(
+    # Small representations of little group
+    irreps = enumerate_small_representations(
         little_rotations,
-        factor_system,
+        little_translations,
+        kpoint,
         method=method,
         rtol=rtol,
         atol=atol,
         max_num_random_generations=max_num_random_generations,
     )
-
-    # Small representations of little group
-    irreps = []
-    for rep in little_cogroup_irreps:
-        phases = np.array(
-            [
-                np.exp(-2j * np.pi * np.dot(kpoint, translation))
-                for translation in little_translations
-            ]
-        )
-        irreps.append(rep * phases[:, None, None])
 
     return irreps, mapping_little_group
 
