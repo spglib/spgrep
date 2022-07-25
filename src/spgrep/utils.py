@@ -62,4 +62,7 @@ def contain_space(
     """
     # Solve basis1.T @ A = basis2.T
     A, residual, _, _ = np.linalg.lstsq(basis1.T, basis2.T, rcond=None)
-    return np.all(residual < atol)
+
+    # Always compare vectors by L_infinity norm
+    basis2_T_near = basis1.T @ A
+    return np.allclose(basis2_T_near, basis2.T, atol=atol)
