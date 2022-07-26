@@ -120,7 +120,7 @@ def get_character(representation: NDArrayComplex) -> NDArrayComplex:
 def project_to_irrep(
     representation: NDArrayComplex,
     irrep: NDArrayComplex,
-    atol: float = 1e-8,
+    atol: float = 1e-6,  # A bit large tolerance setting to handle numerical noise in `representation`
 ) -> list[NDArrayComplex]:
     """Construct basis functions for ``irrep`` by linear combinations of basis functions of ``representation``.
 
@@ -155,9 +155,6 @@ def project_to_irrep(
     basis: list[NDArrayComplex] = []
     for n in range(dim):
         for j in range(dim_irrep):
-            if count == num_basis:
-                break
-
             # basis_nj[i, :] is the i-th basis vector forms given irrep (i = 0, ... dim_irrep-1)
             # These basis vectors are mutually orthogonal by construction!
             basis_nj = (
@@ -186,9 +183,15 @@ def project_to_irrep(
             basis.append(basis_nj)
             count += 1
 
-    if count != num_basis:
+    if count > num_basis:
         warn(
-            f"Inconsistent number of independent basis vectors: expect={num_basis}, actual={count}"
+            f"Inconsistent number of independent basis vectors (expect={num_basis}, actual={count})."
+            "Try decreasing atol."
+        )
+    elif count < num_basis:
+        warn(
+            f"Inconsistent number of independent basis vectors (expect={num_basis}, actual={count})."
+            "Try increasing atol."
         )
 
     return basis

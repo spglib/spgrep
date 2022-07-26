@@ -192,3 +192,21 @@ def is_unique_irreps(irreps: list[NDArrayComplex]):
         if is_equivalent_irrep(ci, cj) != (i == j):
             return False
     return True
+
+
+def test_tetragonal():
+    # -42m
+    rotations = np.array(
+        [
+            [[1, 0, 0], [0, 1, 0], [0, 0, 1]],
+            [[0, -1, 0], [-1, 0, 0], [1, 1, 1]],
+            [[-1, -1, -1], [0, 0, 1], [0, 1, 0]],
+            [[0, 0, -1], [1, 1, 1], [-1, 0, 0]],
+            [[0, 0, 1], [1, 0, 0], [-1, -1, -1]],
+            [[1, 1, 1], [0, -1, 0], [0, 0, -1]],
+            [[-1, 0, 0], [0, 0, -1], [0, -1, 0]],
+            [[0, 1, 0], [-1, -1, -1], [1, 0, 0]],
+        ]
+    )
+    irreps = enumerate_unitary_irreps(rotations, method="Neto")
+    assert len(irreps) == 5

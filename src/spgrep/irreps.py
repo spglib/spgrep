@@ -135,6 +135,23 @@ def enumerate_unitary_irreps(
     else:
         raise ValueError(f"Unknown method to compute irreps: {method}")
 
+    # Purify values of `irreps`.
+    # Each value should be 0 or exp(2 pi q / p) (p=1,2,3,4,6, q = 0,...,p-1)
+    possible_values = [
+        0,
+        1,  # 0/1
+        np.exp(1j * np.pi / 3),  # 1/3
+        1j,  # 1/4
+        np.exp(1j * np.pi * 2 / 3),  # 2/3
+        -1,  # 1/2
+        np.exp(1j * np.pi * 4 / 3),  # 4/3
+        -1j,  # 3/4
+        np.exp(1j * np.pi * 5 / 3),  # 5/3
+    ]
+    for irrep in irreps:
+        for v in possible_values:
+            irrep[np.abs(irrep - v) < atol] = v
+
     if not real:
         return irreps
 
@@ -383,7 +400,7 @@ def enumerate_unitary_irreps_from_solvable_group_chain(
         group = []
         for m in range(p):
             group.extend([table[rm[m], s] for s in subgroup])
-        group.sort()
+        group = sorted(list(set(group)))
 
         subgroup_remapping = {}  # GroupIdx -> int for `subgroup`
         for i, si in enumerate(subgroup):
