@@ -1,7 +1,14 @@
 # spgrep
 [![testing](https://github.com/spglib/spgrep/actions/workflows/testing.yml/badge.svg)](https://github.com/spglib/spgrep/actions/workflows/testing.yml)
 
-On-the-fly generator of space-group irreducible representations
+**spgrep** is a Python package of on-the-fly generator of space-group irreducible representations.
+
+## Features
+
+- Calculate irreducible representations (irreps) of space groups from spglib’s cell and kpoints
+- Calculate irreps of crystallographic point groups
+- Find symmetry-adapted basis forming given irreps
+- Minimal dependencies (numpy and spglib)
 
 ## Installation
 
@@ -12,6 +19,10 @@ git clone git@github.com:spglib/spgrep.git
 cd spgrep
 pip install -e .
 ```
+
+## License
+
+spgrep is released under a BSD 3-clause license.
 
 ## Development
 

@@ -1,4 +1,6 @@
-# Small representation of space group
+# Irreps of space group
+
+This page formulates little group, small representation, and irreducible representations (irreps) of space groups.
 
 ## Reciprocal lattice and transformation
 
@@ -18,7 +20,7 @@ When basis vectors {math}`\mathbf{A}` is transformed to {math}`\mathbf{A}' := \m
     ```
 - Coefficients of reciprocal vector {math}`\mathbf{k} = 2 \pi \mathbf{B} \mathbf{k}_{f}` is transformed to {math}`\mathbf{k}_{f}' := \mathbf{P}^{\top} \mathbf{k}_{f}`.
 
-## Irreducible representation of translation subgroup
+## Irreps of translation subgroup
 
 Consider the following irreps of translation subgroup {math}`\mathcal{T}` of space group {math}`\mathcal{G}`,
 ```{math}

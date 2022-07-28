@@ -1,5 +1,7 @@
 # On-the-fly irreps generation from regular representation
 
+This page describes an algorithm for generating all irreps by random matrix.
+
 ## Regular representation
 
 Given a finite group {math}`G = \{ R_{k} \}_{k=1}^{|G|}`, the regular representation of {math}`G` is defined as
@@ -25,7 +27,7 @@ The factor system defined in "[](spacegroup_irreps.md)" satisfies this condition
 
 ## Obtaining all irreps from (projective) regular representation
 
-Refs. {cite}`Neto:a09740,THOMAS201776,doi:10.1137/090779966,Po2017`
+Refs. {cite}`THOMAS201776,doi:10.1137/090779966,Po2017`
 
 For a finite group {math}`G` and its (projective) regular representation {math}`\Gamma^{(\mathrm{reg})}`,
 ```{math}
@@ -82,6 +84,89 @@ label: all_irreps_dim_sum
 where {math}`\chi^{(\alpha)}` is character of irrep {math}`\Gamma^{(\alpha)}`.
 
 Note that Eqs. {eq}`all_irreps_dim_sum` also holds for projective representations.
+
+## Working example
+
+### Crystallographic point group
+
+#### {math}`C_{3v}` associated with {math}`P3m1` (No. 156)
+
+The matrix representation of this crystallographic point group is
+
+```{math}
+    \mathcal{P}
+    &=
+    \left\{
+        g_0=e,
+        g_1,
+        g_2=g_1^{-1},
+        g_3,
+        g_4=g_1^{-1} * g_3,
+        g_5=g_1 * g_3
+    \right\} \\
+    \quad \mbox{where}\quad
+    g_1
+    &=
+    \begin{pmatrix}
+        0 & -1 & 0 \\
+        1 & -1 & 0 \\
+        0 & 0  & 1 \\
+    \end{pmatrix} \\
+    g_3
+    &=
+    \begin{pmatrix}
+        0 & -1 & 0\\
+        -1 & 0 & 0\\
+        0 & 0 & 1\\
+    \end{pmatrix}.
+```
+
+```{math}
+\Gamma^{(\mathrm{reg})} = \Gamma^{(A_{1})} + \Gamma^{(A_{2})} + 2\Gamma^{(E)}
+```
+
+### Space group
+
+#### {math}`P4_{2}/mnm` (No. 136) at {math}`X=(0\frac{1}{2}0)`
+
+The little co-group is
+```{math}
+  \overline{\mathcal{G}}^{\mathbf{k}}
+  &= \left\{
+    g_{0} = e,
+    g_{1},
+    g_{2},
+    g_{3} = g_{1} g_{2},
+    g_{4},
+    g_{5} = g_{1} g_{4},
+    g_{6} = g_{2} g_{4},
+    g_{7} = g_{1} g_{2} g_{4}
+  \right\}
+  \cong mmm, \\
+  \mathrm{where} \quad
+  g_{1} &= \mathrm{diag}(-1, -1, -1) \\
+  g_{2} &= \mathrm{diag}(-1, -1, 1) \\
+  g_{4} &= \mathrm{diag}(1, -1, -1).
+```
+
+```{math}
+  \Gamma^{(\mathrm{reg})} = 2 \Gamma^{(X_{1})} + 2 \Gamma^{(X_{2})}
+```
+
+#### {math}`\mathcal{G} = Ia\overline{3}d` (No. 230) at {math}`H=(\frac{1}{2}\overline{\frac{1}{2}}\frac{1}{2})_{\mathrm{primitive}}`
+
+(corresponding to {math}`G^{4}_{96}` in Ref. {cite}`Bradley2009-ze`)
+
+```{math}
+  \overline{\mathcal{G}}^{\mathbf{k}}| \cong m\overline{3}m,
+  \quad
+  \left| \overline{\mathcal{G}}^{\mathbf{k}} \right| = 48
+```
+
+```{math}
+  \Gamma^{(\mathrm{reg})} = 2\Gamma^{(H_{1})} + 2\Gamma^{(H_{2})} + 6\Gamma^{(H_{3})}
+```
+
 
 ## References
 

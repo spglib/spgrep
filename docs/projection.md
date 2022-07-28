@@ -10,8 +10,7 @@ A typical procedure to use irreps is as follows:
         \Gamma^{(\mathbf{k})}((E, \mathbf{t})) &= e^{ -i\mathbf{k}\cdot\mathbf{t} } \mathbf{1}
         \quad ( (E, \mathbf{t}) \in \mathcal{G}) \\
     ```
-1. Prepare little group {math}`\mathcal{G}^{\mathbf{q}}` by {func}`spgrep.group.get_little_group`
-1. Compute unitary small representations {math}`\Gamma^{ (\mathbf{k}, \alpha) }` of little group {math}`\mathcal{G}^{\mathbf{k}}` by {func}`spgrep.irreps.enumerate_small_representations`
+1. Compute unitary small representations {math}`\Gamma^{ (\mathbf{k}, \alpha) }` of little group {math}`\mathcal{G}^{\mathbf{k}}` by {func}`spgrep.get_spacegroup_irreps_from_primitive_symmetry` in primitive cell
 1. Apply projection operator by {func}`spgrep.representation.project_to_irrep`
 
 ## Projection operator
