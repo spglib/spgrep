@@ -6,9 +6,9 @@ A typical procedure to use irreps is as follows:
 1. Fourier-transform your selected basis {math}`\{ \phi^{(\mathbf{k})}_{i} \}_{\mathbf{k}, i}` such that
     ```{math}
         g \phi^{(\mathbf{k})}_{j} &= \sum_{i} \phi^{(\mathbf{k})}_{i} \Gamma^{(\mathbf{k})}_{ij} 
-        \quad (g \in \mathcal{G}) \\
+        \quad (g \in \mathcal{G}^{\mathbf{k}}) \\
         \Gamma^{(\mathbf{k})}((E, \mathbf{t})) &= e^{ -i\mathbf{k}\cdot\mathbf{t} } \mathbf{1}
-        \quad ( (E, \mathbf{t}) \in \mathcal{G}) \\
+        \quad ( (E, \mathbf{t}) \in \mathcal{G}^{\mathbf{k}}) \\
     ```
 1. Compute unitary small representations {math}`\Gamma^{ (\mathbf{k}, \alpha) }` of little group {math}`\mathcal{G}^{\mathbf{k}}` by {func}`spgrep.get_spacegroup_irreps_from_primitive_symmetry` in primitive cell
 1. Apply projection operator by {func}`spgrep.representation.project_to_irrep`
