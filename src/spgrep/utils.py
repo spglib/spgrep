@@ -66,3 +66,50 @@ def contain_space(
     # Always compare vectors by L_infinity norm
     basis2_T_near = basis1.T @ A
     return np.allclose(basis2_T_near, basis2.T, atol=atol)
+
+
+def mode_dot(coeffs: NDArray, list_matrix: list[NDArray]) -> NDArray:
+    """Calculate p-mode product of tensor and list of matrices.
+
+    For example, 3-mode product of ``coeffs`` and ``list_matrix=[m1, m2, m3]`` is ``np.einsum("ijk,ia,jb,kc", coeffs, m1, m2, m3)``.
+
+    Parameters
+    ----------
+    coeff: array, (m, ..., m)
+    list_matrix: list of array, shape of the i-th array is (m, n_i)
+
+    Returns
+    -------
+    ret: (n_1, ..., n_p)
+    """
+
+    def _mode_dot(tensor, mat, axis):
+        # tensor: (m_{0}, ..., m_{axis}, ...)
+        # mat: (m_{axis}, n)
+        # ret: (m_{0}, ..., n, ...)
+        dim_tensor = tuple(
+            [
+                1,
+            ]
+            + list(tensor.shape)
+        )
+        tensor_reshaped = tensor.reshape(dim_tensor)
+
+        dim_mat = tuple(
+            list(mat.shape)
+            + [
+                1,
+            ]
+            * (tensor.ndim - 1)
+        )
+        mat_reshaped = np.swapaxes(np.swapaxes(mat.reshape(dim_mat), 0, 1), 1, axis + 1)
+
+        ret = np.swapaxes(
+            np.sum(tensor_reshaped * mat_reshaped, axis=axis + 1, keepdims=True), 0, axis + 1
+        )
+        return ret[0]
+
+    ret = coeffs.copy()
+    for axis in range(len(list_matrix)):
+        ret = _mode_dot(ret, list_matrix[axis], axis)
+    return ret

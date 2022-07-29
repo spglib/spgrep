@@ -273,3 +273,30 @@ def check_spacegroup_representation(
                 return False
 
     return True
+
+
+def get_direct_product(
+    rep1: NDArrayComplex | NDArrayFloat, rep2: NDArrayComplex | NDArrayFloat
+) -> NDArrayComplex | NDArrayFloat:
+    """Return Knocker product of two representations
+
+    Parameters
+    ----------
+    rep1: array, (order, dim1, dim1)
+    rep2: array, (order, dim2, dim2)
+
+    Returns
+    -------
+    direct: (order, dim1 * dim2, dim1 * dim2)
+    """
+    order = rep1.shape[0]
+    dim1 = rep1.shape[1]
+    dim2 = rep2.shape[1]
+
+    if rep1.shape != (order, dim1, dim1) or rep2.shape != (order, dim2, dim2):
+        raise ValueError("Inconsistent shapes.")
+
+    direct = (rep1[:, :, None, :, None] * rep2[:, None, :, None, :]).reshape(
+        order, dim1 * dim2, dim1 * dim2
+    )
+    return direct
