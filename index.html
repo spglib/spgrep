@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>spgrep &#8212; spgrep 0.2.6</title>
+    <title>spgrep &#8212; spgrep 0.2.7</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -74,7 +74,7 @@
       
       
       
-      <h1 class="site-logo" id="site-title">spgrep 0.2.6</h1>
+      <h1 class="site-logo" id="site-title">spgrep 0.2.7</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
@@ -338,6 +338,23 @@ title="Print to PDF"
   <a class="reference internal nav-link" href="#development">
    Development
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id1">
+     Installation
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#document">
+     Document
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#release">
+     Release
+    </a>
+   </li>
+  </ul>
  </li>
 </ul>
 
@@ -382,6 +399,23 @@ title="Print to PDF"
   <a class="reference internal nav-link" href="#development">
    Development
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id1">
+     Installation
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#document">
+     Document
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#release">
+     Release
+    </a>
+   </li>
+  </ul>
  </li>
 </ul>
 
@@ -397,8 +431,16 @@ title="Print to PDF"
 </div>
 <section id="spgrep">
 <h1>spgrep<a class="headerlink" href="#spgrep" title="Permalink to this headline">#</a></h1>
-<p><a class="reference external" href="https://github.com/spglib/spgrep/actions/workflows/testing.yml"><img alt="testing" src="https://github.com/spglib/spgrep/actions/workflows/testing.yml/badge.svg" /></a></p>
+<p><a class="reference external" href="https://github.com/spglib/spgrep/actions/workflows/testing.yml"><img alt="testing" src="https://github.com/spglib/spgrep/actions/workflows/testing.yml/badge.svg" /></a>
+<a class="reference external" href="https://opensource.org/licenses/BSD-3-Clause"><img alt="License" src="https://img.shields.io/badge/License-BSD_3--Clause-blue.svg" /></a>
+[<img alt="PyPI - Python Version" src="https://img.shields.io/pypi/pyversions/spgrep" />
+<a class="reference external" href="https://badge.fury.io/py/spgrep"><img alt="PyPI version" src="https://badge.fury.io/py/spgrep.svg" /></a></p>
 <p><strong>spgrep</strong> is a Python package of on-the-fly generator of space-group irreducible representations.</p>
+<ul class="simple">
+<li><p>Github: https://github.com/spglib/spgrep</p></li>
+<li><p>Document: https://spglib.github.io/spgrep/</p></li>
+<li><p>PyPI: https://pypi.org/project/spgrep</p></li>
+</ul>
 <section id="features">
 <h2>Features<a class="headerlink" href="#features" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
@@ -471,7 +513,8 @@ pip install -e .
 </section>
 <section id="development">
 <h2>Development<a class="headerlink" href="#development" title="Permalink to this headline">#</a></h2>
-<p>Installation</p>
+<section id="id1">
+<h3>Installation<a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h3>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>conda create -n spgrep <span class="nv">python</span><span class="o">=</span><span class="m">3</span>.10 pip
 conda activate spgrep
 git clone git@github.com:spglib/spgrep.git
@@ -483,16 +526,34 @@ pre-commit install
 pre-commit run --all-file 
 </pre></div>
 </div>
-<p>Document</p>
+</section>
+<section id="document">
+<h3>Document<a class="headerlink" href="#document" title="Permalink to this headline">#</a></h3>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sphinx-autobuild docs docs_build
 <span class="c1"># open localhost:8000 in your browser</span>
 </pre></div>
 </div>
-<p>Confirm the version number via <code class="docutils literal notranslate"><span class="pre">setuptools-scm</span></code></p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python -m setuptools_scm
-<span class="c1"># e.g. 0.1.dev1+g7aa164a.d20220704</span>
+</section>
+<section id="release">
+<h3>Release<a class="headerlink" href="#release" title="Permalink to this headline">#</a></h3>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Confirm the version number via `setuptools-scm`</span>
+python -m setuptools_scm
+<span class="c1"># Test a release version at rc branch</span>
+git checkout rc
+
+<span class="c1"># Update changelog here</span>
+
+<span class="c1"># Push with tag</span>
+git tag &lt;next-version&gt;
+git push --follow-tags origin rc
+
+<span class="c1"># Merge to main</span>
+git checkout main
+git merge rc
+git push --follow-tags origin main
 </pre></div>
 </div>
+</section>
 </section>
 </section>
 
