@@ -82,7 +82,7 @@ def get_intertwiner(
     atol: float
         Absolute tolerance to distinguish difference eigenvalues
     max_num_random_generations: int
-        Maximal number of trials to generate random matrix
+        Maximum number of trials to generate random matrix
 
     Returns
     -------
@@ -121,6 +121,7 @@ def project_to_irrep(
     representation: NDArrayComplex,
     irrep: NDArrayComplex,
     atol: float = 1e-6,  # A bit large tolerance setting to handle numerical noise in `representation`
+    max_num_trials: int = 10,
 ) -> list[NDArrayComplex]:
     """Construct basis functions for ``irrep`` by linear combinations of basis functions of ``representation``.
 
@@ -131,6 +132,8 @@ def project_to_irrep(
         Unitary (projective) irrep with factor system s.t. :math:`\\mu(E, E) = 1`.
     atol: float, default=1e-5
         Absolute tolerance to compare basis vectors
+    max_num_trials: int, default=10
+        Maximum number to retry when failed to select projected basis vectors
 
     Returns
     -------
@@ -151,37 +154,56 @@ def project_to_irrep(
     if num_basis == 0:
         return []
 
-    count = 0
-    basis: list[NDArrayComplex] = []
-    for n in range(dim):
-        for j in range(dim_irrep):
-            # basis_nj[i, :] is the i-th basis vector forms given irrep (i = 0, ... dim_irrep-1)
-            # These basis vectors are mutually orthogonal by construction!
-            basis_nj = (
-                dim_irrep
-                / order
-                * np.einsum(
-                    "ki,km->im",
-                    np.conj(irrep[:, :, j]),
-                    representation[:, :, n],
-                    optimize="greedy",
+    def _project_to_irrep(adjusted_atol):
+        count = 0
+        basis: list[NDArrayComplex] = []
+        for n in range(dim):
+            for j in range(dim_irrep):
+                # basis_nj[i, :] is the i-th basis vector forms given irrep (i = 0, ... dim_irrep-1)
+                # These basis vectors are mutually orthogonal by construction!
+                basis_nj = (
+                    dim_irrep
+                    / order
+                    * np.einsum(
+                        "ki,km->im",
+                        np.conj(irrep[:, :, j]),
+                        representation[:, :, n],
+                        optimize="greedy",
+                    )
                 )
-            )
 
-            if np.allclose(basis_nj, 0, atol=atol):
-                continue
+                if np.allclose(basis_nj, 0, atol=adjusted_atol):
+                    continue
 
-            # Them, normalize basis vectors s.t. they are orthonormal.
-            basis_nj /= np.linalg.norm(basis_nj, axis=1)[:, None]
+                # Them, normalize basis vectors s.t. they are orthonormal.
+                basis_nj /= np.linalg.norm(basis_nj, axis=1)[:, None]
 
-            # Check if linearly independent with other basis vectors
-            # Two subspaces spanned by orthonormal basis vectors V1 and V2 are the same if and only if
-            # triangular matrices R1 and R2 in QR decomposition of V1 and V2 are the same.
-            if any([contain_space(basis_nj, other) for other in basis]):
-                continue
+                # Check if linearly independent with other basis vectors
+                # Two subspaces spanned by orthonormal basis vectors V1 and V2 are the same if and only if
+                # triangular matrices R1 and R2 in QR decomposition of V1 and V2 are the same.
+                if len(basis) > 0 and contain_space(
+                    np.concatenate(basis, axis=0), basis_nj, atol=adjusted_atol
+                ):
+                    # if any([contain_space(basis_nj, other, atol=adjusted_atol) for other in basis]):
+                    continue
 
-            basis.append(basis_nj)
-            count += 1
+                basis.append(basis_nj)
+                count += 1
+
+        return basis, count
+
+    adjusted_atol = atol
+    for _ in range(max_num_trials):
+        basis, count = _project_to_irrep(adjusted_atol)
+        if count == num_basis:
+            break
+        elif count > num_basis:
+            # Tighten tolerance to compare basis vectors
+            adjusted_atol /= 2
+            print(count, num_basis, adjusted_atol)
+        else:
+            # Loosen tolerance to compare basis vectors
+            adjusted_atol *= 2
 
     if count > num_basis:
         warn(

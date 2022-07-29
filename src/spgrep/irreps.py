@@ -47,7 +47,7 @@ def enumerate_small_representations(
     atol: float
         Relative tolerance to compare
     max_num_random_generations: int
-        Maximal number of trials to generate random matrix
+        Maximum number of trials to generate random matrix
 
     Returns
     -------
@@ -107,7 +107,7 @@ def enumerate_unitary_irreps(
     atol: float
         Relative tolerance to compare
     max_num_random_generations: int
-        Maximal number of trials to generate random matrix
+        Maximum number of trials to generate random matrix
 
     Returns
     -------
@@ -188,7 +188,7 @@ def enumerate_unitary_irreps_from_regular_representation(
     rtol: float
         Relative tolerance to distinguish difference eigenvalues
     max_num_random_generations: int
-        Maximal number of trials to generate random matrix
+        Maximum number of trials to generate random matrix
 
     Returns
     -------
@@ -250,7 +250,7 @@ def decompose_representation(
     rtol: float
         Relative tolerance to distinguish difference eigenvalues
     max_num_random_generations: int
-        Maximal number of trials to generate random matrix
+        Maximum number of trials to generate random matrix
 
     Returns
     -------
@@ -360,7 +360,7 @@ def enumerate_unitary_irreps_from_solvable_group_chain(
     atol: float
         Absolute tolerance to distinguish difference eigenvalues
     max_num_random_generations: int
-        Maximal number of trials to generate random matrix
+        Maximum number of trials to generate random matrix
 
     Returns
     -------

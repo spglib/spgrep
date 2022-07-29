@@ -61,7 +61,7 @@ def get_spacegroup_irreps(
     atol: float
         Absolute tolerance to distinguish difference eigenvalues
     max_num_random_generations: int
-        Maximal number of trials to generate random matrix
+        Maximum number of trials to generate random matrix
 
     Returns
     -------
@@ -171,7 +171,7 @@ def get_spacegroup_irreps_from_primitive_symmetry(
     atol: float
         Absolute tolerance to distinguish difference eigenvalues
     max_num_random_generations: int
-        Maximal number of trials to generate random matrix
+        Maximum number of trials to generate random matrix
 
     Returns
     -------
@@ -231,7 +231,7 @@ def get_crystallographic_pointgroup_irreps_from_symmetry(
     atol: float
         Absolute tolerance to distinguish difference eigenvalues
     max_num_random_generations: int
-        Maximal number of trials to generate random matrix
+        Maximum number of trials to generate random matrix
 
     Returns
     -------

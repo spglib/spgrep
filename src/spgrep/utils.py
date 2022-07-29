@@ -60,6 +60,9 @@ def contain_space(
     basis1: array, (dim_irrep, dim)
     basis2: array, (dim_irrep, dim)
     """
+    if len(basis1) == 0:
+        return False  # basis1 is empty
+
     # Solve basis1.T @ A = basis2.T
     A, residual, _, _ = np.linalg.lstsq(basis1.T, basis2.T, rcond=None)
 
