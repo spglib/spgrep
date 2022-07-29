@@ -18,8 +18,8 @@
 # -- Project information -----------------------------------------------------
 
 project = "spgrep"
-copyright = "2022, Kohei Shinohara, Atsushi Togo"
-author = "Kohei Shinohara, Atsushi Togo"
+copyright = "2022, Kohei Shinohara"
+author = "Kohei Shinohara"
 
 # https://github.com/pypa/setuptools_scm/
 from importlib.metadata import version

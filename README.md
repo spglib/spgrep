@@ -81,6 +81,9 @@ git clone git@github.com:spglib/spgrep.git
 cd spgrep
 pip install -e ".[dev,docs]"
 pre-commit install
+
+# Run pre-commit manually
+pre-commit run --all-file 
 ```
 
 Document

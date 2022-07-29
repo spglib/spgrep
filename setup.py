@@ -11,7 +11,7 @@ from setuptools import find_packages, setup
 NAME = "spgrep"
 DESCRIPTION = "On-the-fly generator of space-group irreducible representations"
 URL = "https://github.com/spglib/spgrep"
-AUTHOR = "Kohei Shinohara, Atsushi Togo"
+AUTHOR = "Kohei Shinohara"
 EMAIL = "kshinohara0508@gmail.com"
 REQUIRES_PYTHON = ">=3.8.0"
 
