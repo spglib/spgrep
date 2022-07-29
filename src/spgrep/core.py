@@ -6,7 +6,11 @@ import numpy as np
 from spglib import get_symmetry_dataset
 
 from spgrep.group import get_little_group
-from spgrep.irreps import enumerate_small_representations, enumerate_unitary_irreps
+from spgrep.irreps import (
+    enumerate_small_representations,
+    enumerate_unitary_irreps,
+    purify_irrep_value,
+)
 from spgrep.transform import (
     get_primitive_transformation_matrix,
     transform_symmetry_and_kpoint,
@@ -127,6 +131,8 @@ def get_spacegroup_irreps(
     for prim_irrep in prim_irreps:
         # prim_irrep: (little_group_order, dim, dim)
         irrep = prim_irrep[mapping_conv_to_prim_little_group] * phases[:, None, None]
+        irrep = purify_irrep_value(irrep)
+
         irreps.append(irrep)
 
     return irreps, rotations, translations, np.array(mapping_little_group)

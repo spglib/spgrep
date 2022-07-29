@@ -136,21 +136,8 @@ def enumerate_unitary_irreps(
         raise ValueError(f"Unknown method to compute irreps: {method}")
 
     # Purify values of `irreps`.
-    # Each value should be 0 or exp(2 pi q / p) (p=1,2,3,4,6, q = 0,...,p-1)
-    possible_values = [
-        0,
-        1,  # 0/1
-        np.exp(1j * np.pi / 3),  # 1/3
-        1j,  # 1/4
-        np.exp(1j * np.pi * 2 / 3),  # 2/3
-        -1,  # 1/2
-        np.exp(1j * np.pi * 4 / 3),  # 4/3
-        -1j,  # 3/4
-        np.exp(1j * np.pi * 5 / 3),  # 5/3
-    ]
     for irrep in irreps:
-        for v in possible_values:
-            irrep[np.abs(irrep - v) < atol] = v
+        irrep = purify_irrep_value(irrep, atol=atol)
 
     if not real:
         return irreps
@@ -556,3 +543,22 @@ def is_equivalent_irrep(character1: NDArrayComplex, character2: NDArrayComplex) 
         return True
     else:
         return False
+
+
+def purify_irrep_value(irrep: NDArrayComplex, atol: float = 1e-8) -> NDArrayComplex:
+    # Purify values of `irreps`.
+    # Each value should be 0 or exp(2 pi q / p) (p=1,2,3,4,6, q = 0,...,p-1)
+    possible_values = [
+        0,
+        1,  # 0/1
+        np.exp(1j * np.pi / 3),  # 1/3
+        1j,  # 1/4
+        np.exp(1j * np.pi * 2 / 3),  # 2/3
+        -1,  # 1/2
+        np.exp(1j * np.pi * 4 / 3),  # 4/3
+        -1j,  # 3/4
+        np.exp(1j * np.pi * 5 / 3),  # 5/3
+    ]
+    for v in possible_values:
+        irrep[np.abs(irrep - v) < atol] = v
+    return irrep
