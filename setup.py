@@ -39,6 +39,7 @@ EXTRAS = {
         "sphinx",
         "sphinx-autobuild",
         "sphinxcontrib-bibtex",
+        "sphinxcontrib-mermaid",
         "myst-parser",
         "sphinx-book-theme",
     ],

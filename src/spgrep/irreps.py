@@ -47,7 +47,7 @@ def enumerate_small_representations(
     atol: float
         Relative tolerance to compare
     max_num_random_generations: int
-        Maximal number of trials to generate random matrix
+        Maximum number of trials to generate random matrix
 
     Returns
     -------
@@ -107,7 +107,7 @@ def enumerate_unitary_irreps(
     atol: float
         Relative tolerance to compare
     max_num_random_generations: int
-        Maximal number of trials to generate random matrix
+        Maximum number of trials to generate random matrix
 
     Returns
     -------
@@ -136,21 +136,8 @@ def enumerate_unitary_irreps(
         raise ValueError(f"Unknown method to compute irreps: {method}")
 
     # Purify values of `irreps`.
-    # Each value should be 0 or exp(2 pi q / p) (p=1,2,3,4,6, q = 0,...,p-1)
-    possible_values = [
-        0,
-        1,  # 0/1
-        np.exp(1j * np.pi / 3),  # 1/3
-        1j,  # 1/4
-        np.exp(1j * np.pi * 2 / 3),  # 2/3
-        -1,  # 1/2
-        np.exp(1j * np.pi * 4 / 3),  # 4/3
-        -1j,  # 3/4
-        np.exp(1j * np.pi * 5 / 3),  # 5/3
-    ]
     for irrep in irreps:
-        for v in possible_values:
-            irrep[np.abs(irrep - v) < atol] = v
+        irrep = purify_irrep_value(irrep, atol=atol)
 
     if not real:
         return irreps
@@ -178,9 +165,11 @@ def enumerate_unitary_irreps(
     real_irreps = []
     for conj_pair in conjugated_pairs:
         irrep = irreps[conj_pair[0]]
-        real_irreps.append(
-            get_real_irrep(irrep, atol=atol, max_num_random_generations=max_num_random_generations)
+        real_irrep = get_real_irrep(
+            irrep, atol=atol, max_num_random_generations=max_num_random_generations
         )
+        real_irrep = purify_real_irrep_value(real_irrep, atol=atol)
+        real_irreps.append(real_irrep)
 
     return real_irreps
 
@@ -199,7 +188,7 @@ def enumerate_unitary_irreps_from_regular_representation(
     rtol: float
         Relative tolerance to distinguish difference eigenvalues
     max_num_random_generations: int
-        Maximal number of trials to generate random matrix
+        Maximum number of trials to generate random matrix
 
     Returns
     -------
@@ -261,7 +250,7 @@ def decompose_representation(
     rtol: float
         Relative tolerance to distinguish difference eigenvalues
     max_num_random_generations: int
-        Maximal number of trials to generate random matrix
+        Maximum number of trials to generate random matrix
 
     Returns
     -------
@@ -371,7 +360,7 @@ def enumerate_unitary_irreps_from_solvable_group_chain(
     atol: float
         Absolute tolerance to distinguish difference eigenvalues
     max_num_random_generations: int
-        Maximal number of trials to generate random matrix
+        Maximum number of trials to generate random matrix
 
     Returns
     -------
@@ -516,11 +505,11 @@ def get_real_irrep(
     indicator = frobenius_schur_indicator(irrep)
     if indicator == 1:
         # Intertwiner with determinant=1
-        conj_irrep = np.transpose(np.conj(irrep), [0, 2, 1])
+        conj_irrep = np.conj(irrep)
         U = get_intertwiner(
             irrep, conj_irrep, atol=atol, max_num_random_generations=max_num_random_generations
         )
-        U = U / np.linalg.det(U)
+        U /= np.linalg.det(U) ** (1 / dim)
 
         # Take real or imaginary part of eigenvectors for new basis vectors
         eigvals, eigvecs = np.linalg.eig(U)  # eigvecs[:, i] is the i-th eigenvector
@@ -537,6 +526,7 @@ def get_real_irrep(
         T = S.T @ np.diag([nroot(eigval, 2) for eigval in eigvals]) @ S
 
         real_irrep = np.real(np.einsum("il,klm,mj->kij", T, irrep, np.conj(T), optimize="greedy"))
+
     elif indicator in [-1, 0]:
         real_irrep = np.empty((order, 2 * dim, 2 * dim), dtype=np.float_)
         # [ [Re D(g),  Im D(g)]
@@ -556,3 +546,35 @@ def is_equivalent_irrep(character1: NDArrayComplex, character2: NDArrayComplex) 
         return True
     else:
         return False
+
+
+def purify_irrep_value(irrep: NDArrayComplex, atol: float = 1e-8) -> NDArrayComplex:
+    # Purify values of `irreps`.
+    # Each value should be 0 or exp(2 pi q / p) (p=1,2,3,4,6, q = 0,...,p-1)
+    possible_values = [
+        0,
+        1,  # 0/1
+        np.exp(1j * np.pi / 3),  # 1/3
+        1j,  # 1/4
+        np.exp(1j * np.pi * 2 / 3),  # 2/3
+        -1,  # 1/2
+        np.exp(1j * np.pi * 4 / 3),  # 4/3
+        -1j,  # 3/4
+        np.exp(1j * np.pi * 5 / 3),  # 5/3
+    ]
+    for v in possible_values:
+        irrep[np.abs(irrep - v) < atol] = v
+    return irrep
+
+
+def purify_real_irrep_value(real_irrep: NDArrayFloat, atol: float = 1e-8) -> NDArrayFloat:
+    values = [
+        0,
+        1,  # 0/1
+        1 / 2,  # 1/3
+        np.sqrt(3) / 2 - 1 / 2,  # 1/3  # 2/3
+        -np.sqrt(3) / 2 - 1,  # 2/3  # 1/2
+    ]
+    for v in values:
+        real_irrep[np.abs(real_irrep - v) < atol] = v
+    return real_irrep

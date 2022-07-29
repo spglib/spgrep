@@ -6,7 +6,11 @@ import numpy as np
 from spglib import get_symmetry_dataset
 
 from spgrep.group import get_little_group
-from spgrep.irreps import enumerate_small_representations, enumerate_unitary_irreps
+from spgrep.irreps import (
+    enumerate_small_representations,
+    enumerate_unitary_irreps,
+    purify_irrep_value,
+)
 from spgrep.transform import (
     get_primitive_transformation_matrix,
     transform_symmetry_and_kpoint,
@@ -57,7 +61,7 @@ def get_spacegroup_irreps(
     atol: float
         Absolute tolerance to distinguish difference eigenvalues
     max_num_random_generations: int
-        Maximal number of trials to generate random matrix
+        Maximum number of trials to generate random matrix
 
     Returns
     -------
@@ -127,6 +131,8 @@ def get_spacegroup_irreps(
     for prim_irrep in prim_irreps:
         # prim_irrep: (little_group_order, dim, dim)
         irrep = prim_irrep[mapping_conv_to_prim_little_group] * phases[:, None, None]
+        irrep = purify_irrep_value(irrep)
+
         irreps.append(irrep)
 
     return irreps, rotations, translations, np.array(mapping_little_group)
@@ -165,7 +171,7 @@ def get_spacegroup_irreps_from_primitive_symmetry(
     atol: float
         Absolute tolerance to distinguish difference eigenvalues
     max_num_random_generations: int
-        Maximal number of trials to generate random matrix
+        Maximum number of trials to generate random matrix
 
     Returns
     -------
@@ -202,6 +208,7 @@ def get_spacegroup_irreps_from_primitive_symmetry(
 
 def get_crystallographic_pointgroup_irreps_from_symmetry(
     rotations: NDArrayInt,
+    real: bool = False,
     method: Literal["Neto", "random"] = "Neto",
     rtol: float = 1e-5,
     atol: float = 1e-8,
@@ -214,6 +221,8 @@ def get_crystallographic_pointgroup_irreps_from_symmetry(
     ----------
     rotations: array, (order, 3, 3)
         Assume a point coordinates `x` are transformed into `np.dot(rotations[i, :, :], x)` by the i-th symmetry operation.
+    real: bool, default=False
+        If True, return irreps over real vector space (so called physically irreducible representations)
     method: str, 'Neto' or 'random'
         'Neto': construct irreps from a fixed chain of subgroups of little co-group
         'random': construct irreps by numerically diagonalizing a random matrix commute with regular representation
@@ -222,7 +231,7 @@ def get_crystallographic_pointgroup_irreps_from_symmetry(
     atol: float
         Absolute tolerance to distinguish difference eigenvalues
     max_num_random_generations: int
-        Maximal number of trials to generate random matrix
+        Maximum number of trials to generate random matrix
 
     Returns
     -------
@@ -231,6 +240,7 @@ def get_crystallographic_pointgroup_irreps_from_symmetry(
     irreps = enumerate_unitary_irreps(
         rotations,
         factor_system=None,
+        real=real,
         method=method,
         rtol=rtol,
         atol=atol,
