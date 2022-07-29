@@ -44,13 +44,22 @@ def test_get_irreps_random_C3v(method, C3v):
         assert is_unitary(irrep)
 
 
-def test_real_representation(C4):
-    real_irreps = enumerate_unitary_irreps(C4, real=True)
-    assert len(real_irreps) == 3
+@pytest.mark.parametrize(
+    "fixture_name,num_expect",
+    [
+        ("C4", 3),
+        ("Oh", 10),
+    ],
+)
+def test_real_representation(request, fixture_name, num_expect):
+    rotations = request.getfixturevalue(fixture_name)
+    real_irreps = enumerate_unitary_irreps(rotations, real=True)
+    assert len(real_irreps) == num_expect
 
     # Check representation's property
-    table = get_cayley_table(np.array(C4))
-    factor_system = np.ones((4, 4), dtype=np.complex_)
+    table = get_cayley_table(rotations)
+    order = len(table)
+    factor_system = np.ones((order, order), dtype=np.complex_)
     for irrep in real_irreps:
         assert is_projective_representation(irrep, table, factor_system)
 

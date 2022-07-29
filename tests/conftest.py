@@ -8,6 +8,12 @@ from spgrep.utils import NDArrayFloat, NDArrayInt, get_symmetry_from_hall_number
 
 
 @pytest.fixture
+def Oh() -> NDArrayInt:
+    rotations = np.array(pg_dataset["m-3m"][0])
+    return rotations
+
+
+@pytest.fixture
 def C4() -> NDArrayInt:
     rotations = np.array(pg_dataset["4"][0])
     return rotations
