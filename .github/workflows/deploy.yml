@@ -9,6 +9,7 @@ on:
 
 jobs:
   deploy-docs:
+    if: ${{ github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags') }}
     runs-on: ubuntu-latest
 
     steps:
@@ -33,7 +34,6 @@ jobs:
       # Generated documents are push to `gh-pages` branch
       # `ACTIONS_DEPLOY_KEY` is set by following: https://github.com/peaceiris/actions-gh-pages#%EF%B8%8F-create-ssh-deploy-key
       - name: Deploy
-        if: ${{ github.ref == 'refs/heads/main' }}
         uses: peaceiris/actions-gh-pages@v3
         with:
           deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
@@ -60,7 +60,6 @@ jobs:
           python setup.py sdist bdist_wheel
 
       - name: Publish package to TestPyPI
-        if: ${{ github.ref == 'refs/heads/rc' }}
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
           user: __token__
@@ -69,7 +68,6 @@ jobs:
           verbose: true
 
       - name: Publish package to PyPI
-        if: ${{ github.ref == 'refs/heads/main' }}
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
           user: __token__
