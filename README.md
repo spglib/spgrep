@@ -1,7 +1,14 @@
 # spgrep
 [![testing](https://github.com/spglib/spgrep/actions/workflows/testing.yml/badge.svg)](https://github.com/spglib/spgrep/actions/workflows/testing.yml)
+[![License](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
+[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/spgrep)
+[![PyPI version](https://badge.fury.io/py/spgrep.svg)](https://badge.fury.io/py/spgrep)
 
 **spgrep** is a Python package of on-the-fly generator of space-group irreducible representations.
+
+- Github: https://github.com/spglib/spgrep
+- Document: https://spglib.github.io/spgrep/
+- PyPI: https://pypi.org/project/spgrep
 
 ## Features
 
@@ -73,7 +80,8 @@ spgrep is released under a BSD 3-clause license.
 
 ## Development
 
-Installation
+### Installation
+
 ```shell
 conda create -n spgrep python=3.10 pip
 conda activate spgrep
@@ -86,14 +94,29 @@ pre-commit install
 pre-commit run --all-file 
 ```
 
-Document
+### Document
+
 ```shell
 sphinx-autobuild docs docs_build
 # open localhost:8000 in your browser
 ```
 
-Confirm the version number via `setuptools-scm`
+### Release
+
 ```shell
+# Confirm the version number via `setuptools-scm`
 python -m setuptools_scm
-# e.g. 0.1.dev1+g7aa164a.d20220704
+# Test a release version at rc branch
+git checkout rc
+
+# Update changelog here
+
+# Push with tag
+git tag <next-version>
+git push --follow-tags origin rc
+
+# Merge to main
+git checkout main
+git merge rc
+git push --follow-tags origin main
 ```
