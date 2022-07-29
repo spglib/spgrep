@@ -1,3 +1,4 @@
+"""Enumerate unitary irreps from crystal structure or symmetry operations."""
 from __future__ import annotations
 
 from typing import Literal
@@ -31,7 +32,7 @@ def get_spacegroup_irreps(
     atol: float = 1e-8,
     max_num_random_generations: int = 4,
 ) -> tuple[list[NDArrayComplex], NDArrayInt, NDArrayFloat, NDArrayInt]:
-    """Compute all irreducible representations of space group of given structure up to unitary transformation.
+    r"""Compute all irreducible representations of space group of given structure up to unitary transformation.
 
     Parameters
     ----------
@@ -147,7 +148,8 @@ def get_spacegroup_irreps_from_primitive_symmetry(
     atol: float = 1e-8,
     max_num_random_generations: int = 4,
 ) -> tuple[list[NDArrayComplex], NDArrayInt]:
-    """Compute all irreducible representations of given space group up to unitary transformation.
+    r"""Compute all irreducible representations of given space group up to unitary transformation.
+
     Note that rotations and translations should be specified in a primitive cell.
 
     Parameters
@@ -215,6 +217,7 @@ def get_crystallographic_pointgroup_irreps_from_symmetry(
     max_num_random_generations: int = 4,
 ) -> list[NDArrayComplex]:
     """Compute all irreducible representations of given crystallographic point group up to unitary transformation.
+
     Assume matrix representation of given crystallographic point group is in "standard" setting shown in Table 3.2.3.3 of International Table for Crystallography Vol. A (2016).
 
     Parameters

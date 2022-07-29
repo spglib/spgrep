@@ -1,3 +1,4 @@
+"""Group-theory related functions."""
 from __future__ import annotations
 
 import numpy as np
@@ -11,7 +12,7 @@ from spgrep.utils import (
 
 
 def get_cayley_table(rotations: NDArrayInt) -> NDArrayInt:
-    """Calculate Group multiplication table
+    """Calculate Group multiplication table.
 
     Parameters
     ----------
@@ -38,7 +39,7 @@ def get_cayley_table(rotations: NDArrayInt) -> NDArrayInt:
 
 
 def get_identity_index(table: NDArrayInt) -> int:
-    """Return index for identity of group"""
+    """Return index for identity of group."""
     order = table.shape[0]
     for i in range(order):
         if np.all(table[i, :] == np.arange(order)):
@@ -48,6 +49,7 @@ def get_identity_index(table: NDArrayInt) -> int:
 
 
 def get_inverse_index(table: NDArrayInt, idx: int) -> int:
+    """Return index of inverse of ``idx`` element in ``table``."""
     order = table.shape[0]
     id_idx = get_identity_index(table)
     for i in range(order):
@@ -58,6 +60,7 @@ def get_inverse_index(table: NDArrayInt, idx: int) -> int:
 
 
 def get_order(table: NDArrayInt, idx: int) -> int:
+    """Return order of element ``idx`` in ``table``."""
     id_idx = get_identity_index(table)
     ret = 1
     tmp = idx
@@ -68,9 +71,7 @@ def get_order(table: NDArrayInt, idx: int) -> int:
 
 
 def is_matrix_group(rotations: NDArrayInt) -> bool:
-    """
-    Return True iff given integer matrices forms group.
-    """
+    """Return True iff given integer matrices forms group."""
     try:
         table = get_cayley_table(rotations)
     except ValueError:
@@ -90,7 +91,7 @@ def get_factor_system_from_little_group(
     little_translations: NDArrayFloat,
     kpoint: NDArrayFloat,
 ) -> NDArrayComplex:
-    """Calculate factor system of projective representation of little co-group:
+    r"""Calculate factor system of projective representation of little co-group.
 
     .. math::
        D^{\\mathbf{k}}_{p}(S_{i}) D^{\\mathbf{k}}_{p}(S_{j})

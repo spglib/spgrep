@@ -45,3 +45,9 @@ repos:
     rev: v2.37.3
     hooks:
       - id: pyupgrade
+  - repo: https://github.com/pycqa/pydocstyle
+    rev: 6.1.1
+    hooks:
+    - id: pydocstyle
+      additional_dependencies: ["toml"]
+      files: ^src/spgrep/

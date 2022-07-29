@@ -1,3 +1,4 @@
+"""Representation-matrix related implementations."""
 from __future__ import annotations
 
 from itertools import product
@@ -71,6 +72,7 @@ def get_intertwiner(
     max_num_random_generations: int = 4,
 ):
     """Calculate intertwiner matrix between ``rep1`` and ``rep2`` such that ``rep1 @ matrix == matrix @ rep2`` if they are equivalent.
+
     This function takes O(order * dim^4).
 
     Parameters
@@ -103,7 +105,7 @@ def get_intertwiner(
 
 
 def get_character(representation: NDArrayComplex) -> NDArrayComplex:
-    """Calculate character of representation
+    """Calculate character of representation.
 
     Parameters
     ----------
@@ -123,7 +125,7 @@ def project_to_irrep(
     atol: float = 1e-6,  # A bit large tolerance setting to handle numerical noise in `representation`
     max_num_trials: int = 10,
 ) -> list[NDArrayComplex]:
-    """Construct basis functions for ``irrep`` by linear combinations of basis functions of ``representation``.
+    r"""Construct basis functions for ``irrep`` by linear combinations of basis functions of ``representation``.
 
     Parameters
     ----------
@@ -220,6 +222,7 @@ def project_to_irrep(
 
 
 def is_unitary(representation: NDArrayComplex) -> bool:
+    """Return true if given representation is unitary."""
     dim = representation.shape[1]
     for matrix in representation:
         if not np.allclose(matrix @ np.conj(matrix.T), np.eye(dim)):
@@ -234,6 +237,7 @@ def is_projective_representation(
     rtol: float = 1e-5,
     atol: float = 1e-8,
 ) -> bool:
+    """Return true if given matrix function is a projective representation with given factor system."""
     for i, ri in enumerate(rep):
         for j, rj in enumerate(rep):
             actual = ri @ rj
@@ -245,7 +249,7 @@ def is_projective_representation(
 
 
 def frobenius_schur_indicator(irrep: NDArrayComplex) -> int:
-    """Inspect given unitary (projective) irrep is real, pseudo-real, or not unitary equivalent.
+    r"""Inspect given unitary (projective) irrep is real, pseudo-real, or not unitary equivalent.
 
     .. math::
        \\mathrm{indicator} =
@@ -300,7 +304,7 @@ def check_spacegroup_representation(
 def get_direct_product(
     rep1: NDArrayComplex | NDArrayFloat, rep2: NDArrayComplex | NDArrayFloat
 ) -> NDArrayComplex | NDArrayFloat:
-    """Return Knocker product of two representations
+    """Return Knocker product of two representations.
 
     Parameters
     ----------

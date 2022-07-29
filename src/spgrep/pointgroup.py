@@ -1,3 +1,4 @@
+"""Decomposition of crystallographic point groups as solvable groups."""
 from __future__ import annotations
 
 import numpy as np
@@ -659,6 +660,7 @@ pg_solvable_chain = {
 
 
 def get_generators(pg_symbol, idx):
+    """Return indices of symmetry operations which generate given point group."""
     _, _, gens = _get_generators(pg_symbol, idx, [])
     return gens
 
@@ -675,6 +677,7 @@ def _get_generators(pg_symbol, idx, gens):
 
 def get_pointgroup_chain_generators(prim_rotations: NDArrayInt) -> list[int]:
     """Calculate generators of given crystallographic point group in primitive basis.
+
     The returned generators give a normal series whose factor groups are all Abelian.
 
     Parameters

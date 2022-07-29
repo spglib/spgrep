@@ -1,3 +1,4 @@
+"""Import top APIs and version."""
 from importlib.metadata import PackageNotFoundError, version
 
 from spgrep.core import (  # noqa: F401

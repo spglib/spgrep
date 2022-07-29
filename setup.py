@@ -34,6 +34,7 @@ EXTRAS = {
         "mypy",
         "flake8",
         "pyupgrade",
+        "pydocstyle",
     ],
     "docs": [
         "sphinx",

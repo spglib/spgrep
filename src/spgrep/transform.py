@@ -1,3 +1,4 @@
+"""Transformation of space group and kpoints."""
 from __future__ import annotations
 
 from typing import Literal
@@ -14,7 +15,9 @@ def transform_symmetry_and_kpoint(
     translations: NDArrayFloat,
     kpoint: NDArrayFloat,
 ) -> tuple[NDArrayInt, NDArrayFloat, NDArrayFloat]:
-    """Return symmetry and k-vector coefficients in transformed coordinates. This function does not unique duplicated symmetry operations after applying transformation_matrix.
+    """Return symmetry and k-vector coefficients in transformed coordinates.
+
+    This function does not unique duplicated symmetry operations after applying transformation_matrix.
 
     Let a given transformation_matrix be ``P``.
     Symmetry operation (R, t) is transformed to
@@ -34,7 +37,6 @@ def transform_symmetry_and_kpoint(
     transformed_translations: array, (num_sym, 3)
     transformed_kpoint: array, (3, )
     """
-
     # (R, t) -> (P^-1 R P, P^-1 t)
     pinv = np.linalg.inv(transformation_matrix)
     transformed_rotations = np.array(
@@ -52,7 +54,7 @@ def transform_symmetry_and_kpoint(
 def unique_primitive_symmetry(
     rotations: NDArrayInt, translations: NDArrayFloat
 ) -> tuple[NDArrayInt, NDArrayFloat, list[int]]:
-    """Unique duplicated symmetry operations.
+    """Remove duplicated symmetry operations.
 
     Parameters
     ----------
@@ -165,6 +167,7 @@ def get_crystal_system(
 ) -> Literal[
     "triclinic", "monoclinic", "orthorhombic", "tetragonal", "trigonal", "hexagonal", "cubic"
 ]:
+    """Return crystal system from Hall number."""
     crystal_system_range = {
         "triclinic": [1, 2],
         "monoclinic": [3, 107],
@@ -183,6 +186,7 @@ def get_crystal_system(
 
 
 def get_centering(hall_symbol: str) -> Literal["P", "A", "C", "I", "R", "F"]:
+    """Return centering symbol from Hall symbol."""
     if hall_symbol[0] == "-":
         # e.g. "-P 2c 2b"
         return hall_symbol[1]  # type: ignore

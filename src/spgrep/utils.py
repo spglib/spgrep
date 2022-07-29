@@ -1,3 +1,4 @@
+"""Utility functions."""
 from __future__ import annotations
 
 from typing import Any
@@ -13,17 +14,20 @@ NDArrayComplex: TypeAlias = NDArray[np.complex_]
 
 
 def is_integer_array(array: NDArrayFloat, rtol: float = 1e-5, atol: float = 1e-8) -> bool:
+    """Return true if all values of ``array`` are almost integers."""
     array_int = np.around(array).astype(int)
     return np.allclose(array_int, array, rtol=rtol, atol=atol)
 
 
 def ndarray2d_to_integer_tuple(array: NDArrayFloat) -> tuple[tuple[Any]]:
+    """Convert two-dimensional array to tuple of tuple."""
     array_int = np.around(array).astype(int)
     array_t = tuple(map(tuple, array_int.tolist()))
     return array_t  # type: ignore
 
 
 def get_symmetry_from_hall_number(hall_number: int) -> tuple[NDArrayInt, NDArrayFloat]:
+    """Return symmetry operations from Hall number."""
     symmetry = get_symmetry_from_database(hall_number)
     rotations = symmetry["rotations"]
     translations = symmetry["translations"]
@@ -31,6 +35,7 @@ def get_symmetry_from_hall_number(hall_number: int) -> tuple[NDArrayInt, NDArray
 
 
 def is_prime(n: int) -> bool:
+    """Return true if given number is prime."""
     for i in range(2, n):
         if n % i == 0:
             return False
@@ -38,7 +43,7 @@ def is_prime(n: int) -> bool:
 
 
 def nroot(z: np.complex_, n: int) -> np.complex_:
-    """Return `n`-th power root of `z` with the minimum angle"""
+    """Return `n`-th power root of `z` with the minimum angle."""
     root = z ** (1 / n)
     r = np.absolute(root)
     angle = np.remainder(np.angle(root), 2 * np.pi / n)
@@ -51,6 +56,7 @@ def contain_space(
     atol: float = 1e-8,
 ) -> bool:
     """Return true if vector space spanned by ``basis2`` is contained in that by ``basis1``.
+
     That is, return True if any linear combination A[i, j] exists such that
         basis2[j] == sum_{i} basis1[i] * A[i, j]
     which is equivalent to ``A.T @ basis1 == basis2``.

@@ -1,3 +1,4 @@
+"""On-the-fly irreps generations."""
 from __future__ import annotations
 
 from itertools import product
@@ -549,7 +550,7 @@ def is_equivalent_irrep(character1: NDArrayComplex, character2: NDArrayComplex) 
 
 
 def purify_irrep_value(irrep: NDArrayComplex, atol: float = 1e-8) -> NDArrayComplex:
-    # Purify values of `irreps`.
+    """Purify values of irreps."""
     # Each value should be 0 or exp(2 pi q / p) (p=1,2,3,4,6, q = 0,...,p-1)
     possible_values = [
         0,
@@ -568,6 +569,7 @@ def purify_irrep_value(irrep: NDArrayComplex, atol: float = 1e-8) -> NDArrayComp
 
 
 def purify_real_irrep_value(real_irrep: NDArrayFloat, atol: float = 1e-8) -> NDArrayFloat:
+    """Purify values of physically irreducible representations."""
     values = [
         0,
         1,  # 0/1
