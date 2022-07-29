@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>spgrep.irreps &#8212; spgrep 0.2.7</title>
+    <title>spgrep.irreps &#8212; spgrep 0.2.8</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -72,7 +72,7 @@
       
       
       
-      <h1 class="site-logo" id="site-title">spgrep 0.2.7</h1>
+      <h1 class="site-logo" id="site-title">spgrep 0.2.8</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
@@ -269,7 +269,8 @@ title="Fullscreen mode"
               <div>
                 
   <h1>Source code for spgrep.irreps</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+<span></span><span class="sd">&quot;&quot;&quot;On-the-fly irreps generations.&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
 <span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">product</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Literal</span>
@@ -820,7 +821,7 @@ title="Fullscreen mode"
 
 
 <span class="k">def</span> <span class="nf">purify_irrep_value</span><span class="p">(</span><span class="n">irrep</span><span class="p">:</span> <span class="n">NDArrayComplex</span><span class="p">,</span> <span class="n">atol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-8</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NDArrayComplex</span><span class="p">:</span>
-    <span class="c1"># Purify values of `irreps`.</span>
+    <span class="sd">&quot;&quot;&quot;Purify values of irreps.&quot;&quot;&quot;</span>
     <span class="c1"># Each value should be 0 or exp(2 pi q / p) (p=1,2,3,4,6, q = 0,...,p-1)</span>
     <span class="n">possible_values</span> <span class="o">=</span> <span class="p">[</span>
         <span class="mi">0</span><span class="p">,</span>
@@ -839,6 +840,7 @@ title="Fullscreen mode"
 
 
 <span class="k">def</span> <span class="nf">purify_real_irrep_value</span><span class="p">(</span><span class="n">real_irrep</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">,</span> <span class="n">atol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-8</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NDArrayFloat</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Purify values of physically irreducible representations.&quot;&quot;&quot;</span>
     <span class="n">values</span> <span class="o">=</span> <span class="p">[</span>
         <span class="mi">0</span><span class="p">,</span>
         <span class="mi">1</span><span class="p">,</span>  <span class="c1"># 0/1</span>

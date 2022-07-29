@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Group &#8212; spgrep 0.2.7</title>
+    <title>Group &#8212; spgrep 0.2.8</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -76,7 +76,7 @@
       
       
       
-      <h1 class="site-logo" id="site-title">spgrep 0.2.7</h1>
+      <h1 class="site-logo" id="site-title">spgrep 0.2.8</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
@@ -332,7 +332,7 @@ title="Print to PDF"
 <div><dl class="py function">
 <dt class="sig sig-object py" id="spgrep.group.get_cayley_table">
 <span class="sig-prename descclassname"><span class="pre">spgrep.group.</span></span><span class="sig-name descname"><span class="pre">get_cayley_table</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rotations</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.dtype</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.int64</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.dtype</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.int64</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/spgrep/group.html#get_cayley_table"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spgrep.group.get_cayley_table" title="Permalink to this definition">#</a></dt>
-<dd><p>Calculate Group multiplication table</p>
+<dd><p>Calculate Group multiplication table.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>rotations</strong> (<em>(</em><em>order</em><em>, </em><em>3</em><em>, </em><em>3</em><em>)</em>) – </p>
@@ -351,11 +351,11 @@ title="Print to PDF"
 <div><dl class="py function">
 <dt class="sig sig-object py" id="spgrep.group.get_factor_system_from_little_group">
 <span class="sig-prename descclassname"><span class="pre">spgrep.group.</span></span><span class="sig-name descname"><span class="pre">get_factor_system_from_little_group</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">little_rotations</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.dtype</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.int64</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">little_translations</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.dtype</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kpoint</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.dtype</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.dtype</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.complex128</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/spgrep/group.html#get_factor_system_from_little_group"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spgrep.group.get_factor_system_from_little_group" title="Permalink to this definition">#</a></dt>
-<dd><p>Calculate factor system of projective representation of little co-group:</p>
+<dd><p>Calculate factor system of projective representation of little co-group.</p>
 <div class="math notranslate nohighlight">
-\[D^{\mathbf{k}}_{p}(S_{i}) D^{\mathbf{k}}_{p}(S_{j})
-= \exp \left( -i \mathbf{g}_{i} \cdot \mathbf{w}_{j} \right) D^{\mathbf{k}}_{p}(S_{k})\]</div>
-<p>where <span class="math notranslate nohighlight">\(S_{i}S_{j} = S_{k}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{g}_{i} = S_{i}^{-1} \mathbf{k} - \mathbf{k}\)</span>.</p>
+\[\begin{split}D^{\\mathbf{k}}_{p}(S_{i}) D^{\\mathbf{k}}_{p}(S_{j})
+= \\exp \\left( -i \\mathbf{g}_{i} \\cdot \\mathbf{w}_{j} \\right) D^{\\mathbf{k}}_{p}(S_{k})\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(S_{i}S_{j} = S_{k}\)</span> and <span class="math notranslate nohighlight">\(\\mathbf{g}_{i} = S_{i}^{-1} \\mathbf{k} - \\mathbf{k}\)</span>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">

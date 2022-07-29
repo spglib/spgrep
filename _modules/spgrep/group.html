@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>spgrep.group &#8212; spgrep 0.2.7</title>
+    <title>spgrep.group &#8212; spgrep 0.2.8</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -72,7 +72,7 @@
       
       
       
-      <h1 class="site-logo" id="site-title">spgrep 0.2.7</h1>
+      <h1 class="site-logo" id="site-title">spgrep 0.2.8</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
@@ -269,7 +269,8 @@ title="Fullscreen mode"
               <div>
                 
   <h1>Source code for spgrep.group</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+<span></span><span class="sd">&quot;&quot;&quot;Group-theory related functions.&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
@@ -282,7 +283,7 @@ title="Fullscreen mode"
 
 
 <div class="viewcode-block" id="get_cayley_table"><a class="viewcode-back" href="../../api_group.html#spgrep.group.get_cayley_table">[docs]</a><span class="k">def</span> <span class="nf">get_cayley_table</span><span class="p">(</span><span class="n">rotations</span><span class="p">:</span> <span class="n">NDArrayInt</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NDArrayInt</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Calculate Group multiplication table</span>
+    <span class="sd">&quot;&quot;&quot;Calculate Group multiplication table.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -309,7 +310,7 @@ title="Fullscreen mode"
 
 
 <span class="k">def</span> <span class="nf">get_identity_index</span><span class="p">(</span><span class="n">table</span><span class="p">:</span> <span class="n">NDArrayInt</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Return index for identity of group&quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;Return index for identity of group.&quot;&quot;&quot;</span>
     <span class="n">order</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">order</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">table</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:]</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">order</span><span class="p">)):</span>
@@ -319,6 +320,7 @@ title="Fullscreen mode"
 
 
 <span class="k">def</span> <span class="nf">get_inverse_index</span><span class="p">(</span><span class="n">table</span><span class="p">:</span> <span class="n">NDArrayInt</span><span class="p">,</span> <span class="n">idx</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Return index of inverse of ``idx`` element in ``table``.&quot;&quot;&quot;</span>
     <span class="n">order</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
     <span class="n">id_idx</span> <span class="o">=</span> <span class="n">get_identity_index</span><span class="p">(</span><span class="n">table</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">order</span><span class="p">):</span>
@@ -329,6 +331,7 @@ title="Fullscreen mode"
 
 
 <span class="k">def</span> <span class="nf">get_order</span><span class="p">(</span><span class="n">table</span><span class="p">:</span> <span class="n">NDArrayInt</span><span class="p">,</span> <span class="n">idx</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Return order of element ``idx`` in ``table``.&quot;&quot;&quot;</span>
     <span class="n">id_idx</span> <span class="o">=</span> <span class="n">get_identity_index</span><span class="p">(</span><span class="n">table</span><span class="p">)</span>
     <span class="n">ret</span> <span class="o">=</span> <span class="mi">1</span>
     <span class="n">tmp</span> <span class="o">=</span> <span class="n">idx</span>
@@ -339,9 +342,7 @@ title="Fullscreen mode"
 
 
 <div class="viewcode-block" id="is_matrix_group"><a class="viewcode-back" href="../../api_group.html#spgrep.group.is_matrix_group">[docs]</a><span class="k">def</span> <span class="nf">is_matrix_group</span><span class="p">(</span><span class="n">rotations</span><span class="p">:</span> <span class="n">NDArrayInt</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Return True iff given integer matrices forms group.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;Return True iff given integer matrices forms group.&quot;&quot;&quot;</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">table</span> <span class="o">=</span> <span class="n">get_cayley_table</span><span class="p">(</span><span class="n">rotations</span><span class="p">)</span>
     <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
@@ -361,7 +362,7 @@ title="Fullscreen mode"
     <span class="n">little_translations</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">,</span>
     <span class="n">kpoint</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NDArrayComplex</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Calculate factor system of projective representation of little co-group:</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Calculate factor system of projective representation of little co-group.</span>
 
 <span class="sd">    .. math::</span>
 <span class="sd">       D^{\\mathbf{k}}_{p}(S_{i}) D^{\\mathbf{k}}_{p}(S_{j})</span>

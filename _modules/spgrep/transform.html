@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>spgrep.transform &#8212; spgrep 0.2.7</title>
+    <title>spgrep.transform &#8212; spgrep 0.2.8</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -72,7 +72,7 @@
       
       
       
-      <h1 class="site-logo" id="site-title">spgrep 0.2.7</h1>
+      <h1 class="site-logo" id="site-title">spgrep 0.2.8</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
@@ -269,7 +269,8 @@ title="Fullscreen mode"
               <div>
                 
   <h1>Source code for spgrep.transform</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+<span></span><span class="sd">&quot;&quot;&quot;Transformation of space group and kpoints.&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Literal</span>
 
@@ -285,7 +286,9 @@ title="Fullscreen mode"
     <span class="n">translations</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">,</span>
     <span class="n">kpoint</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">NDArrayInt</span><span class="p">,</span> <span class="n">NDArrayFloat</span><span class="p">,</span> <span class="n">NDArrayFloat</span><span class="p">]:</span>
-    <span class="sd">&quot;&quot;&quot;Return symmetry and k-vector coefficients in transformed coordinates. This function does not unique duplicated symmetry operations after applying transformation_matrix.</span>
+    <span class="sd">&quot;&quot;&quot;Return symmetry and k-vector coefficients in transformed coordinates.</span>
+
+<span class="sd">    This function does not unique duplicated symmetry operations after applying transformation_matrix.</span>
 
 <span class="sd">    Let a given transformation_matrix be ``P``.</span>
 <span class="sd">    Symmetry operation (R, t) is transformed to</span>
@@ -305,7 +308,6 @@ title="Fullscreen mode"
 <span class="sd">    transformed_translations: array, (num_sym, 3)</span>
 <span class="sd">    transformed_kpoint: array, (3, )</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-
     <span class="c1"># (R, t) -&gt; (P^-1 R P, P^-1 t)</span>
     <span class="n">pinv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">transformation_matrix</span><span class="p">)</span>
     <span class="n">transformed_rotations</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
@@ -323,7 +325,7 @@ title="Fullscreen mode"
 <span class="k">def</span> <span class="nf">unique_primitive_symmetry</span><span class="p">(</span>
     <span class="n">rotations</span><span class="p">:</span> <span class="n">NDArrayInt</span><span class="p">,</span> <span class="n">translations</span><span class="p">:</span> <span class="n">NDArrayFloat</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">NDArrayInt</span><span class="p">,</span> <span class="n">NDArrayFloat</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]]:</span>
-    <span class="sd">&quot;&quot;&quot;Unique duplicated symmetry operations.</span>
+    <span class="sd">&quot;&quot;&quot;Remove duplicated symmetry operations.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -436,6 +438,7 @@ title="Fullscreen mode"
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Literal</span><span class="p">[</span>
     <span class="s2">&quot;triclinic&quot;</span><span class="p">,</span> <span class="s2">&quot;monoclinic&quot;</span><span class="p">,</span> <span class="s2">&quot;orthorhombic&quot;</span><span class="p">,</span> <span class="s2">&quot;tetragonal&quot;</span><span class="p">,</span> <span class="s2">&quot;trigonal&quot;</span><span class="p">,</span> <span class="s2">&quot;hexagonal&quot;</span><span class="p">,</span> <span class="s2">&quot;cubic&quot;</span>
 <span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;Return crystal system from Hall number.&quot;&quot;&quot;</span>
     <span class="n">crystal_system_range</span> <span class="o">=</span> <span class="p">{</span>
         <span class="s2">&quot;triclinic&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
         <span class="s2">&quot;monoclinic&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">107</span><span class="p">],</span>
@@ -454,6 +457,7 @@ title="Fullscreen mode"
 
 
 <span class="k">def</span> <span class="nf">get_centering</span><span class="p">(</span><span class="n">hall_symbol</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;P&quot;</span><span class="p">,</span> <span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="s2">&quot;C&quot;</span><span class="p">,</span> <span class="s2">&quot;I&quot;</span><span class="p">,</span> <span class="s2">&quot;R&quot;</span><span class="p">,</span> <span class="s2">&quot;F&quot;</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;Return centering symbol from Hall symbol.&quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">hall_symbol</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;-&quot;</span><span class="p">:</span>
         <span class="c1"># e.g. &quot;-P 2c 2b&quot;</span>
         <span class="k">return</span> <span class="n">hall_symbol</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># type: ignore</span>
