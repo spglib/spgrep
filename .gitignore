@@ -135,3 +135,7 @@ docs_build
 .DS_Store
 *.txt
 *.lprof
+
+gh-pages
+gh-pages.pub
+.pypirc
