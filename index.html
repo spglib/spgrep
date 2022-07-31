@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>spgrep &#8212; spgrep 0.2.8</title>
+    <title>spgrep &#8212; spgrep 0.2.9</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -31,11 +31,12 @@
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
     <script src="_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
     <script>mermaid.initialize({startOnLoad:true});</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Formulation" href="formulation.html" />
+    <link rel="next" title="Examples" href="examples.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -74,7 +75,7 @@
       
       
       
-      <h1 class="site-logo" id="site-title">spgrep 0.2.8</h1>
+      <h1 class="site-logo" id="site-title">spgrep 0.2.9</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
@@ -94,11 +95,33 @@
   </a>
  </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="formulation.html">
-   Formulation
+  <a class="reference internal" href="examples.html">
+   Examples
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
   <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="examples/symmetry_adapted_tensor.html">
+     Symmetry-adapted tensors
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="examples/lattice_vibration.html">
+     Application of space-group irreps to lattice vibration
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="formulation.html">
+   Formulation
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -134,8 +157,8 @@
   <a class="reference internal" href="api.html">
    API Reference
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
-  <label for="toctree-checkbox-2">
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -434,8 +457,9 @@ title="Print to PDF"
 <p><a class="reference external" href="https://github.com/spglib/spgrep/actions/workflows/testing.yml"><img alt="testing" src="https://github.com/spglib/spgrep/actions/workflows/testing.yml/badge.svg" /></a>
 <a class="reference external" href="https://results.pre-commit.ci/latest/github/spglib/spgrep/main"><img alt="pre-commit.ci status" src="https://results.pre-commit.ci/badge/github/spglib/spgrep/main.svg" /></a>
 <a class="reference external" href="https://opensource.org/licenses/BSD-3-Clause"><img alt="License" src="https://img.shields.io/badge/License-BSD_3--Clause-blue.svg" /></a>
-[<img alt="PyPI - Python Version" src="https://img.shields.io/pypi/pyversions/spgrep" />
-<a class="reference external" href="https://badge.fury.io/py/spgrep"><img alt="PyPI version" src="https://badge.fury.io/py/spgrep.svg" /></a></p>
+<a class="reference external" href="https://img.shields.io/pypi/pyversions/spgrep"><img alt="PyPI - Python Version" src="https://img.shields.io/pypi/pyversions/spgrep" /></a>
+<a class="reference external" href="https://badge.fury.io/py/spgrep"><img alt="PyPI version" src="https://badge.fury.io/py/spgrep.svg" /></a>
+<a class="reference external" href="https://img.shields.io/pypi/dm/spgrep"><img alt="PyPI Downloads" src="https://img.shields.io/pypi/dm/spgrep" /></a></p>
 <p><strong>spgrep</strong> is a Python package of on-the-fly generator of space-group irreducible representations.</p>
 <ul class="simple">
 <li><p>Github: https://github.com/spglib/spgrep</p></li>
@@ -497,6 +521,7 @@ title="Print to PDF"
 <span class="c1"># [2.+0.j 0.+0.j 0.+0.j -2.+0.j 0.+0.j 0.+0.j 0.+0.j 0.+0.j]</span>
 </pre></div>
 </div>
+<p>See <a class="reference internal" href="examples.html"><span class="doc std std-doc">docs/examples</span></a> for more detailed use cases.</p>
 </section>
 <section id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">#</a></h2>
@@ -566,10 +591,10 @@ git push --follow-tags origin main
                 
     <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='right-next' id="next-link" href="formulation.html" title="next page">
+    <a class='right-next' id="next-link" href="examples.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Formulation</p>
+        <p class="prev-next-title">Examples</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

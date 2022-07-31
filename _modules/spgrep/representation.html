@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>spgrep.representation &#8212; spgrep 0.2.8</title>
+    <title>spgrep.representation &#8212; spgrep 0.2.9</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -30,6 +30,7 @@
     <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
     <script src="../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
     <script>mermaid.initialize({startOnLoad:true});</script>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -72,7 +73,7 @@
       
       
       
-      <h1 class="site-logo" id="site-title">spgrep 0.2.8</h1>
+      <h1 class="site-logo" id="site-title">spgrep 0.2.9</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
@@ -92,11 +93,33 @@
   </a>
  </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../../formulation.html">
-   Formulation
+  <a class="reference internal" href="../../examples.html">
+   Examples
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
   <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../examples/symmetry_adapted_tensor.html">
+     Symmetry-adapted tensors
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../examples/lattice_vibration.html">
+     Application of space-group irreps to lattice vibration
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../formulation.html">
+   Formulation
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -132,8 +155,8 @@
   <a class="reference internal" href="../../api.html">
    API Reference
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
-  <label for="toctree-checkbox-2">
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -422,7 +445,10 @@ title="Fullscreen mode"
     <span class="c1"># Pre-compute number of independent basis vectors</span>
     <span class="n">character_irrep</span> <span class="o">=</span> <span class="n">get_character</span><span class="p">(</span><span class="n">irrep</span><span class="p">)</span>
     <span class="n">character</span> <span class="o">=</span> <span class="n">get_character</span><span class="p">(</span><span class="n">representation</span><span class="p">)</span>
-    <span class="n">num_basis</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">conj</span><span class="p">(</span><span class="n">character_irrep</span><span class="p">)</span> <span class="o">*</span> <span class="n">character</span><span class="p">)</span> <span class="o">/</span> <span class="n">order</span>
+    <span class="n">character_sum</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">conj</span><span class="p">(</span><span class="n">character_irrep</span><span class="p">)</span> <span class="o">*</span> <span class="n">character</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="n">character_sum</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">around</span><span class="p">(</span><span class="n">character_sum</span><span class="p">),</span> <span class="n">atol</span><span class="o">=</span><span class="n">atol</span><span class="p">):</span>
+        <span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Inner product of characters should return an integer.&quot;</span><span class="p">)</span>
+    <span class="n">num_basis</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">around</span><span class="p">(</span><span class="n">character_sum</span><span class="p">)</span> <span class="o">/</span> <span class="n">order</span>
     <span class="n">num_basis</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">around</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">num_basis</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">num_basis</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
         <span class="k">return</span> <span class="p">[]</span>
@@ -501,14 +527,18 @@ title="Fullscreen mode"
     <span class="k">return</span> <span class="kc">True</span>
 
 
-<span class="k">def</span> <span class="nf">is_projective_representation</span><span class="p">(</span>
+<span class="k">def</span> <span class="nf">is_representation</span><span class="p">(</span>
     <span class="n">rep</span><span class="p">:</span> <span class="n">NDArrayComplex</span><span class="p">,</span>
     <span class="n">table</span><span class="p">:</span> <span class="n">NDArrayInt</span><span class="p">,</span>
-    <span class="n">factor_system</span><span class="p">:</span> <span class="n">NDArrayComplex</span><span class="p">,</span>
+    <span class="n">factor_system</span><span class="p">:</span> <span class="n">NDArrayComplex</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">rtol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-5</span><span class="p">,</span>
     <span class="n">atol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-8</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Return true if given matrix function is a projective representation with given factor system.&quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;Return true if given matrix function is a (projective) representation with given factor system.&quot;&quot;&quot;</span>
+    <span class="n">order</span> <span class="o">=</span> <span class="n">rep</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">factor_system</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">factor_system</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">order</span><span class="p">,</span> <span class="n">order</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex_</span><span class="p">)</span>
+
     <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">ri</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">rep</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">rj</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">rep</span><span class="p">):</span>
             <span class="n">actual</span> <span class="o">=</span> <span class="n">ri</span> <span class="o">@</span> <span class="n">rj</span>
