@@ -38,7 +38,8 @@ EXTRAS = {
         "nbqa",
         "phonopy==2.15.1",
         # Jupyter notebook
-        "notebook" "matplotlib",
+        "notebook",
+        "matplotlib",
         "seaborn",
         "ipython",
         "ipykernel",
