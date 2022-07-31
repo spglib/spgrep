@@ -35,13 +35,13 @@ version = ".".join(release.split(".")[:3])
 # ones.
 extensions = [
     "sphinx.ext.autodoc",
-    # "sphinx_autodoc_typehints",
     "sphinx.ext.napoleon",
     "sphinx.ext.viewcode",
     "sphinx.ext.autosummary",
     "sphinx.ext.mathjax",
     "sphinxcontrib.bibtex",
     "sphinxcontrib.mermaid",
+    "nbsphinx",
     "myst_parser",
 ]
 

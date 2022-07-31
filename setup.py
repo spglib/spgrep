@@ -35,10 +35,17 @@ EXTRAS = {
         "flake8",
         "pyupgrade",
         "pydocstyle",
+        "nbqa",
+        # Jupyter notebook
+        "notebook" "matplotlib",
+        "seaborn",
+        "ipython",
+        "ipykernel",
     ],
     "docs": [
         "sphinx",
         "sphinx-autobuild",
+        "nbsphinx",
         "sphinxcontrib-bibtex",
         "sphinxcontrib-mermaid",
         "myst-parser",
