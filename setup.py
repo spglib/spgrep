@@ -36,6 +36,7 @@ EXTRAS = {
         "pyupgrade",
         "pydocstyle",
         "nbqa",
+        "phonopy==2.15.1",
         # Jupyter notebook
         "notebook" "matplotlib",
         "seaborn",
