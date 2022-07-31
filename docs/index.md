@@ -4,6 +4,7 @@ caption: Contents
 hidden:
 ---
    Introduction <self>
+   Examples <examples>
    Formulation <formulation>
    API Reference <api>
    Change Log <changelog>

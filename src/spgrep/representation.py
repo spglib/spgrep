@@ -151,7 +151,10 @@ def project_to_irrep(
     # Pre-compute number of independent basis vectors
     character_irrep = get_character(irrep)
     character = get_character(representation)
-    num_basis = np.sum(np.conj(character_irrep) * character) / order
+    character_sum = np.sum(np.conj(character_irrep) * character)
+    if not np.isclose(character_sum, np.around(character_sum), atol=atol):
+        warn("Inner product of characters should return an integer.")
+    num_basis = np.around(character_sum) / order
     num_basis = np.around(np.real(num_basis)).astype(int)
     if num_basis == 0:
         return []
@@ -230,14 +233,18 @@ def is_unitary(representation: NDArrayComplex) -> bool:
     return True
 
 
-def is_projective_representation(
+def is_representation(
     rep: NDArrayComplex,
     table: NDArrayInt,
-    factor_system: NDArrayComplex,
+    factor_system: NDArrayComplex | None = None,
     rtol: float = 1e-5,
     atol: float = 1e-8,
 ) -> bool:
-    """Return true if given matrix function is a projective representation with given factor system."""
+    """Return true if given matrix function is a (projective) representation with given factor system."""
+    order = rep.shape[0]
+    if factor_system is None:
+        factor_system = np.ones((order, order), dtype=np.complex_)
+
     for i, ri in enumerate(rep):
         for j, rj in enumerate(rep):
             actual = ri @ rj

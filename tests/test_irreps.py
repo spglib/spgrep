@@ -16,7 +16,7 @@ from spgrep.pointgroup import pg_dataset
 from spgrep.representation import (
     check_spacegroup_representation,
     get_character,
-    is_projective_representation,
+    is_representation,
     is_unitary,
 )
 from spgrep.transform import transform_symmetry_and_kpoint, unique_primitive_symmetry
@@ -58,10 +58,8 @@ def test_real_representation(request, fixture_name, num_expect):
 
     # Check representation's property
     table = get_cayley_table(rotations)
-    order = len(table)
-    factor_system = np.ones((order, order), dtype=np.complex_)
     for irrep in real_irreps:
-        assert is_projective_representation(irrep, table, factor_system)
+        assert is_representation(irrep, table)
 
 
 @pytest.mark.parametrize("method", [("Neto"), ("random")])
@@ -81,9 +79,8 @@ def test_get_crystallographic_pointgroup_irreps(method):
 
             # Check representation's property
             table = get_cayley_table(np.array(rotations))
-            factor_system = np.ones((order, order), dtype=np.complex_)
             for irrep in irreps:
-                assert is_projective_representation(irrep, table, factor_system)
+                assert is_representation(irrep, table)
 
             assert is_unique_irreps(irreps)
 
