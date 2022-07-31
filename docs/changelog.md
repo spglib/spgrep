@@ -1,5 +1,8 @@
 # Change Log
 
+## v0.2.9
+- Add example notebooks
+
 ## v0.2.8
 
 Initial release to PyPI
