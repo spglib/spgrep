@@ -94,10 +94,10 @@ def get_factor_system_from_little_group(
     r"""Calculate factor system of projective representation of little co-group.
 
     .. math::
-       D^{\\mathbf{k}}_{p}(S_{i}) D^{\\mathbf{k}}_{p}(S_{j})
-       = \\exp \\left( -i \\mathbf{g}_{i} \\cdot \\mathbf{w}_{j} \\right) D^{\\mathbf{k}}_{p}(S_{k})
+       D^{\mathbf{k}}_{p}(S_{i}) D^{\mathbf{k}}_{p}(S_{j})
+       = \exp \left( -i \mathbf{g}_{i} \cdot \mathbf{w}_{j} \right) D^{\mathbf{k}}_{p}(S_{k})
 
-    where :math:`S_{i}S_{j} = S_{k}` and :math:`\\mathbf{g}_{i} = S_{i}^{-1} \\mathbf{k} - \\mathbf{k}`.
+    where :math:`S_{i}S_{j} = S_{k}` and :math:`\mathbf{g}_{i} = S_{i}^{-1} \mathbf{k} - \mathbf{k}`.
 
     Parameters
     ----------
@@ -147,7 +147,7 @@ def get_little_group(
     little_translations: array, (little_group_order, 3)
     mapping_little_group: array, (little_group_order, )
         Let ``i = mapping_little_group[idx]``.
-        (rotations[i], translations[i]) belongs to the little group of given space space group and kpoint.
+        ``(rotations[i], translations[i])`` belongs to the little group of given space space group and kpoint.
     """
     little_rotations = []
     little_translations = []

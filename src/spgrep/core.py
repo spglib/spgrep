@@ -37,7 +37,7 @@ def get_spacegroup_irreps(
     Parameters
     ----------
     lattice: array, (3, 3)
-        Row-wise basis vectors. lattice[i, :] is the i-th lattice vector.
+        Row-wise basis vectors. ``lattice[i, :]`` is the i-th lattice vector.
     positions: array, (num_atoms, 3)
         Fractional coordinates of sites
     numbers: array, (num_atoms, )
@@ -47,10 +47,10 @@ def get_spacegroup_irreps(
         'random': construct irreps by numerically diagonalizing a random matrix commute with regular representation
     kpoint: array, (3, )
         Reciprocal vector with respect to ``reciprocal_lattice``
-        For pure translation :math:`\\mathbf{t}`, returned irrep :math:`\\Gamma^{(\\alpha)}` takes
+        For pure translation :math:`\mathbf{t}`, returned irrep :math:`\Gamma^{(\alpha)}` takes
 
         .. math::
-            \\Gamma^{(\\alpha)}((E, \\mathbf{t})) = e^{ -i\\mathbf{k}\\cdot\\mathbf{t} } \\mathbf{1}.
+            \Gamma^{(\alpha)}((E, \mathbf{t})) = e^{ -i\mathbf{k}\cdot\mathbf{t} } \mathbf{1}.
 
     reciprocal_lattice: (Optional) array, (3, 3)
         ``reciprocal_lattice[i, :]`` is the i-th basis vector of reciprocal lattice for ``kpoint`` without `2 * pi factor`.
@@ -156,14 +156,14 @@ def get_spacegroup_irreps_from_primitive_symmetry(
     ----------
     rotations: array, (order, 3, 3)
         Assume a fractional coordinates `x` are transformed by the i-th symmetry operation as follows:
-            np.dot(rotations[i, :, :], x) + translations[i, :]
+            ``np.dot(rotations[i, :, :], x) + translations[i, :]``
     translations: array, (order, 3)
     kpoint: array, (3, )
         Reciprocal vector with respect to reciprocal lattice.
-        For pure translation :math:`\\mathbf{t}`, returned irrep :math:`\\Gamma^{(\\alpha)}` takes
+        For pure translation :math:`\mathbf{t}`, returned irrep :math:`\Gamma^{(\alpha)}` takes
 
         .. math::
-            \\Gamma^{(\\alpha)}((E, \\mathbf{t})) = e^{ -i\\mathbf{k}\\cdot\\mathbf{t} } \\mathbf{1}.
+            \Gamma^{(\alpha)}((E, \mathbf{t})) = e^{ -i\mathbf{k}\cdot\mathbf{t} } \mathbf{1}.
 
     method: str, 'Neto' or 'random'
         'Neto': construct irreps from a fixed chain of subgroups of little co-group
@@ -181,7 +181,7 @@ def get_spacegroup_irreps_from_primitive_symmetry(
         Let ``i = mapping_little_group[idx]``. ``irreps[alpha][i, :, :]`` is the ``alpha``-th irreducible matrix representation of ``(rotations[i], translations[i])``.
     mapping_little_group: array, (little_group_order, )
         Let ``i = mapping_little_group[idx]``.
-        (rotations[i], translations[i]) belongs to the little group of given space space group and kpoint.
+        ``(rotations[i], translations[i])`` belongs to the little group of given space space group and kpoint.
     """
     # Sanity check to use primitive cell
     for rotation, translation in zip(rotations, translations):
@@ -223,7 +223,7 @@ def get_crystallographic_pointgroup_irreps_from_symmetry(
     Parameters
     ----------
     rotations: array, (order, 3, 3)
-        Assume a point coordinates `x` are transformed into `np.dot(rotations[i, :, :], x)` by the i-th symmetry operation.
+        Assume a point coordinates ``x`` are transformed into ``np.dot(rotations[i, :, :], x)`` by the ``i``-th symmetry operation.
     real: bool, default=False
         If True, return irreps over real vector space (so called physically irreducible representations)
     method: str, 'Neto' or 'random'

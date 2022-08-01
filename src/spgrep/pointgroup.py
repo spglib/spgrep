@@ -676,7 +676,7 @@ def _get_generators(pg_symbol, idx, gens):
 
 
 def get_pointgroup_chain_generators(prim_rotations: NDArrayInt) -> list[int]:
-    """Calculate generators of given crystallographic point group in primitive basis.
+    r"""Calculate generators of given crystallographic point group in primitive basis.
 
     The returned generators give a normal series whose factor groups are all Abelian.
 
@@ -687,8 +687,8 @@ def get_pointgroup_chain_generators(prim_rotations: NDArrayInt) -> list[int]:
     Returns
     -------
     generators: list[int]
-        Let G0 := prim_rotations and G_{i} := G_{i-1} / < generators[i] > (i = 0, 1, ...).
-        Then, G_{i} is normal subgroup of G_{i-1} and factor group G_{i-1}/G_{i} is Abelian.
+        Let :math:`G_{0} := G` and :math:`G_{i} := G_{i-1} / \langle` ``solvable_chain_generators[i]`` :math:`\rangle` (i = 0, 1, ...).
+        Then, :math:`G_{i}` is normal subgroup of :math:`G_{i-1}` and factor group :math:`G_{i-1}/G_{i}` is Abelian.
     """
     pg_symbol, _, P = get_pointgroup(prim_rotations)
     Pinv = np.linalg.inv(P)

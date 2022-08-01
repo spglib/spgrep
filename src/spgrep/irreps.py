@@ -347,7 +347,7 @@ def enumerate_unitary_irreps_from_solvable_group_chain(
     atol: float = 1e-8,
     max_num_random_generations: int = 4,
 ):
-    """Calculate symmetrized irreps from given chain of solvable group.
+    r"""Calculate symmetrized irreps from given chain of solvable group.
 
     Parameters
     ----------
@@ -355,8 +355,8 @@ def enumerate_unitary_irreps_from_solvable_group_chain(
         Cayley table
     factor_system: array, (order, order)
     solvable_group_chain: list of single generator of coset
-        Let G0 := G and G_{i} := G_{i-1} / < solvable_chain_generators[i] > (i = 0, 1, ...).
-        Then, G_{i} is normal subgroup of G_{i-1} and factor group G_{i-1}/G_{i} is Abelian.
+        Let :math:`G_{0} := G` and :math:`G_{i} := G_{i-1} / \langle` ``solvable_chain_generators[i]`` :math:`\rangle` (i = 0, 1, ...).
+        Then, :math:`G_{i}` is normal subgroup of :math:`G_{i-1}` and factor group :math:`G_{i-1}/G_{i}` is Abelian.
 
     atol: float
         Absolute tolerance to distinguish difference eigenvalues

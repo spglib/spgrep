@@ -8,9 +8,9 @@
 
 **spgrep** is a Python package of on-the-fly generator of space-group irreducible representations.
 
-- Github: https://github.com/spglib/spgrep
-- Document: https://spglib.github.io/spgrep/
-- PyPI: https://pypi.org/project/spgrep
+- Github: <https://github.com/spglib/spgrep>
+- Document: <https://spglib.github.io/spgrep>
+- PyPI: <https://pypi.org/project/spgrep>
 
 ## Features
 
