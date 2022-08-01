@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>spgrep.representation &#8212; spgrep 0.2.9</title>
+    <title>spgrep.representation &#8212; spgrep 0.2.10</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -73,7 +73,7 @@
       
       
       
-      <h1 class="site-logo" id="site-title">spgrep 0.2.9</h1>
+      <h1 class="site-logo" id="site-title">spgrep 0.2.10</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
@@ -152,7 +152,7 @@
   </ul>
  </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../../api.html">
+  <a class="reference internal" href="../../api/api.html">
    API Reference
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
@@ -162,32 +162,32 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../api_core.html">
+    <a class="reference internal" href="../../api/api_core.html">
      Core functions
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../api_group.html">
+    <a class="reference internal" href="../../api/api_group.html">
      Group
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../api_irreps.html">
+    <a class="reference internal" href="../../api/api_irreps.html">
      Irreps
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../api_pointgroup.html">
+    <a class="reference internal" href="../../api/api_pointgroup.html">
      Point group
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../api_representation.html">
+    <a class="reference internal" href="../../api/api_representation.html">
      Representation
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../api_transformation.html">
+    <a class="reference internal" href="../../api/api_transformation.html">
      Transformation
     </a>
    </li>
@@ -310,7 +310,7 @@ title="Fullscreen mode"
 <span class="p">)</span>
 
 
-<div class="viewcode-block" id="get_regular_representation"><a class="viewcode-back" href="../../api_representation.html#spgrep.representation.get_regular_representation">[docs]</a><span class="k">def</span> <span class="nf">get_regular_representation</span><span class="p">(</span><span class="n">rotations</span><span class="p">:</span> <span class="n">NDArrayInt</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NDArrayInt</span><span class="p">:</span>
+<div class="viewcode-block" id="get_regular_representation"><a class="viewcode-back" href="../../api/api_representation.html#spgrep.representation.get_regular_representation">[docs]</a><span class="k">def</span> <span class="nf">get_regular_representation</span><span class="p">(</span><span class="n">rotations</span><span class="p">:</span> <span class="n">NDArrayInt</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NDArrayInt</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Calculate regular representation of point group.</span>
 
 <span class="sd">    Parameters</span>
@@ -333,7 +333,7 @@ title="Fullscreen mode"
     <span class="k">return</span> <span class="n">reg</span></div>
 
 
-<div class="viewcode-block" id="get_projective_regular_representation"><a class="viewcode-back" href="../../api_representation.html#spgrep.representation.get_projective_regular_representation">[docs]</a><span class="k">def</span> <span class="nf">get_projective_regular_representation</span><span class="p">(</span>
+<div class="viewcode-block" id="get_projective_regular_representation"><a class="viewcode-back" href="../../api/api_representation.html#spgrep.representation.get_projective_regular_representation">[docs]</a><span class="k">def</span> <span class="nf">get_projective_regular_representation</span><span class="p">(</span>
     <span class="n">rotations</span><span class="p">:</span> <span class="n">NDArrayInt</span><span class="p">,</span> <span class="n">factor_system</span><span class="p">:</span> <span class="n">NDArrayComplex</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NDArrayComplex</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Calculate regular representation of space group with factor system.</span>
@@ -359,7 +359,7 @@ title="Fullscreen mode"
     <span class="k">return</span> <span class="n">reg</span></div>
 
 
-<div class="viewcode-block" id="get_intertwiner"><a class="viewcode-back" href="../../api_representation.html#spgrep.representation.get_intertwiner">[docs]</a><span class="k">def</span> <span class="nf">get_intertwiner</span><span class="p">(</span>
+<div class="viewcode-block" id="get_intertwiner"><a class="viewcode-back" href="../../api/api_representation.html#spgrep.representation.get_intertwiner">[docs]</a><span class="k">def</span> <span class="nf">get_intertwiner</span><span class="p">(</span>
     <span class="n">rep1</span><span class="p">:</span> <span class="n">NDArrayComplex</span><span class="p">,</span>
     <span class="n">rep2</span><span class="p">:</span> <span class="n">NDArrayComplex</span><span class="p">,</span>
     <span class="n">atol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-8</span><span class="p">,</span>
@@ -398,7 +398,7 @@ title="Fullscreen mode"
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">dim</span><span class="p">,</span> <span class="n">dim</span><span class="p">))</span></div>
 
 
-<div class="viewcode-block" id="get_character"><a class="viewcode-back" href="../../api_representation.html#spgrep.representation.get_character">[docs]</a><span class="k">def</span> <span class="nf">get_character</span><span class="p">(</span><span class="n">representation</span><span class="p">:</span> <span class="n">NDArrayComplex</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NDArrayComplex</span><span class="p">:</span>
+<div class="viewcode-block" id="get_character"><a class="viewcode-back" href="../../api/api_representation.html#spgrep.representation.get_character">[docs]</a><span class="k">def</span> <span class="nf">get_character</span><span class="p">(</span><span class="n">representation</span><span class="p">:</span> <span class="n">NDArrayComplex</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NDArrayComplex</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Calculate character of representation.</span>
 
 <span class="sd">    Parameters</span>
@@ -413,7 +413,7 @@ title="Fullscreen mode"
     <span class="k">return</span> <span class="n">character</span></div>
 
 
-<div class="viewcode-block" id="project_to_irrep"><a class="viewcode-back" href="../../api_representation.html#spgrep.representation.project_to_irrep">[docs]</a><span class="k">def</span> <span class="nf">project_to_irrep</span><span class="p">(</span>
+<div class="viewcode-block" id="project_to_irrep"><a class="viewcode-back" href="../../api/api_representation.html#spgrep.representation.project_to_irrep">[docs]</a><span class="k">def</span> <span class="nf">project_to_irrep</span><span class="p">(</span>
     <span class="n">representation</span><span class="p">:</span> <span class="n">NDArrayComplex</span><span class="p">,</span>
     <span class="n">irrep</span><span class="p">:</span> <span class="n">NDArrayComplex</span><span class="p">,</span>
     <span class="n">atol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-6</span><span class="p">,</span>  <span class="c1"># A bit large tolerance setting to handle numerical noise in `representation`</span>
@@ -425,7 +425,7 @@ title="Fullscreen mode"
 <span class="sd">    ----------</span>
 <span class="sd">    representation: array, (order, dim, dim)</span>
 <span class="sd">    irrep: array, (order, dim_irrep, dim_irrep)</span>
-<span class="sd">        Unitary (projective) irrep with factor system s.t. :math:`\\mu(E, E) = 1`.</span>
+<span class="sd">        Unitary (projective) irrep with factor system s.t. :math:`\mu(E, E) = 1`.</span>
 <span class="sd">    atol: float, default=1e-5</span>
 <span class="sd">        Absolute tolerance to compare basis vectors</span>
 <span class="sd">    max_num_trials: int, default=10</span>
@@ -549,12 +549,12 @@ title="Fullscreen mode"
     <span class="k">return</span> <span class="kc">True</span>
 
 
-<div class="viewcode-block" id="frobenius_schur_indicator"><a class="viewcode-back" href="../../api_representation.html#spgrep.representation.frobenius_schur_indicator">[docs]</a><span class="k">def</span> <span class="nf">frobenius_schur_indicator</span><span class="p">(</span><span class="n">irrep</span><span class="p">:</span> <span class="n">NDArrayComplex</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<div class="viewcode-block" id="frobenius_schur_indicator"><a class="viewcode-back" href="../../api/api_representation.html#spgrep.representation.frobenius_schur_indicator">[docs]</a><span class="k">def</span> <span class="nf">frobenius_schur_indicator</span><span class="p">(</span><span class="n">irrep</span><span class="p">:</span> <span class="n">NDArrayComplex</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Inspect given unitary (projective) irrep is real, pseudo-real, or not unitary equivalent.</span>
 
 <span class="sd">    .. math::</span>
-<span class="sd">       \\mathrm{indicator} =</span>
-<span class="sd">       \\frac{1}{|G|} \\sum_{ g \\in G } \\chi(g^{2})</span>
+<span class="sd">       \mathrm{indicator} =</span>
+<span class="sd">       \frac{1}{|G|} \sum_{ g \in G } \chi(g^{2})</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -563,8 +563,8 @@ title="Fullscreen mode"
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    indicator: int</span>
-<span class="sd">        If indicator==1, it is real Reps.</span>
-<span class="sd">        If indicator==-1, it is psedu-real Reps.</span>
+<span class="sd">        If ``indicator==1``, it is real Reps.</span>
+<span class="sd">        If ``indicator==-1``, it is psedu-real Reps.</span>
 <span class="sd">        Otherwise, it and adjoint Reps. are not equivalent.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">order</span> <span class="o">=</span> <span class="n">irrep</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>

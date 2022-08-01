@@ -83,6 +83,7 @@ The induced representation {math}`\Delta \uparrow G` is decomposed to {math}`p` 
 
 A crystallographic point group {math}`G` can always be decomposed as Eq. {eq}`decomp` because it is a solvable group.
 spgrep adapts the following decomposition {cite}`ITA2016`
+
 ```{mermaid}
   flowchart TB
     Oh(m-3m)

@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Application of space-group irreps to lattice vibration &#8212; spgrep 0.2.9</title>
+    <title>Application of space-group irreps to lattice vibration &#8212; spgrep 0.2.10</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -78,7 +78,7 @@
       
       
       
-      <h1 class="site-logo" id="site-title">spgrep 0.2.9</h1>
+      <h1 class="site-logo" id="site-title">spgrep 0.2.10</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
@@ -157,7 +157,7 @@
   </ul>
  </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../api.html">
+  <a class="reference internal" href="../api/api.html">
    API Reference
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
@@ -167,32 +167,32 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../api_core.html">
+    <a class="reference internal" href="../api/api_core.html">
      Core functions
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../api_group.html">
+    <a class="reference internal" href="../api/api_group.html">
      Group
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../api_irreps.html">
+    <a class="reference internal" href="../api/api_irreps.html">
      Irreps
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../api_pointgroup.html">
+    <a class="reference internal" href="../api/api_pointgroup.html">
      Point group
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../api_representation.html">
+    <a class="reference internal" href="../api/api_representation.html">
      Representation
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../api_transformation.html">
+    <a class="reference internal" href="../api/api_transformation.html">
      Transformation
     </a>
    </li>
@@ -708,7 +708,7 @@ spgrep==0.2.9.dev2+g3393de7
 </section>
 <section id="Prepare-space-group-operations-and-representation">
 <h2>Prepare space-group operations and representation<a class="headerlink" href="#Prepare-space-group-operations-and-representation" title="Permalink to this headline">#</a></h2>
-<p>We consider lattice vibration of Perovskite structure ($P m :nbsphinx-math:<a href="#id1"><span class="problematic" id="id2">`</span></a>overline{3}`m $) at X point.</p>
+<p>We consider lattice vibration of Perovskite structure (<span class="math notranslate nohighlight">\(Pm\overline{3}m\)</span>) at X point.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
@@ -758,7 +758,7 @@ spgrep==0.2.9.dev2+g3393de7
 <div class="math notranslate nohighlight">
 \[\mathbf{u}(\kappa; \mathbf{q})
   := \sqrt{\frac{M_{\kappa}}{N}} \sum_{l} \mathbf{u}(\mathbf{r}(l\kappa)) e^{ i \mathbf{q} \cdot \mathbf{r}(l) },\]</div>
-<p>where <span class="math notranslate nohighlight">\(N\)</span> is number of lattice points in a supercell, and <span class="math notranslate nohighlight">\(M_{\kappa}\)</span> is mass of the <span class="math notranslate nohighlight">\(\kappa\)</span>-th atom. Let <span class="math notranslate nohighlight">\(\mathbf{r}(l\kappa)\)</span> be equilibrium position of the <span class="math notranslate nohighlight">\(\kappa\)</span>-th atom in the <span class="math notranslate nohighlight">\(l\)</span>-th unit cell. The fourier transformation of <span class="math notranslate nohighlight">\(u_{\mu}(l \kappa)\)</span> forms representation of space group <span class="math notranslate nohighlight">\(\mathcal{G}\)</span>  <a class="footnote-reference brackets" href="#id4" id="id3">1</a> as</p>
+<p>where <span class="math notranslate nohighlight">\(N\)</span> is number of lattice points in a supercell, and <span class="math notranslate nohighlight">\(M_{\kappa}\)</span> is mass of the <span class="math notranslate nohighlight">\(\kappa\)</span>-th atom. Let <span class="math notranslate nohighlight">\(\mathbf{r}(l\kappa)\)</span> be equilibrium position of the <span class="math notranslate nohighlight">\(\kappa\)</span>-th atom in the <span class="math notranslate nohighlight">\(l\)</span>-th unit cell. The fourier transformation of <span class="math notranslate nohighlight">\(u_{\mu}(l \kappa)\)</span> forms representation of space group <span class="math notranslate nohighlight">\(\mathcal{G}\)</span>  <a class="footnote-reference brackets" href="#id2" id="id1">1</a> as</p>
 <div class="math notranslate nohighlight">
 \[g u_{\mu}(\kappa; \mathbf{q})
   = \sum_{\kappa'\mu'} u_{\mu'}(\kappa'; \mathbf{R}_{g} \mathbf{q} ) \Gamma_{\kappa'\mu'; \kappa\mu}^{\mathbf{q}}(g)
@@ -768,7 +768,7 @@ spgrep==0.2.9.dev2+g3393de7
 \[\Gamma_{\kappa'\mu'; \kappa\mu}^{\mathbf{q}}(g)
   := \exp \left( -i \mathbf{R}_{g} \mathbf{q} \cdot (g \mathbf{r}(0\kappa)) - \mathbf{r}(\mathbf{0}\,g\kappa) \right) [\mathbf{R}_{g}]_{\mu'\mu} \delta_{ g\kappa, \kappa' }.\]</div>
 <dl class="footnote brackets">
-<dt class="label" id="id4"><span class="brackets"><a class="fn-backref" href="#id3">1</a></span></dt>
+<dt class="label" id="id2"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
 <dd><ol class="upperalpha simple">
 <li><ol class="upperalpha simple">
 <li><p>Maradudin and S. H. Vosko, Rev. Mod. Phys. 40, 1–37 (1968).</p></li>

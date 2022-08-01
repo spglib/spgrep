@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>On-the-fly irreps generation from solvable group chain &#8212; spgrep 0.2.9</title>
+    <title>On-the-fly irreps generation from solvable group chain &#8212; spgrep 0.2.10</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -78,7 +78,7 @@
       
       
       
-      <h1 class="site-logo" id="site-title">spgrep 0.2.9</h1>
+      <h1 class="site-logo" id="site-title">spgrep 0.2.10</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
@@ -157,7 +157,7 @@
   </ul>
  </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="api.html">
+  <a class="reference internal" href="api/api.html">
    API Reference
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
@@ -167,32 +167,32 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="api_core.html">
+    <a class="reference internal" href="api/api_core.html">
      Core functions
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="api_group.html">
+    <a class="reference internal" href="api/api_group.html">
      Group
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="api_irreps.html">
+    <a class="reference internal" href="api/api_irreps.html">
      Irreps
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="api_pointgroup.html">
+    <a class="reference internal" href="api/api_pointgroup.html">
      Point group
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="api_representation.html">
+    <a class="reference internal" href="api/api_representation.html">
      Representation
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="api_transformation.html">
+    <a class="reference internal" href="api/api_transformation.html">
      Transformation
     </a>
    </li>
@@ -495,8 +495,7 @@ We scale <span class="math notranslate nohighlight">\(\mathbf{U}\)</span> such t
 <h2>Decomposition of crystallographic point groups<a class="headerlink" href="#decomposition-of-crystallographic-point-groups" title="Permalink to this headline">#</a></h2>
 <p>A crystallographic point group <span class="math notranslate nohighlight">\(G\)</span> can always be decomposed as Eq. <a class="reference internal" href="#equation-decomp">(1)</a> because it is a solvable group.
 spgrep adapts the following decomposition <span id="id4">[<a class="reference internal" href="#id19" title="M. I. Aroyo, editor. International Tables for Crystallography. Volume A. International Union of Crystallography, December 2016. URL: https://doi.org/10.1107/97809553602060000114, doi:10.1107/97809553602060000114.">Aro16</a>]</span></p>
-<div class="mermaid">
-              flowchart TB
+  flowchart TB
     Oh(m-3m)
     Td(&quot;-43m&quot;)
     O(432)
@@ -572,8 +571,7 @@ spgrep adapts the following decomposition <span id="id4">[<a class="reference in
     Cs --&gt; C1
     C2 --&gt; C1
 
-    Ci --&gt; C1
-        </div></section>
+    Ci --&gt; C1</section>
 <section id="references">
 <h2>References<a class="headerlink" href="#references" title="Permalink to this headline">#</a></h2>
 <div class="docutils container" id="id5">

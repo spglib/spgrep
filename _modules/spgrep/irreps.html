@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>spgrep.irreps &#8212; spgrep 0.2.9</title>
+    <title>spgrep.irreps &#8212; spgrep 0.2.10</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -73,7 +73,7 @@
       
       
       
-      <h1 class="site-logo" id="site-title">spgrep 0.2.9</h1>
+      <h1 class="site-logo" id="site-title">spgrep 0.2.10</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
@@ -152,7 +152,7 @@
   </ul>
  </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../../api.html">
+  <a class="reference internal" href="../../api/api.html">
    API Reference
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
@@ -162,32 +162,32 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../api_core.html">
+    <a class="reference internal" href="../../api/api_core.html">
      Core functions
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../api_group.html">
+    <a class="reference internal" href="../../api/api_group.html">
      Group
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../api_irreps.html">
+    <a class="reference internal" href="../../api/api_irreps.html">
      Irreps
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../api_pointgroup.html">
+    <a class="reference internal" href="../../api/api_pointgroup.html">
      Point group
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../api_representation.html">
+    <a class="reference internal" href="../../api/api_representation.html">
      Representation
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../api_transformation.html">
+    <a class="reference internal" href="../../api/api_transformation.html">
      Transformation
     </a>
    </li>
@@ -318,7 +318,7 @@ title="Fullscreen mode"
 <span class="kn">from</span> <span class="nn">spgrep.utils</span> <span class="kn">import</span> <span class="n">NDArrayComplex</span><span class="p">,</span> <span class="n">NDArrayFloat</span><span class="p">,</span> <span class="n">NDArrayInt</span><span class="p">,</span> <span class="n">nroot</span>
 
 
-<div class="viewcode-block" id="enumerate_small_representations"><a class="viewcode-back" href="../../api_irreps.html#spgrep.irreps.enumerate_small_representations">[docs]</a><span class="k">def</span> <span class="nf">enumerate_small_representations</span><span class="p">(</span>
+<div class="viewcode-block" id="enumerate_small_representations"><a class="viewcode-back" href="../../api/api_irreps.html#spgrep.irreps.enumerate_small_representations">[docs]</a><span class="k">def</span> <span class="nf">enumerate_small_representations</span><span class="p">(</span>
     <span class="n">little_rotations</span><span class="p">:</span> <span class="n">NDArrayInt</span><span class="p">,</span>
     <span class="n">little_translations</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">,</span>
     <span class="n">kpoint</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">,</span>
@@ -376,7 +376,7 @@ title="Fullscreen mode"
     <span class="k">return</span> <span class="n">irreps</span></div>
 
 
-<div class="viewcode-block" id="enumerate_unitary_irreps"><a class="viewcode-back" href="../../api_irreps.html#spgrep.irreps.enumerate_unitary_irreps">[docs]</a><span class="k">def</span> <span class="nf">enumerate_unitary_irreps</span><span class="p">(</span>
+<div class="viewcode-block" id="enumerate_unitary_irreps"><a class="viewcode-back" href="../../api/api_irreps.html#spgrep.irreps.enumerate_unitary_irreps">[docs]</a><span class="k">def</span> <span class="nf">enumerate_unitary_irreps</span><span class="p">(</span>
     <span class="n">rotations</span><span class="p">:</span> <span class="n">NDArrayInt</span><span class="p">,</span>
     <span class="n">factor_system</span><span class="p">:</span> <span class="n">NDArrayComplex</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">real</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
@@ -469,7 +469,7 @@ title="Fullscreen mode"
     <span class="k">return</span> <span class="n">real_irreps</span></div>
 
 
-<div class="viewcode-block" id="enumerate_unitary_irreps_from_regular_representation"><a class="viewcode-back" href="../../api_irreps.html#spgrep.irreps.enumerate_unitary_irreps_from_regular_representation">[docs]</a><span class="k">def</span> <span class="nf">enumerate_unitary_irreps_from_regular_representation</span><span class="p">(</span>
+<div class="viewcode-block" id="enumerate_unitary_irreps_from_regular_representation"><a class="viewcode-back" href="../../api/api_irreps.html#spgrep.irreps.enumerate_unitary_irreps_from_regular_representation">[docs]</a><span class="k">def</span> <span class="nf">enumerate_unitary_irreps_from_regular_representation</span><span class="p">(</span>
     <span class="n">reg</span><span class="p">:</span> <span class="n">NDArrayComplex</span><span class="p">,</span>
     <span class="n">rtol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-5</span><span class="p">,</span>
     <span class="n">max_num_random_generations</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span>
@@ -531,7 +531,7 @@ title="Fullscreen mode"
     <span class="k">return</span> <span class="p">[]</span></div>
 
 
-<div class="viewcode-block" id="decompose_representation"><a class="viewcode-back" href="../../api_irreps.html#spgrep.irreps.decompose_representation">[docs]</a><span class="k">def</span> <span class="nf">decompose_representation</span><span class="p">(</span>
+<div class="viewcode-block" id="decompose_representation"><a class="viewcode-back" href="../../api/api_irreps.html#spgrep.irreps.decompose_representation">[docs]</a><span class="k">def</span> <span class="nf">decompose_representation</span><span class="p">(</span>
     <span class="n">representation</span><span class="p">:</span> <span class="n">NDArrayComplex</span><span class="p">,</span>
     <span class="n">rtol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-5</span><span class="p">,</span>
     <span class="n">max_num_random_generations</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span>
@@ -634,14 +634,14 @@ title="Fullscreen mode"
     <span class="k">return</span> <span class="n">sorted_irreps</span>
 
 
-<div class="viewcode-block" id="enumerate_unitary_irreps_from_solvable_group_chain"><a class="viewcode-back" href="../../api_irreps.html#spgrep.irreps.enumerate_unitary_irreps_from_solvable_group_chain">[docs]</a><span class="k">def</span> <span class="nf">enumerate_unitary_irreps_from_solvable_group_chain</span><span class="p">(</span>
+<div class="viewcode-block" id="enumerate_unitary_irreps_from_solvable_group_chain"><a class="viewcode-back" href="../../api/api_irreps.html#spgrep.irreps.enumerate_unitary_irreps_from_solvable_group_chain">[docs]</a><span class="k">def</span> <span class="nf">enumerate_unitary_irreps_from_solvable_group_chain</span><span class="p">(</span>
     <span class="n">table</span><span class="p">:</span> <span class="n">NDArrayInt</span><span class="p">,</span>
     <span class="n">factor_system</span><span class="p">:</span> <span class="n">NDArrayComplex</span><span class="p">,</span>
     <span class="n">solvable_chain_generators</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
     <span class="n">atol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-8</span><span class="p">,</span>
     <span class="n">max_num_random_generations</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span>
 <span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Calculate symmetrized irreps from given chain of solvable group.</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Calculate symmetrized irreps from given chain of solvable group.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -649,8 +649,8 @@ title="Fullscreen mode"
 <span class="sd">        Cayley table</span>
 <span class="sd">    factor_system: array, (order, order)</span>
 <span class="sd">    solvable_group_chain: list of single generator of coset</span>
-<span class="sd">        Let G0 := G and G_{i} := G_{i-1} / &lt; solvable_chain_generators[i] &gt; (i = 0, 1, ...).</span>
-<span class="sd">        Then, G_{i} is normal subgroup of G_{i-1} and factor group G_{i-1}/G_{i} is Abelian.</span>
+<span class="sd">        Let :math:`G_{0} := G` and :math:`G_{i} := G_{i-1} / \langle` ``solvable_chain_generators[i]`` :math:`\rangle` (i = 0, 1, ...).</span>
+<span class="sd">        Then, :math:`G_{i}` is normal subgroup of :math:`G_{i-1}` and factor group :math:`G_{i-1}/G_{i}` is Abelian.</span>
 
 <span class="sd">    atol: float</span>
 <span class="sd">        Absolute tolerance to distinguish difference eigenvalues</span>

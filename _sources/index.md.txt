@@ -6,7 +6,7 @@ hidden:
    Introduction <self>
    Examples <examples>
    Formulation <formulation>
-   API Reference <api>
+   API Reference <api/api>
    Change Log <changelog>
    genindex <genindex>
 ```

@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>spgrep.pointgroup &#8212; spgrep 0.2.9</title>
+    <title>spgrep.pointgroup &#8212; spgrep 0.2.10</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -73,7 +73,7 @@
       
       
       
-      <h1 class="site-logo" id="site-title">spgrep 0.2.9</h1>
+      <h1 class="site-logo" id="site-title">spgrep 0.2.10</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
@@ -152,7 +152,7 @@
   </ul>
  </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../../api.html">
+  <a class="reference internal" href="../../api/api.html">
    API Reference
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
@@ -162,32 +162,32 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../api_core.html">
+    <a class="reference internal" href="../../api/api_core.html">
      Core functions
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../api_group.html">
+    <a class="reference internal" href="../../api/api_group.html">
      Group
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../api_irreps.html">
+    <a class="reference internal" href="../../api/api_irreps.html">
      Irreps
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../api_pointgroup.html">
+    <a class="reference internal" href="../../api/api_pointgroup.html">
      Point group
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../api_representation.html">
+    <a class="reference internal" href="../../api/api_representation.html">
      Representation
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../api_transformation.html">
+    <a class="reference internal" href="../../api/api_transformation.html">
      Transformation
     </a>
    </li>
@@ -969,8 +969,8 @@ title="Fullscreen mode"
     <span class="k">return</span> <span class="n">_get_generators</span><span class="p">(</span><span class="n">next_pg_symbol</span><span class="p">,</span> <span class="n">next_idx</span><span class="p">,</span> <span class="n">gens</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="get_pointgroup_chain_generators"><a class="viewcode-back" href="../../api_pointgroup.html#spgrep.pointgroup.get_pointgroup_chain_generators">[docs]</a><span class="k">def</span> <span class="nf">get_pointgroup_chain_generators</span><span class="p">(</span><span class="n">prim_rotations</span><span class="p">:</span> <span class="n">NDArrayInt</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
-    <span class="sd">&quot;&quot;&quot;Calculate generators of given crystallographic point group in primitive basis.</span>
+<div class="viewcode-block" id="get_pointgroup_chain_generators"><a class="viewcode-back" href="../../api/api_pointgroup.html#spgrep.pointgroup.get_pointgroup_chain_generators">[docs]</a><span class="k">def</span> <span class="nf">get_pointgroup_chain_generators</span><span class="p">(</span><span class="n">prim_rotations</span><span class="p">:</span> <span class="n">NDArrayInt</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Calculate generators of given crystallographic point group in primitive basis.</span>
 
 <span class="sd">    The returned generators give a normal series whose factor groups are all Abelian.</span>
 
@@ -981,8 +981,8 @@ title="Fullscreen mode"
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    generators: list[int]</span>
-<span class="sd">        Let G0 := prim_rotations and G_{i} := G_{i-1} / &lt; generators[i] &gt; (i = 0, 1, ...).</span>
-<span class="sd">        Then, G_{i} is normal subgroup of G_{i-1} and factor group G_{i-1}/G_{i} is Abelian.</span>
+<span class="sd">        Let :math:`G_{0} := G` and :math:`G_{i} := G_{i-1} / \langle` ``solvable_chain_generators[i]`` :math:`\rangle` (i = 0, 1, ...).</span>
+<span class="sd">        Then, :math:`G_{i}` is normal subgroup of :math:`G_{i-1}` and factor group :math:`G_{i-1}/G_{i}` is Abelian.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">pg_symbol</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">P</span> <span class="o">=</span> <span class="n">get_pointgroup</span><span class="p">(</span><span class="n">prim_rotations</span><span class="p">)</span>
     <span class="n">Pinv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">P</span><span class="p">)</span>

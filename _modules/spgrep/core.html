@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>spgrep.core &#8212; spgrep 0.2.9</title>
+    <title>spgrep.core &#8212; spgrep 0.2.10</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -73,7 +73,7 @@
       
       
       
-      <h1 class="site-logo" id="site-title">spgrep 0.2.9</h1>
+      <h1 class="site-logo" id="site-title">spgrep 0.2.10</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
@@ -152,7 +152,7 @@
   </ul>
  </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../../api.html">
+  <a class="reference internal" href="../../api/api.html">
    API Reference
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
@@ -162,32 +162,32 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../api_core.html">
+    <a class="reference internal" href="../../api/api_core.html">
      Core functions
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../api_group.html">
+    <a class="reference internal" href="../../api/api_group.html">
      Group
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../api_irreps.html">
+    <a class="reference internal" href="../../api/api_irreps.html">
      Irreps
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../api_pointgroup.html">
+    <a class="reference internal" href="../../api/api_pointgroup.html">
      Point group
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../api_representation.html">
+    <a class="reference internal" href="../../api/api_representation.html">
      Representation
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../api_transformation.html">
+    <a class="reference internal" href="../../api/api_transformation.html">
      Transformation
     </a>
    </li>
@@ -314,7 +314,7 @@ title="Fullscreen mode"
 <span class="kn">from</span> <span class="nn">spgrep.utils</span> <span class="kn">import</span> <span class="n">NDArrayComplex</span><span class="p">,</span> <span class="n">NDArrayFloat</span><span class="p">,</span> <span class="n">NDArrayInt</span>
 
 
-<div class="viewcode-block" id="get_spacegroup_irreps"><a class="viewcode-back" href="../../api_core.html#spgrep.get_spacegroup_irreps">[docs]</a><span class="k">def</span> <span class="nf">get_spacegroup_irreps</span><span class="p">(</span>
+<div class="viewcode-block" id="get_spacegroup_irreps"><a class="viewcode-back" href="../../api/api_core.html#spgrep.get_spacegroup_irreps">[docs]</a><span class="k">def</span> <span class="nf">get_spacegroup_irreps</span><span class="p">(</span>
     <span class="n">lattice</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">,</span>
     <span class="n">positions</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">,</span>
     <span class="n">numbers</span><span class="p">:</span> <span class="n">NDArrayInt</span><span class="p">,</span>
@@ -331,7 +331,7 @@ title="Fullscreen mode"
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    lattice: array, (3, 3)</span>
-<span class="sd">        Row-wise basis vectors. lattice[i, :] is the i-th lattice vector.</span>
+<span class="sd">        Row-wise basis vectors. ``lattice[i, :]`` is the i-th lattice vector.</span>
 <span class="sd">    positions: array, (num_atoms, 3)</span>
 <span class="sd">        Fractional coordinates of sites</span>
 <span class="sd">    numbers: array, (num_atoms, )</span>
@@ -341,10 +341,10 @@ title="Fullscreen mode"
 <span class="sd">        &#39;random&#39;: construct irreps by numerically diagonalizing a random matrix commute with regular representation</span>
 <span class="sd">    kpoint: array, (3, )</span>
 <span class="sd">        Reciprocal vector with respect to ``reciprocal_lattice``</span>
-<span class="sd">        For pure translation :math:`\\mathbf{t}`, returned irrep :math:`\\Gamma^{(\\alpha)}` takes</span>
+<span class="sd">        For pure translation :math:`\mathbf{t}`, returned irrep :math:`\Gamma^{(\alpha)}` takes</span>
 
 <span class="sd">        .. math::</span>
-<span class="sd">            \\Gamma^{(\\alpha)}((E, \\mathbf{t})) = e^{ -i\\mathbf{k}\\cdot\\mathbf{t} } \\mathbf{1}.</span>
+<span class="sd">            \Gamma^{(\alpha)}((E, \mathbf{t})) = e^{ -i\mathbf{k}\cdot\mathbf{t} } \mathbf{1}.</span>
 
 <span class="sd">    reciprocal_lattice: (Optional) array, (3, 3)</span>
 <span class="sd">        ``reciprocal_lattice[i, :]`` is the i-th basis vector of reciprocal lattice for ``kpoint`` without `2 * pi factor`.</span>
@@ -433,7 +433,7 @@ title="Fullscreen mode"
     <span class="k">return</span> <span class="n">irreps</span><span class="p">,</span> <span class="n">rotations</span><span class="p">,</span> <span class="n">translations</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">mapping_little_group</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="get_spacegroup_irreps_from_primitive_symmetry"><a class="viewcode-back" href="../../api_core.html#spgrep.get_spacegroup_irreps_from_primitive_symmetry">[docs]</a><span class="k">def</span> <span class="nf">get_spacegroup_irreps_from_primitive_symmetry</span><span class="p">(</span>
+<div class="viewcode-block" id="get_spacegroup_irreps_from_primitive_symmetry"><a class="viewcode-back" href="../../api/api_core.html#spgrep.get_spacegroup_irreps_from_primitive_symmetry">[docs]</a><span class="k">def</span> <span class="nf">get_spacegroup_irreps_from_primitive_symmetry</span><span class="p">(</span>
     <span class="n">rotations</span><span class="p">:</span> <span class="n">NDArrayInt</span><span class="p">,</span>
     <span class="n">translations</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">,</span>
     <span class="n">kpoint</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">,</span>
@@ -450,14 +450,14 @@ title="Fullscreen mode"
 <span class="sd">    ----------</span>
 <span class="sd">    rotations: array, (order, 3, 3)</span>
 <span class="sd">        Assume a fractional coordinates `x` are transformed by the i-th symmetry operation as follows:</span>
-<span class="sd">            np.dot(rotations[i, :, :], x) + translations[i, :]</span>
+<span class="sd">            ``np.dot(rotations[i, :, :], x) + translations[i, :]``</span>
 <span class="sd">    translations: array, (order, 3)</span>
 <span class="sd">    kpoint: array, (3, )</span>
 <span class="sd">        Reciprocal vector with respect to reciprocal lattice.</span>
-<span class="sd">        For pure translation :math:`\\mathbf{t}`, returned irrep :math:`\\Gamma^{(\\alpha)}` takes</span>
+<span class="sd">        For pure translation :math:`\mathbf{t}`, returned irrep :math:`\Gamma^{(\alpha)}` takes</span>
 
 <span class="sd">        .. math::</span>
-<span class="sd">            \\Gamma^{(\\alpha)}((E, \\mathbf{t})) = e^{ -i\\mathbf{k}\\cdot\\mathbf{t} } \\mathbf{1}.</span>
+<span class="sd">            \Gamma^{(\alpha)}((E, \mathbf{t})) = e^{ -i\mathbf{k}\cdot\mathbf{t} } \mathbf{1}.</span>
 
 <span class="sd">    method: str, &#39;Neto&#39; or &#39;random&#39;</span>
 <span class="sd">        &#39;Neto&#39;: construct irreps from a fixed chain of subgroups of little co-group</span>
@@ -475,7 +475,7 @@ title="Fullscreen mode"
 <span class="sd">        Let ``i = mapping_little_group[idx]``. ``irreps[alpha][i, :, :]`` is the ``alpha``-th irreducible matrix representation of ``(rotations[i], translations[i])``.</span>
 <span class="sd">    mapping_little_group: array, (little_group_order, )</span>
 <span class="sd">        Let ``i = mapping_little_group[idx]``.</span>
-<span class="sd">        (rotations[i], translations[i]) belongs to the little group of given space space group and kpoint.</span>
+<span class="sd">        ``(rotations[i], translations[i])`` belongs to the little group of given space space group and kpoint.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Sanity check to use primitive cell</span>
     <span class="k">for</span> <span class="n">rotation</span><span class="p">,</span> <span class="n">translation</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">rotations</span><span class="p">,</span> <span class="n">translations</span><span class="p">):</span>
@@ -502,7 +502,7 @@ title="Fullscreen mode"
     <span class="k">return</span> <span class="n">irreps</span><span class="p">,</span> <span class="n">mapping_little_group</span></div>
 
 
-<div class="viewcode-block" id="get_crystallographic_pointgroup_irreps_from_symmetry"><a class="viewcode-back" href="../../api_core.html#spgrep.get_crystallographic_pointgroup_irreps_from_symmetry">[docs]</a><span class="k">def</span> <span class="nf">get_crystallographic_pointgroup_irreps_from_symmetry</span><span class="p">(</span>
+<div class="viewcode-block" id="get_crystallographic_pointgroup_irreps_from_symmetry"><a class="viewcode-back" href="../../api/api_core.html#spgrep.get_crystallographic_pointgroup_irreps_from_symmetry">[docs]</a><span class="k">def</span> <span class="nf">get_crystallographic_pointgroup_irreps_from_symmetry</span><span class="p">(</span>
     <span class="n">rotations</span><span class="p">:</span> <span class="n">NDArrayInt</span><span class="p">,</span>
     <span class="n">real</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">method</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;Neto&quot;</span><span class="p">,</span> <span class="s2">&quot;random&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Neto&quot;</span><span class="p">,</span>
@@ -517,7 +517,7 @@ title="Fullscreen mode"
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    rotations: array, (order, 3, 3)</span>
-<span class="sd">        Assume a point coordinates `x` are transformed into `np.dot(rotations[i, :, :], x)` by the i-th symmetry operation.</span>
+<span class="sd">        Assume a point coordinates ``x`` are transformed into ``np.dot(rotations[i, :, :], x)`` by the ``i``-th symmetry operation.</span>
 <span class="sd">    real: bool, default=False</span>
 <span class="sd">        If True, return irreps over real vector space (so called physically irreducible representations)</span>
 <span class="sd">    method: str, &#39;Neto&#39; or &#39;random&#39;</span>

@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>spgrep.group &#8212; spgrep 0.2.9</title>
+    <title>spgrep.group &#8212; spgrep 0.2.10</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -73,7 +73,7 @@
       
       
       
-      <h1 class="site-logo" id="site-title">spgrep 0.2.9</h1>
+      <h1 class="site-logo" id="site-title">spgrep 0.2.10</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
@@ -152,7 +152,7 @@
   </ul>
  </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../../api.html">
+  <a class="reference internal" href="../../api/api.html">
    API Reference
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
@@ -162,32 +162,32 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../api_core.html">
+    <a class="reference internal" href="../../api/api_core.html">
      Core functions
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../api_group.html">
+    <a class="reference internal" href="../../api/api_group.html">
      Group
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../api_irreps.html">
+    <a class="reference internal" href="../../api/api_irreps.html">
      Irreps
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../api_pointgroup.html">
+    <a class="reference internal" href="../../api/api_pointgroup.html">
      Point group
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../api_representation.html">
+    <a class="reference internal" href="../../api/api_representation.html">
      Representation
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../api_transformation.html">
+    <a class="reference internal" href="../../api/api_transformation.html">
      Transformation
     </a>
    </li>
@@ -305,7 +305,7 @@ title="Fullscreen mode"
 <span class="p">)</span>
 
 
-<div class="viewcode-block" id="get_cayley_table"><a class="viewcode-back" href="../../api_group.html#spgrep.group.get_cayley_table">[docs]</a><span class="k">def</span> <span class="nf">get_cayley_table</span><span class="p">(</span><span class="n">rotations</span><span class="p">:</span> <span class="n">NDArrayInt</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NDArrayInt</span><span class="p">:</span>
+<div class="viewcode-block" id="get_cayley_table"><a class="viewcode-back" href="../../api/api_group.html#spgrep.group.get_cayley_table">[docs]</a><span class="k">def</span> <span class="nf">get_cayley_table</span><span class="p">(</span><span class="n">rotations</span><span class="p">:</span> <span class="n">NDArrayInt</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NDArrayInt</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Calculate Group multiplication table.</span>
 
 <span class="sd">    Parameters</span>
@@ -364,7 +364,7 @@ title="Fullscreen mode"
     <span class="k">return</span> <span class="n">ret</span>
 
 
-<div class="viewcode-block" id="is_matrix_group"><a class="viewcode-back" href="../../api_group.html#spgrep.group.is_matrix_group">[docs]</a><span class="k">def</span> <span class="nf">is_matrix_group</span><span class="p">(</span><span class="n">rotations</span><span class="p">:</span> <span class="n">NDArrayInt</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<div class="viewcode-block" id="is_matrix_group"><a class="viewcode-back" href="../../api/api_group.html#spgrep.group.is_matrix_group">[docs]</a><span class="k">def</span> <span class="nf">is_matrix_group</span><span class="p">(</span><span class="n">rotations</span><span class="p">:</span> <span class="n">NDArrayInt</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Return True iff given integer matrices forms group.&quot;&quot;&quot;</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">table</span> <span class="o">=</span> <span class="n">get_cayley_table</span><span class="p">(</span><span class="n">rotations</span><span class="p">)</span>
@@ -380,7 +380,7 @@ title="Fullscreen mode"
     <span class="k">return</span> <span class="kc">True</span></div>
 
 
-<div class="viewcode-block" id="get_factor_system_from_little_group"><a class="viewcode-back" href="../../api_group.html#spgrep.group.get_factor_system_from_little_group">[docs]</a><span class="k">def</span> <span class="nf">get_factor_system_from_little_group</span><span class="p">(</span>
+<div class="viewcode-block" id="get_factor_system_from_little_group"><a class="viewcode-back" href="../../api/api_group.html#spgrep.group.get_factor_system_from_little_group">[docs]</a><span class="k">def</span> <span class="nf">get_factor_system_from_little_group</span><span class="p">(</span>
     <span class="n">little_rotations</span><span class="p">:</span> <span class="n">NDArrayInt</span><span class="p">,</span>
     <span class="n">little_translations</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">,</span>
     <span class="n">kpoint</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">,</span>
@@ -388,10 +388,10 @@ title="Fullscreen mode"
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Calculate factor system of projective representation of little co-group.</span>
 
 <span class="sd">    .. math::</span>
-<span class="sd">       D^{\\mathbf{k}}_{p}(S_{i}) D^{\\mathbf{k}}_{p}(S_{j})</span>
-<span class="sd">       = \\exp \\left( -i \\mathbf{g}_{i} \\cdot \\mathbf{w}_{j} \\right) D^{\\mathbf{k}}_{p}(S_{k})</span>
+<span class="sd">       D^{\mathbf{k}}_{p}(S_{i}) D^{\mathbf{k}}_{p}(S_{j})</span>
+<span class="sd">       = \exp \left( -i \mathbf{g}_{i} \cdot \mathbf{w}_{j} \right) D^{\mathbf{k}}_{p}(S_{k})</span>
 
-<span class="sd">    where :math:`S_{i}S_{j} = S_{k}` and :math:`\\mathbf{g}_{i} = S_{i}^{-1} \\mathbf{k} - \\mathbf{k}`.</span>
+<span class="sd">    where :math:`S_{i}S_{j} = S_{k}` and :math:`\mathbf{g}_{i} = S_{i}^{-1} \mathbf{k} - \mathbf{k}`.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -421,7 +421,7 @@ title="Fullscreen mode"
     <span class="k">return</span> <span class="n">factor_system</span></div>
 
 
-<div class="viewcode-block" id="get_little_group"><a class="viewcode-back" href="../../api_group.html#spgrep.group.get_little_group">[docs]</a><span class="k">def</span> <span class="nf">get_little_group</span><span class="p">(</span>
+<div class="viewcode-block" id="get_little_group"><a class="viewcode-back" href="../../api/api_group.html#spgrep.group.get_little_group">[docs]</a><span class="k">def</span> <span class="nf">get_little_group</span><span class="p">(</span>
     <span class="n">rotations</span><span class="p">:</span> <span class="n">NDArrayInt</span><span class="p">,</span>
     <span class="n">translations</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">,</span>
     <span class="n">kpoint</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">,</span>
@@ -441,7 +441,7 @@ title="Fullscreen mode"
 <span class="sd">    little_translations: array, (little_group_order, 3)</span>
 <span class="sd">    mapping_little_group: array, (little_group_order, )</span>
 <span class="sd">        Let ``i = mapping_little_group[idx]``.</span>
-<span class="sd">        (rotations[i], translations[i]) belongs to the little group of given space space group and kpoint.</span>
+<span class="sd">        ``(rotations[i], translations[i])`` belongs to the little group of given space space group and kpoint.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">little_rotations</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">little_translations</span> <span class="o">=</span> <span class="p">[]</span>

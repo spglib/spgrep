@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>spgrep.transform &#8212; spgrep 0.2.9</title>
+    <title>spgrep.transform &#8212; spgrep 0.2.10</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -73,7 +73,7 @@
       
       
       
-      <h1 class="site-logo" id="site-title">spgrep 0.2.9</h1>
+      <h1 class="site-logo" id="site-title">spgrep 0.2.10</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
@@ -152,7 +152,7 @@
   </ul>
  </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../../api.html">
+  <a class="reference internal" href="../../api/api.html">
    API Reference
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
@@ -162,32 +162,32 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../api_core.html">
+    <a class="reference internal" href="../../api/api_core.html">
      Core functions
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../api_group.html">
+    <a class="reference internal" href="../../api/api_group.html">
      Group
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../api_irreps.html">
+    <a class="reference internal" href="../../api/api_irreps.html">
      Irreps
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../api_pointgroup.html">
+    <a class="reference internal" href="../../api/api_pointgroup.html">
      Point group
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../api_representation.html">
+    <a class="reference internal" href="../../api/api_representation.html">
      Representation
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../api_transformation.html">
+    <a class="reference internal" href="../../api/api_transformation.html">
      Transformation
     </a>
    </li>
@@ -303,7 +303,7 @@ title="Fullscreen mode"
 <span class="kn">from</span> <span class="nn">spgrep.utils</span> <span class="kn">import</span> <span class="n">NDArrayFloat</span><span class="p">,</span> <span class="n">NDArrayInt</span><span class="p">,</span> <span class="n">ndarray2d_to_integer_tuple</span>
 
 
-<div class="viewcode-block" id="transform_symmetry_and_kpoint"><a class="viewcode-back" href="../../api_transformation.html#spgrep.transform.transform_symmetry_and_kpoint">[docs]</a><span class="k">def</span> <span class="nf">transform_symmetry_and_kpoint</span><span class="p">(</span>
+<div class="viewcode-block" id="transform_symmetry_and_kpoint"><a class="viewcode-back" href="../../api/api_transformation.html#spgrep.transform.transform_symmetry_and_kpoint">[docs]</a><span class="k">def</span> <span class="nf">transform_symmetry_and_kpoint</span><span class="p">(</span>
     <span class="n">transformation_matrix</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">,</span>
     <span class="n">rotations</span><span class="p">:</span> <span class="n">NDArrayInt</span><span class="p">,</span>
     <span class="n">translations</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">,</span>
@@ -314,9 +314,9 @@ title="Fullscreen mode"
 <span class="sd">    This function does not unique duplicated symmetry operations after applying transformation_matrix.</span>
 
 <span class="sd">    Let a given transformation_matrix be ``P``.</span>
-<span class="sd">    Symmetry operation (R, t) is transformed to</span>
-<span class="sd">    (P, 0)^-1 (R, t) (P, 0) = (P^-1 R P, P^-1 t).</span>
-<span class="sd">    Coefficients of k-vector are transformed to P.T @ kpoint.</span>
+<span class="sd">    Symmetry operation :math:`(R, t)` is transformed to</span>
+<span class="sd">    :math:`(P, 0){^-1} (R, t) (P, 0) = (P^{-1} R P, P^{-1} t)`.</span>
+<span class="sd">    Coefficients of k-vector are transformed to ``P.T @ kpoint``.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -383,7 +383,7 @@ title="Fullscreen mode"
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">unique_rotations</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">unique_translations</span><span class="p">),</span> <span class="n">mapping_to_primitive_symmetry</span>
 
 
-<div class="viewcode-block" id="get_primitive_transformation_matrix"><a class="viewcode-back" href="../../api_transformation.html#spgrep.transform.get_primitive_transformation_matrix">[docs]</a><span class="k">def</span> <span class="nf">get_primitive_transformation_matrix</span><span class="p">(</span><span class="n">hall_number</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NDArrayFloat</span><span class="p">:</span>
+<div class="viewcode-block" id="get_primitive_transformation_matrix"><a class="viewcode-back" href="../../api/api_transformation.html#spgrep.transform.get_primitive_transformation_matrix">[docs]</a><span class="k">def</span> <span class="nf">get_primitive_transformation_matrix</span><span class="p">(</span><span class="n">hall_number</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NDArrayFloat</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Return transformation matrix from standard unit cell specified with hall_number into a primitive cell. The transformation matrix is consistent with Spglib&#39;s convention [1,2] and KVEC&#39;s convention [3].</span>
 
 <span class="sd">    [1] https://spglib.github.io/spglib/definition.html</span>
