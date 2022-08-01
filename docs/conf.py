@@ -81,6 +81,11 @@ myst_enalbe_extensions = [
 ]
 myst_dmath_double_inline = True
 
+# nbsphinx and sphinxcontrib.mermaid are conflicted.
+# So, we need to use mermaid CLI instead of a raw HTML output.
+# https://github.com/mgaitan/sphinxcontrib-mermaid/issues/74
+mermaid_output_format = "svg"
+mermaid_verbose = True
 
 # -- Options for HTML output -------------------------------------------------
 

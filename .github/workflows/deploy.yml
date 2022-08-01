@@ -21,6 +21,13 @@ jobs:
         with:
           python-version: "3.9"
 
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - name: Install mermaid CLI
+        run: |
+          npm install @mermaid-js/mermaid-cli
+
       - name: Install dependencies
         run: |
           sudo apt-get install -y pandoc

@@ -139,3 +139,4 @@ docs_build
 gh-pages
 gh-pages.pub
 .pypirc
+codecov
