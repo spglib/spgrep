@@ -1,10 +1,12 @@
 # spgrep
 [![testing](https://github.com/spglib/spgrep/actions/workflows/testing.yml/badge.svg)](https://github.com/spglib/spgrep/actions/workflows/testing.yml)
 [![pre-commit.ci status](https://results.pre-commit.ci/badge/github/spglib/spgrep/main.svg)](https://results.pre-commit.ci/latest/github/spglib/spgrep/main)
+[![codecov](https://codecov.io/gh/spglib/spgrep/branch/main/graph/badge.svg?token=DQGVFCTB1P)](https://codecov.io/gh/spglib/spgrep)
 [![License](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/spgrep)](https://img.shields.io/pypi/pyversions/spgrep)
 [![PyPI version](https://badge.fury.io/py/spgrep.svg)](https://badge.fury.io/py/spgrep)
 [![PyPI Downloads](https://img.shields.io/pypi/dm/spgrep)](https://img.shields.io/pypi/dm/spgrep)
+![Lines of code](https://img.shields.io/tokei/lines/github/spglib/spgrep)
 
 **spgrep** is a Python package of on-the-fly generator of space-group irreducible representations.
 
