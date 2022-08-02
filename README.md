@@ -12,6 +12,7 @@
 
 - Github: <https://github.com/spglib/spgrep>
 - Document: <https://spglib.github.io/spgrep>
+- Document(develop): <https://spglib.github.io/spgrep/develop/>
 - PyPI: <https://pypi.org/project/spgrep>
 
 ## Features
