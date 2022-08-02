@@ -1,0 +1,407 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Application of space-group irreps to lattice vibration\n",
+    "\n",
+    "This example shows how to prepare representation matrix of atomic displacements by space group, and block-diagonalize dynamical matrix for harmonic lattice vibration only from symmetry."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Import modules"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "spgrep==0.2.9.dev2+g3393de7\n"
+     ]
+    }
+   ],
+   "source": [
+    "from pathlib import Path\n",
+    "\n",
+    "import phonopy\n",
+    "import numpy as np\n",
+    "import matplotlib.pyplot as plt\n",
+    "import seaborn as sns\n",
+    "\n",
+    "import spgrep\n",
+    "from spgrep import get_spacegroup_irreps\n",
+    "from spgrep.representation import check_spacegroup_representation, project_to_irrep\n",
+    "\n",
+    "print(f\"spgrep=={spgrep.__version__}\")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "sns.set_context(\"poster\")"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Prepare space-group operations and representation\n",
+    "\n",
+    "We consider lattice vibration of Perovskite structure ($Pm\\overline{3}m$) at X point."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Perovskite structure: Pm-3m (No. 221)\n",
+    "a = 3.986\n",
+    "lattice = np.array(\n",
+    "    [\n",
+    "        [a, 0, 0],\n",
+    "        [0, a, 0],\n",
+    "        [0, 0, a],\n",
+    "    ]\n",
+    ")\n",
+    "positions = np.array(\n",
+    "    [\n",
+    "        [0, 0.5, 0.5],  # O(3c)\n",
+    "        [0.5, 0, 0.5],  # O(3c)\n",
+    "        [0.5, 0.5, 0],  # O(3c)\n",
+    "        [0.5, 0.5, 0.5],  # Ti(1b)\n",
+    "        [0, 0, 0],  # Ba(1a)\n",
+    "    ]\n",
+    ")\n",
+    "numbers = [0, 0, 0, 1, 2]\n",
+    "\n",
+    "qpoint = [0.5, 0, 0]  # X point (with primitive cell)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Irreps of the space group is obtained by `spgrep.get_spacegroup_irreps`:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "irreps, rotations, translations, mapping_little_group = get_spacegroup_irreps(\n",
+    "    lattice, positions, numbers, qpoint\n",
+    ")\n",
+    "\n",
+    "# Sanity check if `irreps` are representation for space group\n",
+    "little_rotations = rotations[mapping_little_group]\n",
+    "little_translations = translations[mapping_little_group]\n",
+    "for irrep in irreps:\n",
+    "    assert check_spacegroup_representation(little_rotations, little_translations, qpoint, irrep)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Let $u_{\\mu}(l \\kappa)$ be a $\\mu$-direction atomic displacement of the $\\kappa$-th atom in the $l$-th unit cell.\n",
+    "We consider the fourier transformation of $u_{\\mu}(l \\kappa)$,\n",
+    "$$\n",
+    "  \\mathbf{u}(\\kappa; \\mathbf{q})\n",
+    "    := \\sqrt{\\frac{M_{\\kappa}}{N}} \\sum_{l} \\mathbf{u}(\\mathbf{r}(l\\kappa)) e^{ i \\mathbf{q} \\cdot \\mathbf{r}(l) },\n",
+    "$$\n",
+    "where $N$ is number of lattice points in a supercell, and $M_{\\kappa}$ is mass of the $\\kappa$-th atom.\n",
+    "Let $\\mathbf{r}(l\\kappa)$ be equilibrium position of the $\\kappa$-th atom in the $l$-th unit cell.\n",
+    "The fourier transformation of $u_{\\mu}(l \\kappa)$ forms representation of space group $\\mathcal{G}$ [^1] as\n",
+    "$$\n",
+    "  g u_{\\mu}(\\kappa; \\mathbf{q})\n",
+    "    = \\sum_{\\kappa'\\mu'} u_{\\mu'}(\\kappa'; \\mathbf{R}_{g} \\mathbf{q} ) \\Gamma_{\\kappa'\\mu'; \\kappa\\mu}^{\\mathbf{q}}(g)\n",
+    "    \\quad (g \\in \\mathcal{G}),\n",
+    "$$\n",
+    "where $\\mathbf{R}_{g}$ represents rotation part of $g$, and\n",
+    "$$\n",
+    "  \\Gamma_{\\kappa'\\mu'; \\kappa\\mu}^{\\mathbf{q}}(g)\n",
+    "    := \\exp \\left( -i \\mathbf{R}_{g} \\mathbf{q} \\cdot (g \\mathbf{r}(0\\kappa)) - \\mathbf{r}(\\mathbf{0}\\,g\\kappa) \\right) [\\mathbf{R}_{g}]_{\\mu'\\mu} \\delta_{ g\\kappa, \\kappa' }.\n",
+    "$$\n",
+    "\n",
+    "[^1]: A. A. Maradudin and S. H. Vosko, Rev. Mod. Phys. 40, 1–37 (1968)."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 5,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "def get_displacements_representation(\n",
+    "    lattice,\n",
+    "    positions,\n",
+    "    little_rotations,\n",
+    "    little_translations,\n",
+    "    qpoint,\n",
+    "):\n",
+    "    r\"\"\"Compute representation matrix for fourier-transformed displacements.\n",
+    "\n",
+    "    .. math::\n",
+    "       \\\\Gamma_{\\\\kappa'\\\\mu'; \\\\kappa\\\\mu}^{\\\\mathbf{q}}(g) := \\\\exp \\\\left( -i \\\\mathbf{R}_{g} \\\\mathbf{q} \\\\cdot \\\\mathbf{h}_{g}(\\\\kappa) \\\\right) [\\\\mathbf{R}_{g}]_{\\\\mu'\\\\mu} \\\\delta_{ g\\\\kappa, \\\\kappa' }\n",
+    "    \"\"\"\n",
+    "    little_order = len(little_rotations)\n",
+    "    num_atoms = len(positions)\n",
+    "\n",
+    "    # Operation-`i` moves atom-`kappa` to `permutations[i, kappa]`\n",
+    "    permutations = np.zeros((little_order, num_atoms), dtype=int)\n",
+    "    for i, (Ri, vi) in enumerate(zip(little_rotations, little_translations)):\n",
+    "        for kappa, position in enumerate(positions):\n",
+    "            new_pos = np.remainder(Ri @ position + vi, 1)\n",
+    "            for kappa2, position2 in enumerate(positions):\n",
+    "                if np.allclose(position2, new_pos):\n",
+    "                    permutations[i, kappa] = kappa2\n",
+    "                    break\n",
+    "\n",
+    "    shifts = np.zeros((little_order, num_atoms, 3))\n",
+    "    for i, (Ri, vi) in enumerate(zip(little_rotations, little_translations)):\n",
+    "        perm_i = permutations[i]\n",
+    "        shifts[i] = positions @ Ri.T + vi[None, :] - positions[perm_i]\n",
+    "\n",
+    "    perm_rep = np.zeros((little_order, num_atoms, num_atoms), dtype=np.complex_)\n",
+    "    for i, Ri in enumerate(little_rotations):\n",
+    "        for kappa in range(num_atoms):\n",
+    "            kappa2 = permutations[i, kappa]\n",
+    "            perm_rep[i, kappa2, kappa] = np.exp(\n",
+    "                -2j * np.pi * np.dot(Ri.T @ qpoint, shifts[i, kappa])\n",
+    "            )\n",
+    "\n",
+    "    # Rotation matrix in cartesian (order, 3, 3)\n",
+    "    A = np.transpose(lattice)  # column-wise lattice vectors\n",
+    "    Ainv = np.linalg.inv(A)\n",
+    "    rotation_rep = np.array([A @ r @ Ainv for r in little_rotations], dtype=np.complex_)\n",
+    "\n",
+    "    rep = np.einsum(\"ipq,iab->ipaqb\", perm_rep, rotation_rep, optimize=\"greedy\")\n",
+    "    return rep.reshape(-1, num_atoms * 3, num_atoms * 3)\n",
+    "\n",
+    "\n",
+    "rep = get_displacements_representation(\n",
+    "    lattice, positions, little_rotations, little_translations, qpoint\n",
+    ")"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "The order of the little co-group at X point is 16, and the atomic displacements are represented by 15 components (x,y,z directions for 5 atoms).\n",
+    "Thus, shape of `rep` is `(16, 15, 15)`."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 6,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "(16, 15, 15)"
+      ]
+     },
+     "execution_count": 6,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "rep.shape"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 7,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "image/png": "iVBORw0KGgoAAAANSUhEUgAAA5cAAADvCAYAAABmDCDUAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90bGliIHZlcnNpb24zLjUuMiwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy8qNh9FAAAACXBIWXMAAAsTAAALEwEAmpwYAAALDElEQVR4nO3dQWpbCRaF4auQYcCZ1yjgBaRW4HjlqaygtIBAthBDxn49CI0ptyWXfV77SUffBwaDiWT0j0694nq3LMsAAABA4t3WvwAAAADnz7gEAAAgZlwCAAAQMy4BAACIvV/rhXa73d8z82lmfs3M97Vel3/lemY+zMyPZVn+TF5Ix03p2EHHDjp20LGDjh107HC0426ta7G73e7nzFyt8mK81t2yLB+TF9DxJOjYQccOOnbQsYOOHXTs8GTH1Z5czu//cnB1NTOfH//k5mbFt+Gx/X4/d3d3M78bpHTciI4ddOygYwcdO+jYQccOz3Vcc1x+n5k/Ps/MX49/8vXrim/DY19ub+fbt28z6/xvATpuRMcOOnbQsYOOHXTsoGOH5zo66AMAAEDMuAQAACBmXAIAABBbf1ze3Mzc3//z6927w1+cJh076NhBxw46dtCxg44ddDw5PmUAAABixiUAAAAx4xIAAICYcQkAAEDMuAQAACBmXAIAABB7/ybvcn9/+GeHzgIf+zdsQ8cOOnbQsYOOHXTsoGMHHTflySUAAAAx4xIAAICYcQkAAEDMuAQAACBmXAIAABB7m2uxxxy6zuSa03nRsYOOHXTsoGMHHTvo2EHH/ztPLgEAAIgZlwAAAMSMSwAAAGLGJQAAADHjEgAAgNj212IPeek1p2P/hu3o2EHHDjp20LGDjh107KDjajy5BAAAIGZcAgAAEDMuAQAAiBmXAAAAxIxLAAAAYsYlAAAAsdP9UySHHDv7e+hcsFPBp0fHDjp20LGDjh107KBjBx1fzJNLAAAAYsYlAAAAMeMSAACAmHEJAABAzLgEAAAgdn7XYo85dJ3JNafzomMHHTvo2EHHDjp20LGDjk/y5BIAAICYcQkAAEDMuAQAACBmXAIAABAzLgEAAIh1XYs95KXXnI79G7ajYwcdO+jYQccOOnbQscOFd/TkEgAAgJhxCQAAQMy4BAAAIGZcAgAAEDMuAQAAiBmXAAAAxC7jT5Eccuzs76FzwUWngmvo2EHHDjp20LGDjh107HAhHT25BAAAIGZcAgAAEDMuAQAAiBmXAAAAxIxLAAAAYpd9LfaYQ9eZiq45XQQdO+jYQccOOnbQsYOOHYo6enIJAABAzLgEAAAgZlwCAAAQMy4BAACIGZcAAADEXIt9qZdeczr2b9iOjh107KBjBx076NhBxw5n2NGTSwAAAGLGJQAAADHjEgAAgJhxCQAAQMy4BAAAIGZcAgAAEPOnSNZy7OzvoXPBTj6fHh076NhBxw46dtCxg44dTrijJ5cAAADEjEsAAABixiUAAAAx4xIAAICYcQkAAEDMtdi3cOg6k6tc50XHDjp20LGDjh107KBjh407enIJAABAzLgEAAAgZlwCAAAQMy4BAACIGZcAAADEXIvd0kuvOR37N2xHxw46dtCxg44ddOygY4c36ujJJQAAADHjEgAAgJhxCQAAQMy4BAAAIGZcAgAAEDMuAQAAiPlTJKfo2NnfY+eCOS06dtCxg44ddOygYwcdO6zcUXkAAABixiUAAAAx4xIAAICYcQkAAEBszYM+1zMz+/1+vtzerviyPGf/8O31Ci+n40b2D9/qeMb2D9/qeMb2D9/qeMb2D9/qeMb2D9/qeMb2D9/qeMb2D98+2XG3LMsqb7Tb7X7OzNUqL8Zr3S3L8jF5AR1Pgo4ddOygYwcdO+jYQccOT3Zc88nlj5n5NDO/Zub7iq/L865n5sP8bpDScTs6dtCxg44ddOygYwcdOxztuNqTSwAAAC6Xgz4AAADEjEsAAABixiUAAAAx4xIAAICYcQkAAEDMuAQAACBmXAIAABAzLgEAAIgZlwAAAMSMSwAAAGLGJQAAADHjEgAAgJhxCQAAQMy4BAAAIGZcAgAAEDMuAQAAiBmXAAAAxIxLAAAAYsYlAAAAMeMSAACA2Pu1Xmi32/09M59m5tfMfF/rdflXrmfmw8z8WJblz+SFdNyUjh107KBjBx076NhBxw5HO+6WZVnlXXa73c+ZuVrlxXitu2VZPiYvoONJ0LGDjh107KBjBx076NjhyY6rPbmc3//l4OpqZj4//snNzYpvw2P7/X7u7u5mfjdI6bgRHTvo2EHHDjp20LGDjh2e67jmuPw+M398npm/Hv/k69cV34bHvtzezrdv32bW+d8CdNyIjh107KBjBx076NhBxw7PdXTQBwAAgJhxCQAAQMy4BAAAILb+uLy5mbm//+fX0d/g3dNfbEvHDjp20LGDjh107KBjBx1Pjk8TAACAmHEJAABAzLgEAAAgZlwCAAAQMy4BAACIGZcAAADE3r/Juxw78fvcyWBOh44ddOygYwcdO+jYQccOOm7Kk0sAAABixiUAAAAx4xIAAICYcQkAAEDMuAQAACD2Ntdit77MdOhq1Na/17nZ+vPScR1bf146rmPrz0vHdWz9eem4jq0/Lx3XsfXnpeM6tv68LryjJ5cAAADEjEsAAABixiUAAAAx4xIAAICYcQkAAEDsba7Fbu0115ku/NLTSdKxg44ddOygYwcdO+jY4cI7enIJAABAzLgEAAAgZlwCAAAQMy4BAACIGZcAAADEjEsAAABil/GnSA45dPZ35ixP/14sHTvo2EHHDjp20LGDjh0upKMnlwAAAMSMSwAAAGLGJQAAADHjEgAAgJhxCQAAQOx0r8Ueuqi05jWlostMJ0vHDjp20LGDjh107KBjBx1X48klAAAAMeMSAACAmHEJAABAzLgEAAAgZlwCAAAQO91rsa+5qPQWl554GR076NhBxw46dtCxg44ddFyNJ5cAAADEjEsAAABixiUAAAAx4xIAAICYcQkAAEDMuAQAACB2un+K5JBDZ39nLv7071nRsYOOHXTsoGMHHTvo2EHHF/PkEgAAgJhxCQAAQMy4BAAAIGZcAgAAEDMuAQAAiJ3ftditLzMduhq19e91brb+vHRcx9afl47r2Prz0nEdW39eOq5j689Lx3Vs/XnpuI6tP68z7OjJJQAAADHjEgAAgJhxCQAAQMy4BAAAIGZcAgAAEDu/a7Fbe811pjO89FRPxw46dtCxg44ddOygY4cz7OjJJQAAADHjEgAAgJhxCQAAQMy4BAAAIGZcAgAAEDMuAQAAiPlTJGs5dPZ3xgnnc6JjBx076NhBxw46dtCxwwl39OQSAACAmHEJAABAzLgEAAAgZlwCAAAQMy4BAACIuRa7ltdcZjp06cm1ru3o2EHHDjp20LGDjh107HDCHT25BAAAIGZcAgAAEDMuAQAAiBmXAAAAxIxLAAAAYq7FbmnNS09sR8cOOnbQsYOOHXTsoGOHN+qoPAAAADHjEgAAgJhxCQAAQMy4BAAAIGZcAgAAEDMuAQAAiBmXp+jdu8Nf9/f/+3Vzs/VvzFN07KBjBx076NhBxw46dli5o3EJAABAzLgEAAAgZlwCAAAQMy4BAACIvV/xta5nZvb7/Xy5vV3xZfmHJz7b/X7/32+vV3gHHd+Cjh107KBjBx076NhBxw6v6LhblmWV997tdj9n5mqVF+O17pZl+Zi8gI4nQccOOnbQsYOOHXTsoGOHJzuu+eTyx8x8mplfM/N9xdfledcz82F+N0jpuB0dO+jYQccOOnbQsYOOHY52XO3JJQAAAJfLQR8AAABixiUAAAAx4xIAAICYcQkAAEDMuAQAACBmXAIAABAzLgEAAIgZlwAAAMSMSwAAAGLGJQAAADHjEgAAgJhxCQAAQMy4BAAAIGZcAgAAEDMuAQAAiBmXAAAAxP4DSZ5JIyFZR4wAAAAASUVORK5CYII=",
+      "text/plain": [
+       "<Figure size 1152x288 with 16 Axes>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "nrows = 2\n",
+    "ncols = 8\n",
+    "fig, axes = plt.subplots(nrows, ncols, figsize=(2 * ncols, 2 * nrows))\n",
+    "for row in range(nrows):\n",
+    "    for col in range(ncols):\n",
+    "        idx = row * ncols + col\n",
+    "        ax = axes[row][col]\n",
+    "        ax.imshow(np.abs(rep[idx]), cmap=\"bwr\", vmin=-1, vmax=1)\n",
+    "        ax.set_aspect(\"equal\")\n",
+    "        ax.set_xticks([])\n",
+    "        ax.set_yticks([])"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Load dynamical matrix from PhononDB\n",
+    "\n",
+    "Next, we consider to construct a projection operator, and block-diagonalize dynamical matrix at X point.\n",
+    "We use a phonon calculation of Perovskite-BaTiO3 in [PhononDB](http://phonondb.mtl.kyoto-u.ac.jp/ph20180417/d002/mp-2998.html)."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 8,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "path = Path().resolve().parent / \"examples\" / \"phonopy_mp-2998.yaml.xz\"\n",
+    "ph = phonopy.load(path)\n",
+    "ph.dynamical_matrix.run(qpoint)\n",
+    "dynamical_matrix = ph.dynamical_matrix.dynamical_matrix"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 9,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "image/png": "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",
+      "text/plain": [
+       "<Figure size 1152x288 with 1 Axes>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "fig, ax = plt.subplots(figsize=(2 * ncols, 2 * nrows))\n",
+    "ax.imshow(np.abs(dynamical_matrix), cmap=\"bwr\", vmin=-1.5, vmax=1.5)\n",
+    "ax.set_xticks([])\n",
+    "ax.set_yticks([])\n",
+    "plt.show()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Apply projection operator and block-diagonalize dynamical matrix"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 10,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "2 basis vectors for irrep with (16, 1, 1)\n",
+      "0 basis vectors for irrep with (16, 1, 1)\n",
+      "0 basis vectors for irrep with (16, 1, 1)\n",
+      "2 basis vectors for irrep with (16, 1, 1)\n",
+      "3 basis vectors for irrep with (16, 2, 2)\n",
+      "2 basis vectors for irrep with (16, 2, 2)\n",
+      "1 basis vectors for irrep with (16, 1, 1)\n",
+      "0 basis vectors for irrep with (16, 1, 1)\n",
+      "0 basis vectors for irrep with (16, 1, 1)\n",
+      "0 basis vectors for irrep with (16, 1, 1)\n"
+     ]
+    },
+    {
+     "data": {
+      "image/png": "iVBORw0KGgoAAAANSUhEUgAAAPMAAADzCAYAAABT9iA/AAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90bGliIHZlcnNpb24zLjUuMiwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy8qNh9FAAAACXBIWXMAAAsTAAALEwEAmpwYAAAGWElEQVR4nO3dMW9bVRjH4fcWhCpElQ7eEgYkNi9B7DQsjAlfhE/g2XM+SzwyJQyMkMVbEUtYkJGIBAtIHIaCSKUmxMe3Tvv38yyVcnV8rt3+dBVLb8/QWivg7ffooW8AGIeYIYSYIYSYIcS7Y73QMAzfV9VHVfVbVT0f63WBl3xcVR9U1Y+ttU9uXhjG+jZ7GIZfq2pvlBcD/s91a+3pzR+M9mSuF0/kvb3Hj+twf3+9lU+edG+6+vPPmkwm3eu79lyttr7nrtiVz7b3fV5eXtb19XXVi95eMmbMz6tq/3B/v86/+mq9lZ9+2r3p2S+/1Mnxcff6rj0Xi63vuSt25bPtfZ9Hn39eFxcXVa/4VdYXYBBCzBBCzBBCzBBCzBBCzBBCzBBCzBBCzBBCzBBCzBBCzBBizEGLF548WX9w4vKyf78PP+xfC0E8mSGEmCGEmCGEmCGEmCGEmCGEmCGEmCGEmCGEmCGEmCGEmCHEWoMWwzCMczAVMLq1Do67T8zT6bTm8/lGNwW82mw2q+VyWVV10Vo7unltrSdza2247dowDOdV9WwymWz1rKCzxaJOvvyyb/HPP/ft+e23O3Ee0kNw1tTdTk9Pb73md2YIIWYIIWYIIWYIIWYIIWYIIWYIIWYIIWYIIWYIIWYIIWYIIWYIMf7BcQ+hc/qp3s14+1DlyQwxxAwhxAwhxAwhxAwhxAwhxAwhxAwhxAwhxAwhxAwhxAwhHBwHIRwcB2+R/IPjtnzQ2NliUSdPn/Yt/uyzvnWXl33rqqoOD/vWXV3173lw0LXMwXF3c3Ac7AAxQwgxQwgxQwgxQwgxQwgxQwgxQwgxQwgxQwgxQwgxQwgxQwgnp/XqnX765pvt7lfVP3HVO21VtdnEFV08mSGEmCGEmCGEmCGEmCGEmCGEmCGEmCGEmCGEmCGEmCGEmCGEmCGEqalevZNIvdNP5+d966qqjo761v31V/+enWdN1Xff9e+54zyZIYSYIYSYIYSYIYSYIYSYIYSYIYSYIYSYIYSYIYSYIYSYIYSYIYSYIYQRyF69h6r1jk72jjFW9Y9PbrLnJuOTdPFkhhBihhBihhBihhBihhBihhBihhBihhBihhBihhBihhBihhBihhCmpnpdXfWt65222mQKaZPpp16PPCe2zScOIcQMIcQMIcQMIcQMIcQMIcQMIcQMIcQMIcQMIcQMIcQMIcQMIcQMIYxA9jo46FvXOzrZu19V//ikMca3ir8tCCFmCCFmCCFmCCFmCCFmCCFmCCFmCCFmCCFmCCFmCCFmCLHWoMUwDO113QiwmaG1+/d5n5in02nN5/ONbgp4tdlsVsvlsqrqorV2dPPaWk/m1tpw27VhGM6r6tlkMqmT4+OO2+xztlhsdb+H2nNXnC0WdfL4cd/iL77oW7fJCZudY6K9/4ZOT09vv5WuOwHeOGKGEGKGEGKGEGKGEGKGEGKGEGKGEGKGEGKGEGKGEGKGEGKGEA6O483TO/309dfb3a9qs4mrkXkyQwgxQwgxQwgxQwgxQwgxQwgxQwgxQwgxQwgxQwgxQwgxQwgxQwhTU7x5eieReqef/vijb11V1Xvv9a8dmSczhBAzhBAzhBAzhBAzhBAzhBAzhBAzhBAzhBAzhBAzhBAzhBAzhBAzhDACyZvnUeczpnd0cpMxxk3GJ0fmyQwhxAwhxAwhxAwhxAwhxAwhxAwhxAwhxAwhxAwhxAwhxAwh1hq0GIahva4bATYztHb/Pu8T83Q6rfl8vtFNAa82m81quVxWVV201o5uXlvrydxaG267NgzDeVU9m0wmdXJ83HGbfc4Wi63u91B77opd+WzPFos6ef/9tdedvvPOrdf8zgwhxAwhxAwhxAwhxAwhxAwhxAwhxAwhxAwhxAwhxAwhxAwh1pqauvOFhuGqqvb39vbq8PBwlNe8j9VqVZPJZGv7PdSeu2JXPtvValWTO4YmbnP5ww91/fvvVVU/tdYObl4bM+Zfq2pvlBcD/s91a+3pzR+MeQrkj1X1UVX9VlXPR3zduzz758+LLe33UHvuil35bDd5nx9X1Qf1oreXjPZkfgj//mcJd81ZJ+y5K3bls31d79MXYBBCzBBCzBBCzBBCzBDirf42G/iPJzOEEDOEEDOEEDOEEDOEEDOEEDOEEDOEEDOEEDOE+BvS6jgOyuaCVAAAAABJRU5ErkJggg==",
+      "text/plain": [
+       "<Figure size 1152x288 with 1 Axes>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "all_basis = []\n",
+    "for irrep in irreps:\n",
+    "    list_basis = project_to_irrep(rep, irrep)\n",
+    "    print(f\"{len(list_basis)} basis vectors for irrep with {irrep.shape}\")\n",
+    "    all_basis.extend(list_basis)\n",
+    "\n",
+    "blocked_dynamical_matrix = (\n",
+    "    np.concatenate(all_basis) @ dynamical_matrix @ np.conj(np.concatenate(all_basis)).T\n",
+    ")\n",
+    "\n",
+    "fig, ax = plt.subplots(figsize=(2 * ncols, 2 * nrows))\n",
+    "ax.imshow(np.abs(blocked_dynamical_matrix), cmap=\"bwr\", vmin=-1.5, vmax=1.5)\n",
+    "ax.set_xticks([])\n",
+    "ax.set_yticks([])\n",
+    "ax.set_xticks([1.5, 3.5, 9.5, 13.5], minor=True)\n",
+    "ax.set_yticks([1.5, 3.5, 9.5, 13.5], minor=True)\n",
+    "ax.grid(which=\"minor\", linewidth=1)\n",
+    "plt.show()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3.10.5 ('spgrep')",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.10.5"
+  },
+  "orig_nbformat": 4,
+  "vscode": {
+   "interpreter": {
+    "hash": "dd1870e29725925fc9a937a05736be22f9ab90aeed8304d91e1e2d931844e349"
+   }
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 2
+}
