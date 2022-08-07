@@ -510,7 +510,6 @@ def get_real_irrep(
         U = get_intertwiner(
             irrep, conj_irrep, atol=atol, max_num_random_generations=max_num_random_generations
         )
-        U /= np.linalg.det(U) ** (1 / dim)
 
         # Take real or imaginary part of eigenvectors for new basis vectors
         eigvals, eigvecs = np.linalg.eig(U)  # eigvecs[:, i] is the i-th eigenvector
