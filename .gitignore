@@ -140,3 +140,4 @@ gh-pages
 gh-pages.pub
 .pypirc
 codecov
+node_modules/
