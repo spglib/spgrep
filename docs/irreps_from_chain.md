@@ -64,11 +64,7 @@ Let one of intertwiner between {math}`\Delta^{(0)}` and {math}`\Delta^{(1)}` be 
   \quad (\forall S \in H).
 ```
 The intertwiner is unique up to scalar multiplication: if {math}`\mathbf{U}` and {math}`\mathbf{U}'` are intertwiner between {math}`\Delta^{(0)}` and {math}`\Delta^{(1)}`, {math}`\mathbf{U}^{-1}\mathbf{U}'` should be written as {math}`c\mathbf{I}` with some complex number {math}`c` from Schur's lemma.
-The following matrix is an intertwiner for projective representations, {math}`\Delta^{(0)}` and {math}`\Delta^{(1)}`,
-```{math}
-  \mathbf{U} = \sum_{S \in H} \mathbf{\Delta}^{(0)}(S) \mathbf{B} \mathbf{\Delta}^{(1)}(S)^{-1},
-```
-where {math}`\mathbf{B}` is any matrix.
+See {ref}`this page <intertwiner>` for numerical way to obtain {math}`\mathbf{U}`.
 We scale {math}`\mathbf{U}` such that {math}`\mathbf{U}^{p} = \mathbf{1}`.
 
 The induced representation {math}`\Delta \uparrow G` is decomposed to {math}`p` irreps {math}`\{ \Delta_{q} \}_{q=0}^{p-1}`,

@@ -26,6 +26,7 @@ Option-B ({func}`spgrep.irreps.enumerate_unitary_irreps_from_solvable_group_chai
   On-the-fly irreps generation from solvable group chain <irreps_from_chain>
   Reality of irreps <reality>
   Symmetry-adapted basis <projection>
+  Intertwiner <intertwiner>
 ```
 
 ## References

@@ -28,18 +28,31 @@ def enumerate_small_representations(
     little_rotations: NDArrayInt,
     little_translations: NDArrayFloat,
     kpoint: NDArrayFloat,
+    real: bool = False,
     method: Literal["Neto", "random"] = "Neto",
     rtol: float = 1e-5,
     atol: float = 1e-8,
     max_num_random_generations: int = 4,
-):
-    """Enumerate all unitary small representations of little group.
+) -> tuple[list[NDArrayComplex], list[int]] | tuple[list[NDArrayFloat], list[int]]:
+    r"""Enumerate all unitary small representations of little group.
 
     Parameters
     ----------
     little_rotations: array, (order, 3, 3)
     little_translations: array, (order, 3)
     kpoint: array, (3, )
+    real: bool, default=False
+        If True, return irreps over real vector space (so called physically irreducible representations).
+        For type-II and type-III cases, representation matrix for translation :math:`(\mathbf{E}, \mathbf{t})` is chosen as
+
+        .. math::
+           \begin{pmatrix}
+           \cos (\mathbf{k} \cdot \mathbf{t}) \mathbf{1}_{d} & -\sin (\mathbf{k} \cdot \mathbf{t}) \mathbf{1}_{d} \\
+           \sin (\mathbf{k} \cdot \mathbf{t}) \mathbf{1}_{d} & \cos (\mathbf{k} \cdot \mathbf{t}) \mathbf{1}_{d} \\
+           \end{pmatrix}
+
+        where :math:`\mathbf{k}` is `kpoint`.
+
     method: str, 'Neto' or 'random'
         'Neto': construct irreps from a fixed chain of subgroups of little co-group
         'random': construct irreps by numerically diagonalizing a random matrix commute with regular representation
@@ -53,13 +66,15 @@ def enumerate_small_representations(
     Returns
     -------
     irreps: list of unitary small representations (irreps of little group) with (order, dim, dim)
+    indicators: list of int
+        Frobenius-Schur indicator of composed irreps of each physically irreducible representation.
     """
     factor_system = get_factor_system_from_little_group(
         little_rotations, little_translations, kpoint
     )
 
     # Compute irreps of little co-group
-    little_cogroup_irreps = enumerate_unitary_irreps(
+    little_cogroup_irreps, _ = enumerate_unitary_irreps(
         little_rotations,
         factor_system,
         method=method,
@@ -79,7 +94,50 @@ def enumerate_small_representations(
         )
         irreps.append(rep * phases[:, None, None])
 
-    return irreps
+    if not real:
+        indicators = [frobenius_schur_indicator(irrep) for irrep in irreps]
+        return irreps, indicators
+
+    # Physically irreducible representation
+    conjugated_pairs = []
+    visited = [False for _ in range(len(irreps))]
+    characters = [get_character(irrep) for irrep in irreps]
+    for i, ci in enumerate(characters):
+        if visited[i]:
+            continue
+        visited[i] = True
+        inequivalent = False
+        for j, cj in enumerate(characters):
+            if visited[j]:
+                continue
+            if is_equivalent_irrep(np.conj(ci), cj):
+                conjugated_pairs.append((i, j))
+                visited[j] = True
+                inequivalent = True
+                break
+        if not inequivalent:
+            conjugated_pairs.append((i, i))
+
+    real_irreps = []
+    indicators = []
+    for conj_pair in conjugated_pairs:
+        irrep = irreps[conj_pair[0]]
+
+        indicator = frobenius_schur_indicator(irrep)
+        # summation over translations becomes zero unless `2*kpoint equiv 0`
+        two_kpoint = 2 * kpoint
+        two_kpoint -= np.rint(two_kpoint)
+        if not np.allclose(two_kpoint, 0):
+            indicator = 0
+
+        real_irrep = get_physically_irrep(
+            irrep, indicator, atol=atol, max_num_random_generations=max_num_random_generations
+        )
+        real_irrep = purify_real_irrep_value(real_irrep, atol=atol)
+        real_irreps.append(real_irrep)
+        indicators.append(indicator)
+
+    return real_irreps, indicators
 
 
 def enumerate_unitary_irreps(
@@ -90,7 +148,7 @@ def enumerate_unitary_irreps(
     rtol: float = 1e-5,
     atol: float = 1e-8,
     max_num_random_generations: int = 4,
-) -> list[NDArrayComplex] | list[NDArrayFloat]:
+) -> tuple[list[NDArrayComplex] | list[NDArrayFloat], list[int]]:
     """Enumerate all unitary irreps with of matrix group ``rotations`` with ``factor_system``.
 
     Parameters
@@ -113,6 +171,8 @@ def enumerate_unitary_irreps(
     Returns
     -------
     irreps: list of unitary irreps with (order, dim, dim)
+    indicators: list of int
+        Frobenius-Schur indicator of composed irreps of each physically irreducible representation.
     """
     order = rotations.shape[0]
     if factor_system is None:
@@ -141,7 +201,8 @@ def enumerate_unitary_irreps(
         irrep = purify_irrep_value(irrep, atol=atol)
 
     if not real:
-        return irreps
+        indicators = [frobenius_schur_indicator(irrep) for irrep in irreps]
+        return irreps, indicators
 
     # Physically irreducible representation
     conjugated_pairs = []
@@ -164,15 +225,18 @@ def enumerate_unitary_irreps(
             conjugated_pairs.append((i, i))
 
     real_irreps = []
+    indicators = []
     for conj_pair in conjugated_pairs:
         irrep = irreps[conj_pair[0]]
-        real_irrep = get_real_irrep(
-            irrep, atol=atol, max_num_random_generations=max_num_random_generations
+        indicator = frobenius_schur_indicator(irrep)
+        real_irrep = get_physically_irrep(
+            irrep, indicator, atol=atol, max_num_random_generations=max_num_random_generations
         )
         real_irrep = purify_real_irrep_value(real_irrep, atol=atol)
         real_irreps.append(real_irrep)
+        indicators.append(indicator)
 
-    return real_irreps
+    return real_irreps, indicators
 
 
 def enumerate_unitary_irreps_from_regular_representation(
@@ -493,17 +557,36 @@ def enumerate_unitary_irreps_from_solvable_group_chain(
     return irreps
 
 
-def get_real_irrep(
+def get_physically_irrep(
     irrep: NDArrayComplex,
+    indicator: int,
     atol: float = 1e-5,
     max_num_random_generations: int = 4,
 ) -> NDArrayFloat:
-    """Compute physically irreducible representation (over real number) from given unitary irrep over complex number."""
+    """Compute physically irreducible representation (over real number) from given unitary irrep over complex number.
+
+    Parameters
+    ----------
+    irrep: array, (order, dim, dim)
+        Unitary (projective) irrep
+    indicator: int
+        Frobenius-Schur indicator: -1, 0, or 1
+    atol: float
+        Relative tolerance to compare
+    max_num_random_generations: int
+        Maximum number of trials to generate random matrix
+
+    Returns
+    -------
+    real_irrep: array, (order, dim2, dim2)
+        Physically irreducible representation composed of `irrep` and its conjugated irrep
+        When `indicator==1`, `dim2 == dim`.
+        When `indicator==-1` or `indicator==0`, `dim2 == 2 * dim`.
+    """
     order = irrep.shape[0]
     dim = irrep.shape[1]
 
     # Assume kpoint is commensurated
-    indicator = frobenius_schur_indicator(irrep)
     if indicator == 1:
         # Intertwiner with determinant=1
         conj_irrep = np.conj(irrep)
@@ -573,8 +656,10 @@ def purify_real_irrep_value(real_irrep: NDArrayFloat, atol: float = 1e-8) -> NDA
         0,
         1,  # 0/1
         1 / 2,  # 1/3
-        np.sqrt(3) / 2 - 1 / 2,  # 1/3  # 2/3
-        -np.sqrt(3) / 2 - 1,  # 2/3  # 1/2
+        np.sqrt(3) / 2,  # 1/3
+        -1 / 2,  # 2/3
+        -np.sqrt(3) / 2,  # 2/3
+        -1,  # 1/2
     ]
     for v in values:
         real_irrep[np.abs(real_irrep - v) < atol] = v

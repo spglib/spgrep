@@ -25,7 +25,7 @@ from spgrep.utils import NDArrayComplex
 
 @pytest.mark.parametrize("method", [("Neto"), ("random")])
 def test_get_irreps_random_C3v(method, C3v):
-    irreps = enumerate_unitary_irreps(C3v, method=method)
+    irreps, _ = enumerate_unitary_irreps(C3v, method=method)
 
     # Check dimensions
     assert [irrep.shape[1] for irrep in irreps] == [1, 1, 2]
@@ -42,24 +42,6 @@ def test_get_irreps_random_C3v(method, C3v):
 
     for irrep in irreps:
         assert is_unitary(irrep)
-
-
-@pytest.mark.parametrize(
-    "fixture_name,num_expect",
-    [
-        ("C4", 3),
-        ("Oh", 10),
-    ],
-)
-def test_real_representation(request, fixture_name, num_expect):
-    rotations = request.getfixturevalue(fixture_name)
-    real_irreps = enumerate_unitary_irreps(rotations, real=True)
-    assert len(real_irreps) == num_expect
-
-    # Check representation's property
-    table = get_cayley_table(rotations)
-    for irrep in real_irreps:
-        assert is_representation(irrep, table)
 
 
 @pytest.mark.parametrize("method", [("Neto"), ("random")])
@@ -214,5 +196,5 @@ def test_tetragonal():
             [[0, 1, 0], [-1, -1, -1], [1, 0, 0]],
         ]
     )
-    irreps = enumerate_unitary_irreps(rotations, method="Neto")
+    irreps, _ = enumerate_unitary_irreps(rotations, method="Neto")
     assert len(irreps) == 5

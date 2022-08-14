@@ -27,7 +27,17 @@ def ndarray2d_to_integer_tuple(array: NDArrayFloat) -> tuple[tuple[Any]]:
 
 
 def get_symmetry_from_hall_number(hall_number: int) -> tuple[NDArrayInt, NDArrayFloat]:
-    """Return symmetry operations from Hall number."""
+    """Return symmetry operations from Hall number.
+
+    Parameters
+    ----------
+    hall_number: int
+
+    Returns
+    -------
+    rotations: (num_syms, 3, 3)
+    translations: (num_syms, 3)
+    """
     symmetry = get_symmetry_from_database(hall_number)
     rotations = symmetry["rotations"]
     translations = symmetry["translations"]
