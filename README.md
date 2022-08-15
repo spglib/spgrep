@@ -73,6 +73,12 @@ See [docs/examples](examples/) for more detailed use cases.
 
 ## Installation
 
+spgrep works with Python3.8+ and can be installed via PyPI:
+```shell
+pip install spgrep
+```
+
+or in local:
 ```shell
 conda create -n spgrep python=3.10 pip
 conda activate spgrep

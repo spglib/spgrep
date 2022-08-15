@@ -83,7 +83,7 @@ setup(
     python_requires=REQUIRES_PYTHON,
     url=URL,
     package_dir={"": "src"},
-    packages=find_packages(exclude=("tests",)),
+    packages=find_packages(where="src", include=["spgrep"]),
     package_data={},
     # If your package is a single module, use this instead of 'packages':
     # py_modules=['mypackage'],
@@ -97,6 +97,8 @@ setup(
     include_package_data=True,
     license="BSD",
     test_suite="tests",
+    zip_safe=False,
+    use_scm_version=True,
     classifiers=[
         # Trove classifiers
         # Full list: https://pypi.python.org/pypi?%3Aaction=list_classifiers
