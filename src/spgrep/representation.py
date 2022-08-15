@@ -73,6 +73,8 @@ def get_intertwiner(
 ):
     """Calculate intertwiner matrix between ``rep1`` and ``rep2`` such that ``rep1 @ matrix == matrix @ rep2`` if they are equivalent.
 
+    The determinant of ``matrix`` is scaled to be unity.
+
     This function takes O(order * dim^4).
 
     Parameters
@@ -98,6 +100,8 @@ def get_intertwiner(
         random = rng.random((dim, dim)) + rng.random((dim, dim)) * 1j
         matrix = np.einsum("kil,lm,kjm->ij", rep1, random, np.conj(rep2), optimize="greedy")
         if not np.allclose(matrix, 0, atol=atol):
+            # Scale such that determinant is unity
+            matrix /= np.linalg.det(matrix) ** (1 / dim)
             return matrix
 
     warn("Failed to search all irreps. Try increasing max_num_random_generations.")

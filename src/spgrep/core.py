@@ -143,11 +143,12 @@ def get_spacegroup_irreps_from_primitive_symmetry(
     rotations: NDArrayInt,
     translations: NDArrayFloat,
     kpoint: NDArrayFloat,
+    real: bool = False,
     method: Literal["Neto", "random"] = "Neto",
     rtol: float = 1e-5,
     atol: float = 1e-8,
     max_num_random_generations: int = 4,
-) -> tuple[list[NDArrayComplex], NDArrayInt]:
+) -> tuple[list[NDArrayComplex], NDArrayInt] | tuple[list[NDArrayFloat], NDArrayInt]:
     r"""Compute all irreducible representations of given space group up to unitary transformation.
 
     Note that rotations and translations should be specified in a primitive cell.
@@ -165,6 +166,17 @@ def get_spacegroup_irreps_from_primitive_symmetry(
         .. math::
             \Gamma^{(\alpha)}((E, \mathbf{t})) = e^{ -i\mathbf{k}\cdot\mathbf{t} } \mathbf{1}.
 
+    real: bool, default=False
+        If True, return irreps over real vector space (so called physically irreducible representations).
+        For type-II and type-III cases, representation matrix for translation :math:`(\mathbf{E}, \mathbf{t})` is chosen as
+
+        .. math::
+           \begin{pmatrix}
+           \cos (\mathbf{k} \cdot \mathbf{t}) \mathbf{1}_{d} & -\sin (\mathbf{k} \cdot \mathbf{t}) \mathbf{1}_{d} \\
+           \sin (\mathbf{k} \cdot \mathbf{t}) \mathbf{1}_{d} & \cos (\mathbf{k} \cdot \mathbf{t}) \mathbf{1}_{d} \\
+           \end{pmatrix}
+
+        where :math:`\mathbf{k}` is `kpoint`.
     method: str, 'Neto' or 'random'
         'Neto': construct irreps from a fixed chain of subgroups of little co-group
         'random': construct irreps by numerically diagonalizing a random matrix commute with regular representation
@@ -195,10 +207,11 @@ def get_spacegroup_irreps_from_primitive_symmetry(
     )
 
     # Small representations of little group
-    irreps = enumerate_small_representations(
+    irreps, indicators = enumerate_small_representations(
         little_rotations,
         little_translations,
         kpoint,
+        real=real,
         method=method,
         rtol=rtol,
         atol=atol,
@@ -240,7 +253,7 @@ def get_crystallographic_pointgroup_irreps_from_symmetry(
     -------
     irreps: list of Irreps with (order, dim, dim)
     """
-    irreps = enumerate_unitary_irreps(
+    irreps, indicators = enumerate_unitary_irreps(
         rotations,
         factor_system=None,
         real=real,

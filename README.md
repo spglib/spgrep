@@ -12,6 +12,7 @@
 
 - Github: <https://github.com/spglib/spgrep>
 - Document: <https://spglib.github.io/spgrep>
+- Document(develop): <https://spglib.github.io/spgrep/develop/>
 - PyPI: <https://pypi.org/project/spgrep>
 
 ## Features
@@ -72,6 +73,12 @@ See [docs/examples](examples/) for more detailed use cases.
 
 ## Installation
 
+spgrep works with Python3.8+ and can be installed via PyPI:
+```shell
+pip install spgrep
+```
+
+or in local:
 ```shell
 conda create -n spgrep python=3.10 pip
 conda activate spgrep

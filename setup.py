@@ -28,8 +28,8 @@ REQUIRED = [
 # What packages are optional?
 EXTRAS = {
     "dev": [
-        "pytest",
-        "pytest-cov",
+        "pytest==7.1.2",
+        "pytest-cov==3.0.0",
         "pre-commit",
         "black",
         "mypy",
@@ -83,7 +83,7 @@ setup(
     python_requires=REQUIRES_PYTHON,
     url=URL,
     package_dir={"": "src"},
-    packages=find_packages(exclude=("tests",)),
+    packages=find_packages(where="src", include=["spgrep"]),
     package_data={},
     # If your package is a single module, use this instead of 'packages':
     # py_modules=['mypackage'],
@@ -97,6 +97,8 @@ setup(
     include_package_data=True,
     license="BSD",
     test_suite="tests",
+    zip_safe=False,
+    use_scm_version=True,
     classifiers=[
         # Trove classifiers
         # Full list: https://pypi.python.org/pypi?%3Aaction=list_classifiers
