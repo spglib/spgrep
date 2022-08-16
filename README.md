@@ -119,17 +119,12 @@ sphinx-autobuild docs docs_build
 ```shell
 # Confirm the version number via `setuptools-scm`
 python -m setuptools_scm
-# Test a release version at rc branch
-git checkout rc
 
 # Update changelog here
+vim docs/changelog.md
 
 # Push with tag
 git tag <next-version>
-git push --follow-tags origin rc
-
-# Merge to main
-git checkout main
-git merge rc
-git push --follow-tags origin main
+git push origin main
+git push origin --tags
 ```

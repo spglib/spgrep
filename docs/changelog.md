@@ -1,5 +1,9 @@
 # Change Log
 
+## v0.2.11
+- Add physically irreducible representation of space group
+- Newly return Frobenius-Schur indicator from `enumerate_small_representations` and `enumerate_unitary_irreps`
+
 ## v0.2.9
 - Add example notebooks
 
