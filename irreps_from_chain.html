@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>On-the-fly irreps generation from solvable group chain &#8212; spgrep 0.2.10</title>
+    <title>On-the-fly irreps generation from solvable group chain &#8212; spgrep 0.2.11</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -78,7 +78,7 @@
       
       
       
-      <h1 class="site-logo" id="site-title">spgrep 0.2.10</h1>
+      <h1 class="site-logo" id="site-title">spgrep 0.2.11</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
@@ -152,6 +152,11 @@
    <li class="toctree-l2">
     <a class="reference internal" href="projection.html">
      Symmetry-adapted basis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="intertwiner.html">
+     Intertwiner
     </a>
    </li>
   </ul>
@@ -478,10 +483,7 @@ Let one of intertwiner between <span class="math notranslate nohighlight">\(\Del
 \[  \mathbf{\Delta}^{(0)}(S) \mathbf{U} = \mathbf{U} \mathbf{\Delta}^{(1)}(S)
   \quad (\forall S \in H).\]</div>
 <p>The intertwiner is unique up to scalar multiplication: if <span class="math notranslate nohighlight">\(\mathbf{U}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{U}'\)</span> are intertwiner between <span class="math notranslate nohighlight">\(\Delta^{(0)}\)</span> and <span class="math notranslate nohighlight">\(\Delta^{(1)}\)</span>, <span class="math notranslate nohighlight">\(\mathbf{U}^{-1}\mathbf{U}'\)</span> should be written as <span class="math notranslate nohighlight">\(c\mathbf{I}\)</span> with some complex number <span class="math notranslate nohighlight">\(c\)</span> from Schur’s lemma.
-The following matrix is an intertwiner for projective representations, <span class="math notranslate nohighlight">\(\Delta^{(0)}\)</span> and <span class="math notranslate nohighlight">\(\Delta^{(1)}\)</span>,</p>
-<div class="math notranslate nohighlight">
-\[  \mathbf{U} = \sum_{S \in H} \mathbf{\Delta}^{(0)}(S) \mathbf{B} \mathbf{\Delta}^{(1)}(S)^{-1},\]</div>
-<p>where <span class="math notranslate nohighlight">\(\mathbf{B}\)</span> is any matrix.
+See <a class="reference internal" href="intertwiner.html#intertwiner"><span class="std std-ref">this page</span></a> for numerical way to obtain <span class="math notranslate nohighlight">\(\mathbf{U}\)</span>.
 We scale <span class="math notranslate nohighlight">\(\mathbf{U}\)</span> such that <span class="math notranslate nohighlight">\(\mathbf{U}^{p} = \mathbf{1}\)</span>.</p>
 <p>The induced representation <span class="math notranslate nohighlight">\(\Delta \uparrow G\)</span> is decomposed to <span class="math notranslate nohighlight">\(p\)</span> irreps <span class="math notranslate nohighlight">\(\{ \Delta_{q} \}_{q=0}^{p-1}\)</span>,</p>
 <div class="math notranslate nohighlight">
@@ -494,84 +496,9 @@ We scale <span class="math notranslate nohighlight">\(\mathbf{U}\)</span> such t
 <section id="decomposition-of-crystallographic-point-groups">
 <h2>Decomposition of crystallographic point groups<a class="headerlink" href="#decomposition-of-crystallographic-point-groups" title="Permalink to this headline">#</a></h2>
 <p>A crystallographic point group <span class="math notranslate nohighlight">\(G\)</span> can always be decomposed as Eq. <a class="reference internal" href="#equation-decomp">(1)</a> because it is a solvable group.
-spgrep adapts the following decomposition <span id="id4">[<a class="reference internal" href="#id19" title="M. I. Aroyo, editor. International Tables for Crystallography. Volume A. International Union of Crystallography, December 2016. URL: https://doi.org/10.1107/97809553602060000114, doi:10.1107/97809553602060000114.">Aro16</a>]</span></p>
-  flowchart TB
-    Oh(m-3m)
-    Td(&quot;-43m&quot;)
-    O(432)
-    Th(m-3)
-    T(23)
-
-    D6h(&quot;6/mmm&quot;)
-    D3h(&quot;-6m2&quot;)
-    C6v(6mm)
-    D6(622)
-    C6h(6/m)
-    C3h(&quot;-6&quot;)
-    C6(6)
-
-    D3d(&quot;-3m&quot;)
-    C3v(3m)
-    D3(32)
-    C3i(&quot;-3&quot;)
-    C3(3)
-
-    D4h(&quot;4/mmm&quot;)
-    D2d(&quot;-42m&quot;)
-    C4v(4mm)
-    D4(422)
-    C4h(4/m)
-    S4(&quot;-4&quot;)
-    C4(4)
-
-    D2h(mmm)
-    C2v(mm2)
-    D2(222)
-
-    C2h(2/m)
-    Cs(m)
-    C2(2)
-
-    Ci(&quot;-1&quot;)
-    C1(1)
-
-    Oh --&gt; O
-    Td --&gt; T
-    O --&gt; T
-    Th --&gt; T
-    T --&gt; D2
-
-    D6h --&gt; D6
-    D3h --&gt; C3h
-    C6v --&gt; C6
-    D6 --&gt; C6
-    C6h --&gt; C6
-    C3h --&gt; C3
-    C6 --&gt; C3
-
-    D3d --&gt; D3
-    C3v --&gt; C3
-    D3 --&gt; C3
-    C3i --&gt; C3
-    C3 --&gt; C1
-
-    D4h --&gt; D4
-    D2d --&gt; S4
-    C4v --&gt; C4
-    D4 --&gt; C4
-    C4h --&gt; C4
-    S4 --&gt; C1
-    C4 --&gt; C1
-
-    D2h --&gt; D2
-    C2v --&gt; C2
-    D2 --&gt; C2
-
-    C2h --&gt; C2
-    Cs --&gt; C1
-    C2 --&gt; C1
-
-    Ci --&gt; C1</section>
+spgrep adapts the following decomposition <span id="id4">[<a class="reference internal" href="#id19" title="M. I. Aroyo, editor. International Tables for Crystallography. Volume A. International Union of Crystallography, December 2016. URL: https://doi.org/10.1107/97809553602060000114, doi:10.1107/97809553602060000114.">Aro16</a>]</span>:</p>
+<p><img alt="point_group_chain" src="_images/point_group_chain.mmd.svg" /></p>
+</section>
 <section id="references">
 <h2>References<a class="headerlink" href="#references" title="Permalink to this headline">#</a></h2>
 <div class="docutils container" id="id5">

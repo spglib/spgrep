@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>spgrep.core &#8212; spgrep 0.2.10</title>
+    <title>spgrep.core &#8212; spgrep 0.2.11</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -73,7 +73,7 @@
       
       
       
-      <h1 class="site-logo" id="site-title">spgrep 0.2.10</h1>
+      <h1 class="site-logo" id="site-title">spgrep 0.2.11</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
@@ -147,6 +147,11 @@
    <li class="toctree-l2">
     <a class="reference internal" href="../../projection.html">
      Symmetry-adapted basis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../intertwiner.html">
+     Intertwiner
     </a>
    </li>
   </ul>
@@ -437,11 +442,12 @@ title="Fullscreen mode"
     <span class="n">rotations</span><span class="p">:</span> <span class="n">NDArrayInt</span><span class="p">,</span>
     <span class="n">translations</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">,</span>
     <span class="n">kpoint</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">,</span>
+    <span class="n">real</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">method</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;Neto&quot;</span><span class="p">,</span> <span class="s2">&quot;random&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Neto&quot;</span><span class="p">,</span>
     <span class="n">rtol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-5</span><span class="p">,</span>
     <span class="n">atol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-8</span><span class="p">,</span>
     <span class="n">max_num_random_generations</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="n">NDArrayComplex</span><span class="p">],</span> <span class="n">NDArrayInt</span><span class="p">]:</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="n">NDArrayComplex</span><span class="p">],</span> <span class="n">NDArrayInt</span><span class="p">]</span> <span class="o">|</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="n">NDArrayFloat</span><span class="p">],</span> <span class="n">NDArrayInt</span><span class="p">]:</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Compute all irreducible representations of given space group up to unitary transformation.</span>
 
 <span class="sd">    Note that rotations and translations should be specified in a primitive cell.</span>
@@ -459,6 +465,17 @@ title="Fullscreen mode"
 <span class="sd">        .. math::</span>
 <span class="sd">            \Gamma^{(\alpha)}((E, \mathbf{t})) = e^{ -i\mathbf{k}\cdot\mathbf{t} } \mathbf{1}.</span>
 
+<span class="sd">    real: bool, default=False</span>
+<span class="sd">        If True, return irreps over real vector space (so called physically irreducible representations).</span>
+<span class="sd">        For type-II and type-III cases, representation matrix for translation :math:`(\mathbf{E}, \mathbf{t})` is chosen as</span>
+
+<span class="sd">        .. math::</span>
+<span class="sd">           \begin{pmatrix}</span>
+<span class="sd">           \cos (\mathbf{k} \cdot \mathbf{t}) \mathbf{1}_{d} &amp; -\sin (\mathbf{k} \cdot \mathbf{t}) \mathbf{1}_{d} \\</span>
+<span class="sd">           \sin (\mathbf{k} \cdot \mathbf{t}) \mathbf{1}_{d} &amp; \cos (\mathbf{k} \cdot \mathbf{t}) \mathbf{1}_{d} \\</span>
+<span class="sd">           \end{pmatrix}</span>
+
+<span class="sd">        where :math:`\mathbf{k}` is `kpoint`.</span>
 <span class="sd">    method: str, &#39;Neto&#39; or &#39;random&#39;</span>
 <span class="sd">        &#39;Neto&#39;: construct irreps from a fixed chain of subgroups of little co-group</span>
 <span class="sd">        &#39;random&#39;: construct irreps by numerically diagonalizing a random matrix commute with regular representation</span>
@@ -489,10 +506,11 @@ title="Fullscreen mode"
     <span class="p">)</span>
 
     <span class="c1"># Small representations of little group</span>
-    <span class="n">irreps</span> <span class="o">=</span> <span class="n">enumerate_small_representations</span><span class="p">(</span>
+    <span class="n">irreps</span><span class="p">,</span> <span class="n">indicators</span> <span class="o">=</span> <span class="n">enumerate_small_representations</span><span class="p">(</span>
         <span class="n">little_rotations</span><span class="p">,</span>
         <span class="n">little_translations</span><span class="p">,</span>
         <span class="n">kpoint</span><span class="p">,</span>
+        <span class="n">real</span><span class="o">=</span><span class="n">real</span><span class="p">,</span>
         <span class="n">method</span><span class="o">=</span><span class="n">method</span><span class="p">,</span>
         <span class="n">rtol</span><span class="o">=</span><span class="n">rtol</span><span class="p">,</span>
         <span class="n">atol</span><span class="o">=</span><span class="n">atol</span><span class="p">,</span>
@@ -534,7 +552,7 @@ title="Fullscreen mode"
 <span class="sd">    -------</span>
 <span class="sd">    irreps: list of Irreps with (order, dim, dim)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">irreps</span> <span class="o">=</span> <span class="n">enumerate_unitary_irreps</span><span class="p">(</span>
+    <span class="n">irreps</span><span class="p">,</span> <span class="n">indicators</span> <span class="o">=</span> <span class="n">enumerate_unitary_irreps</span><span class="p">(</span>
         <span class="n">rotations</span><span class="p">,</span>
         <span class="n">factor_system</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">real</span><span class="o">=</span><span class="n">real</span><span class="p">,</span>

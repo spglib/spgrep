@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>spgrep &#8212; spgrep 0.2.10</title>
+    <title>spgrep &#8212; spgrep 0.2.11</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -75,7 +75,7 @@
       
       
       
-      <h1 class="site-logo" id="site-title">spgrep 0.2.10</h1>
+      <h1 class="site-logo" id="site-title">spgrep 0.2.11</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
@@ -149,6 +149,11 @@
    <li class="toctree-l2">
     <a class="reference internal" href="projection.html">
      Symmetry-adapted basis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="intertwiner.html">
+     Intertwiner
     </a>
    </li>
   </ul>
@@ -466,6 +471,7 @@ title="Print to PDF"
 <ul class="simple">
 <li><p>Github: <a class="reference external" href="https://github.com/spglib/spgrep">https://github.com/spglib/spgrep</a></p></li>
 <li><p>Document: <a class="reference external" href="https://spglib.github.io/spgrep">https://spglib.github.io/spgrep</a></p></li>
+<li><p>Document(develop): <a class="reference external" href="https://spglib.github.io/spgrep/develop/">https://spglib.github.io/spgrep/develop/</a></p></li>
 <li><p>PyPI: <a class="reference external" href="https://pypi.org/project/spgrep">https://pypi.org/project/spgrep</a></p></li>
 </ul>
 <section id="features">
@@ -527,6 +533,11 @@ title="Print to PDF"
 </section>
 <section id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">#</a></h2>
+<p>spgrep works with Python3.8+ and can be installed via PyPI:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pip install spgrep
+</pre></div>
+</div>
+<p>or in local:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>conda create -n spgrep <span class="nv">python</span><span class="o">=</span><span class="m">3</span>.10 pip
 conda activate spgrep
 git clone git@github.com:spglib/spgrep.git
@@ -566,19 +577,14 @@ pre-commit run --all-file
 <h3>Release<a class="headerlink" href="#release" title="Permalink to this headline">#</a></h3>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Confirm the version number via `setuptools-scm`</span>
 python -m setuptools_scm
-<span class="c1"># Test a release version at rc branch</span>
-git checkout rc
 
 <span class="c1"># Update changelog here</span>
+vim docs/changelog.md
 
 <span class="c1"># Push with tag</span>
 git tag &lt;next-version&gt;
-git push --follow-tags origin rc
-
-<span class="c1"># Merge to main</span>
-git checkout main
-git merge rc
-git push --follow-tags origin main
+git push origin main
+git push origin --tags
 </pre></div>
 </div>
 </section>

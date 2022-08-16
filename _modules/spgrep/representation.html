@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>spgrep.representation &#8212; spgrep 0.2.10</title>
+    <title>spgrep.representation &#8212; spgrep 0.2.11</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -73,7 +73,7 @@
       
       
       
-      <h1 class="site-logo" id="site-title">spgrep 0.2.10</h1>
+      <h1 class="site-logo" id="site-title">spgrep 0.2.11</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
@@ -147,6 +147,11 @@
    <li class="toctree-l2">
     <a class="reference internal" href="../../projection.html">
      Symmetry-adapted basis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../intertwiner.html">
+     Intertwiner
     </a>
    </li>
   </ul>
@@ -367,6 +372,8 @@ title="Fullscreen mode"
 <span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Calculate intertwiner matrix between ``rep1`` and ``rep2`` such that ``rep1 @ matrix == matrix @ rep2`` if they are equivalent.</span>
 
+<span class="sd">    The determinant of ``matrix`` is scaled to be unity.</span>
+
 <span class="sd">    This function takes O(order * dim^4).</span>
 
 <span class="sd">    Parameters</span>
@@ -392,6 +399,8 @@ title="Fullscreen mode"
         <span class="n">random</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="n">dim</span><span class="p">,</span> <span class="n">dim</span><span class="p">))</span> <span class="o">+</span> <span class="n">rng</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="n">dim</span><span class="p">,</span> <span class="n">dim</span><span class="p">))</span> <span class="o">*</span> <span class="mi">1</span><span class="n">j</span>
         <span class="n">matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span><span class="s2">&quot;kil,lm,kjm-&gt;ij&quot;</span><span class="p">,</span> <span class="n">rep1</span><span class="p">,</span> <span class="n">random</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">conj</span><span class="p">(</span><span class="n">rep2</span><span class="p">),</span> <span class="n">optimize</span><span class="o">=</span><span class="s2">&quot;greedy&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">matrix</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="n">atol</span><span class="p">):</span>
+            <span class="c1"># Scale such that determinant is unity</span>
+            <span class="n">matrix</span> <span class="o">/=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">det</span><span class="p">(</span><span class="n">matrix</span><span class="p">)</span> <span class="o">**</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">dim</span><span class="p">)</span>
             <span class="k">return</span> <span class="n">matrix</span>
 
     <span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Failed to search all irreps. Try increasing max_num_random_generations.&quot;</span><span class="p">)</span>

@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Reality of (projective) irrep &#8212; spgrep 0.2.10</title>
+    <title>Reality of (projective) irrep &#8212; spgrep 0.2.11</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -78,7 +78,7 @@
       
       
       
-      <h1 class="site-logo" id="site-title">spgrep 0.2.10</h1>
+      <h1 class="site-logo" id="site-title">spgrep 0.2.11</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
@@ -152,6 +152,11 @@
    <li class="toctree-l2">
     <a class="reference internal" href="projection.html">
      Symmetry-adapted basis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="intertwiner.html">
+     Intertwiner
     </a>
    </li>
   </ul>
@@ -341,25 +346,68 @@ title="Print to PDF"
     <nav id="bd-toc-nav" aria-label="Page">
         <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#gamma-is-real">
-   (1)
-   <span class="math notranslate nohighlight">
-    \(\Gamma\)
-   </span>
-   is real
+  <a class="reference internal nav-link" href="#pir-of-finite-group">
+   PIR of finite group
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#gamma-is-real">
+     (1)
+     <span class="math notranslate nohighlight">
+      \(\Gamma\)
+     </span>
+     is real
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#gamma-is-pseudo-real-or-not-equivalent-to-gamma-ast">
+     (2, 3)
+     <span class="math notranslate nohighlight">
+      \(\Gamma\)
+     </span>
+     is pseudo-real or not equivalent to
+     <span class="math notranslate nohighlight">
+      \(\Gamma^{\ast}\)
+     </span>
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#gamma-is-pseudo-real-or-not-equivalent-to-gamma-ast">
-   (2, 3)
+  <a class="reference internal nav-link" href="#pir-of-space-group-mathcal-g">
+   PIR of space group
    <span class="math notranslate nohighlight">
-    \(\Gamma\)
-   </span>
-   is pseudo-real or not equivalent to
-   <span class="math notranslate nohighlight">
-    \(\Gamma^{\ast}\)
+    \(\mathcal{G}\)
    </span>
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#frobenius-schur-indicator-for-space-group-representations">
+     Frobenius-Schur indicator for space-group representations
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#gamma-mathbf-k-alpha-is-real">
+     (1)
+     <span class="math notranslate nohighlight">
+      \(\Gamma^{\mathbf{k}\alpha}\)
+     </span>
+     is real
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#gamma-mathbf-k-alpha-is-pseudo-real-or-not-equivalent-to-gamma-mathbf-k-alpha-ast">
+     (2, 3)
+     <span class="math notranslate nohighlight">
+      \(\Gamma^{\mathbf{k}\alpha}\)
+     </span>
+     is pseudo-real or not equivalent to
+     <span class="math notranslate nohighlight">
+      \(\Gamma^{\mathbf{k}\alpha \ast}\)
+     </span>
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#references">
@@ -386,25 +434,68 @@ title="Print to PDF"
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#gamma-is-real">
-   (1)
-   <span class="math notranslate nohighlight">
-    \(\Gamma\)
-   </span>
-   is real
+  <a class="reference internal nav-link" href="#pir-of-finite-group">
+   PIR of finite group
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#gamma-is-real">
+     (1)
+     <span class="math notranslate nohighlight">
+      \(\Gamma\)
+     </span>
+     is real
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#gamma-is-pseudo-real-or-not-equivalent-to-gamma-ast">
+     (2, 3)
+     <span class="math notranslate nohighlight">
+      \(\Gamma\)
+     </span>
+     is pseudo-real or not equivalent to
+     <span class="math notranslate nohighlight">
+      \(\Gamma^{\ast}\)
+     </span>
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#gamma-is-pseudo-real-or-not-equivalent-to-gamma-ast">
-   (2, 3)
+  <a class="reference internal nav-link" href="#pir-of-space-group-mathcal-g">
+   PIR of space group
    <span class="math notranslate nohighlight">
-    \(\Gamma\)
-   </span>
-   is pseudo-real or not equivalent to
-   <span class="math notranslate nohighlight">
-    \(\Gamma^{\ast}\)
+    \(\mathcal{G}\)
    </span>
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#frobenius-schur-indicator-for-space-group-representations">
+     Frobenius-Schur indicator for space-group representations
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#gamma-mathbf-k-alpha-is-real">
+     (1)
+     <span class="math notranslate nohighlight">
+      \(\Gamma^{\mathbf{k}\alpha}\)
+     </span>
+     is real
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#gamma-mathbf-k-alpha-is-pseudo-real-or-not-equivalent-to-gamma-mathbf-k-alpha-ast">
+     (2, 3)
+     <span class="math notranslate nohighlight">
+      \(\Gamma^{\mathbf{k}\alpha}\)
+     </span>
+     is pseudo-real or not equivalent to
+     <span class="math notranslate nohighlight">
+      \(\Gamma^{\mathbf{k}\alpha \ast}\)
+     </span>
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#references">
@@ -439,16 +530,19 @@ These cases are classified with Frobenius-Schur indicator:</p></li>
     -1 &amp; \mbox{($\Gamma$ is pseudo-real)} \\
     0 &amp; \mbox{($\Gamma$ is not equivalent to $\Gamma^{\ast}$)} \\
   \end{cases}.\end{split}\]</div>
-<p>We sometimes need to restrict irrep under a vector space over <span class="math notranslate nohighlight">\(\mathbb{R}\)</span> (instead of <span class="math notranslate nohighlight">\(\mathbb{C}\)</span>), which is called physically irreducible representation <span id="id1">[<a class="reference internal" href="#id14" title="Harold T. Stokes, Dorian M. Hatch, and James D. Wells. Group-theoretical methods for obtaining distortions in crystals: applications to vibrational modes and phase transitions. Phys. Rev. B, 43:11010–11018, May 1991. URL: https://link.aps.org/doi/10.1103/PhysRevB.43.11010, doi:10.1103/PhysRevB.43.11010.">SHW91</a>]</span>.</p>
+<p>We sometimes need to restrict irrep under a vector space over <span class="math notranslate nohighlight">\(\mathbb{R}\)</span> (instead of <span class="math notranslate nohighlight">\(\mathbb{C}\)</span>), which is called physically irreducible representation (PIR) <span id="id1">[<a class="reference internal" href="#id15" title="Harold T. Stokes, Dorian M. Hatch, and James D. Wells. Group-theoretical methods for obtaining distortions in crystals: applications to vibrational modes and phase transitions. Phys. Rev. B, 43:11010–11018, May 1991. URL: https://link.aps.org/doi/10.1103/PhysRevB.43.11010, doi:10.1103/PhysRevB.43.11010.">SHW91</a>]</span>.</p>
+<section id="pir-of-finite-group">
+<h2>PIR of finite group<a class="headerlink" href="#pir-of-finite-group" title="Permalink to this headline">#</a></h2>
 <section id="gamma-is-real">
-<h2>(1) <span class="math notranslate nohighlight">\(\Gamma\)</span> is real<a class="headerlink" href="#gamma-is-real" title="Permalink to this headline">#</a></h2>
-<p>Refs. <span id="id2">[<a class="reference internal" href="#id6" title="Teturo Inui, Yukito Tanabe, and Yositaka Onodera. Group theory and its applications in physics. Springer Series in Solid-State Sciences. Springer, Berlin, Germany, March 1996.">ITO96</a>, <a class="reference internal" href="#id11" title="Harold T. Stokes, Branton J. Campbell, and Ryan Cordes. Tabulation of irreducible representations of the crystallographic space groups and their superspace extensions. Acta Crystallographica Section A, 69(4):388–395, Jul 2013. URL: https://doi.org/10.1107/S0108767313007538, doi:10.1107/S0108767313007538.">SCC13</a>]</span></p>
+<h3>(1) <span class="math notranslate nohighlight">\(\Gamma\)</span> is real<a class="headerlink" href="#gamma-is-real" title="Permalink to this headline">#</a></h3>
+<p>Refs. <span id="id2">[<a class="reference internal" href="#id7" title="Teturo Inui, Yukito Tanabe, and Yositaka Onodera. Group theory and its applications in physics. Springer Series in Solid-State Sciences. Springer, Berlin, Germany, March 1996.">ITO96</a>]</span></p>
 <p>In this case, since <span class="math notranslate nohighlight">\(\Gamma\)</span> and <span class="math notranslate nohighlight">\(\Gamma^{\ast}\)</span> are equivalent, there exists a symmetric unitary matrix with</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}  \mathbf{\Gamma}(g) \mathbf{U} &amp;= \mathbf{U} \mathbf{\Gamma}(g)^{\ast} \\
   \mathbf{U}^{\dagger} \mathbf{U} &amp;= \mathbf{1} \\
   \mathbf{U}^{\top} &amp;= \mathbf{U}.\end{split}\]</div>
-<p>We impose <span class="math notranslate nohighlight">\(\det \mathbf{U} = 1\)</span> additionally to specify the intertwiner uniquely.</p>
+<p>We impose <span class="math notranslate nohighlight">\(\det \mathbf{U} = 1\)</span> additionally to specify the intertwiner uniquely.
+The intertwiner can be numerically computed as shown in <a class="reference internal" href="intertwiner.html#intertwiner"><span class="std std-ref">here</span></a>.</p>
 <p>The symmetric unitary matrix <span class="math notranslate nohighlight">\(\mathbf{U}\)</span> can be diagonalized with real orthogonal matrix <span class="math notranslate nohighlight">\(\mathbf{S}\)</span> as <span class="math notranslate nohighlight">\(\mathbf{U} = \mathbf{S}^{-1} \mathbf{\Omega} \mathbf{S}\)</span> <a class="footnote-reference brackets" href="#sym-unitary" id="id3">1</a>.
 For this symmetric unitary matrix <span class="math notranslate nohighlight">\(\mathbf{U}\)</span>, we can choose its square root with</p>
 <div class="math notranslate nohighlight">
@@ -464,7 +558,7 @@ For this symmetric unitary matrix <span class="math notranslate nohighlight">\(\
   &amp;= \mathbf{\Gamma}'(g)^{\ast}.\end{split}\]</div>
 </section>
 <section id="gamma-is-pseudo-real-or-not-equivalent-to-gamma-ast">
-<h2>(2, 3) <span class="math notranslate nohighlight">\(\Gamma\)</span> is pseudo-real or not equivalent to <span class="math notranslate nohighlight">\(\Gamma^{\ast}\)</span><a class="headerlink" href="#gamma-is-pseudo-real-or-not-equivalent-to-gamma-ast" title="Permalink to this headline">#</a></h2>
+<h3>(2, 3) <span class="math notranslate nohighlight">\(\Gamma\)</span> is pseudo-real or not equivalent to <span class="math notranslate nohighlight">\(\Gamma^{\ast}\)</span><a class="headerlink" href="#gamma-is-pseudo-real-or-not-equivalent-to-gamma-ast" title="Permalink to this headline">#</a></h3>
 <p>transform conjugated basis pair to real vectors by unitary matrix:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}  (\mathbf{v}_{1}, \cdots, \mathbf{v}_{d}, \mathbf{v}_{1}^{\ast}, \cdots, \mathbf{v}_{d}^{\ast}) \mathbf{U}
@@ -485,17 +579,110 @@ For this symmetric unitary matrix <span class="math notranslate nohighlight">\(\
   \end{pmatrix}
   \quad (g \in G)\end{split}\]</div>
 </section>
+</section>
+<section id="pir-of-space-group-mathcal-g">
+<h2>PIR of space group <span class="math notranslate nohighlight">\(\mathcal{G}\)</span><a class="headerlink" href="#pir-of-space-group-mathcal-g" title="Permalink to this headline">#</a></h2>
+<p>Ref. <span id="id4">[<a class="reference internal" href="#id12" title="Harold T. Stokes, Branton J. Campbell, and Ryan Cordes. Tabulation of irreducible representations of the crystallographic space groups and their superspace extensions. Acta Crystallographica Section A, 69(4):388–395, Jul 2013. URL: https://doi.org/10.1107/S0108767313007538, doi:10.1107/S0108767313007538.">SCC13</a>]</span></p>
+<p>Consider to construct PIR of space group from small representation <span class="math notranslate nohighlight">\(\Gamma^{\mathbf{k}\alpha}\)</span> at <span class="math notranslate nohighlight">\(\mathbf{k}\)</span>.</p>
+<section id="frobenius-schur-indicator-for-space-group-representations">
+<h3>Frobenius-Schur indicator for space-group representations<a class="headerlink" href="#frobenius-schur-indicator-for-space-group-representations" title="Permalink to this headline">#</a></h3>
+<p>Let <span class="math notranslate nohighlight">\(\Gamma^{(\mathbf{k}, 0)}\)</span> and <span class="math notranslate nohighlight">\(\Gamma^{(\mathbf{k}, 1)}\)</span> be representations of space group <span class="math notranslate nohighlight">\(\mathcal{G}\)</span> with <span class="math notranslate nohighlight">\(\mathbf{k}\)</span> vector.
+Let <span class="math notranslate nohighlight">\(\mathcal{T}\)</span> be a translational subgroup of <span class="math notranslate nohighlight">\(\mathcal{G}\)</span>.
+Consider coset representatives of little group of <span class="math notranslate nohighlight">\(\mathbf{k}\)</span> over <span class="math notranslate nohighlight">\(\mathcal{T}\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[  \mathcal{G}^{\mathbf{k}} = \coprod_{ \{ i \mid \mathbf{S}_{i} \in \overline{\mathcal{G}}^{\mathbf{k}} \} } (\mathbf{S}_{i}, \mathbf{w}_{i}) \mathcal{T}.\]</div>
+<p>Then sum over translations in <span class="math notranslate nohighlight">\(\mathcal{G}^{\mathbf{k}}\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}  \frac{1}{|G|} \sum_{ g \in G } \chi^{\mathbf{k}}(g^{2})
+  &amp;= \frac{1}{N} \sum_{ \mathbf{t} } \sum_{ \{ i \mid \mathbf{S}_{i} \in \overline{\mathcal{G}}^{\mathbf{k}} \} }
+      \chi^{\mathbf{k}}\left( (\mathbf{E}, \mathbf{t})(\mathbf{S}_{i}, \mathbf{w}_{i}) (\mathbf{E}, \mathbf{t})(\mathbf{S}_{i}, \mathbf{w}_{i}) \right) \\
+  &amp;= \frac{1}{N} \sum_{ \mathbf{t} } \sum_{ \{ i \mid \mathbf{S}_{i} \in \overline{\mathcal{G}}^{\mathbf{k}} \} }
+      \chi^{\mathbf{k}}\left( (\mathbf{E}, \mathbf{t} + \mathbf{S}_{i}\mathbf{t})(\mathbf{S}_{i}, \mathbf{w}_{i})^{2} \right) \\
+  &amp;= \left(
+        \frac{1}{N} \sum_{ \mathbf{t} } e^{-i \mathbf{k} \cdot (\mathbf{t} + \mathbf{S}_{i}\mathbf{t}) }
+     \right)
+     \left(
+        \sum_{ \{ i \mid \mathbf{S}_{i} \in \overline{\mathcal{G}}^{\mathbf{k}} \} } \chi^{\mathbf{k}}\left( (\mathbf{S}_{i}, \mathbf{w}_{i})^{2} \right) \\
+     \right) \\
+  &amp;= \mathbb{I}\left[ 2\mathbf{k} \equiv \mathbf{0} \right] \cdot
+      \sum_{ \{ i \mid \mathbf{S}_{i} \in \overline{\mathcal{G}}^{\mathbf{k}} \} } \chi^{\mathbf{k}}\left( (\mathbf{S}_{i}, \mathbf{w}_{i})^{2} \right),\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mathbb{I}[C]\)</span> takes one if the condition <span class="math notranslate nohighlight">\(C\)</span> is true and takes zero otherwise.
+Here we use <span class="math notranslate nohighlight">\(\mathbf{S}_{i}^{\top} \in \overline{\mathcal{G}}^{\mathbf{k}}\)</span> as</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}  \frac{1}{N} \sum_{ \mathbf{t} } e^{-i \mathbf{k} \cdot (\mathbf{t} + \mathbf{S}_{i}\mathbf{t}) }
+    &amp;= \frac{1}{N} \sum_{ \mathbf{t} } e^{-i (\mathbf{E} + \mathbf{S}_{i})^{\top} \mathbf{k} \cdot \mathbf{t} } \\
+    &amp;= \mathbb{I} \left[ (\mathbf{E} + \mathbf{S}_{i})^{\top} \mathbf{k} \equiv \mathbf{0} \right] \\
+    &amp;= \mathbb{I} \left[ \mathbf{k} + \mathbf{S}_{i}^{\top} \mathbf{k} \equiv \mathbf{0} \right] \\
+    &amp;= \mathbb{I} \left[ 2\mathbf{k} \equiv \mathbf{0} \right].\end{split}\]</div>
+</section>
+<section id="gamma-mathbf-k-alpha-is-real">
+<h3>(1) <span class="math notranslate nohighlight">\(\Gamma^{\mathbf{k}\alpha}\)</span> is real<a class="headerlink" href="#gamma-mathbf-k-alpha-is-real" title="Permalink to this headline">#</a></h3>
+<p>We need to find an intertwiner</p>
+<div class="math notranslate nohighlight">
+\[  \mathbf{\Gamma}^{\mathbf{k}\alpha}(g) \mathbf{U} = \mathbf{U} \mathbf{\Gamma}^{\mathbf{k}\alpha}(g)^{\ast}\]</div>
+<p>Because we can assume <span class="math notranslate nohighlight">\(2\mathbf{k} \equiv \mathbf{0}\)</span> in this case, the following matrix is an intertwiner:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}    \mathbf{U}
+    &amp;:= \frac{1}{N} \sum_{ \mathbf{t} } \sum_{ \{ i \mid \mathbf{S}_{i} \in \overline{\mathcal{G}}^{\mathbf{k}} \} }
+            \mathbf{\Gamma}^{\mathbf{k}\alpha}\left( (\mathbf{E}, \mathbf{t})(\mathbf{S}_{i}, \mathbf{w}_{i}) \right)
+            \mathbf{B}
+            \mathbf{\Gamma}^{\mathbf{k}\alpha}\left( (\mathbf{E}, \mathbf{t})(\mathbf{S}_{i}, \mathbf{w}_{i}) \right)^{\ast \dagger} \\
+    &amp;= \left(
+            \frac{1}{N} \sum_{ \mathbf{t} } e^{2i\mathbf{k}\cdot\mathbf{t}}
+       \right)
+       \sum_{ \{ i \mid \mathbf{S}_{i} \in \overline{\mathcal{G}}^{\mathbf{k}} \} }
+            \mathbf{\Gamma}^{\mathbf{k}\alpha}\left( (\mathbf{S}_{i}, \mathbf{w}_{i}) \right)
+            \mathbf{B}
+            \mathbf{\Gamma}^{\mathbf{k}\alpha}\left( (\mathbf{S}_{i}, \mathbf{w}_{i}) \right)^{\ast \dagger} \\
+    &amp;= \sum_{ \{ i \mid \mathbf{S}_{i} \in \overline{\mathcal{G}}^{\mathbf{k}} \} }
+            \mathbf{\Gamma}^{\mathbf{k}\alpha}\left( (\mathbf{S}_{i}, \mathbf{w}_{i}) \right)
+            \mathbf{B}
+            \mathbf{\Gamma}^{\mathbf{k}\alpha}\left( (\mathbf{S}_{i}, \mathbf{w}_{i}) \right)^{\ast \dagger}
+       \quad (\because 2\mathbf{k} \cdot \mathbf{t} \in \mathbb{Z}) \\\end{split}\]</div>
+</section>
+<section id="gamma-mathbf-k-alpha-is-pseudo-real-or-not-equivalent-to-gamma-mathbf-k-alpha-ast">
+<h3>(2, 3) <span class="math notranslate nohighlight">\(\Gamma^{\mathbf{k}\alpha}\)</span> is pseudo-real or not equivalent to <span class="math notranslate nohighlight">\(\Gamma^{\mathbf{k}\alpha \ast}\)</span><a class="headerlink" href="#gamma-mathbf-k-alpha-is-pseudo-real-or-not-equivalent-to-gamma-mathbf-k-alpha-ast" title="Permalink to this headline">#</a></h3>
+<p>transform conjugated basis pair to real vectors by unitary matrix:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}  (\mathbf{v}_{1}, \cdots, \mathbf{v}_{d}, \mathbf{v}_{1}^{\ast}, \cdots, \mathbf{v}_{d}^{\ast}) \mathbf{U}
+    &amp;= \sqrt{2} (\mathrm{Re}\, \mathbf{v}_{1}, \cdots, \mathrm{Re}\, \mathbf{v}_{d}, \mathrm{Im}\, \mathbf{v}_{1}, \cdots, \mathrm{Im}\, \mathbf{v}_{d}) \\
+  \mathbf{U} &amp;:= \frac{1}{\sqrt{2}}\begin{pmatrix}
+    \mathbf{1}_{d} &amp; -i \mathbf{1}_{d} \\
+    \mathbf{1}_{d} &amp; i \mathbf{1}_{d} \\
+  \end{pmatrix} \quad (\mathrm{Unitary}) \\
+  \tilde{\mathbf{\Gamma}}^{\mathbf{k}\alpha}(g)
+  &amp;:=
+  \mathbf{U}^{-1}
+  \begin{pmatrix}
+    \mathbf{\Gamma}^{\mathbf{k}\alpha}(g) &amp; \\
+    &amp; \mathbf{\Gamma}^{\mathbf{k}\alpha}(g)^{\ast}
+  \end{pmatrix}
+  \mathbf{U} \\
+  &amp;= \begin{pmatrix}
+    \mathrm{Re}\, \mathbf{\Gamma}^{\mathbf{k}\alpha}(g) &amp; \mathrm{Im}\, \mathbf{\Gamma}^{\mathbf{k}\alpha}(g) \\
+    -\mathrm{Im}\, \mathbf{\Gamma}^{\mathbf{k}\alpha}(g) &amp; \mathrm{Re}\, \mathbf{\Gamma}^{\mathbf{k}\alpha}(g) \\
+  \end{pmatrix}
+  \quad (g \in \mathcal{G})\end{split}\]</div>
+<p>In particular, for translation <span class="math notranslate nohighlight">\((E, \mathbf{t}) \in \mathcal{G}\)</span>,</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}  \tilde{\mathbf{\Gamma}}^{\mathbf{k}\alpha}( (E, \mathbf{t}) )
+    &amp;= \begin{pmatrix}
+      \cos (\mathbf{k} \cdot \mathbf{t}) \mathbf{1}_{d} &amp; -\sin (\mathbf{k} \cdot \mathbf{t}) \mathbf{1}_{d} \\
+      \sin (\mathbf{k} \cdot \mathbf{t}) \mathbf{1}_{d} &amp; \cos (\mathbf{k} \cdot \mathbf{t}) \mathbf{1}_{d} \\
+    \end{pmatrix}\end{split}\]</div>
+</section>
+</section>
 <section id="references">
 <h2>References<a class="headerlink" href="#references" title="Permalink to this headline">#</a></h2>
-<div class="docutils container" id="id4">
+<div class="docutils container" id="id5">
 <dl class="citation">
-<dt class="label" id="id6"><span class="brackets"><a class="fn-backref" href="#id2">ITO96</a></span></dt>
+<dt class="label" id="id7"><span class="brackets"><a class="fn-backref" href="#id2">ITO96</a></span></dt>
 <dd><p>Teturo Inui, Yukito Tanabe, and Yositaka Onodera. <em>Group theory and its applications in physics</em>. Springer Series in Solid-State Sciences. Springer, Berlin, Germany, March 1996.</p>
 </dd>
-<dt class="label" id="id11"><span class="brackets"><a class="fn-backref" href="#id2">SCC13</a></span></dt>
+<dt class="label" id="id12"><span class="brackets"><a class="fn-backref" href="#id4">SCC13</a></span></dt>
 <dd><p>Harold T. Stokes, Branton J. Campbell, and Ryan Cordes. Tabulation of irreducible representations of the crystallographic space groups and their superspace extensions. <em>Acta Crystallographica Section A</em>, 69(4):388–395, Jul 2013. URL: <a class="reference external" href="https://doi.org/10.1107/S0108767313007538">https://doi.org/10.1107/S0108767313007538</a>, <a class="reference external" href="https://doi.org/10.1107/S0108767313007538">doi:10.1107/S0108767313007538</a>.</p>
 </dd>
-<dt class="label" id="id14"><span class="brackets"><a class="fn-backref" href="#id1">SHW91</a></span></dt>
+<dt class="label" id="id15"><span class="brackets"><a class="fn-backref" href="#id1">SHW91</a></span></dt>
 <dd><p>Harold T. Stokes, Dorian M. Hatch, and James D. Wells. Group-theoretical methods for obtaining distortions in crystals: applications to vibrational modes and phase transitions. <em>Phys. Rev. B</em>, 43:11010–11018, May 1991. URL: <a class="reference external" href="https://link.aps.org/doi/10.1103/PhysRevB.43.11010">https://link.aps.org/doi/10.1103/PhysRevB.43.11010</a>, <a class="reference external" href="https://doi.org/10.1103/PhysRevB.43.11010">doi:10.1103/PhysRevB.43.11010</a>.</p>
 </dd>
 </dl>
