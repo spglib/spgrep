@@ -56,7 +56,8 @@ def nroot(z: np.complex_, n: int) -> np.complex_:
     """Return `n`-th power root of `z` with the minimum angle."""
     root = z ** (1 / n)
     r = np.absolute(root)
-    angle = np.remainder(np.angle(root), 2 * np.pi / n)
+    angle = np.angle(root)
+    angle -= np.rint(angle * n / (2 * np.pi)) * 2 * np.pi / n
     return r * np.exp(1j * angle)
 
 

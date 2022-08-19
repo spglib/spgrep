@@ -1,13 +1,11 @@
-from itertools import product
-
 import numpy as np
 
 from spgrep.group import (
+    check_cocycle_condition,
     get_factor_system_from_little_group,
     get_little_group,
     is_matrix_group,
 )
-from spgrep.utils import NDArrayComplex, NDArrayInt, ndarray2d_to_integer_tuple
 
 
 def test_is_matrix_group(C3v):
@@ -31,23 +29,3 @@ def test_get_little_group_and_factor_system(P42mnm):
         little_rotations, little_translations, kpoint
     )
     assert check_cocycle_condition(little_rotations, factor_system)
-
-
-def check_cocycle_condition(
-    rotations: NDArrayInt,
-    factor_system: NDArrayComplex,
-) -> bool:
-    if not is_matrix_group(rotations):
-        return False
-
-    rotations_int = [ndarray2d_to_integer_tuple(r) for r in rotations]
-
-    for i, j, k in product(range(len(rotations)), repeat=3):
-        jk = rotations_int.index(ndarray2d_to_integer_tuple(rotations[j] @ rotations[k]))
-        ij = rotations_int.index(ndarray2d_to_integer_tuple(rotations[i] @ rotations[j]))
-        if not np.isclose(
-            factor_system[i, jk] * factor_system[j, k], factor_system[ij, k] * factor_system[i, j]
-        ):
-            return False
-
-    return True

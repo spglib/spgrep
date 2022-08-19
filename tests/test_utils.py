@@ -21,7 +21,7 @@ def test_ndarray2d_to_integer_tuple():
 
 def test_nroot():
     actual = nroot(-1j, 2)
-    expect = np.exp(1j * np.pi * 3 / 4)
+    expect = np.exp(-1j * np.pi * 1 / 4)
     assert np.allclose(actual, expect)
 
 
