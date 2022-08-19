@@ -498,7 +498,7 @@ def enumerate_unitary_irreps_from_solvable_group_chain(
                     scale = np.dot(intertwiner, scale)
                 intertwiner /= scale[0, 0] ** (1 / p)
 
-                omega = nroot(np.prod([factor_system[r, rm[m]] for m in range(1, p)]), p)
+                omega = 1 / nroot(np.prod([factor_system[r, rm[m]] for m in range(1, p)]), p)
                 for q in range(p):
                     omegaq = omega * np.exp(2j * np.pi * q / p)
                     delta_r = intertwiner / omegaq  # Rep. matrix for r
@@ -506,16 +506,17 @@ def enumerate_unitary_irreps_from_solvable_group_chain(
                         np.eye(intertwiner.shape[0], dtype=np.complex_)
                     ]  # delta_rm[m] is rep. matrix for r^m
                     for m in range(1, p):
-                        delta_rm.append(factor_system[r, rm[m]] * delta_r @ delta_rm[m - 1])
+                        # D(r^m) = D(r) @ D(r^{m-1}) / mu(r, r^{m-1})
+                        delta_rm.append(delta_r @ delta_rm[m - 1] / factor_system[r, rm[m - 1]])
 
                     next_irrep = np.zeros((len(group), dim, dim), dtype=np.complex_)
                     for m in range(p):
                         for s in subgroup:
                             idx = table[rm[m], s]
                             next_irrep[group_remapping[idx]] = (
-                                factor_system[rm[m], s]
-                                * delta_rm[m]
+                                delta_rm[m]
                                 @ sub_irrep[subgroup_remapping[s]]
+                                / factor_system[rm[m], s]
                             )
                     next_sub_irreps.append(next_irrep)
             else:

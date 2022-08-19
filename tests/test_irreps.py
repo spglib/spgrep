@@ -10,8 +10,17 @@ from spgrep.core import (
     get_spacegroup_irreps,
     get_spacegroup_irreps_from_primitive_symmetry,
 )
-from spgrep.group import get_cayley_table
-from spgrep.irreps import enumerate_unitary_irreps, is_equivalent_irrep
+from spgrep.group import (
+    check_cocycle_condition,
+    get_cayley_table,
+    get_factor_system_from_little_group,
+    get_little_group,
+)
+from spgrep.irreps import (
+    enumerate_small_representations,
+    enumerate_unitary_irreps,
+    is_equivalent_irrep,
+)
 from spgrep.pointgroup import pg_dataset
 from spgrep.representation import (
     check_spacegroup_representation,
@@ -20,7 +29,7 @@ from spgrep.representation import (
     is_unitary,
 )
 from spgrep.transform import transform_symmetry_and_kpoint, unique_primitive_symmetry
-from spgrep.utils import NDArrayComplex
+from spgrep.utils import NDArrayComplex, get_symmetry_from_hall_number
 
 
 @pytest.mark.parametrize("method", [("Neto"), ("random")])
@@ -198,3 +207,69 @@ def test_tetragonal():
     )
     irreps, _ = enumerate_unitary_irreps(rotations, method="Neto")
     assert len(irreps) == 5
+
+
+@pytest.mark.parametrize(
+    "hall_number",
+    [
+        6,  # P2_1 (No. 4)
+        350,  # P4_1 (No. 76)
+        390,  # P-42_1m (No.113)
+        431,  # P3_1 (No. 144)
+        521,  # Pn-3m (No.224)
+    ],
+)
+@pytest.mark.parametrize(
+    "kpoint",
+    [
+        np.array([0.5, 0.5, 0]),
+    ],
+)
+@pytest.mark.parametrize(
+    "method",
+    [
+        "Neto",
+        "random",
+    ],
+)
+@pytest.mark.parametrize(
+    "origin_shift",
+    [
+        np.array([1 / 3, 0, 0]),
+        np.array([3 / 4, 0, 0]),
+        np.array([3 / 4, 1 / 4, 0]),
+    ],
+)
+def test_small_representation_with_origin_shift(hall_number, kpoint, method, origin_shift):
+    rotations, translations = get_symmetry_from_hall_number(hall_number)
+    little_rotations, little_translations, _ = get_little_group(rotations, translations, kpoint)
+    assert len(little_rotations) > 0
+
+    new_little_translations = []
+    for R, tau in zip(little_rotations, little_translations):
+        new_tau = np.remainder(tau + R @ origin_shift - origin_shift, 1)
+        new_little_translations.append(new_tau)
+    new_little_translations = np.array(new_little_translations)
+
+    # Test factor system
+    factor_system = get_factor_system_from_little_group(
+        little_rotations, new_little_translations, kpoint
+    )
+    assert check_cocycle_condition(little_rotations, factor_system)
+
+    # Test "weighted" irreps
+    table = get_cayley_table(little_rotations)
+    irreps, _ = enumerate_unitary_irreps(little_rotations, factor_system, method=method)
+    assert sum(irrep.shape[1] ** 2 for irrep in irreps) == len(little_rotations)
+    for irrep in irreps:
+        assert is_representation(irrep, table, factor_system)
+
+    # Test small representations
+    small_reps, _ = enumerate_small_representations(
+        little_rotations, new_little_translations, kpoint, method=method
+    )
+    assert sum(irrep.shape[1] ** 2 for irrep in small_reps) == len(little_rotations)
+    for irrep in small_reps:
+        assert check_spacegroup_representation(
+            little_rotations, new_little_translations, kpoint, irrep
+        )

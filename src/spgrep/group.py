@@ -1,6 +1,8 @@
 """Group-theory related functions."""
 from __future__ import annotations
 
+from itertools import product
+
 import numpy as np
 
 from spgrep.utils import (
@@ -167,3 +169,24 @@ def get_little_group(
         np.array(little_translations),
         np.array(mapping_little_group),
     )
+
+
+def check_cocycle_condition(
+    rotations: NDArrayInt,
+    factor_system: NDArrayComplex,
+) -> bool:
+    """Return true if given factor system satisfies the cocycle condition."""
+    if not is_matrix_group(rotations):
+        return False
+
+    rotations_int = [ndarray2d_to_integer_tuple(r) for r in rotations]
+
+    for i, j, k in product(range(len(rotations)), repeat=3):
+        jk = rotations_int.index(ndarray2d_to_integer_tuple(rotations[j] @ rotations[k]))
+        ij = rotations_int.index(ndarray2d_to_integer_tuple(rotations[i] @ rotations[j]))
+        if not np.isclose(
+            factor_system[i, jk] * factor_system[j, k], factor_system[ij, k] * factor_system[i, j]
+        ):
+            return False
+
+    return True
