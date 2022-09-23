@@ -1,5 +1,9 @@
 # Change Log
 
+## v0.2.12
+- Generate symmetric tensor by Erdös method {func}`spgrep.tensors.get_symmetry_adapted_tensors` and {func}`spgrep.tensors.apply_intrinsic_symmetry`
+- Fix induced representation
+
 ## v0.2.11
 - Add physically irreducible representation of space group
 - Newly return Frobenius-Schur indicator from `enumerate_small_representations` and `enumerate_unitary_irreps`
