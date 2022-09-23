@@ -28,7 +28,7 @@ REQUIRED = [
 # What packages are optional?
 EXTRAS = {
     "dev": [
-        "pytest==7.1.2",
+        "pytest==7.1.3",
         "pytest-cov==3.0.0",
         "pre-commit",
         "black",
@@ -37,8 +37,7 @@ EXTRAS = {
         "pyupgrade",
         "pydocstyle",
         "nbqa",
-        "phonopy==2.15.1",
-        "seekpath",
+        "phonopy==2.16.1",
         # Jupyter notebook
         "notebook",
         "matplotlib",
