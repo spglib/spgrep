@@ -7,4 +7,5 @@
     Point group <api_pointgroup>
     Representation <api_representation>
     Transformation <api_transformation>
+    Tensor <api_tensor>
 ```

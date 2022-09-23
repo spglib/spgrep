@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Symmetry-adapted tensor &#8212; spgrep 0.2.11</title>
+    <title>Symmetry-adapted tensor &#8212; spgrep 0.2.12</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -78,7 +78,7 @@
       
       
       
-      <h1 class="site-logo" id="site-title">spgrep 0.2.11</h1>
+      <h1 class="site-logo" id="site-title">spgrep 0.2.12</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
@@ -199,6 +199,11 @@
    <li class="toctree-l2">
     <a class="reference internal" href="../api/api_transformation.html">
      Transformation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../api/api_tensor.html">
+     Tensor
     </a>
    </li>
   </ul>
@@ -692,6 +697,7 @@ div.rendered_html tbody tr:hover {
 <span class="kn">from</span> <span class="nn">spgrep</span> <span class="kn">import</span> <span class="n">get_crystallographic_pointgroup_irreps_from_symmetry</span>
 <span class="kn">from</span> <span class="nn">spgrep.group</span> <span class="kn">import</span> <span class="n">get_cayley_table</span>
 <span class="kn">from</span> <span class="nn">spgrep.representation</span> <span class="kn">import</span> <span class="n">get_direct_product</span><span class="p">,</span> <span class="n">is_representation</span><span class="p">,</span> <span class="n">project_to_irrep</span>
+<span class="kn">from</span> <span class="nn">spgrep.tensor</span> <span class="kn">import</span> <span class="n">get_symmetry_adapted_tensors</span><span class="p">,</span> <span class="n">apply_intrinsic_symmetry</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;spgrep==</span><span class="si">{</span><span class="n">spgrep</span><span class="o">.</span><span class="n">__version__</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
@@ -702,7 +708,7 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-spgrep==0.2.9.dev2+g3393de7
+spgrep==0.2.12.dev2+ge325614.d20220923
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
@@ -881,7 +887,7 @@ spgrep==0.2.9.dev2+g3393de7
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/examples_symmetry_adapted_tensor_10_0.png" src="../_images/examples_symmetry_adapted_tensor_10_0.png" />
+<img alt="../_images/examples_symmetry_adapted_tensor_9_0.png" src="../_images/examples_symmetry_adapted_tensor_9_0.png" />
 </div>
 </div>
 </section>
@@ -936,75 +942,22 @@ spgrep==0.2.9.dev2+g3393de7
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/examples_symmetry_adapted_tensor_16_0.png" src="../_images/examples_symmetry_adapted_tensor_16_0.png" />
+<img alt="../_images/examples_symmetry_adapted_tensor_15_0.png" src="../_images/examples_symmetry_adapted_tensor_15_0.png" />
 </div>
 </div>
 </section>
 <section id="Calculate-symmetry-adapted-tensors">
 <h2>Calculate symmetry-adapted tensors<a class="headerlink" href="#Calculate-symmetry-adapted-tensors" title="Permalink to this headline">#</a></h2>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_symmetric_tensor_naive</span><span class="p">(</span><span class="n">rep</span><span class="p">,</span> <span class="n">rank</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Calculate symmetry invariant symmetric tensors from irreps</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    rep: array, (order, dim, dim)</span>
-<span class="sd">        Representation matrices</span>
-<span class="sd">    rank: int</span>
-<span class="sd">        Rank of returned tensor</span>
-
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    tensors: list of symmetry invariant symmetric ``rank``-tensor with (dim, ..., dim)</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">order</span> <span class="o">=</span> <span class="n">rep</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="n">dim</span> <span class="o">=</span> <span class="n">rep</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-
-    <span class="c1"># `rank`-times direct products of given representation</span>
-    <span class="n">direct_rep</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">order</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
-    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">rank</span><span class="p">):</span>
-        <span class="n">direct_rep</span> <span class="o">=</span> <span class="n">get_direct_product</span><span class="p">(</span><span class="n">direct_rep</span><span class="p">,</span> <span class="n">rep</span><span class="p">)</span>
-
-    <span class="c1"># Project to identity representation</span>
-    <span class="n">identity_rep</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">order</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
-    <span class="n">coeffs</span> <span class="o">=</span> <span class="n">project_to_irrep</span><span class="p">(</span><span class="n">direct_rep</span><span class="p">,</span> <span class="n">identity_rep</span><span class="p">)</span>
-    <span class="n">dims</span> <span class="o">=</span> <span class="p">[</span><span class="n">dim</span><span class="p">]</span> <span class="o">*</span> <span class="n">rank</span>
-    <span class="n">coeffs</span> <span class="o">=</span> <span class="p">[</span><span class="n">coeff</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">dims</span><span class="p">)</span> <span class="k">for</span> <span class="n">coeff</span> <span class="ow">in</span> <span class="n">coeffs</span><span class="p">]</span>  <span class="c1"># coeff: (1, direct_rep.shape[1])</span>
-
-    <span class="n">sym_tensors</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">perms</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">permutations</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">rank</span><span class="p">)))</span>
-    <span class="k">for</span> <span class="n">coeff</span> <span class="ow">in</span> <span class="n">coeffs</span><span class="p">:</span>
-        <span class="c1"># Apply intrinsic symmetry</span>
-        <span class="n">sym_tensor</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">coeff</span><span class="p">)</span>
-        <span class="k">for</span> <span class="n">perm</span> <span class="ow">in</span> <span class="n">perms</span><span class="p">:</span>
-            <span class="n">sym_tensor</span> <span class="o">+=</span> <span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">coeff</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="n">perm</span><span class="p">)</span>
-        <span class="n">sym_tensor</span> <span class="o">/=</span> <span class="nb">len</span><span class="p">(</span><span class="n">perms</span><span class="p">)</span>
-
-        <span class="c1"># Store if independent to other symmetric tensors</span>
-        <span class="n">unique</span> <span class="o">=</span> <span class="kc">True</span>
-        <span class="k">for</span> <span class="n">other</span> <span class="ow">in</span> <span class="n">sym_tensors</span><span class="p">:</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">sym_tensor</span> <span class="o">*</span> <span class="n">other</span><span class="p">),</span> <span class="mi">0</span><span class="p">):</span>
-                <span class="n">unique</span> <span class="o">=</span> <span class="kc">False</span>
-                <span class="k">break</span>
-        <span class="k">if</span> <span class="n">unique</span><span class="p">:</span>
-            <span class="n">sym_tensors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sym_tensor</span><span class="p">)</span>
-
-    <span class="k">return</span> <span class="n">sym_tensors</span>
-</pre></div>
-</div>
-</div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">expects</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">11</span><span class="p">]</span>
 <span class="k">for</span> <span class="n">rank</span><span class="p">,</span> <span class="n">expect</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">expects</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="n">expects</span><span class="p">):</span>
-    <span class="n">tensors</span> <span class="o">=</span> <span class="n">get_symmetric_tensor_naive</span><span class="p">(</span><span class="n">rep</span><span class="p">,</span> <span class="n">rank</span><span class="p">)</span>
-    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">tensors</span><span class="p">)</span> <span class="o">==</span> <span class="n">expect</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Rank=</span><span class="si">{</span><span class="n">rank</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">tensors</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">tensors</span> <span class="o">=</span> <span class="n">get_symmetry_adapted_tensors</span><span class="p">(</span><span class="n">rep</span><span class="p">,</span> <span class="n">rotations</span><span class="p">,</span> <span class="n">rank</span><span class="p">,</span> <span class="n">real</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">sym_tensors</span> <span class="o">=</span> <span class="n">apply_intrinsic_symmetry</span><span class="p">(</span><span class="n">tensors</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Rank=</span><span class="si">{</span><span class="n">rank</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">sym_tensors</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">sym_tensors</span><span class="p">)</span> <span class="o">==</span> <span class="n">expect</span>
 </pre></div>
 </div>
 </div>

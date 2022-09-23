@@ -50,12 +50,12 @@ For case-1, the induced representation {math}`\Delta \uparrow G` is irrep [^foot
     \end{pmatrix}.
 ```
 
-### Case-2: conjugated irreps are equivalent
-
 [^footnote1]: This follows from Frobenius reciprocity theorem. In this case, {math}`\Delta` appears only once in {math}`\Gamma \downarrow H`.
 Thus, {math}`\Gamma` appears only once in {math}`\Delta \uparrow G`.
 
 [^footnote2]: We can choose factor system to satisfy {math}`\mu(E, R) = \mu(R, E) = 1 (\forall R \in G)`, and then {math}`\Delta^{(0)} = \Delta`
+
+### Case-2: conjugated irreps are equivalent
 
 For case-2, the induced representation {math}`\Delta \uparrow G` is reducible.
 Let one of intertwiner between {math}`\Delta^{(0)}` and {math}`\Delta^{(1)}` be {math}`\mathbf{U}`,
@@ -69,10 +69,21 @@ We scale {math}`\mathbf{U}` such that {math}`\mathbf{U}^{p} = \mathbf{1}`.
 
 The induced representation {math}`\Delta \uparrow G` is decomposed to {math}`p` irreps {math}`\{ \Delta_{q} \}_{q=0}^{p-1}`,
 ```{math}
-  \mathbf{\Delta_{q}}(S) &= \mathbf{\Delta}(S) \quad (S \in H) \\
-  \mathbf{\Delta_{q}}(r) &= \frac{1}{\omega_{q}} \mathbf{U} \\
-  \omega_{q}
-    &:= \left( \frac{\prod_{m=1}^{p-1} \mu(r, r^{m})}{\mu(E, E)} \right)^{\frac{1}{p}} \exp \left( \frac{2 \pi i q}{p} \right).
+  \mathbf{\Delta}_{q}(S) &= \mathbf{\Delta}(S) \quad (S \in H) \\
+  \mathbf{\Delta}_{q}(r) &= \frac{1}{\omega_{q}} \mathbf{U} \\
+```
+
+The coefficient {math}`\omega_{q} \, (q = 0, \cdots, p - 1)` is determined as follows:
+```{math}
+  \mu(E, E) \mathbf{1}
+    &= \mathbf{\Delta}_{q}(E) \\
+    &= \mathbf{\Delta}_{q}(r^{p}) \\
+    &= \frac{1}{ \prod_{m=1}^{p-1} \mu(r, r^{m}) } \mathbf{\Delta}_{q}(r)^{p} \\
+    &= \frac{1}{ \prod_{m=1}^{p-1} \mu(r, r^{m}) } \frac{1}{\omega_{q}^{p}} \mathbf{1} 
+      \quad (\because \mathbf{U}^{p} = \mathbf{1}) \\
+  \therefore \omega_{q}
+    &:= \frac{1}{ \left( \mu(E, E) \prod_{m=1}^{p-1} \mu(r, r^{m}) \right)^{\frac{1}{p}} }
+        \exp \left( \frac{2 \pi i q}{p} \right).
 ```
 
 ## Decomposition of crystallographic point groups

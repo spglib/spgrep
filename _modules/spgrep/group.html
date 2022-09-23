@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>spgrep.group &#8212; spgrep 0.2.11</title>
+    <title>spgrep.group &#8212; spgrep 0.2.12</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -73,7 +73,7 @@
       
       
       
-      <h1 class="site-logo" id="site-title">spgrep 0.2.11</h1>
+      <h1 class="site-logo" id="site-title">spgrep 0.2.12</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
@@ -196,6 +196,11 @@
      Transformation
     </a>
    </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../api/api_tensor.html">
+     Tensor
+    </a>
+   </li>
   </ul>
  </li>
  <li class="toctree-l1">
@@ -299,6 +304,8 @@ title="Fullscreen mode"
   <h1>Source code for spgrep.group</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;Group-theory related functions.&quot;&quot;&quot;</span>
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">product</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
@@ -466,6 +473,27 @@ title="Fullscreen mode"
         <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">little_translations</span><span class="p">),</span>
         <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">mapping_little_group</span><span class="p">),</span>
     <span class="p">)</span></div>
+
+
+<span class="k">def</span> <span class="nf">check_cocycle_condition</span><span class="p">(</span>
+    <span class="n">rotations</span><span class="p">:</span> <span class="n">NDArrayInt</span><span class="p">,</span>
+    <span class="n">factor_system</span><span class="p">:</span> <span class="n">NDArrayComplex</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Return true if given factor system satisfies the cocycle condition.&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">is_matrix_group</span><span class="p">(</span><span class="n">rotations</span><span class="p">):</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="n">rotations_int</span> <span class="o">=</span> <span class="p">[</span><span class="n">ndarray2d_to_integer_tuple</span><span class="p">(</span><span class="n">r</span><span class="p">)</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">rotations</span><span class="p">]</span>
+
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">product</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">rotations</span><span class="p">)),</span> <span class="n">repeat</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
+        <span class="n">jk</span> <span class="o">=</span> <span class="n">rotations_int</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">ndarray2d_to_integer_tuple</span><span class="p">(</span><span class="n">rotations</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">@</span> <span class="n">rotations</span><span class="p">[</span><span class="n">k</span><span class="p">]))</span>
+        <span class="n">ij</span> <span class="o">=</span> <span class="n">rotations_int</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">ndarray2d_to_integer_tuple</span><span class="p">(</span><span class="n">rotations</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">@</span> <span class="n">rotations</span><span class="p">[</span><span class="n">j</span><span class="p">]))</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span>
+            <span class="n">factor_system</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">jk</span><span class="p">]</span> <span class="o">*</span> <span class="n">factor_system</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">k</span><span class="p">],</span> <span class="n">factor_system</span><span class="p">[</span><span class="n">ij</span><span class="p">,</span> <span class="n">k</span><span class="p">]</span> <span class="o">*</span> <span class="n">factor_system</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span>
+        <span class="p">):</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="k">return</span> <span class="kc">True</span>
 </pre></div>
 
               </div>

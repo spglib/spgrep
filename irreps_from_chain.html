@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>On-the-fly irreps generation from solvable group chain &#8212; spgrep 0.2.11</title>
+    <title>On-the-fly irreps generation from solvable group chain &#8212; spgrep 0.2.12</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -78,7 +78,7 @@
       
       
       
-      <h1 class="site-logo" id="site-title">spgrep 0.2.11</h1>
+      <h1 class="site-logo" id="site-title">spgrep 0.2.12</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
@@ -199,6 +199,11 @@
    <li class="toctree-l2">
     <a class="reference internal" href="api/api_transformation.html">
      Transformation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="api/api_tensor.html">
+     Tensor
     </a>
    </li>
   </ul>
@@ -487,10 +492,19 @@ See <a class="reference internal" href="intertwiner.html#intertwiner"><span clas
 We scale <span class="math notranslate nohighlight">\(\mathbf{U}\)</span> such that <span class="math notranslate nohighlight">\(\mathbf{U}^{p} = \mathbf{1}\)</span>.</p>
 <p>The induced representation <span class="math notranslate nohighlight">\(\Delta \uparrow G\)</span> is decomposed to <span class="math notranslate nohighlight">\(p\)</span> irreps <span class="math notranslate nohighlight">\(\{ \Delta_{q} \}_{q=0}^{p-1}\)</span>,</p>
 <div class="math notranslate nohighlight">
-\[\begin{split}  \mathbf{\Delta_{q}}(S) &amp;= \mathbf{\Delta}(S) \quad (S \in H) \\
-  \mathbf{\Delta_{q}}(r) &amp;= \frac{1}{\omega_{q}} \mathbf{U} \\
-  \omega_{q}
-    &amp;:= \left( \frac{\prod_{m=1}^{p-1} \mu(r, r^{m})}{\mu(E, E)} \right)^{\frac{1}{p}} \exp \left( \frac{2 \pi i q}{p} \right).\end{split}\]</div>
+\[\begin{split}  \mathbf{\Delta}_{q}(S) &amp;= \mathbf{\Delta}(S) \quad (S \in H) \\
+  \mathbf{\Delta}_{q}(r) &amp;= \frac{1}{\omega_{q}} \mathbf{U} \\\end{split}\]</div>
+<p>The coefficient <span class="math notranslate nohighlight">\(\omega_{q} \, (q = 0, \cdots, p - 1)\)</span> is determined as follows:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}  \mu(E, E) \mathbf{1}
+    &amp;= \mathbf{\Delta}_{q}(E) \\
+    &amp;= \mathbf{\Delta}_{q}(r^{p}) \\
+    &amp;= \frac{1}{ \prod_{m=1}^{p-1} \mu(r, r^{m}) } \mathbf{\Delta}_{q}(r)^{p} \\
+    &amp;= \frac{1}{ \prod_{m=1}^{p-1} \mu(r, r^{m}) } \frac{1}{\omega_{q}^{p}} \mathbf{1} 
+      \quad (\because \mathbf{U}^{p} = \mathbf{1}) \\
+  \therefore \omega_{q}
+    &amp;:= \frac{1}{ \left( \mu(E, E) \prod_{m=1}^{p-1} \mu(r, r^{m}) \right)^{\frac{1}{p}} }
+        \exp \left( \frac{2 \pi i q}{p} \right).\end{split}\]</div>
 </section>
 </section>
 <section id="decomposition-of-crystallographic-point-groups">

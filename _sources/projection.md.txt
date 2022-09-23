@@ -61,6 +61,43 @@ Basis vectors {math}`\{ \phi^{(\alpha,j)}_{i} \}_{i}` are mutually orthogonal:
     Here we assume the factor system is chosen as {math}`\mu(E, E) = 1`.
     Then, we use {math}`\mu(S, S^{-1}) = \mu(S^{-1}, S)`.
 
+## Symmetry-adapted tensor with intrinsic symmetry
+
+{cite}`el2008symmetry`
+
+Consider vector space {math}`V` and its symmetry adapted basis {math}`\{ \mathbf{f}^{\alpha m}_{i} \}` w.r.t. group {math}`G`.
+```{math}
+    V &= \bigoplus_{\alpha} \bigoplus_{m=1}^{m_{\alpha}} V^{\alpha m} \\
+    V^{\alpha m} &= \bigoplus_{i=1}^{d_{\alpha}} K \mathbf{f}^{\alpha m}_{i} \\
+    g \mathbf{f}^{\alpha m}_{j}
+        &= \sum_{i=1} ^{d_{\alpha}} \mathbf{f}^{\alpha m}_{i} \Gamma^{\alpha}_{ij}(g)
+        \quad (g \in G, j = 1, \dots, d_{\alpha}),
+```
+where {math}`K` is {math}`\mathbb{C}` or {math}`\mathbb{R}`, and {math}`\Gamma^{\alpha}` is irrep over {math}`K`.
+
+Action of {math}`G` on rank-{math}`p` tensor {math}`\mathsf{T}: V^{\ast \otimes p}` is defined as
+```{math}
+    (g \mathsf{T})(\mathbf{v}_{1}, \dots, \mathbf{v}_{p})
+        := \mathsf{T}(g^{-1} \mathbf{v}_{1}, \dots, g^{-1} \mathbf{v}_{p})
+        \quad (g \in G).
+```
+We also consider intrinsic symmetry {math}`\Sigma` of {math}`\mathsf{T}` as [^check_action]
+```{math}
+    (\sigma \mathsf{T})(\mathbf{v}_{1}, \dots, \mathbf{v}_{p})
+        := \mathsf{T}(\mathbf{v}_{\sigma^{-1}(1)}, \dots, \mathbf{v}_{\sigma^{-1}(p)})
+        \quad (\sigma \in \Sigma).
+```
+
+[^check_action]: These definitions follow the condition of left actions:
+    ```{math}
+        (\sigma (\sigma' \mathsf{T}))(\mathbf{v}_{1}, \dots, \mathbf{v}_{p})
+            &= (\sigma' \mathsf{T})(\mathbf{v}_{\sigma^{-1}(1)}, \dots, \mathbf{v}_{\sigma^{-1}(p)}) \\
+            &= \mathsf{T}(\mathbf{v}_{\sigma'^{-1}(\sigma^{-1}(1))}, \dots, \mathbf{v}_{\sigma'^{-1}(\sigma^{-1}(p))}) \\
+            &= \mathsf{T}(\mathbf{v}_{\sigma\sigma'(1)}, \dots, \mathbf{v}_{\sigma\sigma'(p)}) \\
+            &= ((\sigma \sigma') \mathsf{T})(\mathbf{v}_{1}, \dots, \mathbf{v}_{p}) \\
+        \therefore \sigma (\sigma' \mathsf{T}) &= (\sigma \sigma') \mathsf{T}
+    ```
+
 ## References
 
 ```{bibliography}

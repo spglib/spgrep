@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Constructing symmetry-adapted basis &#8212; spgrep 0.2.11</title>
+    <title>Constructing symmetry-adapted basis &#8212; spgrep 0.2.12</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -78,7 +78,7 @@
       
       
       
-      <h1 class="site-logo" id="site-title">spgrep 0.2.11</h1>
+      <h1 class="site-logo" id="site-title">spgrep 0.2.12</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
@@ -199,6 +199,11 @@
    <li class="toctree-l2">
     <a class="reference internal" href="api/api_transformation.html">
      Transformation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="api/api_tensor.html">
+     Tensor
     </a>
    </li>
   </ul>
@@ -351,6 +356,11 @@ title="Print to PDF"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#symmetry-adapted-tensor-with-intrinsic-symmetry">
+   Symmetry-adapted tensor with intrinsic symmetry
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#references">
    References
   </a>
@@ -377,6 +387,11 @@ title="Print to PDF"
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#projection-operator">
    Projection operator
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#symmetry-adapted-tensor-with-intrinsic-symmetry">
+   Symmetry-adapted tensor with intrinsic symmetry
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -412,7 +427,7 @@ title="Print to PDF"
 <section id="projection-operator">
 <h2>Projection operator<a class="headerlink" href="#projection-operator" title="Permalink to this headline">#</a></h2>
 <p>Let <span class="math notranslate nohighlight">\(\Delta^{(\alpha)}\)</span> be <strong>unitary</strong> projective irrep of group <span class="math notranslate nohighlight">\(G\)</span> with <span class="math notranslate nohighlight">\(\mu(E, E)=1\)</span>.
-The projection operator can be defined as the same form with the ordinary representation <span id="id1">[<a class="reference internal" href="#id16" title="S. L. Altmann. Projection operators and clebsch–gordan coefficients for projective representations. International Journal of Quantum Chemistry, 35(3):441-456, 1989. URL: https://onlinelibrary.wiley.com/doi/abs/10.1002/qua.560350309, doi:https://doi.org/10.1002/qua.560350309.">Alt89</a>]</span> <a class="footnote-reference brackets" href="#proj-derivation" id="id2">1</a>,</p>
+The projection operator can be defined as the same form with the ordinary representation <span id="id1">[<a class="reference internal" href="#id18" title="S. L. Altmann. Projection operators and clebsch–gordan coefficients for projective representations. International Journal of Quantum Chemistry, 35(3):441-456, 1989. URL: https://onlinelibrary.wiley.com/doi/abs/10.1002/qua.560350309, doi:https://doi.org/10.1002/qua.560350309.">Alt89</a>]</span> <a class="footnote-reference brackets" href="#proj-derivation" id="id2">1</a>,</p>
 <div class="math notranslate nohighlight">
 \[    P^{(\alpha)}_{ij}
         := \frac{ d_{\alpha} }{|G|} \sum_{ R \in G } \Delta^{ (\alpha) }(R)_{ij}^{\ast} R.\]</div>
@@ -440,12 +455,37 @@ Basis vectors <span class="math notranslate nohighlight">\(\{ \phi^{(\alpha,j)}_
         &amp;= \delta_{ii'}(\phi, P^{(\alpha)}_{jj}\phi) \\
         &amp;= \delta_{ii'}(\phi, \phi^{(\alpha, j)}_{j}) \\\end{split}\]</div>
 </section>
+<section id="symmetry-adapted-tensor-with-intrinsic-symmetry">
+<h2>Symmetry-adapted tensor with intrinsic symmetry<a class="headerlink" href="#symmetry-adapted-tensor-with-intrinsic-symmetry" title="Permalink to this headline">#</a></h2>
+<p><span id="id3">[<a class="reference internal" href="#id20" title="Michael El-Batanouny and Frederick Wooten. Symmetry and condensed matter physics: a computational approach. Cambridge University Press, 2008.">EBW08</a>]</span></p>
+<p>Consider vector space <span class="math notranslate nohighlight">\(V\)</span> and its symmetry adapted basis <span class="math notranslate nohighlight">\(\{ \mathbf{f}^{\alpha m}_{i} \}\)</span> w.r.t. group <span class="math notranslate nohighlight">\(G\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}    V &amp;= \bigoplus_{\alpha} \bigoplus_{m=1}^{m_{\alpha}} V^{\alpha m} \\
+    V^{\alpha m} &amp;= \bigoplus_{i=1}^{d_{\alpha}} K \mathbf{f}^{\alpha m}_{i} \\
+    g \mathbf{f}^{\alpha m}_{j}
+        &amp;= \sum_{i=1} ^{d_{\alpha}} \mathbf{f}^{\alpha m}_{i} \Gamma^{\alpha}_{ij}(g)
+        \quad (g \in G, j = 1, \dots, d_{\alpha}),\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(K\)</span> is <span class="math notranslate nohighlight">\(\mathbb{C}\)</span> or <span class="math notranslate nohighlight">\(\mathbb{R}\)</span>, and <span class="math notranslate nohighlight">\(\Gamma^{\alpha}\)</span> is irrep over <span class="math notranslate nohighlight">\(K\)</span>.</p>
+<p>Action of <span class="math notranslate nohighlight">\(G\)</span> on rank-<span class="math notranslate nohighlight">\(p\)</span> tensor <span class="math notranslate nohighlight">\(\mathsf{T}: V^{\ast \otimes p}\)</span> is defined as</p>
+<div class="math notranslate nohighlight">
+\[    (g \mathsf{T})(\mathbf{v}_{1}, \dots, \mathbf{v}_{p})
+        := \mathsf{T}(g^{-1} \mathbf{v}_{1}, \dots, g^{-1} \mathbf{v}_{p})
+        \quad (g \in G).\]</div>
+<p>We also consider intrinsic symmetry <span class="math notranslate nohighlight">\(\Sigma\)</span> of <span class="math notranslate nohighlight">\(\mathsf{T}\)</span> as <a class="footnote-reference brackets" href="#check-action" id="id4">2</a></p>
+<div class="math notranslate nohighlight">
+\[    (\sigma \mathsf{T})(\mathbf{v}_{1}, \dots, \mathbf{v}_{p})
+        := \mathsf{T}(\mathbf{v}_{\sigma^{-1}(1)}, \dots, \mathbf{v}_{\sigma^{-1}(p)})
+        \quad (\sigma \in \Sigma).\]</div>
+</section>
 <section id="references">
 <h2>References<a class="headerlink" href="#references" title="Permalink to this headline">#</a></h2>
-<div class="docutils container" id="id3">
+<div class="docutils container" id="id5">
 <dl class="citation">
-<dt class="label" id="id16"><span class="brackets"><a class="fn-backref" href="#id1">Alt89</a></span></dt>
+<dt class="label" id="id18"><span class="brackets"><a class="fn-backref" href="#id1">Alt89</a></span></dt>
 <dd><p>S. L. Altmann. Projection operators and clebsch–gordan coefficients for projective representations. <em>International Journal of Quantum Chemistry</em>, 35(3):441–456, 1989. URL: <a class="reference external" href="https://onlinelibrary.wiley.com/doi/abs/10.1002/qua.560350309">https://onlinelibrary.wiley.com/doi/abs/10.1002/qua.560350309</a>, <a class="reference external" href="https://doi.org/https://doi.org/10.1002/qua.560350309">doi:https://doi.org/10.1002/qua.560350309</a>.</p>
+</dd>
+<dt class="label" id="id20"><span class="brackets"><a class="fn-backref" href="#id3">EBW08</a></span></dt>
+<dd><p>Michael El-Batanouny and Frederick Wooten. <em>Symmetry and condensed matter physics: a computational approach</em>. Cambridge University Press, 2008.</p>
 </dd>
 </dl>
 </div>
@@ -462,6 +502,16 @@ The derivation is as follows:</p>
         &amp;= \sum_{l} \phi^{ (\alpha,j,n) }_{l} \Delta^{ (\alpha) }(S)_{li}.\end{split}\]</div>
 <p>Here we assume the factor system is chosen as <span class="math notranslate nohighlight">\(\mu(E, E) = 1\)</span>.
 Then, we use <span class="math notranslate nohighlight">\(\mu(S, S^{-1}) = \mu(S^{-1}, S)\)</span>.</p>
+</dd>
+<dt class="label" id="check-action"><span class="brackets"><a class="fn-backref" href="#id4">2</a></span></dt>
+<dd><p>These definitions follow the condition of left actions:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}    (\sigma (\sigma' \mathsf{T}))(\mathbf{v}_{1}, \dots, \mathbf{v}_{p})
+        &amp;= (\sigma' \mathsf{T})(\mathbf{v}_{\sigma^{-1}(1)}, \dots, \mathbf{v}_{\sigma^{-1}(p)}) \\
+        &amp;= \mathsf{T}(\mathbf{v}_{\sigma'^{-1}(\sigma^{-1}(1))}, \dots, \mathbf{v}_{\sigma'^{-1}(\sigma^{-1}(p))}) \\
+        &amp;= \mathsf{T}(\mathbf{v}_{\sigma\sigma'(1)}, \dots, \mathbf{v}_{\sigma\sigma'(p)}) \\
+        &amp;= ((\sigma \sigma') \mathsf{T})(\mathbf{v}_{1}, \dots, \mathbf{v}_{p}) \\
+    \therefore \sigma (\sigma' \mathsf{T}) &amp;= (\sigma \sigma') \mathsf{T}\end{split}\]</div>
 </dd>
 </dl>
 </section>

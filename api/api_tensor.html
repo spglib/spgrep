@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Transformation &#8212; spgrep 0.2.12</title>
+    <title>Tensor &#8212; spgrep 0.2.12</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -32,14 +32,12 @@
     <script src="../_static/doctools.js"></script>
     <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
     <script>mermaid.initialize({startOnLoad:true});</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Tensor" href="api_tensor.html" />
-    <link rel="prev" title="Representation" href="api_representation.html" />
+    <link rel="next" title="Change Log" href="../changelog.html" />
+    <link rel="prev" title="Transformation" href="api_transformation.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -196,13 +194,13 @@
      Representation
     </a>
    </li>
-   <li class="toctree-l2 current active">
-    <a class="current reference internal" href="#">
+   <li class="toctree-l2">
+    <a class="reference internal" href="api_transformation.html">
      Transformation
     </a>
    </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="api_tensor.html">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
      Tensor
     </a>
    </li>
@@ -291,7 +289,7 @@ title="Fullscreen mode"
   <div class="menu-dropdown__content">
     <ul>
       <li>
-        <a href="../_sources/api/api_transformation.md.txt"
+        <a href="../_sources/api/api_tensor.md.txt"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -340,7 +338,7 @@ title="Print to PDF"
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Transformation</h1>
+                <h1>Tensor</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -352,34 +350,27 @@ title="Print to PDF"
                 
               <div>
                 
-  <section id="transformation">
-<h1>Transformation<a class="headerlink" href="#transformation" title="Permalink to this headline">#</a></h1>
+  <section id="tensor">
+<h1>Tensor<a class="headerlink" href="#tensor" title="Permalink to this headline">#</a></h1>
 <blockquote>
 <div><dl class="py function">
-<dt class="sig sig-object py" id="spgrep.transform.transform_symmetry_and_kpoint">
-<span class="sig-prename descclassname"><span class="pre">spgrep.transform.</span></span><span class="sig-name descname"><span class="pre">transform_symmetry_and_kpoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">transformation_matrix</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.dtype</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rotations</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.dtype</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.int64</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">translations</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.dtype</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kpoint</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.dtype</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.dtype</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.int64</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.dtype</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.dtype</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/spgrep/transform.html#transform_symmetry_and_kpoint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spgrep.transform.transform_symmetry_and_kpoint" title="Permalink to this definition">#</a></dt>
-<dd><p>Return symmetry and k-vector coefficients in transformed coordinates.</p>
-<p>This function does not unique duplicated symmetry operations after applying transformation_matrix.</p>
-<p>Let a given transformation_matrix be <code class="docutils literal notranslate"><span class="pre">P</span></code>.
-Symmetry operation <span class="math notranslate nohighlight">\((R, t)\)</span> is transformed to
-<span class="math notranslate nohighlight">\((P, 0){^-1} (R, t) (P, 0) = (P^{-1} R P, P^{-1} t)\)</span>.
-Coefficients of k-vector are transformed to <code class="docutils literal notranslate"><span class="pre">P.T</span> <span class="pre">&#64;</span> <span class="pre">kpoint</span></code>.</p>
+<dt class="sig sig-object py" id="spgrep.tensor.get_symmetry_adapted_tensors">
+<span class="sig-prename descclassname"><span class="pre">spgrep.tensor.</span></span><span class="sig-name descname"><span class="pre">get_symmetry_adapted_tensors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rep</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">NDArrayComplex</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">NDArrayFloat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rotations</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">NDArrayInt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rank</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">real</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atol</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1e-08</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">NDArrayComplex</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">NDArrayFloat</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/spgrep/tensor.html#get_symmetry_adapted_tensors"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spgrep.tensor.get_symmetry_adapted_tensors" title="Permalink to this definition">#</a></dt>
+<dd><p>Calculate symmetry-adapted tensors with rank=``rank``.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>transformation_matrix</strong> (<em>array</em><em>, </em><em>(</em><em>3</em><em>, </em><em>3</em><em>)</em>) – </p></li>
-<li><p><strong>rotations</strong> (<em>array</em><em>, </em><em>(</em><em>num_sym</em><em>, </em><em>3</em><em>, </em><em>3</em><em>)</em>) – </p></li>
-<li><p><strong>translations</strong> (<em>array</em><em>, </em><em>(</em><em>num_sym</em><em>, </em><em>3</em><em>)</em>) – </p></li>
-<li><p><strong>kpoint</strong> (<em>array</em><em>, </em><em>(</em><em>3</em><em>, </em><em>)</em>) – </p></li>
+<li><p><strong>rep</strong> (<em>array</em><em>, </em><em>(</em><em>order</em><em>, </em><em>dim</em><em>, </em><em>dim</em><em>)</em>) – Representation matrices</p></li>
+<li><p><strong>rotations</strong> (<em>array</em><em>, </em><em>(</em><em>order</em><em>, </em><em>3</em><em>, </em><em>3</em><em>)</em>) – </p></li>
+<li><p><strong>rank</strong> (<em>int</em>) – Rank of returned tensor</p></li>
+<li><p><strong>real</strong> (<em>bool</em>) – </p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><ul class="simple">
-<li><p><strong>transformed_rotations</strong> (<em>array, (num_sym, 3, 3)</em>)</p></li>
-<li><p><strong>transformed_translations</strong> (<em>array, (num_sym, 3)</em>)</p></li>
-<li><p><strong>transformed_kpoint</strong> (<em>array, (3, )</em>)</p></li>
-</ul>
-</p>
+<dd class="field-even"><p><strong>tensors</strong></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list of symmetry-adapted <code class="docutils literal notranslate"><span class="pre">rank</span></code>-tensor with (dim, …, dim)</p>
 </dd>
 </dl>
 </dd></dl>
@@ -387,12 +378,13 @@ Coefficients of k-vector are transformed to <code class="docutils literal notran
 </div></blockquote>
 <blockquote>
 <div><dl class="py function">
-<dt class="sig sig-object py" id="spgrep.transform.get_primitive_transformation_matrix">
-<span class="sig-prename descclassname"><span class="pre">spgrep.transform.</span></span><span class="sig-name descname"><span class="pre">get_primitive_transformation_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hall_number</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.dtype</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/spgrep/transform.html#get_primitive_transformation_matrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spgrep.transform.get_primitive_transformation_matrix" title="Permalink to this definition">#</a></dt>
-<dd><p>Return transformation matrix from standard unit cell specified with hall_number into a primitive cell. The transformation matrix is consistent with Spglib’s convention [1,2] and KVEC’s convention [3].</p>
-<p>[1] <a class="reference external" href="https://spglib.github.io/spglib/definition.html">https://spglib.github.io/spglib/definition.html</a>
-[2] <a class="reference external" href="https://github.com/spglib/spglib/pull/137">https://github.com/spglib/spglib/pull/137</a>
-[3] M. I. Aroyo, D. Orobengoa, G. de la Flor, E.S. Tasci, J. M. Perez-Mato and H. Wondratschek, Acta Cryst. A70 126-137 (2014).</p>
+<dt class="sig sig-object py" id="spgrep.tensor.apply_intrinsic_symmetry">
+<span class="sig-prename descclassname"><span class="pre">spgrep.tensor.</span></span><span class="sig-name descname"><span class="pre">apply_intrinsic_symmetry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensors</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">NDArrayComplex</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">NDArrayFloat</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atol</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1e-08</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">NDArrayComplex</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">NDArrayFloat</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/spgrep/tensor.html#apply_intrinsic_symmetry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spgrep.tensor.apply_intrinsic_symmetry" title="Permalink to this definition">#</a></dt>
+<dd><p>Apply symmetric group on tensors.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Current implementation may return wrong number of symmetrized tensors for higher rank…</p>
+</div>
 </dd></dl>
 
 </div></blockquote>
@@ -406,17 +398,17 @@ Coefficients of k-vector are transformed to <code class="docutils literal notran
                 
     <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="api_representation.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="api_transformation.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Representation</p>
+            <p class="prev-next-title">Transformation</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="api_tensor.html" title="next page">
+    <a class='right-next' id="next-link" href="../changelog.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Tensor</p>
+        <p class="prev-next-title">Change Log</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>
