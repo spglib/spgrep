@@ -1,0 +1,399 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Symmetry-adapted tensor\n",
+    "\n",
+    "This example shows how to calculate irreps of crystallographic point groups and construct projection operator on identity representation.\n",
+    "We apply the projection operator to obtaining symmetry-adapted tensor (e.g. elastic constant)."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Import modules"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "spgrep==0.2.12.dev2+ge325614.d20220923\n"
+     ]
+    }
+   ],
+   "source": [
+    "from __future__ import annotations\n",
+    "\n",
+    "from itertools import permutations\n",
+    "\n",
+    "import matplotlib.pyplot as plt\n",
+    "import numpy as np\n",
+    "import seaborn as sns\n",
+    "from spglib import get_symmetry_from_database\n",
+    "\n",
+    "import spgrep\n",
+    "from spgrep import get_crystallographic_pointgroup_irreps_from_symmetry\n",
+    "from spgrep.group import get_cayley_table\n",
+    "from spgrep.representation import get_direct_product, is_representation, project_to_irrep\n",
+    "from spgrep.tensor import get_symmetry_adapted_tensors, apply_intrinsic_symmetry\n",
+    "\n",
+    "print(f\"spgrep=={spgrep.__version__}\")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "sns.set_context(\"poster\")"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Prepare point-group operations and representation\n",
+    "\n",
+    "We consider crystallographic point group $m\\overline{3}m$."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Pm-3m (No. 221)\n",
+    "symmetry = get_symmetry_from_database(hall_number=517)\n",
+    "rotations = symmetry[\"rotations\"]  # (48, 3, 3)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Then, we define basis of strain tensors in Voigt order:\n",
+    "$$\n",
+    "    \\mathbf{E}_{1} =\n",
+    "        \\begin{pmatrix}\n",
+    "            1 & 0 & 0 \\\\\n",
+    "            0 & 0 & 0 \\\\\n",
+    "            0 & 0 & 0 \\\\\n",
+    "        \\end{pmatrix},\n",
+    "    \\mathbf{E}_{2} =\n",
+    "        \\begin{pmatrix}\n",
+    "            0 & 0 & 0 \\\\\n",
+    "            0 & 1 & 0 \\\\\n",
+    "            0 & 0 & 0 \\\\\n",
+    "        \\end{pmatrix},\n",
+    "    \\mathbf{E}_{3} =\n",
+    "        \\begin{pmatrix}\n",
+    "            0 & 0 & 0 \\\\\n",
+    "            0 & 0 & 0 \\\\\n",
+    "            0 & 0 & 1 \\\\\n",
+    "        \\end{pmatrix},\n",
+    "    \\mathbf{E}_{4} =\n",
+    "        \\frac{1}{\\sqrt{2}}\n",
+    "        \\begin{pmatrix}\n",
+    "            0 & 0 & 0 \\\\\n",
+    "            0 & 0 & 1 \\\\\n",
+    "            0 & 1 & 0 \\\\\n",
+    "        \\end{pmatrix},\n",
+    "    \\mathbf{E}_{5} =\n",
+    "        \\frac{1}{\\sqrt{2}}\n",
+    "        \\begin{pmatrix}\n",
+    "            0 & 0 & 1 \\\\\n",
+    "            0 & 0 & 0 \\\\\n",
+    "            1 & 0 & 0 \\\\\n",
+    "        \\end{pmatrix},\n",
+    "    \\mathbf{E}_{6} =\n",
+    "        \\frac{1}{\\sqrt{2}}\n",
+    "        \\begin{pmatrix}\n",
+    "            0 & 1 & 0 \\\\\n",
+    "            1 & 0 & 0 \\\\\n",
+    "            0 & 0 & 0 \\\\\n",
+    "        \\end{pmatrix}.\n",
+    "$$\n",
+    "A rotation $R$ in point group $\\mathcal{P}$ acts the basis of strain tensors as\n",
+    "$$\n",
+    "    R \\mathbf{E}_{j} := \\mathbf{R} \\mathbf{E}_{j} \\mathbf{R}^{\\top} \\quad (R \\in \\mathcal{P}),\n",
+    "$$\n",
+    "where $\\mathbf{R}$ is a matrix representation of rotation $R$.\n",
+    "We define a representation matrix for this action as\n",
+    "$$\n",
+    "    R \\mathbf{E}_{j} = \\sum_{i=1}^{6} \\mathbf{E}_{i} \\Gamma_{ij}(R).\n",
+    "$$"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "def get_standard_basis() -> list[np.ndarray]:\n",
+    "    # Basis for symmetric matrix in Voigt order (xx, yy, zz, yz, zx, xy)\n",
+    "    basis = [\n",
+    "        np.array(\n",
+    "            [\n",
+    "                [1, 0, 0],\n",
+    "                [0, 0, 0],\n",
+    "                [0, 0, 0],\n",
+    "            ],\n",
+    "            dtype=np.float_,\n",
+    "        ),\n",
+    "        np.array(\n",
+    "            [\n",
+    "                [0, 0, 0],\n",
+    "                [0, 1, 0],\n",
+    "                [0, 0, 0],\n",
+    "            ],\n",
+    "            dtype=np.float_,\n",
+    "        ),\n",
+    "        np.array(\n",
+    "            [\n",
+    "                [0, 0, 0],\n",
+    "                [0, 0, 0],\n",
+    "                [0, 0, 1],\n",
+    "            ],\n",
+    "            dtype=np.float_,\n",
+    "        ),\n",
+    "        np.array(\n",
+    "            [\n",
+    "                [0, 0, 0],\n",
+    "                [0, 0, 1],\n",
+    "                [0, 1, 0],\n",
+    "            ],\n",
+    "            dtype=np.float_,\n",
+    "        )\n",
+    "        / np.sqrt(2),\n",
+    "        np.array(\n",
+    "            [\n",
+    "                [0, 0, 1],\n",
+    "                [0, 0, 0],\n",
+    "                [1, 0, 0],\n",
+    "            ],\n",
+    "            dtype=np.float_,\n",
+    "        )\n",
+    "        / np.sqrt(2),\n",
+    "        np.array(\n",
+    "            [\n",
+    "                [0, 1, 0],\n",
+    "                [1, 0, 0],\n",
+    "                [0, 0, 0],\n",
+    "            ],\n",
+    "            dtype=np.float_,\n",
+    "        )\n",
+    "        / np.sqrt(2),\n",
+    "    ]\n",
+    "    return basis\n",
+    "\n",
+    "\n",
+    "def get_representation_on_symmetric_matrix(rotations: np.ndarray) -> np.ndarray:\n",
+    "    # take [e_{1,1}, e_{2,2}, e_{3,3}, e_{2,3}, e_{3,1}, e_{1,2}] as basis\n",
+    "    basis = get_standard_basis()\n",
+    "    rep = np.zeros((len(rotations), len(basis), len(basis)))\n",
+    "    for pos, rotation in enumerate(rotations):\n",
+    "        for j, bj in enumerate(basis):\n",
+    "            # operated = rotation.T @ bj @ rotation\n",
+    "            operated = rotation @ bj @ rotation.T\n",
+    "            for i, bi in enumerate(basis):\n",
+    "                rep[pos, i, j] = np.sum(operated * bi) / np.sum(bi * bi)\n",
+    "\n",
+    "    # Sanity check if `rep` satisfy property of representation\n",
+    "    table = get_cayley_table(rotations)\n",
+    "    assert is_representation(rep, table)\n",
+    "\n",
+    "    return rep\n",
+    "\n",
+    "\n",
+    "rep = get_representation_on_symmetric_matrix(rotations)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Of course, the representation matrices are not block-diagonalized:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 5,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "image/png": "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",
+      "text/plain": [
+       "<Figure size 1728x576 with 48 Axes>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "nrows = 4\n",
+    "ncols = 12\n",
+    "fig, axes = plt.subplots(nrows, ncols, figsize=(2 * ncols, 2 * nrows))\n",
+    "for row in range(nrows):\n",
+    "    for col in range(ncols):\n",
+    "        idx = row * ncols + col\n",
+    "        ax = axes[row][col]\n",
+    "        ax.imshow(rep[idx], cmap=\"bwr\", vmin=-1, vmax=1)\n",
+    "        ax.set_aspect(\"equal\")\n",
+    "        ax.set_xticks([])\n",
+    "        ax.set_yticks([])"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Calculate physically irreducible representation\n",
+    "For strain tensors, we need to consider representation over real number $\\mathbb{R}$.\n",
+    "The `spgrep.get_crystallographic_pointgroup_irreps_from_symmetry` with `real=True` returns all unitary irreps over real number $\\mathbb{R}$ (also called as *physically irreducible representation*)."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 6,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "irreps = get_crystallographic_pointgroup_irreps_from_symmetry(rotations, real=True)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Basis functions for each irrep can be obtained by `spgrep.representation.project_to_irrep`:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 7,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "all_basis = []\n",
+    "for irrep in irreps:\n",
+    "    list_basis = project_to_irrep(rep, irrep)\n",
+    "    for basis in list_basis:\n",
+    "        all_basis.append(basis)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "We can confirm the representation $\\Gamma$ is decomposed to three irreps: a one-dimensional, a two-dimensional, and a three-dimensional ones."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 8,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "image/png": "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",
+      "text/plain": [
+       "<Figure size 1728x576 with 48 Axes>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "fig, axes = plt.subplots(nrows, ncols, figsize=(2 * ncols, 2 * nrows))\n",
+    "for row in range(nrows):\n",
+    "    for col in range(ncols):\n",
+    "        idx = row * ncols + col\n",
+    "        ax = axes[row][col]\n",
+    "        rep_transformed = np.concatenate(all_basis) @ rep[idx] @ np.concatenate(all_basis).T\n",
+    "        ax.imshow(rep_transformed, cmap=\"bwr\", vmin=-1, vmax=1, aspect=\"equal\")\n",
+    "        ax.set_xticks([])\n",
+    "        ax.set_yticks([])\n",
+    "\n",
+    "        ax.set_xticks([0.5, 2.5], minor=True)\n",
+    "        ax.set_yticks([0.5, 2.5], minor=True)\n",
+    "        ax.grid(which=\"minor\", linewidth=1)\n",
+    "\n",
+    "plt.tight_layout()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Calculate symmetry-adapted tensors"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 9,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Rank=1: 1\n",
+      "Rank=2: 3\n",
+      "Rank=3: 6\n",
+      "Rank=4: 11\n"
+     ]
+    }
+   ],
+   "source": [
+    "expects = [1, 3, 6, 11]\n",
+    "for rank, expect in zip(range(1, len(expects) + 1), expects):\n",
+    "    tensors = get_symmetry_adapted_tensors(rep, rotations, rank, real=True)\n",
+    "    sym_tensors = apply_intrinsic_symmetry(tensors)\n",
+    "    print(f\"Rank={rank}: {len(sym_tensors)}\")\n",
+    "    assert len(sym_tensors) == expect"
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3.10.4 ('spgrep')",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.10.4"
+  },
+  "orig_nbformat": 4,
+  "vscode": {
+   "interpreter": {
+    "hash": "88c77d0dd5409a9a505b149d1d516cb944fb2ee79f549abf35dc2e7bd6c12498"
+   }
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 2
+}
