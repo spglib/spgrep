@@ -38,6 +38,7 @@ EXTRAS = {
         "pydocstyle",
         "nbqa",
         "phonopy==2.15.1",
+        "seekpath",
         # Jupyter notebook
         "notebook",
         "matplotlib",
