@@ -29,7 +29,7 @@ REQUIRED = [
 EXTRAS = {
     "dev": [
         "pytest==7.1.3",
-        "pytest-cov==3.0.0",
+        "pytest-cov==4.0.0",
         "pre-commit",
         "black",
         "mypy",
