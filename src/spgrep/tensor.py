@@ -59,7 +59,9 @@ def get_symmetry_adapted_tensors(
                 for coeff in decomposed:
                     coeff = coeff.reshape(dim_irrep, dim_tensor, dim_vector)
                     # new_basis: (dim_irrep, dim(1), ..., dim(p))
-                    new_basis = np.einsum("ijk,j...,ka->i...a", coeff, tensor_basis, vector_basis)
+                    new_basis = np.einsum(
+                        "ijk,j...,ka->i...a", coeff, tensor_basis, vector_basis, optimize="greedy"
+                    )
                     next_all_tensor_basis.append((new_basis, irrep))
 
         all_tensor_basis = next_all_tensor_basis

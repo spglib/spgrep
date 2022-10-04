@@ -711,4 +711,5 @@ def get_pointgroup_chain_generators(prim_rotations: NDArrayInt) -> list[int]:
             generators = get_generators(pg_symbol, idx)
             return [mapping[g] for g in generators]
 
-    ValueError("Failed to match with tabulated point groups.")  # type: ignore
+    ValueError("Failed to match with tabulated point groups.")
+    return []  # This line is unreachable, just for persuading mypy!
