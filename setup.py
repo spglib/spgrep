@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 # https://github.com/kennethreitz/setup.py/blob/master/setup.py
 
-import io
 import os
 
 from setuptools import find_packages, setup
