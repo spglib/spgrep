@@ -54,6 +54,6 @@ repos:
       files: ^src/spgrep/
   # Notebook
   - repo: https://github.com/nbQA-dev/nbQA
-    rev: 1.5.2
+    rev: 1.5.3
     hooks:
       - id: nbqa-black
