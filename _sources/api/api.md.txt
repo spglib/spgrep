@@ -8,4 +8,5 @@
     Representation <api_representation>
     Transformation <api_transformation>
     Tensor <api_tensor>
+    Spinor <api_spinor>
 ```

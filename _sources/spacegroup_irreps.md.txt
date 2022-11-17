@@ -47,9 +47,9 @@ For {math}`(\mathbf{R}, \mathbf{v}) \in \mathcal{G}`, {math}`(\mathbf{R}, \mathb
 ```{math}
 :label: eq_point_group_in_bloch_function
   (\mathbf{E}, \mathbf{t}) (\mathbf{R}, \mathbf{v}) \Psi_{\mathbf{k}}(\mathbf{r})
-  &= (\mathbf{R}, \mathbf{v}) (\mathbf{E}, \mathbf{R}^{-1}\mathbf{v}) \Psi_{\mathbf{k}}(\mathbf{r}) \nonumber \\
-  &= \exp \left( -i \mathbf{k} \cdot \mathbf{R}^{-1} \mathbf{v} \right) (\mathbf{R}, \mathbf{v}) \Psi_{\mathbf{k}}(\mathbf{r}) \nonumber \\
-  &= \exp \left( -i \mathbf{Rk} \cdot \mathbf{v} \right) (\mathbf{R}, \mathbf{v}) \Psi_{\mathbf{k}}(\mathbf{r}) \quad (\because \mathbf{R} \in O(3) ).
+  &= (\mathbf{R}, \mathbf{v}) (\mathbf{E}, \mathbf{R}^{-1}\mathbf{t}) \Psi_{\mathbf{k}}(\mathbf{r}) \nonumber \\
+  &= \exp \left( -i \mathbf{k} \cdot \mathbf{R}^{-1} \mathbf{t} \right) (\mathbf{R}, \mathbf{v}) \Psi_{\mathbf{k}}(\mathbf{r}) \nonumber \\
+  &= \exp \left( -i \mathbf{Rk} \cdot \mathbf{t} \right) (\mathbf{R}, \mathbf{v}) \Psi_{\mathbf{k}}(\mathbf{r}) \quad (\because \mathbf{R} \in O(3) ).
 ```
 Be careful the basis for calculating inner product in Eq. {eq}`eq_point_group_in_bloch_function`, when you use crystallographic coordinates [^footnote1]:
 ```{math}
@@ -121,7 +121,7 @@ and
 Let {math}`\Gamma^{\mathbf{k}}_{p}` be irrep of {math}`\mathcal{G}^{\mathbf{k}}`, for {math}`\mathbf{S}_{i} \mathbf{S}_{j} = \mathbf{S}_{k}`,
 ```{math}
   \Gamma^{\mathbf{k}}_{p}((\mathbf{S}_{i}, \mathbf{w}_{i})) \Gamma^{\mathbf{k}}_{p}((\mathbf{S}_{j}, \mathbf{w}_{j}))
-    = \exp \left( -i \mathbf{k} \cdot ( \mathbf{w}_{i} - \mathbf{S}_{i} \mathbf{w}_{j} - \mathbf{w}_{k} ) \right) \Gamma^{\mathbf{k}}_{p}((\mathbf{S}_{k}, \mathbf{w}_{k})).
+    = \exp \left( -i \mathbf{k} \cdot ( \mathbf{w}_{i} + \mathbf{S}_{i} \mathbf{w}_{j} - \mathbf{w}_{k} ) \right) \Gamma^{\mathbf{k}}_{p}((\mathbf{S}_{k}, \mathbf{w}_{k})).
 ```
 Then, Simplifying by
 ```{math}

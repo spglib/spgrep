@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Irreps of space group &#8212; spgrep 0.2.12</title>
+    <title>Irreps of space group &#8212; spgrep 0.3.0</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -78,7 +78,7 @@
       
       
       
-      <h1 class="site-logo" id="site-title">spgrep 0.2.12</h1>
+      <h1 class="site-logo" id="site-title">spgrep 0.3.0</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
@@ -159,6 +159,11 @@
      Intertwiner
     </a>
    </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="spinor.html">
+     Spin representation
+    </a>
+   </li>
   </ul>
  </li>
  <li class="toctree-l1 has-children">
@@ -204,6 +209,11 @@
    <li class="toctree-l2">
     <a class="reference internal" href="api/api_tensor.html">
      Tensor
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="api/api_spinor.html">
+     Spinor
     </a>
    </li>
   </ul>
@@ -429,7 +439,7 @@ title="Print to PDF"
                 
               <div>
                 
-  <section id="irreps-of-space-group">
+  <section class="tex2jax_ignore mathjax_ignore" id="irreps-of-space-group">
 <h1>Irreps of space group<a class="headerlink" href="#irreps-of-space-group" title="Permalink to this headline">#</a></h1>
 <p>This page formulates little group, small representation, and irreducible representations (irreps) of space groups.</p>
 <section id="reciprocal-lattice-and-transformation">
@@ -472,9 +482,9 @@ Any Bloch function with <span class="math notranslate nohighlight">\(\mathbf{k}\
 For <span class="math notranslate nohighlight">\((\mathbf{R}, \mathbf{v}) \in \mathcal{G}\)</span>, <span class="math notranslate nohighlight">\((\mathbf{R}, \mathbf{v}) \Psi_{\mathbf{k}}(\mathbf{r})\)</span> is Bloch function with <span class="math notranslate nohighlight">\(\mathbf{Rk}\)</span>:</p>
 <div class="math notranslate nohighlight" id="equation-eq-point-group-in-bloch-function">
 <span class="eqno">(1)<a class="headerlink" href="#equation-eq-point-group-in-bloch-function" title="Permalink to this equation">#</a></span>\[\begin{split}  (\mathbf{E}, \mathbf{t}) (\mathbf{R}, \mathbf{v}) \Psi_{\mathbf{k}}(\mathbf{r})
-  &amp;= (\mathbf{R}, \mathbf{v}) (\mathbf{E}, \mathbf{R}^{-1}\mathbf{v}) \Psi_{\mathbf{k}}(\mathbf{r}) \nonumber \\
-  &amp;= \exp \left( -i \mathbf{k} \cdot \mathbf{R}^{-1} \mathbf{v} \right) (\mathbf{R}, \mathbf{v}) \Psi_{\mathbf{k}}(\mathbf{r}) \nonumber \\
-  &amp;= \exp \left( -i \mathbf{Rk} \cdot \mathbf{v} \right) (\mathbf{R}, \mathbf{v}) \Psi_{\mathbf{k}}(\mathbf{r}) \quad (\because \mathbf{R} \in O(3) ).\end{split}\]</div>
+  &amp;= (\mathbf{R}, \mathbf{v}) (\mathbf{E}, \mathbf{R}^{-1}\mathbf{t}) \Psi_{\mathbf{k}}(\mathbf{r}) \nonumber \\
+  &amp;= \exp \left( -i \mathbf{k} \cdot \mathbf{R}^{-1} \mathbf{t} \right) (\mathbf{R}, \mathbf{v}) \Psi_{\mathbf{k}}(\mathbf{r}) \nonumber \\
+  &amp;= \exp \left( -i \mathbf{Rk} \cdot \mathbf{t} \right) (\mathbf{R}, \mathbf{v}) \Psi_{\mathbf{k}}(\mathbf{r}) \quad (\because \mathbf{R} \in O(3) ).\end{split}\]</div>
 <p>Be careful the basis for calculating inner product in Eq. <a class="reference internal" href="#equation-eq-point-group-in-bloch-function">(1)</a>, when you use crystallographic coordinates <a class="footnote-reference brackets" href="#footnote1" id="id1">1</a>:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}  \mathbf{v} &amp;=: \mathbf{A} \mathbf{v}_{f} \\
@@ -532,7 +542,7 @@ For each group product <span class="math notranslate nohighlight">\(G_{k} = G_{i
 <p>Let <span class="math notranslate nohighlight">\(\Gamma^{\mathbf{k}}_{p}\)</span> be irrep of <span class="math notranslate nohighlight">\(\mathcal{G}^{\mathbf{k}}\)</span>, for <span class="math notranslate nohighlight">\(\mathbf{S}_{i} \mathbf{S}_{j} = \mathbf{S}_{k}\)</span>,</p>
 <div class="math notranslate nohighlight">
 \[  \Gamma^{\mathbf{k}}_{p}((\mathbf{S}_{i}, \mathbf{w}_{i})) \Gamma^{\mathbf{k}}_{p}((\mathbf{S}_{j}, \mathbf{w}_{j}))
-    = \exp \left( -i \mathbf{k} \cdot ( \mathbf{w}_{i} - \mathbf{S}_{i} \mathbf{w}_{j} - \mathbf{w}_{k} ) \right) \Gamma^{\mathbf{k}}_{p}((\mathbf{S}_{k}, \mathbf{w}_{k})).\]</div>
+    = \exp \left( -i \mathbf{k} \cdot ( \mathbf{w}_{i} + \mathbf{S}_{i} \mathbf{w}_{j} - \mathbf{w}_{k} ) \right) \Gamma^{\mathbf{k}}_{p}((\mathbf{S}_{k}, \mathbf{w}_{k})).\]</div>
 <p>Then, Simplifying by</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}  \Gamma^{\mathbf{k}}_{p}((\mathbf{R}, \mathbf{v})) &amp;=: \exp \left( -i \mathbf{k} \cdot \mathbf{v} \right) D^{\mathbf{k}}_{p}((\mathbf{R}, \mathbf{v})) \\

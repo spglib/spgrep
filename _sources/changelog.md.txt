@@ -1,5 +1,8 @@
 # Change Log
 
+## v0.3.0 (17 Nov. 2022)
+- Add spinor representation [[#41]](https://github.com/spglib/spgrep/pull/41)
+
 ## v0.2.12
 - Generate symmetric tensor by Erdös method {func}`spgrep.tensors.get_symmetry_adapted_tensors` and {func}`spgrep.tensors.apply_intrinsic_symmetry`
 - Fix induced representation
