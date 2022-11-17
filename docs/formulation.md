@@ -27,6 +27,7 @@ Option-B ({func}`spgrep.irreps.enumerate_unitary_irreps_from_solvable_group_chai
   Reality of irreps <reality>
   Symmetry-adapted basis <projection>
   Intertwiner <intertwiner>
+  Spin representation <spinor>
 ```
 
 ## References

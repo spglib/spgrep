@@ -51,6 +51,7 @@ EXTRAS = {
         "sphinxcontrib-mermaid",
         "myst-parser",
         "sphinx-book-theme",
+        "linkify-it-py",
     ],
 }
 
