@@ -69,7 +69,7 @@ napoleon_use_ivar = True
 bibtex_bibfiles = ["references.bib"]
 
 # MyST
-myst_enalbe_extensions = [
+myst_enable_extensions = [
     "amsmath",
     "dollarmath",
     "html_admonition",
