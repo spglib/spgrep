@@ -2,11 +2,79 @@
 from __future__ import annotations
 
 from itertools import product
+from typing import Literal
 
 import numpy as np
 
 from spgrep.group import get_cayley_table, get_factor_system_from_little_group
+from spgrep.irreps import enumerate_unitary_irreps
 from spgrep.utils import NDArrayComplex, NDArrayFloat, NDArrayInt
+
+
+def enumerate_spinor_small_representations(
+    lattice: NDArrayFloat,
+    little_rotations: NDArrayInt,
+    little_translations: NDArrayFloat,
+    kpoint: NDArrayFloat,
+    method: Literal["Neto", "random"] = "Neto",
+    rtol: float = 1e-5,
+    atol: float = 1e-8,
+    max_num_random_generations: int = 4,
+) -> tuple[list[NDArrayComplex], list[NDArrayComplex]]:
+    """Enumerate all unitary irreps of little group for spinor.
+
+    See :ref:`spinor_factor_system` for Spgrep's convention of spin-derived factor system :math:`z(S_{i}, S_{j})`.
+
+    Parameters
+    ----------
+    lattice: array, (3, 3)
+        Row-wise basis vectors. ``lattice[i, :]`` is the i-th lattice vector.
+    little_rotations: array, (order, 3, 3)
+    little_translations: array, (order, 3)
+    kpoint: array, (3, )
+    method: str, 'Neto' or 'random'
+        'Neto': construct irreps from a fixed chain of subgroups of little co-group
+        'random': construct irreps by numerically diagonalizing a random matrix commute with regular representation
+    rtol: float
+        Relative tolerance to distinguish difference eigenvalues
+    atol: float
+        Relative tolerance to compare
+    max_num_random_generations: int
+        Maximum number of trials to generate random matrix
+
+    Returns
+    -------
+    irreps: list of unitary small representations (irreps of little group) with (order, dim, dim)
+    unitary_rotations: array, (order, 2, 2)
+        SU(2) rotations on spinor.
+    """
+    factor_system, unitary_rotations = get_spinor_factor_system_and_rotations(
+        lattice, little_rotations, little_translations, kpoint
+    )
+
+    # Compute irreps of little co-group
+    little_cogroup_irreps, _ = enumerate_unitary_irreps(
+        little_rotations,
+        factor_system,
+        real=False,  # Nonsense to consider real-value irreps
+        method=method,
+        rtol=rtol,
+        atol=atol,
+        max_num_random_generations=max_num_random_generations,
+    )
+
+    # Small representations of little group
+    irreps = []
+    for rep in little_cogroup_irreps:
+        phases = np.array(
+            [
+                np.exp(-2j * np.pi * np.dot(kpoint, translation))
+                for translation in little_translations
+            ]
+        )
+        irreps.append(rep * phases[:, None, None])
+
+    return irreps, unitary_rotations
 
 
 def get_spinor_factor_system_and_rotations(
