@@ -32,7 +32,25 @@ m_{z}(\mathbf{r})
     |\psi_{\uparrow}(\mathbf{r})|^{2} - |\psi_{\downarrow}(\mathbf{r})|^{2} \in \mathbb{R} \\
 $$
 $$
-m_{x}(\mathbf{r})^{2} + m_{y}(\mathbf{r})^{2} + m_{z}(\mathbf{r})^{2} = 1.
+m_{x}(\mathbf{r})^{2} + m_{y}(\mathbf{r})^{2} + m_{z}(\mathbf{r})^{2} = 1,
+$$
+where $\mathbf{\sigma}_{i} \, (i=x,y,z)$ are Pauli matrices
+$$
+\mathbf{\sigma}_{x}
+    = \begin{pmatrix}
+        0 & 1 \\
+        1 & 0 \\
+    \end{pmatrix},
+\mathbf{\sigma}_{y}
+    = \begin{pmatrix}
+        0 & -i \\
+        i & 0 \\
+    \end{pmatrix},
+\mathbf{\sigma}_{z}
+    = \begin{pmatrix}
+        1 & 0 \\
+        0 & -1 \\
+    \end{pmatrix}.
 $$
 
 (spinor_factor_system)=
@@ -47,15 +65,20 @@ We choose either of the unitary matices for each rotations as convention.
 In particular, we choose $\theta=0$ for identity $\mathbf{E}$.
 We define a factor system from the ambiguity as
 $$
-\mathbf{U}(g) \mathbf{U}(g') = z(g, g') \mathbf{U}(gg') \quad (g, g' \in SO(3)).
+\mathbf{U}(\mathbf{R}) \mathbf{U}(\mathbf{R}')
+    =: z(\mathbf{R}, \mathbf{R}') \mathbf{U}(\mathbf{R}\mathbf{R}')
+    \quad (\mathbf{R}, \mathbf{R}' \in SO(3)).
 $$
-In our convention, $z(\mathbf{E}, g) = z(g, \mathbf{E}) = 1 \,(\forall g \in SO(3))$.
+In our convention, $z(\mathbf{E}, \mathbf{R}) = z(\mathbf{R}, \mathbf{E}) = 1 \,(\forall \mathbf{R} \in SO(3))$.
 Also, this representation matrix adapts Condon-Shortley phase.
 
 We define the action of a symmetry operation of the first kind on spinor as
 $$
-(\mathbf{R}_{\theta\hat{\mathbf{n}}}, \mathbf{v}) \mathbf{\Psi}(\mathbf{r})
-    := \mathbf{U}( \mathbf{R}_{ \theta \hat{\mathbf{n}} } ) \mathbf{\Psi}( (\mathbf{R}_{\theta\hat{\mathbf{n}}}, \mathbf{v})^{-1} \mathbf{r}).
+\left[ (\mathbf{R}, \mathbf{v}) \mathbf{\Psi} \right] (\mathbf{r})
+    &:= \mathbf{U}( \mathbf{R} ) \mathbf{\Psi}( (\mathbf{R}, \mathbf{v})^{-1} \mathbf{r}) \\
+\Rightarrow \left[ g_{1} \left[ g_{2} \mathbf{\Psi} \right] \right](\mathbf{r})
+    &= \mathbf{U}(\mathbf{p}_{g_{1}}) \left[ g_{2} \mathbf{\Psi} \right](g_{1}^{-1}\mathbf{r}) \\
+    &= z(\mathbf{p}_{g_{1}}, \mathbf{p}_{g_{2}}) \left[ (g_{1}g_{2}) \mathbf{\Psi} \right](\mathbf{r}) \\
 $$
 
 Consider Bloch function with $\mathbf{k}$

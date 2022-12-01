@@ -20,6 +20,7 @@
 - Calculate irreducible representations (irreps) of space groups from spglib’s cell and kpoints
 - Calculate irreps of crystallographic point groups
 - Calculate physically irreducible representations (irreps over real numbers)
+- Calculate irreducible spin representations
 - Find symmetry-adapted basis forming given irreps
 - Minimal dependencies (numpy and spglib)
 
