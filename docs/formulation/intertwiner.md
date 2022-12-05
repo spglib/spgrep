@@ -9,6 +9,10 @@ An intertwiner of {math}`\Delta^{(0)}` and {math}`\Delta^{(1)}` is a matrix {mat
     \mathbf{\Delta}^{(0)}(S) \mathbf{U} = \mathbf{U} \mathbf{\Delta}^{(1)}(S)
     \quad (\forall S \in H)
 ```
+The intertwiner is unique up to scalar multiplication: if {math}`\mathbf{U}` and {math}`\mathbf{U}'` are intertwiner between {math}`\Delta^{(0)}` and {math}`\Delta^{(1)}`, {math}`\mathbf{U}^{-1}\mathbf{U}'` should be written as {math}`c\mathbf{I}` with some complex number {math}`c` from Schur's lemma.
+In particular, when $\Delta^{(0)}$ and $\Delta^{(1)}$ are unitary irreps, we can choose $\mathbf{U}$ as a unitary matrix [^footnote_unitary].
+
+[^footnote_unitary]: [Equivalent unitary representations are unitarily equivalent](http://www.nathankarst.com/blog/equivalent-unitary-representations-are-unitarily-equivalent)
 
 The following matrix is an intertwiner for these projective representations:
 ```{math}

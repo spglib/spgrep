@@ -70,7 +70,7 @@ for irrep in irreps:
 # [2.+0.j 0.+0.j 0.+0.j -2.+0.j 0.+0.j 0.+0.j 0.+0.j 0.+0.j]
 ```
 
-See [docs/examples](examples/) for more detailed use cases.
+See [docs/examples/examples](examples/examples) for more detailed use cases.
 
 ## Installation
 
