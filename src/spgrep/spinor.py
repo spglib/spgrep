@@ -29,7 +29,7 @@ def enumerate_spinor_small_representations(
     ----------
     lattice: array, (3, 3)
         Row-wise basis vectors. ``lattice[i, :]`` is the i-th lattice vector.
-    little_rotations: array, (order, 3, 3)
+    little_rotations: array[int], (order, 3, 3)
     little_translations: array, (order, 3)
     kpoint: array, (3, )
     method: str, 'Neto' or 'random'

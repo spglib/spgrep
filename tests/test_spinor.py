@@ -1,7 +1,10 @@
 import numpy as np
 import pytest
 
-from spgrep.core import get_crystallographic_pointgroup_spinor_irreps_from_symmetry
+from spgrep.core import (
+    get_crystallographic_pointgroup_spinor_irreps_from_symmetry,
+    get_spacegroup_spinor_irreps_from_primitive_symmetry,
+)
 from spgrep.group import check_cocycle_condition, get_cayley_table, get_identity_index
 from spgrep.representation import is_representation, is_unitary
 from spgrep.spinor import (
@@ -92,6 +95,38 @@ def test_spinor_irreps(method, C3v, hexagonal_lattice):
 
     # Check dimensions
     assert sorted([irrep.shape[1] for irrep in irreps]) == [1, 1, 2]
+
+
+@pytest.mark.parametrize(
+    "kpoint,shape_expect",
+    [
+        ([0, 0, 0], [2, 2, 2, 2]),  # Gammma point
+        ([0, 1 / 2, 0], [2, 2]),  # X point
+        ([0, 0, 1 / 2], [4]),  # Z point
+    ],
+)
+def test_get_spacegroup_spinor_irreps_from_primitive_symmetry(kpoint, shape_expect, P42mnm):
+    rotations, translations = P42mnm
+    (
+        irreps,
+        little_unitary_rotations,
+        mapping_little_group,
+    ) = get_spacegroup_spinor_irreps_from_primitive_symmetry(
+        lattice=np.eye(3),
+        rotations=rotations,
+        translations=translations,
+        kpoint=kpoint,
+    )
+
+    # Check unitary rotations
+    for unitary_rotation in little_unitary_rotations:
+        assert np.allclose(
+            unitary_rotation @ np.conj(unitary_rotation).T,
+            np.eye(2, dtype=np.complex_),
+        )
+
+    # Check dimensions of irreps
+    assert [irrep.shape[1] for irrep in irreps] == shape_expect
 
 
 def test_get_crystallographic_pointgroup_spinor_irreps_from_symmetry(Oh):
