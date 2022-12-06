@@ -1,6 +1,7 @@
 import numpy as np
 import pytest
 
+from spgrep.core import get_crystallographic_pointgroup_spinor_irreps_from_symmetry
 from spgrep.group import check_cocycle_condition, get_cayley_table, get_identity_index
 from spgrep.representation import is_representation, is_unitary
 from spgrep.spinor import (
@@ -91,3 +92,23 @@ def test_spinor_irreps(method, C3v, hexagonal_lattice):
 
     # Check dimensions
     assert sorted([irrep.shape[1] for irrep in irreps]) == [1, 1, 2]
+
+
+def test_get_crystallographic_pointgroup_spinor_irreps_from_symmetry(Oh):
+    rotations = Oh
+
+    irreps, unitary_rotations = get_crystallographic_pointgroup_spinor_irreps_from_symmetry(
+        lattice=np.eye(3),
+        rotations=rotations,
+    )
+
+    # Check unitary
+    for unitary_rotation in unitary_rotations:
+        assert np.allclose(
+            unitary_rotation @ np.conj(unitary_rotation).T,
+            np.eye(2, dtype=np.complex_),
+        )
+
+    # Check irreps
+    # Ref: https://www.cryst.ehu.es/cgi-bin/cryst/programs/representations_out.pl?tipogrupo=dbg&pointspace=point&num=221&super=32&symbol=m-3m
+    assert sorted([irrep.shape[1] for irrep in irreps]) == [2, 2, 2, 2, 4, 4]

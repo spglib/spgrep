@@ -58,7 +58,7 @@ exclude_patterns = ["README.md"]
 source_suffix = [".rst"]
 
 autoclass_content = "both"
-autodoc_typehints = "signature"
+autodoc_typehints = "none"
 autodoc_member_order = "bysource"
 autodoc_type_aliases = {}
 

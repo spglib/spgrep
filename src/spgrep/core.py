@@ -12,12 +12,17 @@ from spgrep.irreps import (
     enumerate_unitary_irreps,
     purify_irrep_value,
 )
+from spgrep.spinor import get_spinor_factor_system_and_rotations
 from spgrep.transform import (
     get_primitive_transformation_matrix,
     transform_symmetry_and_kpoint,
     unique_primitive_symmetry,
 )
 from spgrep.utils import NDArrayComplex, NDArrayFloat, NDArrayInt
+
+################################################################################
+# Linear representation
+################################################################################
 
 
 def get_spacegroup_irreps(
@@ -263,3 +268,63 @@ def get_crystallographic_pointgroup_irreps_from_symmetry(
         max_num_random_generations=max_num_random_generations,
     )
     return irreps
+
+
+################################################################################
+# Spin representation
+################################################################################
+
+
+def get_crystallographic_pointgroup_spinor_irreps_from_symmetry(
+    lattice: NDArrayFloat,
+    rotations: NDArrayInt,
+    method: Literal["Neto", "random"] = "Neto",
+    rtol: float = 1e-5,
+    atol: float = 1e-8,
+    max_num_random_generations: int = 4,
+) -> tuple[list[NDArrayComplex], list[NDArrayComplex]]:
+    """Compute all irreducible representations of given crystallographic point group up to unitary transformation for spinor.
+
+    Assume matrix representation of given crystallographic point group is in "standard" setting shown in Table 3.2.3.3 of International Table for Crystallography Vol. A (2016).
+
+    Parameters
+    ----------
+    lattice: array, (3, 3)
+        Row-wise basis vectors. ``lattice[i, :]`` is the i-th lattice vector.
+    rotations: array[int], (order, 3, 3)
+        Assume a point coordinates ``x`` are transformed into ``np.dot(rotations[i, :, :], x)`` by the ``i``-th symmetry operation.
+    method: str, 'Neto' or 'random'
+        'Neto': construct irreps from a fixed chain of subgroups of little co-group
+        'random': construct irreps by numerically diagonalizing a random matrix commute with regular representation
+    rtol: float
+        Relative tolerance to distinguish difference eigenvalues
+    atol: float
+        Absolute tolerance to distinguish difference eigenvalues
+    max_num_random_generations: int
+        Maximum number of trials to generate random matrix
+
+    Returns
+    -------
+    irreps: list of unitary irreps with (order, dim, dim)
+    unitary_rotations: array, (order, 2, 2)
+        SU(2) rotations on spinor.
+    """
+    order = len(rotations)
+    factor_system, unitary_rotations = get_spinor_factor_system_and_rotations(
+        lattice=lattice,
+        little_rotations=rotations,
+        little_translations=np.zeros((order, 3)),
+        kpoint=np.zeros(3),
+    )
+
+    irreps, _ = enumerate_unitary_irreps(
+        rotations,
+        factor_system=factor_system,
+        real=False,  # Nonsense to consider real-value irreps
+        method=method,
+        rtol=rtol,
+        atol=atol,
+        max_num_random_generations=max_num_random_generations,
+    )
+
+    return irreps, unitary_rotations
