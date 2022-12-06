@@ -3,6 +3,7 @@ import pytest
 
 from spgrep.core import (
     get_crystallographic_pointgroup_spinor_irreps_from_symmetry,
+    get_spacegroup_spinor_irreps,
     get_spacegroup_spinor_irreps_from_primitive_symmetry,
 )
 from spgrep.group import check_cocycle_condition, get_cayley_table, get_identity_index
@@ -95,6 +96,27 @@ def test_spinor_irreps(method, C3v, hexagonal_lattice):
 
     # Check dimensions
     assert sorted([irrep.shape[1] for irrep in irreps]) == [1, 1, 2]
+
+
+@pytest.mark.parametrize(
+    "kpoint,shape_expect",
+    [
+        ([0, 1, 1 / 2], [2, 2, 2]),  # T point for hR
+        ([-1 / 2, 1 / 2, 1 / 2], [2]),  # L point for hR
+    ],
+)
+def test_get_spacegroup_spinor_irreps(kpoint, shape_expect, corundum_cell):
+    (
+        irreps,
+        little_unitary_rotations,
+        rotations,
+        translations,
+        mapping,
+    ) = get_spacegroup_spinor_irreps(
+        *corundum_cell,
+        kpoint=kpoint,
+    )
+    assert [irrep.shape[1] for irrep in irreps] == shape_expect
 
 
 @pytest.mark.parametrize(

@@ -21,7 +21,7 @@ def transform_symmetry_and_kpoint(
 
     Let a given transformation_matrix be ``P``.
     Symmetry operation :math:`(R, t)` is transformed to
-    :math:`(P, 0){^-1} (R, t) (P, 0) = (P^{-1} R P, P^{-1} t)`.
+    :math:`(P, 0)^{-1} (R, t) (P, 0) = (P^{-1} R P, P^{-1} t)`.
     Coefficients of k-vector are transformed to ``P.T @ kpoint``.
 
     Parameters

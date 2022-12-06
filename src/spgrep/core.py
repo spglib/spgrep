@@ -76,7 +76,7 @@ def get_spacegroup_irreps(
     -------
     irreps: list of Irreps with (little_group_order, dim, dim)
         ``irreps[alpha][i, :, :]`` is the ``alpha``-th irreducible matrix representation of ``(little_rotations[i], little_translations[i])``.
-    rotations: array, (num_sym, 3, 3)
+    rotations: array[int], (num_sym, 3, 3)
     translations: array, (num_sym, 3)
     mapping_little_group: array, (little_group_order, )
         Let ``i = mapping_little_group[idx]``.
@@ -113,38 +113,18 @@ def get_spacegroup_irreps(
         atol=atol,
         max_num_random_generations=max_num_random_generations,
     )
-    remapping_prim_little_group = {}  # [0..order) -> [0..prim_little_group_order)
-    for i, idx in enumerate(mapping_prim_little_group):
-        remapping_prim_little_group[idx] = i
 
-    mapping_little_group = []  # [0..little_group_order) -> [0..num_sym)
-    mapping_conv_to_prim_little_group = (
-        []
-    )  # [0..little_group_order) -> [0..prim_little_group_order)
-    shifts = []  # (little_group_order, )
-    for i in range(len(mapping_to_prim)):
-        idx_prim = mapping_to_prim[i]  # in [0..order)
-        idx_prim_little = remapping_prim_little_group.get(
-            idx_prim
-        )  # in [0..prim_little_group_order)
-        if idx_prim_little is None:
-            continue
+    # Go back to conventional cell
+    irreps, mapping_little_group = _adjust_phase_for_centering_translations(
+        prim_translations,
+        prim_kpoint,
+        uniq_prim_translations,
+        mapping_to_prim,
+        prim_irreps,
+        mapping_prim_little_group,
+    )
 
-        mapping_little_group.append(i)
-        mapping_conv_to_prim_little_group.append(idx_prim_little)
-        shifts.append(prim_translations[i] - uniq_prim_translations[idx_prim])
-
-    # Adjust phase by centering translation
-    phases = np.array([np.exp(-2j * np.pi * np.dot(prim_kpoint, shift)) for shift in shifts])
-    irreps = []
-    for prim_irrep in prim_irreps:
-        # prim_irrep: (little_group_order, dim, dim)
-        irrep = prim_irrep[mapping_conv_to_prim_little_group] * phases[:, None, None]
-        irrep = purify_irrep_value(irrep)
-
-        irreps.append(irrep)
-
-    return irreps, rotations, translations, np.array(mapping_little_group)
+    return irreps, rotations, translations, mapping_little_group
 
 
 def get_spacegroup_irreps_from_primitive_symmetry(
@@ -278,6 +258,115 @@ def get_crystallographic_pointgroup_irreps_from_symmetry(
 ################################################################################
 
 
+def get_spacegroup_spinor_irreps(
+    lattice: NDArrayFloat,
+    positions: NDArrayFloat,
+    numbers: NDArrayInt,
+    kpoint: NDArrayFloat,
+    method: Literal["Neto", "random"] = "Neto",
+    reciprocal_lattice: NDArrayFloat | None = None,
+    symprec: float = 1e-5,
+    rtol: float = 1e-5,
+    atol: float = 1e-8,
+    max_num_random_generations: int = 4,
+) -> tuple[list[NDArrayComplex], list[NDArrayComplex], NDArrayInt, NDArrayFloat, NDArrayInt]:
+    r"""Compute all irreducible representations of space group of given structure up to unitary transformation for spinor.
+
+    See :ref:`spinor_factor_system` for Spgrep's convention of spin-derived factor system :math:`z(S_{i}, S_{j})`.
+
+    Parameters
+    ----------
+    lattice: array, (3, 3)
+        Row-wise basis vectors. ``lattice[i, :]`` is the i-th lattice vector.
+    positions: array, (num_atoms, 3)
+        Fractional coordinates of sites
+    numbers: array, (num_atoms, )
+        Integer list specifying atomic species
+    method: str, 'Neto' or 'random'
+        'Neto': construct irreps from a fixed chain of subgroups of little co-group
+        'random': construct irreps by numerically diagonalizing a random matrix commute with regular representation
+    kpoint: array, (3, )
+        Reciprocal vector with respect to ``reciprocal_lattice``
+        For pure translation :math:`\mathbf{t}`, returned irrep :math:`\Gamma^{(\alpha)}` takes
+
+        .. math::
+            \Gamma^{(\alpha)}((E, \mathbf{t})) = e^{ -i\mathbf{k}\cdot\mathbf{t} } \mathbf{1}.
+
+    reciprocal_lattice: (Optional) array, (3, 3)
+        ``reciprocal_lattice[i, :]`` is the i-th basis vector of reciprocal lattice for ``kpoint`` without `2 * pi factor`.
+        If not specified, ``reciprocal_lattice`` is set to ``np.linalg.inv(lattice).T``.
+    symprec: float
+        Parameter for searching symmetry operation in Spglib
+    rtol: float
+        Relative tolerance for comparing float values
+    atol: float
+        Absolute tolerance to distinguish difference eigenvalues
+    max_num_random_generations: int
+        Maximum number of trials to generate random matrix
+
+    Returns
+    -------
+    irreps: list of Irreps with (little_group_order, dim, dim)
+        ``irreps[alpha][i, :, :]`` is the ``alpha``-th irreducible matrix representation of ``(little_rotations[i], little_translations[i])``.
+    little_unitary_rotations: array, (little_group_order, 2, 2)
+        SU(2) rotations on spinor.
+    rotations: array[int], (num_sym, 3, 3)
+    translations: array, (num_sym, 3)
+    mapping_little_group: array, (little_group_order, )
+        Let ``i = mapping_little_group[idx]``.
+        (rotations[i], translations[i]) belongs to the little group of given space space group and kpoint.
+    """
+    # Transform given `kpoint` in dual of `lattice`
+    dual_lattice = np.linalg.inv(lattice).T
+    if reciprocal_lattice is None:
+        reciprocal_lattice = dual_lattice
+    # kpoint @ reciprocal_lattice == kpoint_conv @ dual_lattice
+    kpoint_conv = kpoint @ reciprocal_lattice @ np.linalg.inv(dual_lattice)
+
+    dataset = get_symmetry_dataset(cell=(lattice, positions, numbers), symprec=symprec)
+    rotations = dataset["rotations"]
+    translations = dataset["translations"]
+
+    # Transform to primitive
+    to_primitive = get_primitive_transformation_matrix(dataset["hall_number"])
+    prim_rotations, prim_translations, prim_kpoint = transform_symmetry_and_kpoint(
+        to_primitive, rotations, translations, kpoint_conv
+    )
+    prim_lattice = to_primitive.T @ lattice  # (AP)^T = P^T @ A^T
+    # mapping_to_prim: [0..num_sym) -> [0..order)
+    uniq_prim_rotations, uniq_prim_translations, mapping_to_prim = unique_primitive_symmetry(
+        prim_rotations, prim_translations
+    )
+
+    # mapping_prim_little_group: [0..prim_little_group_order) -> [0..order)
+    (
+        prim_irreps,
+        little_unitary_rotations,
+        mapping_prim_little_group,
+    ) = get_spacegroup_spinor_irreps_from_primitive_symmetry(
+        lattice=prim_lattice,
+        rotations=uniq_prim_rotations,
+        translations=uniq_prim_translations,
+        kpoint=prim_kpoint,
+        method=method,
+        rtol=rtol,
+        atol=atol,
+        max_num_random_generations=max_num_random_generations,
+    )
+
+    # Go back to conventional cell
+    irreps, mapping_little_group = _adjust_phase_for_centering_translations(
+        prim_translations,
+        prim_kpoint,
+        uniq_prim_translations,
+        mapping_to_prim,
+        prim_irreps,
+        mapping_prim_little_group,
+    )
+
+    return irreps, little_unitary_rotations, rotations, translations, mapping_little_group
+
+
 def get_spacegroup_spinor_irreps_from_primitive_symmetry(
     lattice: NDArrayFloat,
     rotations: NDArrayInt,
@@ -406,3 +495,49 @@ def get_crystallographic_pointgroup_spinor_irreps_from_symmetry(
     )
 
     return irreps, unitary_rotations
+
+
+################################################################################
+# Auxiliary functions
+################################################################################
+
+
+def _adjust_phase_for_centering_translations(
+    prim_translations,
+    prim_kpoint,
+    uniq_prim_translations,
+    mapping_to_prim,
+    prim_irreps,
+    mapping_prim_little_group,
+):
+    remapping_prim_little_group = {}  # [0..order) -> [0..prim_little_group_order)
+    for i, idx in enumerate(mapping_prim_little_group):
+        remapping_prim_little_group[idx] = i
+
+    mapping_little_group = []  # [0..little_group_order) -> [0..num_sym)
+    mapping_conv_to_prim_little_group = (
+        []
+    )  # [0..little_group_order) -> [0..prim_little_group_order)
+    shifts = []  # (little_group_order, )
+    for i in range(len(mapping_to_prim)):
+        idx_prim = mapping_to_prim[i]  # in [0..order)
+        idx_prim_little = remapping_prim_little_group.get(
+            idx_prim
+        )  # in [0..prim_little_group_order)
+        if idx_prim_little is None:
+            continue
+
+        mapping_little_group.append(i)
+        mapping_conv_to_prim_little_group.append(idx_prim_little)
+        shifts.append(prim_translations[i] - uniq_prim_translations[idx_prim])
+
+    phases = np.array([np.exp(-2j * np.pi * np.dot(prim_kpoint, shift)) for shift in shifts])
+
+    irreps = []
+    for prim_irrep in prim_irreps:
+        # prim_irrep: (little_group_order, dim, dim)
+        irrep = prim_irrep[mapping_conv_to_prim_little_group] * phases[:, None, None]
+        irrep = purify_irrep_value(irrep)
+
+        irreps.append(irrep)
+    return irreps, np.array(mapping_little_group)

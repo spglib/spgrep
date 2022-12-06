@@ -17,9 +17,12 @@
 ## Spin representation
 
 ```{eval-rst}
-    .. autofunction:: spgrep.get_spacegroup_spinor_irreps_from_primitive_symmetry
+    .. autofunction:: spgrep.get_spacegroup_spinor_irreps
 ```
 
+```{eval-rst}
+    .. autofunction:: spgrep.get_spacegroup_spinor_irreps_from_primitive_symmetry
+```
 
 ```{eval-rst}
     .. autofunction:: spgrep.get_crystallographic_pointgroup_spinor_irreps_from_symmetry
