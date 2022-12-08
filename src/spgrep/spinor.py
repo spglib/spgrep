@@ -20,10 +20,16 @@ def enumerate_spinor_small_representations(
     rtol: float = 1e-5,
     atol: float = 1e-8,
     max_num_random_generations: int = 4,
-) -> tuple[list[NDArrayComplex], list[NDArrayComplex]]:
-    """Enumerate all unitary irreps of little group for spinor.
+) -> tuple[list[NDArrayComplex], list[NDArrayComplex], NDArrayComplex]:
+    r"""Enumerate all unitary irreps :math:`\mathbf{D}^{\mathbf{k}\alpha}` of little group for spinor.
 
-    See :ref:`spinor_factor_system` for Spgrep's convention of spin-derived factor system :math:`z(S_{i}, S_{j})`.
+    .. math::
+       \mathbf{D}^{\mathbf{k}\alpha}(\mathbf{S}_{i}) \mathbf{D}^{\mathbf{k}\alpha}(\mathbf{S}_{j})
+       = z(\mathbf{S}_{i}, \mathbf{S}_{j}) e^{ -i \mathbf{g}_{i} \cdot \mathbf{w}_{j} } \mathbf{D}^{\mathbf{k}\alpha}(\mathbf{S}_{k}),
+
+    where :math:`\mathbf{g}_{i} = \mathbf{S}_{i}^{-1} \mathbf{k} - \mathbf{k}`.
+
+    See :ref:`spinor_factor_system` for Spgrep's convention of spinor-derived factor system.
 
     Parameters
     ----------
@@ -47,15 +53,23 @@ def enumerate_spinor_small_representations(
     irreps: list of unitary small representations (irreps of little group) with (order, dim, dim)
     unitary_rotations: array, (order, 2, 2)
         SU(2) rotations on spinor.
+    spinor_factor_system: array, (order, order)
+        ``spinor_factor_system[i, j]`` stands for factor system :math:`z(\mathbf{S}_{i}, \mathbf{S}_{j})`
     """
     if little_translations is None:
         little_translations = np.zeros((len(little_rotations), 3))
     if kpoint is None:
         kpoint = np.zeros(3)
 
-    factor_system, unitary_rotations = get_spinor_factor_system_and_rotations(
-        lattice, little_rotations, little_translations, kpoint
+    # Factor system from spinor
+    spinor_factor_system, unitary_rotations = get_spinor_factor_system(lattice, little_rotations)
+    # Factor system from nonsymmorphic
+    nonsymmorphic_factor_system = get_factor_system_from_little_group(
+        little_rotations,
+        little_translations,
+        kpoint,
     )
+    factor_system = spinor_factor_system * nonsymmorphic_factor_system
 
     # Compute irreps of little co-group
     little_cogroup_irreps, _ = enumerate_unitary_irreps(
@@ -76,46 +90,42 @@ def enumerate_spinor_small_representations(
     for rep in little_cogroup_irreps:
         irreps.append(rep * phases[:, None, None])
 
-    return irreps, unitary_rotations
+    return irreps, unitary_rotations, spinor_factor_system
 
 
-def get_spinor_factor_system_and_rotations(
+def get_spinor_factor_system(
     lattice: NDArrayFloat,
-    little_rotations: NDArrayInt,
-    little_translations: NDArrayFloat,
-    kpoint: NDArrayFloat,
+    rotations: NDArrayInt,
 ) -> tuple[NDArrayComplex, NDArrayComplex]:
-    r"""Calculate factor system of spin representation for little co-group.
+    r"""Calculate spin-derived factor system of spin representation.
 
     .. math::
-       D^{\mathbf{k}\alpha}(S_{i}) D^{\mathbf{k}\alpha}(S_{j})
-       = z(S_{i}, S_{j}) \exp \left( -i \mathbf{g}_{i} \cdot \mathbf{w}_{j} \right) D^{\mathbf{k}\alpha}(S_{k})
+       \mathbf{U}(\mathbf{S}_{i}) \mathbf{U}(\mathbf{S}_{j})
+       = z(\mathbf{S}_{i}, \mathbf{S}_{j}) \mathbf{U}(\mathbf{S}_{k})
 
-    where :math:`S_{i}S_{j} = S_{k}` and :math:`\mathbf{g}_{i} = S_{i}^{-1} \mathbf{k} - \mathbf{k}`.
-    See :ref:`spinor_factor_system` for Spgrep's convention of spin-derived factor system :math:`z(S_{i}, S_{j})`.
+    where :math:`\mathbf{S}_{i} \mathbf{S}_{j} = \mathbf{S}_{k}`.
+    See :ref:`spinor_factor_system` for Spgrep's convention of spinor-derived factor system :math:`z(S_{i}, S_{j})` and a map from orthogonal matrix :math:`\mathbf{S}_{i} \in O(3)` to unitary matrix :math:`\mathbf{U}(\mathbf{S}_{i}) \in SU(2)`.
 
     Parameters
     ----------
     lattice: array, (3, 3)
         Row-wise basis vectors. ``lattice[i, :]`` is the i-th lattice vector.
-    little_rotations: array, (order, 3, 3)
-        Linear parts of coset of little group stabilizing ``kpoint``.
-    little_translations: array, (order, 3)
-        Translation parts of coset of little group stabilizing ``kpoint``.
-    kpoint: array, (3, )
+    rotations: array, (order, 3, 3)
+        Matrix group of :math:`\{ \mathbf{S}_{i} \}_{i}`
 
     Returns
     -------
-    factor_system: array, (order, order)
-        Factor system of spinor representations for little co-group that have one-to-one correspondence to small representations
+    spinor_factor_system: array, (order, order)
+        ``factor_system[i, j]`` stands for :math:`z(\mathbf{S}_{i}, \mathbf{S}_{j})`
     unitary_rotations: array, (order, 2, 2)
+        ``unitary_rotations[i]`` stands for :math:`\mathbf{U}(\mathbf{S}_{i}) \in SU(2)`.
         SU(2) rotations on spinor.
     """
-    order = len(little_rotations)
+    order = len(rotations)
 
     # Assign a SU(2) rotation for each O(3) operation
     unitary_rotations = np.zeros((order, 2, 2), dtype=np.complex_)
-    for i, si in enumerate(little_rotations):
+    for i, si in enumerate(rotations):
         # Ignore inversion parts
         if np.linalg.det(si) > 0:
             sign = 1
@@ -141,27 +151,19 @@ def get_spinor_factor_system_and_rotations(
         )
 
     # Factor system from spin
-    table = get_cayley_table(little_rotations)
-    spin_factor_system = np.zeros((order, order))
-    for (i, si), (j, sj) in product(enumerate(little_rotations), repeat=2):
+    table = get_cayley_table(rotations)
+    spinor_factor_system = np.zeros((order, order), dtype=np.complex_)
+    for (i, ui), (j, uj) in product(enumerate(unitary_rotations), repeat=2):
         # si @ sj = sk in O(3)
         k = table[i, j]
-        uiuj = unitary_rotations[i] @ unitary_rotations[j]
+        uiuj = ui @ uj
         # Multiplier should be -1 or 1
         for multiplier in [-1, 1]:
             if np.allclose(uiuj * multiplier, unitary_rotations[k]):
-                spin_factor_system[i, j] = multiplier
+                spinor_factor_system[i, j] = multiplier
                 break
 
-    # Factor system from nonsymmorphic
-    nonsymmorphic_factor_system = get_factor_system_from_little_group(
-        little_rotations=little_rotations,
-        little_translations=little_translations,
-        kpoint=kpoint,
-    )
-
-    factor_system = spin_factor_system * nonsymmorphic_factor_system
-    return factor_system, unitary_rotations
+    return spinor_factor_system, unitary_rotations
 
 
 def get_rotation_angle_and_axis(cart_rotation: NDArrayFloat) -> tuple[float, NDArrayFloat]:

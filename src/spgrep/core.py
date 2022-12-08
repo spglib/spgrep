@@ -14,7 +14,7 @@ from spgrep.irreps import (
 )
 from spgrep.spinor import (
     enumerate_spinor_small_representations,
-    get_spinor_factor_system_and_rotations,
+    get_spinor_factor_system,
 )
 from spgrep.transform import (
     get_primitive_transformation_matrix,
@@ -269,10 +269,21 @@ def get_spacegroup_spinor_irreps(
     rtol: float = 1e-5,
     atol: float = 1e-8,
     max_num_random_generations: int = 4,
-) -> tuple[list[NDArrayComplex], list[NDArrayComplex], NDArrayInt, NDArrayFloat, NDArrayInt]:
-    r"""Compute all irreducible representations of space group of given structure up to unitary transformation for spinor.
+) -> tuple[
+    list[NDArrayComplex],
+    list[NDArrayComplex],
+    NDArrayComplex,
+    NDArrayInt,
+    NDArrayFloat,
+    NDArrayInt,
+]:
+    r"""Compute all irreducible representations :math:`\mathbf{\Gamma}^{\mathbf{k}\alpha}` of space group of given structure up to unitary transformation for spinor.
 
-    See :ref:`spinor_factor_system` for Spgrep's convention of spin-derived factor system :math:`z(S_{i}, S_{j})`.
+    .. math::
+       \mathbf{\Gamma}^{\mathbf{k}\alpha}((\mathbf{S}_{i}, \mathbf{w}_{i})) \mathbf{\Gamma}^{\mathbf{k}\alpha}((\mathbf{S}_{j}, \mathbf{w}_{j}))
+       = z(\mathbf{S}_{i}, \mathbf{S}_{j}) \mathbf{\Gamma}^{\mathbf{k}\alpha}((\mathbf{S}_{i}, \mathbf{w}_{i})(\mathbf{S}_{j}, \mathbf{w}_{j}))
+
+    See :ref:`spinor_factor_system` for Spgrep's convention of spin-derived factor system :math:`z(\mathbf{S}_{i}, \mathbf{S}_{j})`.
 
     Parameters
     ----------
@@ -310,6 +321,8 @@ def get_spacegroup_spinor_irreps(
         ``irreps[alpha][i, :, :]`` is the ``alpha``-th irreducible matrix representation of ``(little_rotations[i], little_translations[i])``.
     little_unitary_rotations: array, (little_group_order, 2, 2)
         SU(2) rotations on spinor.
+    little_spinor_factor_system: array, (little_group_order, little_group_order)
+        ``spinor_factor_system[i, j]`` stands for factor system :math:`z(\mathbf{S}_{i}, \mathbf{S}_{j})`
     rotations: array[int], (num_sym, 3, 3)
     translations: array, (num_sym, 3)
     mapping_little_group: array, (little_group_order, )
@@ -342,6 +355,7 @@ def get_spacegroup_spinor_irreps(
     (
         prim_irreps,
         little_unitary_rotations,
+        little_spinor_factor_system,
         mapping_prim_little_group,
     ) = get_spacegroup_spinor_irreps_from_primitive_symmetry(
         lattice=prim_lattice,
@@ -364,7 +378,14 @@ def get_spacegroup_spinor_irreps(
         mapping_prim_little_group,
     )
 
-    return irreps, little_unitary_rotations, rotations, translations, mapping_little_group
+    return (
+        irreps,
+        little_unitary_rotations,
+        little_spinor_factor_system,
+        rotations,
+        translations,
+        mapping_little_group,
+    )
 
 
 def get_spacegroup_spinor_irreps_from_primitive_symmetry(
@@ -376,11 +397,15 @@ def get_spacegroup_spinor_irreps_from_primitive_symmetry(
     rtol: float = 1e-5,
     atol: float = 1e-8,
     max_num_random_generations: int = 4,
-) -> tuple[list[NDArrayComplex], list[NDArrayInt], NDArrayInt]:
-    r"""Compute all irreducible representations of given space group up to unitary transformation fpr spinor.
+) -> tuple[list[NDArrayComplex], list[NDArrayInt], NDArrayComplex, NDArrayInt]:
+    r"""Compute all irreducible representations :math:`\mathbf{\Gamma}^{\mathbf{k}\alpha}` of given space group up to unitary transformation fpr spinor.
+
+    .. math::
+       \mathbf{\Gamma}^{\mathbf{k}\alpha}((\mathbf{S}_{i}, \mathbf{w}_{i})) \mathbf{\Gamma}^{\mathbf{k}\alpha}((\mathbf{S}_{j}, \mathbf{w}_{j}))
+       = z(\mathbf{S}_{i}, \mathbf{S}_{j}) \mathbf{\Gamma}^{\mathbf{k}\alpha}((\mathbf{S}_{i}, \mathbf{w}_{i})(\mathbf{S}_{j}, \mathbf{w}_{j}))
 
     Note that rotations and translations should be specified in a primitive cell.
-    See :ref:`spinor_factor_system` for Spgrep's convention of spin-derived factor system :math:`z(S_{i}, S_{j})`.
+    See :ref:`spinor_factor_system` for Spgrep's convention of spin-derived factor system :math:`z(\mathbf{S}_{i}, \mathbf{S}_{j})`.
 
     Parameters
     ----------
@@ -395,7 +420,7 @@ def get_spacegroup_spinor_irreps_from_primitive_symmetry(
         For pure translation :math:`\mathbf{t}`, returned irrep :math:`\Gamma^{(\alpha)}` takes
 
         .. math::
-            \Gamma^{(\alpha)}((E, \mathbf{t})) = e^{ -i\mathbf{k}\cdot\mathbf{t} } \mathbf{1}.
+            \mathbf{\Gamma}^{\mathbf{k}\alpha}((E, \mathbf{t})) = e^{ -i\mathbf{k}\cdot\mathbf{t} } \mathbf{1}.
     method: str, 'Neto' or 'random'
         'Neto': construct irreps from a fixed chain of subgroups of little co-group
         'random': construct irreps by numerically diagonalizing a random matrix commute with regular representation
@@ -412,6 +437,8 @@ def get_spacegroup_spinor_irreps_from_primitive_symmetry(
         Let ``i = mapping_little_group[idx]``. ``irreps[alpha][i, :, :]`` is the ``alpha``-th irreducible matrix representation of ``(rotations[i], translations[i])``.
     little_unitary_rotations: array, (little_group_order, 2, 2)
         SU(2) rotations on spinor.
+    little_spinor_factor_system: array, (little_group_order, little_group_order)
+        ``spinor_factor_system[i, j]`` stands for factor system :math:`z(\mathbf{S}_{i}, \mathbf{S}_{j})`
     mapping_little_group: array, (little_group_order, )
         Let ``i = mapping_little_group[idx]``.
         ``(rotations[i], translations[i])`` belongs to the little group of given space space group and kpoint.
@@ -427,7 +454,11 @@ def get_spacegroup_spinor_irreps_from_primitive_symmetry(
         rotations, translations, kpoint, atol=atol
     )
 
-    irreps, little_unitary_rotations = enumerate_spinor_small_representations(
+    (
+        irreps,
+        little_unitary_rotations,
+        little_spin_factor_system,
+    ) = enumerate_spinor_small_representations(
         lattice=lattice,
         little_rotations=little_rotations,
         little_translations=little_translations,
@@ -438,7 +469,7 @@ def get_spacegroup_spinor_irreps_from_primitive_symmetry(
         max_num_random_generations=max_num_random_generations,
     )
 
-    return irreps, little_unitary_rotations, mapping_little_group
+    return irreps, little_unitary_rotations, little_spin_factor_system, mapping_little_group
 
 
 def get_crystallographic_pointgroup_spinor_irreps_from_symmetry(
@@ -448,11 +479,16 @@ def get_crystallographic_pointgroup_spinor_irreps_from_symmetry(
     rtol: float = 1e-5,
     atol: float = 1e-8,
     max_num_random_generations: int = 4,
-) -> tuple[list[NDArrayComplex], list[NDArrayComplex]]:
-    """Compute all irreducible representations of given crystallographic point group up to unitary transformation for spinor.
+) -> tuple[list[NDArrayComplex], list[NDArrayComplex], NDArrayComplex]:
+    r"""Compute all irreducible representations :math:`\mathbf{D}^{\alpha}` of given crystallographic point group up to unitary transformation for spinor.
+
+    .. math::
+       \mathbf{D}^{\alpha}(\mathbf{S}_{i}) \mathbf{D}^{\alpha}(\mathbf{S}_{j})
+       = z(\mathbf{S}_{i}, \mathbf{S}_{j}) \mathbf{D}^{\alpha}(\mathbf{S}_{k})
 
     Assume matrix representation of given crystallographic point group is in "standard" setting shown in Table 3.2.3.3 of International Table for Crystallography Vol. A (2016).
-    See :ref:`spinor_factor_system` for Spgrep's convention of spin-derived factor system :math:`z(S_{i}, S_{j})`.
+
+    See :ref:`spinor_factor_system` for Spgrep's convention of spinor-derived factor system :math:`z(\mathbf{S}_{i}, \mathbf{S}_{j})`.
 
     Parameters
     ----------
@@ -475,14 +511,10 @@ def get_crystallographic_pointgroup_spinor_irreps_from_symmetry(
     irreps: list of unitary irreps with (order, dim, dim)
     unitary_rotations: array, (order, 2, 2)
         SU(2) rotations on spinor.
+    factor_system: array, (order, order)
+        ``factor_system[i, j]`` stands for factor system :math:`z(\mathbf{S}_{i}, \mathbf{S}_{j})`
     """
-    order = len(rotations)
-    factor_system, unitary_rotations = get_spinor_factor_system_and_rotations(
-        lattice=lattice,
-        little_rotations=rotations,
-        little_translations=np.zeros((order, 3)),
-        kpoint=np.zeros(3),
-    )
+    factor_system, unitary_rotations = get_spinor_factor_system(lattice, rotations)
 
     irreps, _ = enumerate_unitary_irreps(
         rotations,
@@ -494,7 +526,7 @@ def get_crystallographic_pointgroup_spinor_irreps_from_symmetry(
         max_num_random_generations=max_num_random_generations,
     )
 
-    return irreps, unitary_rotations
+    return irreps, unitary_rotations, factor_system
 
 
 ################################################################################
