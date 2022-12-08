@@ -20,7 +20,7 @@ REQUIRED = [
     "wheel",
     "typing_extensions",
     "numpy>=1.20.1",
-    "spglib>=1.16.5",
+    "spglib>=2.0.2",
 ]
 
 # What packages are optional?

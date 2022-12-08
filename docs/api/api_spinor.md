@@ -1,4 +1,4 @@
-# Spinor representation
+# Representation for spinor
 
 ```{eval-rst}
     .. autofunction:: spgrep.spinor.enumerate_spinor_small_representations

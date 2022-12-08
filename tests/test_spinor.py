@@ -15,20 +15,6 @@ from spgrep.spinor import (
 )
 
 
-@pytest.fixture
-def hexagonal_lattice():
-    a = 2.0
-    c = 3.0
-    lattice = np.array(
-        [
-            [a, 0, 0],
-            [-0.5 * a, np.sqrt(3) / 2 * a, 0],
-            [0, 0, c],
-        ]
-    )
-    return lattice
-
-
 @pytest.mark.parametrize(
     "cart_rotation,angle,cart_axis",
     [
@@ -46,9 +32,10 @@ def test_spinor_factor_system_symmorphic(C3v, hexagonal_lattice):
     # P3m1 (No. 156)
     rotations = C3v
     order = len(rotations)
+    lattice = hexagonal_lattice
 
     factor_system, unitary_rotations = get_spinor_factor_system_and_rotations(
-        hexagonal_lattice,
+        lattice=lattice,
         little_rotations=rotations,
         little_translations=np.zeros((order, 3)),
         kpoint=np.zeros(3),
@@ -74,12 +61,11 @@ def test_spinor_irreps(method, C3v, hexagonal_lattice):
     # P3m1 (No. 156)
     rotations = C3v
     order = len(rotations)
+    lattice = hexagonal_lattice
 
     irreps, _ = enumerate_spinor_small_representations(
-        hexagonal_lattice,
+        lattice=lattice,
         little_rotations=rotations,
-        little_translations=np.zeros((order, 3)),
-        kpoint=np.zeros(3),
         method=method,
     )
 

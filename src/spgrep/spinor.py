@@ -1,4 +1,4 @@
-"""Spinor representation."""
+"""Spin representation."""
 from __future__ import annotations
 
 from itertools import product
@@ -14,8 +14,8 @@ from spgrep.utils import NDArrayComplex, NDArrayFloat, NDArrayInt
 def enumerate_spinor_small_representations(
     lattice: NDArrayFloat,
     little_rotations: NDArrayInt,
-    little_translations: NDArrayFloat,
-    kpoint: NDArrayFloat,
+    little_translations: NDArrayFloat | None = None,
+    kpoint: NDArrayFloat | None = None,
     method: Literal["Neto", "random"] = "Neto",
     rtol: float = 1e-5,
     atol: float = 1e-8,
@@ -48,6 +48,11 @@ def enumerate_spinor_small_representations(
     unitary_rotations: array, (order, 2, 2)
         SU(2) rotations on spinor.
     """
+    if little_translations is None:
+        little_translations = np.zeros((len(little_rotations), 3))
+    if kpoint is None:
+        kpoint = np.zeros(3)
+
     factor_system, unitary_rotations = get_spinor_factor_system_and_rotations(
         lattice, little_rotations, little_translations, kpoint
     )
@@ -64,14 +69,11 @@ def enumerate_spinor_small_representations(
     )
 
     # Small representations of little group
+    phases = np.array(
+        [np.exp(-2j * np.pi * np.dot(kpoint, translation)) for translation in little_translations]
+    )
     irreps = []
     for rep in little_cogroup_irreps:
-        phases = np.array(
-            [
-                np.exp(-2j * np.pi * np.dot(kpoint, translation))
-                for translation in little_translations
-            ]
-        )
         irreps.append(rep * phases[:, None, None])
 
     return irreps, unitary_rotations
@@ -83,7 +85,7 @@ def get_spinor_factor_system_and_rotations(
     little_translations: NDArrayFloat,
     kpoint: NDArrayFloat,
 ) -> tuple[NDArrayComplex, NDArrayComplex]:
-    r"""Calculate factor system of spinor representation for little co-group.
+    r"""Calculate factor system of spin representation for little co-group.
 
     .. math::
        D^{\mathbf{k}\alpha}(S_{i}) D^{\mathbf{k}\alpha}(S_{j})
