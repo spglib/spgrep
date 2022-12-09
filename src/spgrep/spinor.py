@@ -20,7 +20,7 @@ def enumerate_spinor_small_representations(
     rtol: float = 1e-5,
     atol: float = 1e-8,
     max_num_random_generations: int = 4,
-) -> tuple[list[NDArrayComplex], list[NDArrayComplex], NDArrayComplex]:
+) -> tuple[list[NDArrayComplex], NDArrayComplex, list[NDArrayComplex]]:
     r"""Enumerate all unitary irreps :math:`\mathbf{D}^{\mathbf{k}\alpha}` of little group for spinor.
 
     .. math::
@@ -51,10 +51,10 @@ def enumerate_spinor_small_representations(
     Returns
     -------
     irreps: list of unitary small representations (irreps of little group) with (order, dim, dim)
-    unitary_rotations: array, (order, 2, 2)
-        SU(2) rotations on spinor.
     spinor_factor_system: array, (order, order)
         ``spinor_factor_system[i, j]`` stands for factor system :math:`z(\mathbf{S}_{i}, \mathbf{S}_{j})`
+    unitary_rotations: array, (order, 2, 2)
+        SU(2) rotations on spinor.
     """
     if little_translations is None:
         little_translations = np.zeros((len(little_rotations), 3))
@@ -90,7 +90,7 @@ def enumerate_spinor_small_representations(
     for rep in little_cogroup_irreps:
         irreps.append(rep * phases[:, None, None])
 
-    return irreps, unitary_rotations, spinor_factor_system
+    return irreps, spinor_factor_system, unitary_rotations
 
 
 def get_spinor_factor_system(
