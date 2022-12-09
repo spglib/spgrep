@@ -13,26 +13,35 @@ from spgrep.utils import (
 )
 
 
-def get_cayley_table(rotations: NDArrayInt) -> NDArrayInt:
+def get_cayley_table(
+    rotations: NDArrayInt, time_reversals: NDArrayInt | None = None
+) -> NDArrayInt:
     """Calculate Group multiplication table.
 
     Parameters
     ----------
-    rotations: (order, 3, 3)
+    rotations: array[int], (order, 3, 3)
+    time_reversals: (Optional) array[int], (order, )
 
     Returns
     -------
     table: (order, order)
         ``table[i, j] = k`` if ``rotations[i] @ rotations[j] == rotations[k]``
     """
-    rotations_list = [ndarray2d_to_integer_tuple(r) for r in rotations]
-
     order = rotations.shape[0]
+    if time_reversals is None:
+        time_reversals = np.zeros((order,), dtype=np.int_)
+
+    operations_list = [
+        (ndarray2d_to_integer_tuple(r), tr) for r, tr in zip(rotations, time_reversals)
+    ]
+
     table = [[-1 for _ in range(order)] for _ in range(order)]
-    for i, gi in enumerate(rotations):
-        for j, gj in enumerate(rotations):
-            gk = gi @ gj
-            k = rotations_list.index(ndarray2d_to_integer_tuple(gk))
+    for i, (ri, tri) in enumerate(zip(rotations, time_reversals)):
+        for j, (rj, trj) in enumerate(zip(rotations, time_reversals)):
+            rk = ri @ rj
+            trk = tri != trj
+            k = operations_list.index((ndarray2d_to_integer_tuple(rk), trk))
             if table[i][j] != -1:
                 ValueError("Should specify a matrix group.")
             table[i][j] = k

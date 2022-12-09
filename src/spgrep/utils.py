@@ -8,6 +8,7 @@ from numpy.typing import NDArray
 from spglib import get_symmetry_from_database
 from typing_extensions import TypeAlias  # for Python<3.10
 
+NDArrayBool: TypeAlias = NDArray[np.bool_]
 NDArrayInt: TypeAlias = NDArray[np.int_]
 NDArrayFloat: TypeAlias = NDArray[np.float_]
 NDArrayComplex: TypeAlias = NDArray[np.complex_]

@@ -125,30 +125,8 @@ def get_spinor_factor_system(
 
     # Assign a SU(2) rotation for each O(3) operation
     unitary_rotations = np.zeros((order, 2, 2), dtype=np.complex_)
-    for i, si in enumerate(rotations):
-        # Ignore inversion parts
-        if np.linalg.det(si) > 0:
-            sign = 1
-        else:
-            sign = -1
-        rotation = si * sign
-
-        cart_rotation = lattice.T @ rotation @ np.linalg.inv(lattice.T)
-        theta, cart_axis = get_rotation_angle_and_axis(cart_rotation)
-        cos_half = np.cos(0.5 * theta)
-        sin_half = np.sin(0.5 * theta)
-        unitary_rotations[i] = np.array(
-            [
-                [
-                    cos_half - 1j * cart_axis[2] * sin_half,
-                    sin_half * (-1j * cart_axis[0] - cart_axis[1]),
-                ],
-                [
-                    sin_half * (-1j * cart_axis[0] + cart_axis[1]),
-                    cos_half + 1j * cart_axis[2] * sin_half,
-                ],
-            ]
-        )
+    for i, rotation in enumerate(rotations):
+        unitary_rotations[i] = get_spinor_unitary_rotation(lattice, rotation)
 
     # Factor system from spin
     table = get_cayley_table(rotations)
@@ -159,11 +137,39 @@ def get_spinor_factor_system(
         uiuj = ui @ uj
         # Multiplier should be -1 or 1
         for multiplier in [-1, 1]:
-            if np.allclose(uiuj * multiplier, unitary_rotations[k]):
+            if np.allclose(uiuj, multiplier * unitary_rotations[k]):
                 spinor_factor_system[i, j] = multiplier
                 break
 
     return spinor_factor_system, unitary_rotations
+
+
+def get_spinor_unitary_rotation(lattice: NDArrayFloat, rotation: NDArrayInt) -> NDArrayComplex:
+    """Return unitary matrix for given orthogonal matrix."""
+    # Ignore inversion parts
+    if np.linalg.det(rotation) > 0:
+        sign = 1
+    else:
+        sign = -1
+    proper_rotation = rotation * sign
+
+    cart_rotation = lattice.T @ proper_rotation @ np.linalg.inv(lattice.T)
+    theta, cart_axis = get_rotation_angle_and_axis(cart_rotation)
+    cos_half = np.cos(0.5 * theta)
+    sin_half = np.sin(0.5 * theta)
+    unitary_rotation = np.array(
+        [
+            [
+                cos_half - 1j * cart_axis[2] * sin_half,
+                sin_half * (-1j * cart_axis[0] - cart_axis[1]),
+            ],
+            [
+                sin_half * (-1j * cart_axis[0] + cart_axis[1]),
+                cos_half + 1j * cart_axis[2] * sin_half,
+            ],
+        ]
+    )
+    return unitary_rotation
 
 
 def get_rotation_angle_and_axis(cart_rotation: NDArrayFloat) -> tuple[float, NDArrayFloat]:

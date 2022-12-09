@@ -2,9 +2,7 @@
 
 Refs: {cite}`doi:10.1126/sciadv.aat8685,wigner1959group`
 
-## Co-representation for magnetic point group
-
-### Anti-linear operator
+## Anti-linear operator
 
 Let $V$ be a vector space over $\mathbb{C}$ that operators in $M$ act.
 An anti-unitary operator $a \in M$ satisfies
@@ -14,7 +12,7 @@ $$
 for $c_{1}, c_{2} \in \mathbb{C}$ and $\psi_{1}, \psi_{2} \in V$.
 
 
-### Definition
+## Definition
 
 Let $M$ be magnetic point group other than type I.
 Let $D$ be a maximal point subgroup of $M$.
@@ -43,7 +41,7 @@ $$
     \Gamma'(a) &= \mathbf{T}^{-1} \Gamma(a) \mathbf{T}^{\ast} \quad (a \in a_{0}D) \\
 $$
 
-### Frobenius-Schur indicator for co-representation
+## Frobenius-Schur indicator for co-representation
 
 Let $(\Gamma, \mathrm{Span}_{\mathbb{C}} \{ \mathbf{\phi}_{i} \}_{i=1}^{d} )$ be one of **unitary** irreps for $D$ with factor system $\omega$.
 Then, $\{ a_{0} \mathbf{v}_{i} \}_{i}$ also form irrep as
@@ -59,7 +57,7 @@ $$
 $$
 This indicator can check if $\Gamma$ and $\overline{\Gamma}$ are equivalent.
 
-#### Case: $\xi^{\alpha} = 1$
+### Case: $\xi^{\alpha} = 1$
 
 In this case, $\Gamma$ and $\overline{\Gamma}$ are equivalent.
 Let $\mathbf{U}$ be a **unitary** intertwiner between $\Gamma$ and $\overline{\Gamma}$:
@@ -84,8 +82,7 @@ $$
         &= \sum_{k} \phi_{k} U_{ki}
 $$
 
-
-#### Case: $\xi^{\alpha} = -1$
+### Case: $\xi^{\alpha} = -1$
 
 In this case, $\Gamma$ and $\overline{\Gamma}$ are equivalent.
 Let $\mathbf{U}$ be a **unitary** intertwiner between $\Gamma$ and $\overline{\Gamma}$:
@@ -109,7 +106,7 @@ $$
     \tilde{\mathbf{\Gamma}}(a_{0}u) &= \omega(a_{0}, u)^{\ast} \tilde{\mathbf{\Gamma}}(a_{0}) \tilde{\mathbf{\Gamma}}(u)
 $$
 
-#### Case: $\xi^{\alpha} = 0$
+### Case: $\xi^{\alpha} = 0$
 
 In this case, $\Gamma$ and $\overline{\Gamma}$ are not equivalent.
 We can take $(\mathbf{\phi}_{1}, \cdots, \mathbf{\phi}_{d}, a_{0}\mathbf{\phi}_{1}, \cdots, a_{0}\mathbf{\phi}_{d})$ as basis and they form irrep of $M$ as
@@ -126,6 +123,23 @@ $$
         \end{pmatrix} \\
     \tilde{\mathbf{\Gamma}}(a_{0}u) &= \omega(a_{0}, u)^{\ast} \tilde{\mathbf{\Gamma}}(a_{0}) \tilde{\mathbf{\Gamma}}(u)
 $$
+
+(corep_spinor_factor_system)=
+## Convention of anti-linear operators in spgrep
+
+Let $M$ be magnetic point group other than type I.
+Let $D$ be a maximal point subgroup of $M$.
+Then, $M$ can be decomposed as $M = D \sqcup D a_{0}$, where $a_{0} = \mathbf{S}_{0} 1'$ is an antisymmetry operation.
+We choose the following convention for choosing unitary or anti-unitary matrices for $M$:
+$$
+    D \ni \mathbf{S} &\mapsto \mathbf{U}(\mathbf{S}) \\
+    D a_{0} \ni \mathbf{S}1' &\mapsto \mathbf{U}(\mathbf{S}) \left( -i \sigma_{y} \right) K,
+    % a_{0} &\mapsto \mathbf{U}(\mathbf{S}_{0}) \left( -i \sigma_{y} \right) K \\
+    % a_{0} D \ni a_{0} \mathbf{S} &\mapsto \mathbf{U}(\mathbf{S}_{0}) \left( -i \sigma_{y} \right) \mathbf{U}(\mathbf{S})^{\ast} K,
+$$
+where $\mathbf{U}: O(3) \to SU(2)$ is defined in {ref}`spinor_factor_system`.
+$\sigma_{y}$ is the Pauli matrix.
+$K$ is an anti-linear operator that takes complex conjugate.
 
 ## References
 
