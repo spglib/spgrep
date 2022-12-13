@@ -205,13 +205,13 @@ def decompose_by_maximal_space_subgroup(
     rotations: NDArrayInt,
     translations: NDArrayFloat,
     time_reversals: NDArrayInt,
-) -> tuple[list[int], list[int], NDArrayInt, NDArrayFloat] | None:
+) -> tuple[list[int], list[int], int] | None:
     r"""Coset-decompose magnetic space group :math:`M` by its maximal space subgroup (XSG) :math:`D(M)`.
 
     If given magnetic space group is type I, return None.
 
     .. math::
-        M = D(M) \sqcup (\mathbf{R}_{0}, \mathbf{v}_{0})1' D(M)
+        M = D(M) \sqcup D(M) a_{0}
 
     Returns
     -------
@@ -219,11 +219,9 @@ def decompose_by_maximal_space_subgroup(
         List of indices for XSG
     time_reversal_indices: list[int]
         Let ``xsg_indices[i]`` = :math:`(\mathbf{W}_{i}, \mathbf{w}_{i})`.
-        Then, ``time_reversal_indices[i]`` :math:`\equiv (\mathbf{R}_{0}, \mathbf{v}_{0}) (\mathbf{W}_{i}, \mathbf{w}_{i}) 1'`.
-    conjugator_rotation: array[int], (3, 3)
-        Rotation part of the coset representative :math:`\mathbf{R}_{0}`
-    conjugator_translation: array, (3, )
-        Translation part of the coset representative :math:`\mathbf{v}_{0}`
+        Then, ``time_reversal_indices[i]`` :math:`\equiv (\mathbf{W}_{i}, \mathbf{w}_{i}) a_{0}`.
+    a0_idx: int
+        Index of :math:`a_{0}` in given list of symmetries
     """
     if np.all(time_reversals == 1):
         # Type-I MSG
@@ -232,23 +230,25 @@ def decompose_by_maximal_space_subgroup(
     # Search for coset representative
     conjugator_rotation = None
     conjugator_translation = None
-    for rot, trans, tr in zip(rotations, translations, time_reversals):
+    a0_idx = -1
+    for i, (rot, trans, tr) in enumerate(zip(rotations, translations, time_reversals)):
         if tr == 0:
             continue
         conjugator_rotation = rot.copy()
         conjugator_translation = trans.copy()
+        a0_idx = i
         break
 
     # Map XSG to time-reversal operations
     order = len(rotations)
-    xsg_indices = list(np.arange(order)[time_reversals == 0])
+    xsg_indices: list[int] = list(np.arange(order)[time_reversals == 0])
     time_reversal_indices = []
     for i in xsg_indices:
         rot = rotations[i]
         trans = translations[i]
-        # (R0, v0) (R, v) = (R0 @ R, R0 @ v + v0)
-        new_rot = conjugator_rotation @ rot
-        new_trans = conjugator_rotation @ trans + conjugator_translation
+        # (W, w) (R0, v0) = (W @ R0, W @ v0 + w)
+        new_rot = rot @ conjugator_rotation
+        new_trans = rot @ conjugator_translation + trans
         for j in range(order):
             if time_reversals[j] == 0:
                 continue
@@ -260,4 +260,4 @@ def decompose_by_maximal_space_subgroup(
                 time_reversal_indices.append(j)
                 break
 
-    return xsg_indices, time_reversal_indices, conjugator_rotation, conjugator_translation
+    return xsg_indices, time_reversal_indices, a0_idx

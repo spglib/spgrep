@@ -20,7 +20,7 @@ def enumerate_spinor_small_representations(
     rtol: float = 1e-5,
     atol: float = 1e-8,
     max_num_random_generations: int = 4,
-) -> tuple[list[NDArrayComplex], NDArrayComplex, list[NDArrayComplex]]:
+) -> tuple[list[NDArrayComplex], NDArrayComplex, NDArrayComplex]:
     r"""Enumerate all unitary irreps :math:`\mathbf{D}^{\mathbf{k}\alpha}` of little group for spinor.
 
     .. math::

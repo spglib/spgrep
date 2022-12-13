@@ -1,5 +1,6 @@
 import numpy as np
 
+from spgrep.core import get_crystallographic_pointgroup_spinor_irreps_from_symmetry
 from spgrep.corep import get_corep_spinor_factor_system
 from spgrep.group import get_cayley_table
 from spgrep.utils import NDArrayComplex, NDArrayInt
@@ -54,3 +55,21 @@ def test_corep_spinor_factor_system(P42mnm_type3):
 
     # Cocycle condition
     assert check_corep_cocycle_condition(rotations, time_reversals, corep_spinor_factor_system)
+
+
+def test_get_crystallographic_pointgroup_spinor_irreps_from_symmetry(P42mnm_type3):
+    rotations, _, time_reversals = P42mnm_type3
+    lattice = np.eye(3)
+
+    # TODO: Add more tests
+    (
+        co_irreps,
+        indicators,
+        factor_system,
+        unitary_rotations,
+        anti_linear,
+    ) = get_crystallographic_pointgroup_spinor_irreps_from_symmetry(
+        lattice,
+        rotations,
+        time_reversals,
+    )
