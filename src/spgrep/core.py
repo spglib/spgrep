@@ -4,7 +4,7 @@ from __future__ import annotations
 from typing import Literal
 
 import numpy as np
-from spglib import get_symmetry_dataset
+from spglib import get_magnetic_symmetry_dataset, get_symmetry_dataset
 
 from spgrep.corep import enumerate_spinor_small_corepresentations
 from spgrep.group import get_little_group
@@ -263,7 +263,8 @@ def get_spacegroup_spinor_irreps(
     lattice: NDArrayFloat,
     positions: NDArrayFloat,
     numbers: NDArrayInt,
-    kpoint: NDArrayFloat,
+    magmoms: NDArrayFloat | None = None,
+    kpoint: NDArrayFloat | None = None,
     method: Literal["Neto", "random"] = "Neto",
     reciprocal_lattice: NDArrayFloat | None = None,
     symprec: float = 1e-5,
@@ -276,6 +277,15 @@ def get_spacegroup_spinor_irreps(
     NDArrayComplex,
     NDArrayInt,
     NDArrayFloat,
+    NDArrayInt,
+] | tuple[
+    list[NDArrayComplex],
+    NDArrayComplex,
+    NDArrayComplex,
+    NDArrayBool,
+    NDArrayInt,
+    NDArrayFloat,
+    NDArrayInt,
     NDArrayInt,
 ]:
     r"""Compute all irreducible representations :math:`\mathbf{\Gamma}^{\mathbf{k}\alpha}` of space group of given structure up to unitary transformation for spinor.
@@ -294,6 +304,8 @@ def get_spacegroup_spinor_irreps(
         Fractional coordinates of sites
     numbers: array, (num_atoms, )
         Integer list specifying atomic species
+    magmoms: (Optional) array, (num_atoms, )
+        Collinear magnetic moments. If specified, return co-representations.
     kpoint: array, (3, )
         Reciprocal vector with respect to ``reciprocal_lattice``
         For pure translation :math:`\mathbf{t}`, returned irrep :math:`\Gamma^{(\alpha)}` takes
@@ -324,12 +336,19 @@ def get_spacegroup_spinor_irreps(
         ``spinor_factor_system[i, j]`` stands for factor system :math:`z(\mathbf{S}_{i}, \mathbf{S}_{j})`
     little_unitary_rotations: array, (little_group_order, 2, 2)
         SU(2) rotations on spinor.
+    anti_linear: (Optional) array[bool], (little_group_order, )
+        Appeared when ``time_reversal`` is specified.
+        If ``anti_linear[i] == True``, the ``i``-th operator is anti-linear.
     rotations: array[int], (num_sym, 3, 3)
     translations: array, (num_sym, 3)
+    time_reversals: array[int], (num_sym, )
     mapping_little_group: array, (little_group_order, )
         Let ``i = mapping_little_group[idx]``.
         (rotations[i], translations[i]) belongs to the little group of given space space group and kpoint.
     """
+    if kpoint is None:
+        kpoint = np.zeros(3)
+
     # Transform given `kpoint` in dual of `lattice`
     dual_lattice = np.linalg.inv(lattice).T
     if reciprocal_lattice is None:
@@ -337,7 +356,13 @@ def get_spacegroup_spinor_irreps(
     # kpoint @ reciprocal_lattice == kpoint_conv @ dual_lattice
     kpoint_conv = kpoint @ reciprocal_lattice @ np.linalg.inv(dual_lattice)
 
-    dataset = get_symmetry_dataset(cell=(lattice, positions, numbers), symprec=symprec)
+    if magmoms is None:
+        dataset = get_symmetry_dataset(cell=(lattice, positions, numbers), symprec=symprec)
+    else:
+        dataset = get_magnetic_symmetry_dataset(
+            cell=(lattice, positions, numbers, magmoms), symprec=symprec
+        )
+
     rotations = dataset["rotations"]
     translations = dataset["translations"]
 
@@ -352,22 +377,44 @@ def get_spacegroup_spinor_irreps(
         prim_rotations, prim_translations
     )
 
-    # mapping_prim_little_group: [0..prim_little_group_order) -> [0..order)
-    (
-        prim_irreps,
-        little_spinor_factor_system,
-        little_unitary_rotations,
-        mapping_prim_little_group,
-    ) = get_spacegroup_spinor_irreps_from_primitive_symmetry(  # type: ignore
-        lattice=prim_lattice,
-        rotations=uniq_prim_rotations,
-        translations=uniq_prim_translations,
-        kpoint=prim_kpoint,
-        method=method,
-        rtol=rtol,
-        atol=atol,
-        max_num_random_generations=max_num_random_generations,
-    )
+    if magmoms is None:
+        # mapping_prim_little_group: [0..prim_little_group_order) -> [0..order)
+        (
+            prim_irreps,
+            little_spinor_factor_system,
+            little_unitary_rotations,
+            mapping_prim_little_group,
+        ) = get_spacegroup_spinor_irreps_from_primitive_symmetry(  # type: ignore
+            lattice=prim_lattice,
+            rotations=uniq_prim_rotations,
+            translations=uniq_prim_translations,
+            kpoint=prim_kpoint,
+            method=method,
+            rtol=rtol,
+            atol=atol,
+            max_num_random_generations=max_num_random_generations,
+        )
+    else:
+        time_reversals = dataset["time_reversals"]
+        uniq_prim_time_reversals = time_reversals[mapping_to_prim]
+        (
+            prim_irreps,
+            _,
+            little_spinor_factor_system,
+            little_unitary_rotations,
+            little_anti_linear,
+            mapping_prim_little_group,
+        ) = get_spacegroup_spinor_irreps_from_primitive_symmetry(  # type: ignore
+            lattice=prim_lattice,
+            rotations=uniq_prim_rotations,
+            translations=uniq_prim_translations,
+            time_reversals=uniq_prim_time_reversals,
+            kpoint=prim_kpoint,
+            method=method,
+            rtol=rtol,
+            atol=atol,
+            max_num_random_generations=max_num_random_generations,
+        )
 
     # Go back to conventional cell
     irreps, mapping_little_group = _adjust_phase_for_centering_translations(
@@ -379,14 +426,26 @@ def get_spacegroup_spinor_irreps(
         mapping_prim_little_group,
     )
 
-    return (
-        irreps,
-        little_spinor_factor_system,
-        little_unitary_rotations,
-        rotations,
-        translations,
-        mapping_little_group,
-    )
+    if magmoms is None:
+        return (
+            irreps,
+            little_spinor_factor_system,
+            little_unitary_rotations,
+            rotations,
+            translations,
+            mapping_little_group,
+        )
+    else:
+        return (
+            irreps,
+            little_spinor_factor_system,
+            little_unitary_rotations,
+            little_anti_linear,
+            rotations,
+            translations,
+            time_reversals,
+            mapping_little_group,
+        )
 
 
 def get_spacegroup_spinor_irreps_from_primitive_symmetry(
@@ -419,6 +478,8 @@ def get_spacegroup_spinor_irreps_from_primitive_symmetry(
         Assume a fractional coordinates `x` are transformed by the i-th symmetry operation as follows:
             ``np.dot(rotations[i, :, :], x) + translations[i, :]``
     translations: array, (order, 3)
+    time_reversals: array[int] | None, (order, )
+        If specified, return co-representations
     kpoint: array, (3, )
         Reciprocal vector with respect to reciprocal lattice.
         For pure translation :math:`\mathbf{t}`, returned irrep :math:`\Gamma^{(\alpha)}` takes
@@ -453,6 +514,9 @@ def get_spacegroup_spinor_irreps_from_primitive_symmetry(
         Let ``i = mapping_little_group[idx]``.
         ``(rotations[i], translations[i])`` belongs to the little group of given space space group and kpoint.
     """
+    if kpoint is None:
+        kpoint = np.zeros(3)
+
     # Sanity check to use primitive cell
     for rotation, translation in zip(rotations, translations):
         if np.allclose(rotation, np.eye(3), rtol=rtol, atol=atol) and not np.allclose(
@@ -539,7 +603,7 @@ def get_crystallographic_pointgroup_spinor_irreps_from_symmetry(
     rotations: array[int], (order, 3, 3)
         Assume a point coordinates ``x`` are transformed into ``np.dot(rotations[i, :, :], x)`` by the ``i``-th symmetry operation.
     time_reversals: array[int] | None, (order, )
-        If specified, return co-representation
+        If specified, return co-representations
     method: str, 'Neto' or 'random'
         'Neto': construct irreps from a fixed chain of subgroups of little co-group
         'random': construct irreps by numerically diagonalizing a random matrix commute with regular representation

@@ -1,4 +1,5 @@
 import numpy as np
+import pytest
 
 from spgrep.core import get_crystallographic_pointgroup_spinor_irreps_from_symmetry
 from spgrep.corep import get_corep_spinor_factor_system
@@ -38,9 +39,15 @@ def check_corep_cocycle_condition(
     return True
 
 
-def test_corep_spinor_factor_system(P42mnm_type3):
-    rotations, _, time_reversals = P42mnm_type3
-    lattice = np.eye(3)
+@pytest.mark.parametrize(
+    "symmetry_and_lattice",
+    [
+        ("P42mnm_type3"),
+        # ("bcc_type4"),  # Passed but too long to test
+    ],
+)
+def test_corep_spinor_factor_system(request, symmetry_and_lattice):
+    rotations, _, time_reversals, lattice = request.getfixturevalue(symmetry_and_lattice)
 
     corep_spinor_factor_system, unitary_rotations, anti_linear = get_corep_spinor_factor_system(
         lattice, rotations, time_reversals
@@ -57,9 +64,18 @@ def test_corep_spinor_factor_system(P42mnm_type3):
     assert check_corep_cocycle_condition(rotations, time_reversals, corep_spinor_factor_system)
 
 
-def test_get_crystallographic_pointgroup_spinor_irreps_from_symmetry(P42mnm_type3):
-    rotations, _, time_reversals = P42mnm_type3
-    lattice = np.eye(3)
+@pytest.mark.parametrize("method", [("Neto"), ("random")])
+@pytest.mark.parametrize(
+    "symmetry_and_lattice",
+    [
+        ("P42mnm_type3"),
+        ("bcc_type4"),
+    ],
+)
+def test_get_crystallographic_pointgroup_spinor_irreps_from_symmetry(
+    request, method, symmetry_and_lattice
+):
+    rotations, _, time_reversals, lattice = request.getfixturevalue(symmetry_and_lattice)
 
     # TODO: Add more tests
     (
@@ -72,4 +88,5 @@ def test_get_crystallographic_pointgroup_spinor_irreps_from_symmetry(P42mnm_type
         lattice,
         rotations,
         time_reversals,
+        method=method,
     )
