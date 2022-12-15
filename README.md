@@ -20,6 +20,7 @@
 - Calculate irreducible representations (irreps) of space groups from spglib’s cell and kpoints
 - Calculate irreps of crystallographic point groups
 - Calculate physically irreducible representations (irreps over real numbers)
+- Calculate irreducible spin representations
 - Find symmetry-adapted basis forming given irreps
 - Minimal dependencies (numpy and spglib)
 
@@ -69,7 +70,7 @@ for irrep in irreps:
 # [2.+0.j 0.+0.j 0.+0.j -2.+0.j 0.+0.j 0.+0.j 0.+0.j 0.+0.j]
 ```
 
-See [docs/examples](examples/) for more detailed use cases.
+See [docs/examples/examples](examples/examples) for more detailed use cases.
 
 ## Installation
 

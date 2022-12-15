@@ -28,6 +28,7 @@ Option-B ({func}`spgrep.irreps.enumerate_unitary_irreps_from_solvable_group_chai
   Symmetry-adapted basis <projection>
   Intertwiner <intertwiner>
   Spin representation <spinor>
+  Co-representation <corepresentation>
 ```
 
 ## References

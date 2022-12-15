@@ -292,19 +292,28 @@ def check_spacegroup_representation(
     little_translations: NDArrayFloat,
     kpoint: NDArrayFloat,
     rep: NDArrayComplex,
+    spinor_factor_system: NDArrayComplex | None = None,
     rtol: float = 1e-5,
 ) -> bool:
     """Check definition of representation. This function works for primitive and conventional cell."""
+    order = len(little_rotations)
+    if spinor_factor_system is None:
+        spinor_factor_system = np.ones((order, order), dtype=np.complex_)
+
     little_rotations_int = [ndarray2d_to_integer_tuple(rotation) for rotation in little_rotations]
 
     # Check if ``rep`` preserves multiplication
-    for r1, t1, m1 in zip(little_rotations, little_translations, rep):
-        for r2, t2, m2 in zip(little_rotations, little_translations, rep):
+    for idx1, (r1, t1, m1) in enumerate(zip(little_rotations, little_translations, rep)):
+        for idx2, (r2, t2, m2) in enumerate(zip(little_rotations, little_translations, rep)):
             r12 = r1 @ r2
             t12 = r1 @ t2 + t1
             idx = little_rotations_int.index(ndarray2d_to_integer_tuple(r12))
             # little_translations[idx] may differ from t12 by lattice translation.
-            m12 = rep[idx] * np.exp(-2j * np.pi * np.dot(kpoint, t12 - little_translations[idx]))
+            m12 = (
+                spinor_factor_system[idx1, idx2]
+                * np.exp(-2j * np.pi * np.dot(kpoint, t12 - little_translations[idx]))
+                * rep[idx]
+            )
 
             if not np.allclose(m12, m1 @ m2, rtol=rtol):
                 return False

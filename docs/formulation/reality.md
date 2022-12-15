@@ -92,8 +92,8 @@ Consider coset representatives of little group of {math}`\mathbf{k}` over {math}
 ```
 
 Then sum over translations in {math}`\mathcal{G}^{\mathbf{k}}`:
-```{math}
-  \frac{1}{|G|} \sum_{ g \in G } \chi^{\mathbf{k}}(g^{2})
+$$
+  \frac{1}{|\mathcal{G}^{\mathbf{k}}|} \sum_{ g \in \mathcal{G}^{\mathbf{k}} } \chi^{\mathbf{k}}(g^{2})
   &= \frac{1}{N} \sum_{ \mathbf{t} } \sum_{ \{ i \mid \mathbf{S}_{i} \in \overline{\mathcal{G}}^{\mathbf{k}} \} }
       \chi^{\mathbf{k}}\left( (\mathbf{E}, \mathbf{t})(\mathbf{S}_{i}, \mathbf{w}_{i}) (\mathbf{E}, \mathbf{t})(\mathbf{S}_{i}, \mathbf{w}_{i}) \right) \\
   &= \frac{1}{N} \sum_{ \mathbf{t} } \sum_{ \{ i \mid \mathbf{S}_{i} \in \overline{\mathcal{G}}^{\mathbf{k}} \} }
@@ -106,7 +106,7 @@ Then sum over translations in {math}`\mathcal{G}^{\mathbf{k}}`:
      \right) \\
   &= \mathbb{I}\left[ 2\mathbf{k} \equiv \mathbf{0} \right] \cdot
       \sum_{ \{ i \mid \mathbf{S}_{i} \in \overline{\mathcal{G}}^{\mathbf{k}} \} } \chi^{\mathbf{k}}\left( (\mathbf{S}_{i}, \mathbf{w}_{i})^{2} \right),
-```
+$$
 where {math}`\mathbb{I}[C]` takes one if the condition {math}`C` is true and takes zero otherwise.
 Here we use {math}`\mathbf{S}_{i}^{\top} \in \overline{\mathcal{G}}^{\mathbf{k}}` as
 ```{math}

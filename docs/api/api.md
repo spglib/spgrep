@@ -9,4 +9,5 @@
     Transformation <api_transformation>
     Tensor <api_tensor>
     Spinor <api_spinor>
+    Co-representation <api_corep>
 ```

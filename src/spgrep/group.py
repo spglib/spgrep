@@ -13,26 +13,35 @@ from spgrep.utils import (
 )
 
 
-def get_cayley_table(rotations: NDArrayInt) -> NDArrayInt:
+def get_cayley_table(
+    rotations: NDArrayInt, time_reversals: NDArrayInt | None = None
+) -> NDArrayInt:
     """Calculate Group multiplication table.
 
     Parameters
     ----------
-    rotations: (order, 3, 3)
+    rotations: array[int], (order, 3, 3)
+    time_reversals: (Optional) array[int], (order, )
 
     Returns
     -------
     table: (order, order)
         ``table[i, j] = k`` if ``rotations[i] @ rotations[j] == rotations[k]``
     """
-    rotations_list = [ndarray2d_to_integer_tuple(r) for r in rotations]
-
     order = rotations.shape[0]
+    if time_reversals is None:
+        time_reversals = np.zeros((order,), dtype=np.int_)
+
+    operations_list = [
+        (ndarray2d_to_integer_tuple(r), tr) for r, tr in zip(rotations, time_reversals)
+    ]
+
     table = [[-1 for _ in range(order)] for _ in range(order)]
-    for i, gi in enumerate(rotations):
-        for j, gj in enumerate(rotations):
-            gk = gi @ gj
-            k = rotations_list.index(ndarray2d_to_integer_tuple(gk))
+    for i, (ri, tri) in enumerate(zip(rotations, time_reversals)):
+        for j, (rj, trj) in enumerate(zip(rotations, time_reversals)):
+            rk = ri @ rj
+            trk = tri != trj
+            k = operations_list.index((ndarray2d_to_integer_tuple(rk), trk))
             if table[i][j] != -1:
                 ValueError("Should specify a matrix group.")
             table[i][j] = k
@@ -190,3 +199,65 @@ def check_cocycle_condition(
             return False
 
     return True
+
+
+def decompose_by_maximal_space_subgroup(
+    rotations: NDArrayInt,
+    translations: NDArrayFloat,
+    time_reversals: NDArrayInt,
+) -> tuple[list[int], list[int], int] | None:
+    r"""Coset-decompose magnetic space group :math:`M` by its maximal space subgroup (XSG) :math:`D(M)`.
+
+    If given magnetic space group is type I, return None.
+
+    .. math::
+        M = D(M) \sqcup D(M) a_{0}
+
+    Returns
+    -------
+    xsg_indices: list[int]
+        List of indices for XSG
+    time_reversal_indices: list[int]
+        Let ``xsg_indices[i]`` = :math:`(\mathbf{W}_{i}, \mathbf{w}_{i})`.
+        Then, ``time_reversal_indices[i]`` :math:`\equiv (\mathbf{W}_{i}, \mathbf{w}_{i}) a_{0}`.
+    a0_idx: int
+        Index of :math:`a_{0}` in given list of symmetries
+    """
+    if np.all(time_reversals == 1):
+        # Type-I MSG
+        return None
+
+    # Search for coset representative
+    conjugator_rotation = None
+    conjugator_translation = None
+    a0_idx = -1
+    for i, (rot, trans, tr) in enumerate(zip(rotations, translations, time_reversals)):
+        if tr == 0:
+            continue
+        conjugator_rotation = rot.copy()
+        conjugator_translation = trans.copy()
+        a0_idx = i
+        break
+
+    # Map XSG to time-reversal operations
+    order = len(rotations)
+    xsg_indices: list[int] = list(np.arange(order)[time_reversals == 0])
+    time_reversal_indices = []
+    for i in xsg_indices:
+        rot = rotations[i]
+        trans = translations[i]
+        # (W, w) (R0, v0) = (W @ R0, W @ v0 + w)
+        new_rot = rot @ conjugator_rotation
+        new_trans = rot @ conjugator_translation + trans
+        for j in range(order):
+            if time_reversals[j] == 0:
+                continue
+            if not np.allclose(new_rot, rotations[j]):
+                continue
+            diff = np.remainder(new_trans - translations[j], 1)
+            diff -= np.rint(diff)
+            if np.allclose(diff, 0):
+                time_reversal_indices.append(j)
+                break
+
+    return xsg_indices, time_reversal_indices, a0_idx

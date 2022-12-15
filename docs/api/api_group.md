@@ -15,3 +15,7 @@
 ```{eval-rst}
     .. autofunction:: spgrep.group.get_little_group
 ```
+
+```{eval-rst}
+    .. autofunction:: spgrep.group.decompose_by_maximal_space_subgroup
+```

@@ -20,6 +20,7 @@
 project = "spgrep"
 copyright = "2022, Kohei Shinohara"
 author = "Kohei Shinohara"
+repository_url = "https://github.com/spglib/spgrep"
 
 # https://github.com/pypa/setuptools_scm/
 from importlib.metadata import version
@@ -57,7 +58,7 @@ exclude_patterns = ["README.md"]
 source_suffix = [".rst"]
 
 autoclass_content = "both"
-autodoc_typehints = "signature"
+autodoc_typehints = "none"
 autodoc_member_order = "bysource"
 autodoc_type_aliases = {}
 
@@ -96,6 +97,8 @@ html_theme = "sphinx_book_theme"
 html_title = project + " " + version
 html_theme_options = {
     "navigation_with_keys": True,
+    "repository_url": repository_url,
+    "use_repository_button": True,
 }
 
 # hide sphinx footer
