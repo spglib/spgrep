@@ -1,5 +1,15 @@
 # Change Log
 
+## v0.3.1 (15 Dec. 2022)
+
+- Add co-representation [[#47]](https://github.com/spglib/spgrep/pull/47)
+    - New functions to compute co-representations for spinor
+        - {func}`spgrep.get_spacegroup_spinor_irreps`
+        - {func}`spgrep.get_spacegroup_spinor_irreps_from_primitive_symmetry`
+        - {func}`spgrep.get_crystallographic_pointgroup_spinor_irreps_from_symmetry`
+    - Require a newer spglib as dependency: ``spglib>=2.0.2``
+
+
 ## v0.3.0 (17 Nov. 2022)
 - Add spinor representation [[#41]](https://github.com/spglib/spgrep/pull/41)
 

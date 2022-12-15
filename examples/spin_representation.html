@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Application of space-group irreps to lattice vibration &#8212; spgrep 0.3.1</title>
+    <title>Spin representation for \(C_{3v}\) &#8212; spgrep 0.3.1</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -38,8 +38,8 @@
     <script>mermaid.initialize({startOnLoad:true});</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Spin representation for \(C_{3v}\)" href="spin_representation.html" />
-    <link rel="prev" title="Symmetry-adapted tensor" href="symmetry_adapted_tensor.html" />
+    <link rel="next" title="Formulation" href="../formulation/formulation.html" />
+    <link rel="prev" title="Application of space-group irreps to lattice vibration" href="lattice_vibration.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -112,13 +112,13 @@
      Symmetry-adapted tensors
     </a>
    </li>
-   <li class="toctree-l2 current active">
-    <a class="current reference internal" href="#">
+   <li class="toctree-l2">
+    <a class="reference internal" href="lattice_vibration.html">
      Application of space-group irreps to lattice vibration
     </a>
    </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="spin_representation.html">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
      Spin representation
     </a>
    </li>
@@ -329,7 +329,7 @@ title="Source repository"
   <div class="menu-dropdown__content">
     <ul>
       <li>
-        <a href="../_sources/examples/lattice_vibration.ipynb.txt"
+        <a href="../_sources/examples/spin_representation.ipynb.txt"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -389,23 +389,13 @@ title="Print to PDF"
     <nav id="bd-toc-nav" aria-label="Page">
         <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#Import-modules">
-   Import modules
+  <a class="reference internal nav-link" href="#Unitary-matrices-for-spinor">
+   Unitary matrices for spinor
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#Prepare-space-group-operations-and-representation">
-   Prepare space-group operations and representation
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#Load-dynamical-matrix-from-PhononDB">
-   Load dynamical matrix from PhononDB
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#Apply-projection-operator-and-block-diagonalize-dynamical-matrix">
-   Apply projection operator and block-diagonalize dynamical matrix
+  <a class="reference internal nav-link" href="#Enumerate-spin-representations-from-factor-system">
+   Enumerate spin representations from factor system
   </a>
  </li>
 </ul>
@@ -417,7 +407,7 @@ title="Print to PDF"
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Application of space-group irreps to lattice vibration</h1>
+                <h1>Spin representation for C_{3v}</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -428,23 +418,13 @@ title="Print to PDF"
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#Import-modules">
-   Import modules
+  <a class="reference internal nav-link" href="#Unitary-matrices-for-spinor">
+   Unitary matrices for spinor
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#Prepare-space-group-operations-and-representation">
-   Prepare space-group operations and representation
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#Load-dynamical-matrix-from-PhononDB">
-   Load dynamical matrix from PhononDB
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#Apply-projection-operator-and-block-diagonalize-dynamical-matrix">
-   Apply projection operator and block-diagonalize dynamical matrix
+  <a class="reference internal nav-link" href="#Enumerate-spin-representations-from-factor-system">
+   Enumerate spin representations from factor system
   </a>
  </li>
 </ul>
@@ -714,25 +694,22 @@ div.rendered_html tbody tr:hover {
   background: rgba(66, 165, 245, 0.2);
 }
 </style>
-<section id="Application-of-space-group-irreps-to-lattice-vibration">
-<h1>Application of space-group irreps to lattice vibration<a class="headerlink" href="#Application-of-space-group-irreps-to-lattice-vibration" title="Permalink to this headline">#</a></h1>
-<p>This example shows how to prepare representation matrix of atomic displacements by space group, and block-diagonalize dynamical matrix for harmonic lattice vibration only from symmetry.</p>
-<section id="Import-modules">
-<h2>Import modules<a class="headerlink" href="#Import-modules" title="Permalink to this headline">#</a></h2>
+<section id="Spin-representation-for-C_{3v}">
+<h1>Spin representation for <span class="math notranslate nohighlight">\(C_{3v}\)</span><a class="headerlink" href="#Spin-representation-for-C_{3v}" title="Permalink to this headline">#</a></h1>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from pathlib import Path
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from __future__ import annotations
 
-import phonopy
 import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sns
 
 import spgrep
-from spgrep import get_spacegroup_irreps
-from spgrep.representation import check_spacegroup_representation, project_to_irrep
+from spgrep.representation import get_character
+from spgrep.pointgroup import pg_dataset
+from spgrep.spinor import (
+    enumerate_spinor_small_representations,
+)
 
 print(f&quot;spgrep=={spgrep.__version__}&quot;)
 </pre></div>
@@ -743,201 +720,47 @@ print(f&quot;spgrep=={spgrep.__version__}&quot;)
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-spgrep==0.2.9.dev2+g3393de7
+spgrep==0.3.0
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>sns.set_context(&quot;poster&quot;)
-</pre></div>
-</div>
-</div>
-</section>
-<section id="Prepare-space-group-operations-and-representation">
-<h2>Prepare space-group operations and representation<a class="headerlink" href="#Prepare-space-group-operations-and-representation" title="Permalink to this headline">#</a></h2>
-<p>We consider lattice vibration of Perovskite structure (<span class="math notranslate nohighlight">\(Pm\overline{3}m\)</span>) at X point.</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Perovskite structure: Pm-3m (No. 221)
-a = 3.986
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Hexagonal lattice
+a = 2.0
+c = 3.0
 lattice = np.array(
     [
         [a, 0, 0],
-        [0, a, 0],
-        [0, 0, a],
+        [-0.5 * a, np.sqrt(3) / 2 * a, 0],
+        [0, 0, c],
     ]
 )
-positions = np.array(
-    [
-        [0, 0.5, 0.5],  # O(3c)
-        [0.5, 0, 0.5],  # O(3c)
-        [0.5, 0.5, 0],  # O(3c)
-        [0.5, 0.5, 0.5],  # Ti(1b)
-        [0, 0, 0],  # Ba(1a)
-    ]
-)
-numbers = [0, 0, 0, 1, 2]
-
-qpoint = [0.5, 0, 0]  # X point (with primitive cell)
 </pre></div>
 </div>
 </div>
-<p>Irreps of the space group is obtained by <code class="docutils literal notranslate"><span class="pre">spgrep.get_spacegroup_irreps</span></code>:</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>irreps, rotations, translations, mapping_little_group = get_spacegroup_irreps(
-    lattice, positions, numbers, qpoint
-)
-
-# Sanity check if `irreps` are representation for space group
-little_rotations = rotations[mapping_little_group]
-little_translations = translations[mapping_little_group]
-for irrep in irreps:
-    assert check_spacegroup_representation(little_rotations, little_translations, qpoint, irrep)
-</pre></div>
-</div>
-</div>
-<p>Let <span class="math notranslate nohighlight">\(u_{\mu}(l \kappa)\)</span> be a <span class="math notranslate nohighlight">\(\mu\)</span>-direction atomic displacement of the <span class="math notranslate nohighlight">\(\kappa\)</span>-th atom in the <span class="math notranslate nohighlight">\(l\)</span>-th unit cell. We consider the fourier transformation of <span class="math notranslate nohighlight">\(u_{\mu}(l \kappa)\)</span>,</p>
-<div class="math notranslate nohighlight">
-\[\mathbf{u}(\kappa; \mathbf{q})
-  := \sqrt{\frac{M_{\kappa}}{N}} \sum_{l} \mathbf{u}(\mathbf{r}(l\kappa)) e^{ i \mathbf{q} \cdot \mathbf{r}(l) },\]</div>
-<p>where <span class="math notranslate nohighlight">\(N\)</span> is number of lattice points in a supercell, and <span class="math notranslate nohighlight">\(M_{\kappa}\)</span> is mass of the <span class="math notranslate nohighlight">\(\kappa\)</span>-th atom. Let <span class="math notranslate nohighlight">\(\mathbf{r}(l\kappa)\)</span> be equilibrium position of the <span class="math notranslate nohighlight">\(\kappa\)</span>-th atom in the <span class="math notranslate nohighlight">\(l\)</span>-th unit cell. The fourier transformation of <span class="math notranslate nohighlight">\(u_{\mu}(l \kappa)\)</span> forms representation of space group <span class="math notranslate nohighlight">\(\mathcal{G}\)</span>  <a class="footnote-reference brackets" href="#id2" id="id1">1</a> as</p>
-<div class="math notranslate nohighlight">
-\[g u_{\mu}(\kappa; \mathbf{q})
-  = \sum_{\kappa'\mu'} u_{\mu'}(\kappa'; \mathbf{R}_{g} \mathbf{q} ) \Gamma_{\kappa'\mu'; \kappa\mu}^{\mathbf{q}}(g)
-  \quad (g \in \mathcal{G}),\]</div>
-<p>where <span class="math notranslate nohighlight">\(\mathbf{R}_{g}\)</span> represents rotation part of <span class="math notranslate nohighlight">\(g\)</span>, and</p>
-<div class="math notranslate nohighlight">
-\[\Gamma_{\kappa'\mu'; \kappa\mu}^{\mathbf{q}}(g)
-  := \exp \left( -i \mathbf{R}_{g} \mathbf{q} \cdot (g \mathbf{r}(0\kappa)) - \mathbf{r}(\mathbf{0}\,g\kappa) \right) [\mathbf{R}_{g}]_{\mu'\mu} \delta_{ g\kappa, \kappa' }.\]</div>
-<dl class="footnote brackets">
-<dt class="label" id="id2"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
-<dd><ol class="upperalpha simple">
-<li><ol class="upperalpha simple">
-<li><p>Maradudin and S. H. Vosko, Rev. Mod. Phys. 40, 1–37 (1968).</p></li>
-</ol>
-</li>
-</ol>
-</dd>
-</dl>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def get_displacements_representation(
-    lattice,
-    positions,
-    little_rotations,
-    little_translations,
-    qpoint,
-):
-    r&quot;&quot;&quot;Compute representation matrix for fourier-transformed displacements.
-
-    .. math::
-       \\Gamma_{\\kappa&#39;\\mu&#39;; \\kappa\\mu}^{\\mathbf{q}}(g) := \\exp \\left( -i \\mathbf{R}_{g} \\mathbf{q} \\cdot \\mathbf{h}_{g}(\\kappa) \\right) [\\mathbf{R}_{g}]_{\\mu&#39;\\mu} \\delta_{ g\\kappa, \\kappa&#39; }
-    &quot;&quot;&quot;
-    little_order = len(little_rotations)
-    num_atoms = len(positions)
-
-    # Operation-`i` moves atom-`kappa` to `permutations[i, kappa]`
-    permutations = np.zeros((little_order, num_atoms), dtype=int)
-    for i, (Ri, vi) in enumerate(zip(little_rotations, little_translations)):
-        for kappa, position in enumerate(positions):
-            new_pos = np.remainder(Ri @ position + vi, 1)
-            for kappa2, position2 in enumerate(positions):
-                if np.allclose(position2, new_pos):
-                    permutations[i, kappa] = kappa2
-                    break
-
-    shifts = np.zeros((little_order, num_atoms, 3))
-    for i, (Ri, vi) in enumerate(zip(little_rotations, little_translations)):
-        perm_i = permutations[i]
-        shifts[i] = positions @ Ri.T + vi[None, :] - positions[perm_i]
-
-    perm_rep = np.zeros((little_order, num_atoms, num_atoms), dtype=np.complex_)
-    for i, Ri in enumerate(little_rotations):
-        for kappa in range(num_atoms):
-            kappa2 = permutations[i, kappa]
-            perm_rep[i, kappa2, kappa] = np.exp(
-                -2j * np.pi * np.dot(Ri.T @ qpoint, shifts[i, kappa])
-            )
-
-    # Rotation matrix in cartesian (order, 3, 3)
-    A = np.transpose(lattice)  # column-wise lattice vectors
-    Ainv = np.linalg.inv(A)
-    rotation_rep = np.array([A @ r @ Ainv for r in little_rotations], dtype=np.complex_)
-
-    rep = np.einsum(&quot;ipq,iab-&gt;ipaqb&quot;, perm_rep, rotation_rep, optimize=&quot;greedy&quot;)
-    return rep.reshape(-1, num_atoms * 3, num_atoms * 3)
-
-
-rep = get_displacements_representation(
-    lattice, positions, little_rotations, little_translations, qpoint
-)
-</pre></div>
-</div>
-</div>
-<p>The order of the little co-group at X point is 16, and the atomic displacements are represented by 15 components (x,y,z directions for 5 atoms). Thus, shape of <code class="docutils literal notranslate"><span class="pre">rep</span></code> is <code class="docutils literal notranslate"><span class="pre">(16,</span> <span class="pre">15,</span> <span class="pre">15)</span></code>.</p>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>rep.shape
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
-</pre></div>
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-(16, 15, 15)
-</pre></div></div>
-</div>
-<div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>nrows = 2
-ncols = 8
-fig, axes = plt.subplots(nrows, ncols, figsize=(2 * ncols, 2 * nrows))
-for row in range(nrows):
-    for col in range(ncols):
-        idx = row * ncols + col
-        ax = axes[row][col]
-        ax.imshow(np.abs(rep[idx]), cmap=&quot;bwr&quot;, vmin=-1, vmax=1)
-        ax.set_aspect(&quot;equal&quot;)
-        ax.set_xticks([])
-        ax.set_yticks([])
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># C3v (3m1)
+rotations = np.array(pg_dataset[&quot;3m&quot;][0])
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<img alt="../_images/examples_lattice_vibration_13_0.png" src="../_images/examples_lattice_vibration_13_0.png" />
-</div>
-</div>
-</section>
-<section id="Load-dynamical-matrix-from-PhononDB">
-<h2>Load dynamical matrix from PhononDB<a class="headerlink" href="#Load-dynamical-matrix-from-PhononDB" title="Permalink to this headline">#</a></h2>
-<p>Next, we consider to construct a projection operator, and block-diagonalize dynamical matrix at X point. We use a phonon calculation of Perovskite-BaTiO3 in <a class="reference external" href="http://phonondb.mtl.kyoto-u.ac.jp/ph20180417/d002/mp-2998.html">PhononDB</a>.</p>
+<section id="Unitary-matrices-for-spinor">
+<h2>Unitary matrices for spinor<a class="headerlink" href="#Unitary-matrices-for-spinor" title="Permalink to this headline">#</a></h2>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>path = Path().resolve().parent / &quot;examples&quot; / &quot;phonopy_mp-2998.yaml.xz&quot;
-ph = phonopy.load(path)
-ph.dynamical_matrix.run(qpoint)
-dynamical_matrix = ph.dynamical_matrix.dynamical_matrix
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>irreps, unitary_rotations, factor_system = enumerate_spinor_small_representations(
+    lattice,
+    little_rotations=rotations,
+    little_translations=np.zeros((len(rotations), 3)),
+    kpoint=np.zeros(3),
+)
 </pre></div>
 </div>
 </div>
@@ -945,80 +768,119 @@ dynamical_matrix = ph.dynamical_matrix.dynamical_matrix
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig, ax = plt.subplots(figsize=(2 * ncols, 2 * nrows))
-ax.imshow(np.abs(dynamical_matrix), cmap=&quot;bwr&quot;, vmin=-1.5, vmax=1.5)
-ax.set_xticks([])
-ax.set_yticks([])
-plt.show()
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>for rot, unitary_rot in zip(rotations, unitary_rotations):
+    print(rot)
+    print(np.around(unitary_rot, 4))
+    print()
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<img alt="../_images/examples_lattice_vibration_16_0.png" src="../_images/examples_lattice_vibration_16_0.png" />
-</div>
-</div>
-</section>
-<section id="Apply-projection-operator-and-block-diagonalize-dynamical-matrix">
-<h2>Apply projection operator and block-diagonalize dynamical matrix<a class="headerlink" href="#Apply-projection-operator-and-block-diagonalize-dynamical-matrix" title="Permalink to this headline">#</a></h2>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>all_basis = []
-for irrep in irreps:
-    list_basis = project_to_irrep(rep, irrep)
-    print(f&quot;{len(list_basis)} basis vectors for irrep with {irrep.shape}&quot;)
-    all_basis.extend(list_basis)
-
-blocked_dynamical_matrix = (
-    np.concatenate(all_basis) @ dynamical_matrix @ np.conj(np.concatenate(all_basis)).T
-)
-
-fig, ax = plt.subplots(figsize=(2 * ncols, 2 * nrows))
-ax.imshow(np.abs(blocked_dynamical_matrix), cmap=&quot;bwr&quot;, vmin=-1.5, vmax=1.5)
-ax.set_xticks([])
-ax.set_yticks([])
-ax.set_xticks([1.5, 3.5, 9.5, 13.5], minor=True)
-ax.set_yticks([1.5, 3.5, 9.5, 13.5], minor=True)
-ax.grid(which=&quot;minor&quot;, linewidth=1)
-plt.show()
-</pre></div>
-</div>
-</div>
-<div class="nboutput docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-2 basis vectors for irrep with (16, 1, 1)
-0 basis vectors for irrep with (16, 1, 1)
-0 basis vectors for irrep with (16, 1, 1)
-2 basis vectors for irrep with (16, 1, 1)
-3 basis vectors for irrep with (16, 2, 2)
-2 basis vectors for irrep with (16, 2, 2)
-1 basis vectors for irrep with (16, 1, 1)
-0 basis vectors for irrep with (16, 1, 1)
-0 basis vectors for irrep with (16, 1, 1)
-0 basis vectors for irrep with (16, 1, 1)
+[[1 0 0]
+ [0 1 0]
+ [0 0 1]]
+[[1.+0.j 0.+0.j]
+ [0.+0.j 1.+0.j]]
+
+[[ 0 -1  0]
+ [ 1 -1  0]
+ [ 0  0  1]]
+[[0.5-0.866j 0. +0.j   ]
+ [0. +0.j    0.5+0.866j]]
+
+[[-1  1  0]
+ [-1  0  0]
+ [ 0  0  1]]
+[[0.5+0.866j 0. +0.j   ]
+ [0. +0.j    0.5-0.866j]]
+
+[[ 0 -1  0]
+ [-1  0  0]
+ [ 0  0  1]]
+[[ 0.   +0.j  -0.866-0.5j]
+ [ 0.866-0.5j  0.   +0.j ]]
+
+[[-1  1  0]
+ [ 0  1  0]
+ [ 0  0  1]]
+[[0.+0.j 0.-1.j]
+ [0.-1.j 0.+0.j]]
+
+[[ 1  0  0]
+ [ 1 -1  0]
+ [ 0  0  1]]
+[[ 0.   +0.j   0.866-0.5j]
+ [-0.866-0.5j  0.   +0.j ]]
+
 </pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>factor_system
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([[ 1.+0.j,  1.+0.j,  1.+0.j,  1.+0.j,  1.+0.j,  1.+0.j],
+       [ 1.+0.j, -1.+0.j,  1.+0.j, -1.+0.j,  1.+0.j,  1.+0.j],
+       [ 1.+0.j,  1.+0.j, -1.+0.j,  1.+0.j,  1.+0.j, -1.+0.j],
+       [ 1.+0.j,  1.+0.j, -1.+0.j, -1.+0.j, -1.+0.j,  1.+0.j],
+       [ 1.+0.j,  1.+0.j,  1.+0.j, -1.+0.j, -1.+0.j, -1.+0.j],
+       [ 1.+0.j, -1.+0.j,  1.+0.j,  1.+0.j, -1.+0.j, -1.+0.j]])
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>np.allclose(
+    unitary_rotations[1] @ unitary_rotations[3],
+    -unitary_rotations[5],
+)
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+True
+</pre></div></div>
+</div>
+</section>
+<section id="Enumerate-spin-representations-from-factor-system">
+<h2>Enumerate spin representations from factor system<a class="headerlink" href="#Enumerate-spin-representations-from-factor-system" title="Permalink to this headline">#</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>for irrep in irreps:
+    print(get_character(irrep))
+</pre></div>
+</div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/examples_lattice_vibration_18_1.png" src="../_images/examples_lattice_vibration_18_1.png" />
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
+<div class="highlight"><pre>
+[2.+0.j 1.+0.j 1.+0.j 0.+0.j 0.+0.j 0.+0.j]
+[ 1.+0.j -1.+0.j -1.+0.j  0.+1.j  0.-1.j  0.+1.j]
+[ 1.+0.j -1.+0.j -1.+0.j  0.-1.j  0.+1.j  0.-1.j]
+</pre></div></div>
 </div>
 </section>
 </section>
@@ -1031,17 +893,17 @@ plt.show()
                 
     <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="symmetry_adapted_tensor.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="lattice_vibration.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Symmetry-adapted tensor</p>
+            <p class="prev-next-title">Application of space-group irreps to lattice vibration</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="spin_representation.html" title="next page">
+    <a class='right-next' id="next-link" href="../formulation/formulation.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Spin representation for <span class="math notranslate nohighlight">\(C_{3v}\)</span></p>
+        <p class="prev-next-title">Formulation</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

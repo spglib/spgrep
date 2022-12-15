@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Group &#8212; spgrep 0.3.0</title>
+    <title>Group &#8212; spgrep 0.3.1</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -78,7 +78,7 @@
       
       
       
-      <h1 class="site-logo" id="site-title">spgrep 0.3.0</h1>
+      <h1 class="site-logo" id="site-title">spgrep 0.3.1</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
@@ -98,7 +98,7 @@
   </a>
  </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../examples.html">
+  <a class="reference internal" href="../examples/examples.html">
    Examples
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
@@ -117,10 +117,15 @@
      Application of space-group irreps to lattice vibration
     </a>
    </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../examples/spin_representation.html">
+     Spin representation
+    </a>
+   </li>
   </ul>
  </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../formulation.html">
+  <a class="reference internal" href="../formulation/formulation.html">
    Formulation
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
@@ -130,38 +135,43 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../spacegroup_irreps.html">
+    <a class="reference internal" href="../formulation/spacegroup_irreps.html">
      Irreps of space group
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../irreps_from_regular.html">
+    <a class="reference internal" href="../formulation/irreps_from_regular.html">
      On-the-fly irreps generation from regular representation
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../irreps_from_chain.html">
+    <a class="reference internal" href="../formulation/irreps_from_chain.html">
      On-the-fly irreps generation from solvable group chain
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../reality.html">
+    <a class="reference internal" href="../formulation/reality.html">
      Reality of irreps
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../projection.html">
+    <a class="reference internal" href="../formulation/projection.html">
      Symmetry-adapted basis
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../intertwiner.html">
+    <a class="reference internal" href="../formulation/intertwiner.html">
      Intertwiner
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../spinor.html">
+    <a class="reference internal" href="../formulation/spinor.html">
      Spin representation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../formulation/corepresentation.html">
+     Co-representation
     </a>
    </li>
   </ul>
@@ -214,6 +224,11 @@
    <li class="toctree-l2">
     <a class="reference internal" href="api_spinor.html">
      Spinor
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="api_corep.html">
+     Co-representation
     </a>
    </li>
   </ul>
@@ -292,6 +307,19 @@ title="Fullscreen mode"
   </span>
 
 </button>
+<a href="https://github.com/spglib/spgrep"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="bottom"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
 
 <div class="menu-dropdown menu-dropdown-download-buttons">
   <button class="headerbtn menu-dropdown__trigger"
@@ -367,7 +395,7 @@ title="Print to PDF"
 <blockquote>
 <div><dl class="py function">
 <dt class="sig sig-object py" id="spgrep.group.is_matrix_group">
-<span class="sig-prename descclassname"><span class="pre">spgrep.group.</span></span><span class="sig-name descname"><span class="pre">is_matrix_group</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rotations</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.dtype</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.int64</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="../_modules/spgrep/group.html#is_matrix_group"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spgrep.group.is_matrix_group" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">spgrep.group.</span></span><span class="sig-name descname"><span class="pre">is_matrix_group</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rotations</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/spgrep/group.html#is_matrix_group"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spgrep.group.is_matrix_group" title="Permalink to this definition">#</a></dt>
 <dd><p>Return True iff given integer matrices forms group.</p>
 </dd></dl>
 
@@ -375,11 +403,14 @@ title="Print to PDF"
 <blockquote>
 <div><dl class="py function">
 <dt class="sig sig-object py" id="spgrep.group.get_cayley_table">
-<span class="sig-prename descclassname"><span class="pre">spgrep.group.</span></span><span class="sig-name descname"><span class="pre">get_cayley_table</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rotations</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.dtype</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.int64</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.dtype</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.int64</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/spgrep/group.html#get_cayley_table"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spgrep.group.get_cayley_table" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">spgrep.group.</span></span><span class="sig-name descname"><span class="pre">get_cayley_table</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rotations</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_reversals</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/spgrep/group.html#get_cayley_table"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spgrep.group.get_cayley_table" title="Permalink to this definition">#</a></dt>
 <dd><p>Calculate Group multiplication table.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>rotations</strong> (<em>(</em><em>order</em><em>, </em><em>3</em><em>, </em><em>3</em><em>)</em>) – </p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>rotations</strong> (<em>array</em><em>[</em><em>int</em><em>]</em><em>, </em><em>(</em><em>order</em><em>, </em><em>3</em><em>, </em><em>3</em><em>)</em>) – </p></li>
+<li><p><strong>time_reversals</strong> (<em>(</em><em>Optional</em><em>) </em><em>array</em><em>[</em><em>int</em><em>]</em><em>, </em><em>(</em><em>order</em><em>, </em><em>)</em>) – </p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p><strong>table</strong> – <code class="docutils literal notranslate"><span class="pre">table[i,</span> <span class="pre">j]</span> <span class="pre">=</span> <span class="pre">k</span></code> if <code class="docutils literal notranslate"><span class="pre">rotations[i]</span> <span class="pre">&#64;</span> <span class="pre">rotations[j]</span> <span class="pre">==</span> <span class="pre">rotations[k]</span></code></p>
@@ -394,7 +425,7 @@ title="Print to PDF"
 <blockquote>
 <div><dl class="py function">
 <dt class="sig sig-object py" id="spgrep.group.get_factor_system_from_little_group">
-<span class="sig-prename descclassname"><span class="pre">spgrep.group.</span></span><span class="sig-name descname"><span class="pre">get_factor_system_from_little_group</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">little_rotations</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.dtype</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.int64</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">little_translations</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.dtype</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kpoint</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.dtype</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.dtype</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.complex128</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/spgrep/group.html#get_factor_system_from_little_group"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spgrep.group.get_factor_system_from_little_group" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">spgrep.group.</span></span><span class="sig-name descname"><span class="pre">get_factor_system_from_little_group</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">little_rotations</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">little_translations</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kpoint</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/spgrep/group.html#get_factor_system_from_little_group"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spgrep.group.get_factor_system_from_little_group" title="Permalink to this definition">#</a></dt>
 <dd><p>Calculate factor system of projective representation of little co-group.</p>
 <div class="math notranslate nohighlight">
 \[D^{\mathbf{k}}_{p}(S_{i}) D^{\mathbf{k}}_{p}(S_{j})
@@ -421,7 +452,7 @@ title="Print to PDF"
 <blockquote>
 <div><dl class="py function">
 <dt class="sig sig-object py" id="spgrep.group.get_little_group">
-<span class="sig-prename descclassname"><span class="pre">spgrep.group.</span></span><span class="sig-name descname"><span class="pre">get_little_group</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rotations</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.dtype</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.int64</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">translations</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.dtype</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kpoint</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.dtype</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atol</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1e-08</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.dtype</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.int64</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.dtype</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.dtype</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.int64</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/spgrep/group.html#get_little_group"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spgrep.group.get_little_group" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">spgrep.group.</span></span><span class="sig-name descname"><span class="pre">get_little_group</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rotations</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">translations</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kpoint</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-08</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/spgrep/group.html#get_little_group"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spgrep.group.get_little_group" title="Permalink to this definition">#</a></dt>
 <dd><p>Return coset of little group of given space group which stabilize kpoint under rotations.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -437,6 +468,28 @@ title="Print to PDF"
 <li><p><strong>little_translations</strong> (<em>array, (little_group_order, 3)</em>)</p></li>
 <li><p><strong>mapping_little_group</strong> (<em>array, (little_group_order, )</em>) – Let <code class="docutils literal notranslate"><span class="pre">i</span> <span class="pre">=</span> <span class="pre">mapping_little_group[idx]</span></code>.
 <code class="docutils literal notranslate"><span class="pre">(rotations[i],</span> <span class="pre">translations[i])</span></code> belongs to the little group of given space space group and kpoint.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div></blockquote>
+<blockquote>
+<div><dl class="py function">
+<dt class="sig sig-object py" id="spgrep.group.decompose_by_maximal_space_subgroup">
+<span class="sig-prename descclassname"><span class="pre">spgrep.group.</span></span><span class="sig-name descname"><span class="pre">decompose_by_maximal_space_subgroup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rotations</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">translations</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_reversals</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/spgrep/group.html#decompose_by_maximal_space_subgroup"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spgrep.group.decompose_by_maximal_space_subgroup" title="Permalink to this definition">#</a></dt>
+<dd><p>Coset-decompose magnetic space group <span class="math notranslate nohighlight">\(M\)</span> by its maximal space subgroup (XSG) <span class="math notranslate nohighlight">\(D(M)\)</span>.</p>
+<p>If given magnetic space group is type I, return None.</p>
+<div class="math notranslate nohighlight">
+\[M = D(M) \sqcup D(M) a_{0}\]</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><ul class="simple">
+<li><p><strong>xsg_indices</strong> (<em>list[int]</em>) – List of indices for XSG</p></li>
+<li><p><strong>time_reversal_indices</strong> (<em>list[int]</em>) – Let <code class="docutils literal notranslate"><span class="pre">xsg_indices[i]</span></code> = <span class="math notranslate nohighlight">\((\mathbf{W}_{i}, \mathbf{w}_{i})\)</span>.
+Then, <code class="docutils literal notranslate"><span class="pre">time_reversal_indices[i]</span></code> <span class="math notranslate nohighlight">\(\equiv (\mathbf{W}_{i}, \mathbf{w}_{i}) a_{0}\)</span>.</p></li>
+<li><p><strong>a0_idx</strong> (<em>int</em>) – Index of <span class="math notranslate nohighlight">\(a_{0}\)</span> in given list of symmetries</p></li>
 </ul>
 </p>
 </dd>

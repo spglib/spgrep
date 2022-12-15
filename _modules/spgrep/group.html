@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>spgrep.group &#8212; spgrep 0.3.0</title>
+    <title>spgrep.group &#8212; spgrep 0.3.1</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -73,7 +73,7 @@
       
       
       
-      <h1 class="site-logo" id="site-title">spgrep 0.3.0</h1>
+      <h1 class="site-logo" id="site-title">spgrep 0.3.1</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
@@ -93,7 +93,7 @@
   </a>
  </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../../examples.html">
+  <a class="reference internal" href="../../examples/examples.html">
    Examples
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
@@ -112,10 +112,15 @@
      Application of space-group irreps to lattice vibration
     </a>
    </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../examples/spin_representation.html">
+     Spin representation
+    </a>
+   </li>
   </ul>
  </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../../formulation.html">
+  <a class="reference internal" href="../../formulation/formulation.html">
    Formulation
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
@@ -125,38 +130,43 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../spacegroup_irreps.html">
+    <a class="reference internal" href="../../formulation/spacegroup_irreps.html">
      Irreps of space group
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../irreps_from_regular.html">
+    <a class="reference internal" href="../../formulation/irreps_from_regular.html">
      On-the-fly irreps generation from regular representation
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../irreps_from_chain.html">
+    <a class="reference internal" href="../../formulation/irreps_from_chain.html">
      On-the-fly irreps generation from solvable group chain
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../reality.html">
+    <a class="reference internal" href="../../formulation/reality.html">
      Reality of irreps
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../projection.html">
+    <a class="reference internal" href="../../formulation/projection.html">
      Symmetry-adapted basis
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../intertwiner.html">
+    <a class="reference internal" href="../../formulation/intertwiner.html">
      Intertwiner
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../spinor.html">
+    <a class="reference internal" href="../../formulation/spinor.html">
      Spin representation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../formulation/corepresentation.html">
+     Co-representation
     </a>
    </li>
   </ul>
@@ -209,6 +219,11 @@
    <li class="toctree-l2">
     <a class="reference internal" href="../../api/api_spinor.html">
      Spinor
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../api/api_corep.html">
+     Co-representation
     </a>
    </li>
   </ul>
@@ -287,6 +302,19 @@ title="Fullscreen mode"
   </span>
 
 </button>
+<a href="https://github.com/spglib/spgrep"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="bottom"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
 
     </div>
 </div>
@@ -327,26 +355,35 @@ title="Fullscreen mode"
 <span class="p">)</span>
 
 
-<div class="viewcode-block" id="get_cayley_table"><a class="viewcode-back" href="../../api/api_group.html#spgrep.group.get_cayley_table">[docs]</a><span class="k">def</span> <span class="nf">get_cayley_table</span><span class="p">(</span><span class="n">rotations</span><span class="p">:</span> <span class="n">NDArrayInt</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NDArrayInt</span><span class="p">:</span>
+<div class="viewcode-block" id="get_cayley_table"><a class="viewcode-back" href="../../api/api_group.html#spgrep.group.get_cayley_table">[docs]</a><span class="k">def</span> <span class="nf">get_cayley_table</span><span class="p">(</span>
+    <span class="n">rotations</span><span class="p">:</span> <span class="n">NDArrayInt</span><span class="p">,</span> <span class="n">time_reversals</span><span class="p">:</span> <span class="n">NDArrayInt</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NDArrayInt</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Calculate Group multiplication table.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    rotations: (order, 3, 3)</span>
+<span class="sd">    rotations: array[int], (order, 3, 3)</span>
+<span class="sd">    time_reversals: (Optional) array[int], (order, )</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    table: (order, order)</span>
 <span class="sd">        ``table[i, j] = k`` if ``rotations[i] @ rotations[j] == rotations[k]``</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">rotations_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">ndarray2d_to_integer_tuple</span><span class="p">(</span><span class="n">r</span><span class="p">)</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">rotations</span><span class="p">]</span>
-
     <span class="n">order</span> <span class="o">=</span> <span class="n">rotations</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">time_reversals</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">time_reversals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">order</span><span class="p">,),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int_</span><span class="p">)</span>
+
+    <span class="n">operations_list</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="p">(</span><span class="n">ndarray2d_to_integer_tuple</span><span class="p">(</span><span class="n">r</span><span class="p">),</span> <span class="n">tr</span><span class="p">)</span> <span class="k">for</span> <span class="n">r</span><span class="p">,</span> <span class="n">tr</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">rotations</span><span class="p">,</span> <span class="n">time_reversals</span><span class="p">)</span>
+    <span class="p">]</span>
+
     <span class="n">table</span> <span class="o">=</span> <span class="p">[[</span><span class="o">-</span><span class="mi">1</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">order</span><span class="p">)]</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">order</span><span class="p">)]</span>
-    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">gi</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">rotations</span><span class="p">):</span>
-        <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">gj</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">rotations</span><span class="p">):</span>
-            <span class="n">gk</span> <span class="o">=</span> <span class="n">gi</span> <span class="o">@</span> <span class="n">gj</span>
-            <span class="n">k</span> <span class="o">=</span> <span class="n">rotations_list</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">ndarray2d_to_integer_tuple</span><span class="p">(</span><span class="n">gk</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">ri</span><span class="p">,</span> <span class="n">tri</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">rotations</span><span class="p">,</span> <span class="n">time_reversals</span><span class="p">)):</span>
+        <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="p">(</span><span class="n">rj</span><span class="p">,</span> <span class="n">trj</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">rotations</span><span class="p">,</span> <span class="n">time_reversals</span><span class="p">)):</span>
+            <span class="n">rk</span> <span class="o">=</span> <span class="n">ri</span> <span class="o">@</span> <span class="n">rj</span>
+            <span class="n">trk</span> <span class="o">=</span> <span class="n">tri</span> <span class="o">!=</span> <span class="n">trj</span>
+            <span class="n">k</span> <span class="o">=</span> <span class="n">operations_list</span><span class="o">.</span><span class="n">index</span><span class="p">((</span><span class="n">ndarray2d_to_integer_tuple</span><span class="p">(</span><span class="n">rk</span><span class="p">),</span> <span class="n">trk</span><span class="p">))</span>
             <span class="k">if</span> <span class="n">table</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
                 <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Should specify a matrix group.&quot;</span><span class="p">)</span>
             <span class="n">table</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">k</span>
@@ -504,6 +541,68 @@ title="Fullscreen mode"
             <span class="k">return</span> <span class="kc">False</span>
 
     <span class="k">return</span> <span class="kc">True</span>
+
+
+<div class="viewcode-block" id="decompose_by_maximal_space_subgroup"><a class="viewcode-back" href="../../api/api_group.html#spgrep.group.decompose_by_maximal_space_subgroup">[docs]</a><span class="k">def</span> <span class="nf">decompose_by_maximal_space_subgroup</span><span class="p">(</span>
+    <span class="n">rotations</span><span class="p">:</span> <span class="n">NDArrayInt</span><span class="p">,</span>
+    <span class="n">translations</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">,</span>
+    <span class="n">time_reversals</span><span class="p">:</span> <span class="n">NDArrayInt</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Coset-decompose magnetic space group :math:`M` by its maximal space subgroup (XSG) :math:`D(M)`.</span>
+
+<span class="sd">    If given magnetic space group is type I, return None.</span>
+
+<span class="sd">    .. math::</span>
+<span class="sd">        M = D(M) \sqcup D(M) a_{0}</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    xsg_indices: list[int]</span>
+<span class="sd">        List of indices for XSG</span>
+<span class="sd">    time_reversal_indices: list[int]</span>
+<span class="sd">        Let ``xsg_indices[i]`` = :math:`(\mathbf{W}_{i}, \mathbf{w}_{i})`.</span>
+<span class="sd">        Then, ``time_reversal_indices[i]`` :math:`\equiv (\mathbf{W}_{i}, \mathbf{w}_{i}) a_{0}`.</span>
+<span class="sd">    a0_idx: int</span>
+<span class="sd">        Index of :math:`a_{0}` in given list of symmetries</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">time_reversals</span> <span class="o">==</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="c1"># Type-I MSG</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="c1"># Search for coset representative</span>
+    <span class="n">conjugator_rotation</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">conjugator_translation</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">a0_idx</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">rot</span><span class="p">,</span> <span class="n">trans</span><span class="p">,</span> <span class="n">tr</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">rotations</span><span class="p">,</span> <span class="n">translations</span><span class="p">,</span> <span class="n">time_reversals</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="n">tr</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="n">conjugator_rotation</span> <span class="o">=</span> <span class="n">rot</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">conjugator_translation</span> <span class="o">=</span> <span class="n">trans</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">a0_idx</span> <span class="o">=</span> <span class="n">i</span>
+        <span class="k">break</span>
+
+    <span class="c1"># Map XSG to time-reversal operations</span>
+    <span class="n">order</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">rotations</span><span class="p">)</span>
+    <span class="n">xsg_indices</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">order</span><span class="p">)[</span><span class="n">time_reversals</span> <span class="o">==</span> <span class="mi">0</span><span class="p">])</span>
+    <span class="n">time_reversal_indices</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">xsg_indices</span><span class="p">:</span>
+        <span class="n">rot</span> <span class="o">=</span> <span class="n">rotations</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="n">trans</span> <span class="o">=</span> <span class="n">translations</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="c1"># (W, w) (R0, v0) = (W @ R0, W @ v0 + w)</span>
+        <span class="n">new_rot</span> <span class="o">=</span> <span class="n">rot</span> <span class="o">@</span> <span class="n">conjugator_rotation</span>
+        <span class="n">new_trans</span> <span class="o">=</span> <span class="n">rot</span> <span class="o">@</span> <span class="n">conjugator_translation</span> <span class="o">+</span> <span class="n">trans</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">order</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">time_reversals</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">new_rot</span><span class="p">,</span> <span class="n">rotations</span><span class="p">[</span><span class="n">j</span><span class="p">]):</span>
+                <span class="k">continue</span>
+            <span class="n">diff</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">remainder</span><span class="p">(</span><span class="n">new_trans</span> <span class="o">-</span> <span class="n">translations</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="n">diff</span> <span class="o">-=</span> <span class="n">np</span><span class="o">.</span><span class="n">rint</span><span class="p">(</span><span class="n">diff</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">diff</span><span class="p">,</span> <span class="mi">0</span><span class="p">):</span>
+                <span class="n">time_reversal_indices</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">j</span><span class="p">)</span>
+                <span class="k">break</span>
+
+    <span class="k">return</span> <span class="n">xsg_indices</span><span class="p">,</span> <span class="n">time_reversal_indices</span><span class="p">,</span> <span class="n">a0_idx</span></div>
 </pre></div>
 
               </div>

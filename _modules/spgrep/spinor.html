@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>spgrep.spinor &#8212; spgrep 0.3.0</title>
+    <title>spgrep.spinor &#8212; spgrep 0.3.1</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -73,7 +73,7 @@
       
       
       
-      <h1 class="site-logo" id="site-title">spgrep 0.3.0</h1>
+      <h1 class="site-logo" id="site-title">spgrep 0.3.1</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
@@ -93,7 +93,7 @@
   </a>
  </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../../examples.html">
+  <a class="reference internal" href="../../examples/examples.html">
    Examples
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
@@ -112,10 +112,15 @@
      Application of space-group irreps to lattice vibration
     </a>
    </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../examples/spin_representation.html">
+     Spin representation
+    </a>
+   </li>
   </ul>
  </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../../formulation.html">
+  <a class="reference internal" href="../../formulation/formulation.html">
    Formulation
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
@@ -125,38 +130,43 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../spacegroup_irreps.html">
+    <a class="reference internal" href="../../formulation/spacegroup_irreps.html">
      Irreps of space group
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../irreps_from_regular.html">
+    <a class="reference internal" href="../../formulation/irreps_from_regular.html">
      On-the-fly irreps generation from regular representation
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../irreps_from_chain.html">
+    <a class="reference internal" href="../../formulation/irreps_from_chain.html">
      On-the-fly irreps generation from solvable group chain
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../reality.html">
+    <a class="reference internal" href="../../formulation/reality.html">
      Reality of irreps
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../projection.html">
+    <a class="reference internal" href="../../formulation/projection.html">
      Symmetry-adapted basis
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../intertwiner.html">
+    <a class="reference internal" href="../../formulation/intertwiner.html">
      Intertwiner
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../spinor.html">
+    <a class="reference internal" href="../../formulation/spinor.html">
      Spin representation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../formulation/corepresentation.html">
+     Co-representation
     </a>
    </li>
   </ul>
@@ -209,6 +219,11 @@
    <li class="toctree-l2">
     <a class="reference internal" href="../../api/api_spinor.html">
      Spinor
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../api/api_corep.html">
+     Co-representation
     </a>
    </li>
   </ul>
@@ -287,6 +302,19 @@ title="Fullscreen mode"
   </span>
 
 </button>
+<a href="https://github.com/spglib/spgrep"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="bottom"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
 
     </div>
 </div>
@@ -312,7 +340,7 @@ title="Fullscreen mode"
               <div>
                 
   <h1>Source code for spgrep.spinor</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Spinor representation.&quot;&quot;&quot;</span>
+<span></span><span class="sd">&quot;&quot;&quot;Spin representation.&quot;&quot;&quot;</span>
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
 <span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">product</span>
@@ -328,22 +356,28 @@ title="Fullscreen mode"
 <div class="viewcode-block" id="enumerate_spinor_small_representations"><a class="viewcode-back" href="../../api/api_spinor.html#spgrep.spinor.enumerate_spinor_small_representations">[docs]</a><span class="k">def</span> <span class="nf">enumerate_spinor_small_representations</span><span class="p">(</span>
     <span class="n">lattice</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">,</span>
     <span class="n">little_rotations</span><span class="p">:</span> <span class="n">NDArrayInt</span><span class="p">,</span>
-    <span class="n">little_translations</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">,</span>
-    <span class="n">kpoint</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">,</span>
+    <span class="n">little_translations</span><span class="p">:</span> <span class="n">NDArrayFloat</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">kpoint</span><span class="p">:</span> <span class="n">NDArrayFloat</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">method</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;Neto&quot;</span><span class="p">,</span> <span class="s2">&quot;random&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Neto&quot;</span><span class="p">,</span>
     <span class="n">rtol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-5</span><span class="p">,</span>
     <span class="n">atol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-8</span><span class="p">,</span>
     <span class="n">max_num_random_generations</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="n">NDArrayComplex</span><span class="p">],</span> <span class="nb">list</span><span class="p">[</span><span class="n">NDArrayComplex</span><span class="p">]]:</span>
-    <span class="sd">&quot;&quot;&quot;Enumerate all unitary irreps of little group for spinor.</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="n">NDArrayComplex</span><span class="p">],</span> <span class="n">NDArrayComplex</span><span class="p">,</span> <span class="n">NDArrayComplex</span><span class="p">]:</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Enumerate all unitary irreps :math:`\mathbf{D}^{\mathbf{k}\alpha}` of little group for spinor.</span>
 
-<span class="sd">    See :ref:`spinor_factor_system` for Spgrep&#39;s convention of spin-derived factor system :math:`z(S_{i}, S_{j})`.</span>
+<span class="sd">    .. math::</span>
+<span class="sd">       \mathbf{D}^{\mathbf{k}\alpha}(\mathbf{S}_{i}) \mathbf{D}^{\mathbf{k}\alpha}(\mathbf{S}_{j})</span>
+<span class="sd">       = z(\mathbf{S}_{i}, \mathbf{S}_{j}) e^{ -i \mathbf{g}_{i} \cdot \mathbf{w}_{j} } \mathbf{D}^{\mathbf{k}\alpha}(\mathbf{S}_{k}),</span>
+
+<span class="sd">    where :math:`\mathbf{g}_{i} = \mathbf{S}_{i}^{-1} \mathbf{k} - \mathbf{k}`.</span>
+
+<span class="sd">    See :ref:`spinor_factor_system` for Spgrep&#39;s convention of spinor-derived factor system.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    lattice: array, (3, 3)</span>
 <span class="sd">        Row-wise basis vectors. ``lattice[i, :]`` is the i-th lattice vector.</span>
-<span class="sd">    little_rotations: array, (order, 3, 3)</span>
+<span class="sd">    little_rotations: array[int], (order, 3, 3)</span>
 <span class="sd">    little_translations: array, (order, 3)</span>
 <span class="sd">    kpoint: array, (3, )</span>
 <span class="sd">    method: str, &#39;Neto&#39; or &#39;random&#39;</span>
@@ -359,12 +393,25 @@ title="Fullscreen mode"
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    irreps: list of unitary small representations (irreps of little group) with (order, dim, dim)</span>
+<span class="sd">    spinor_factor_system: array, (order, order)</span>
+<span class="sd">        ``spinor_factor_system[i, j]`` stands for factor system :math:`z(\mathbf{S}_{i}, \mathbf{S}_{j})`</span>
 <span class="sd">    unitary_rotations: array, (order, 2, 2)</span>
 <span class="sd">        SU(2) rotations on spinor.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">factor_system</span><span class="p">,</span> <span class="n">unitary_rotations</span> <span class="o">=</span> <span class="n">get_spinor_factor_system_and_rotations</span><span class="p">(</span>
-        <span class="n">lattice</span><span class="p">,</span> <span class="n">little_rotations</span><span class="p">,</span> <span class="n">little_translations</span><span class="p">,</span> <span class="n">kpoint</span>
+    <span class="k">if</span> <span class="n">little_translations</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">little_translations</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">little_rotations</span><span class="p">),</span> <span class="mi">3</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">kpoint</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">kpoint</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+
+    <span class="c1"># Factor system from spinor</span>
+    <span class="n">spinor_factor_system</span><span class="p">,</span> <span class="n">unitary_rotations</span> <span class="o">=</span> <span class="n">get_spinor_factor_system</span><span class="p">(</span><span class="n">lattice</span><span class="p">,</span> <span class="n">little_rotations</span><span class="p">)</span>
+    <span class="c1"># Factor system from nonsymmorphic</span>
+    <span class="n">nonsymmorphic_factor_system</span> <span class="o">=</span> <span class="n">get_factor_system_from_little_group</span><span class="p">(</span>
+        <span class="n">little_rotations</span><span class="p">,</span>
+        <span class="n">little_translations</span><span class="p">,</span>
+        <span class="n">kpoint</span><span class="p">,</span>
     <span class="p">)</span>
+    <span class="n">factor_system</span> <span class="o">=</span> <span class="n">spinor_factor_system</span> <span class="o">*</span> <span class="n">nonsymmorphic_factor_system</span>
 
     <span class="c1"># Compute irreps of little co-group</span>
     <span class="n">little_cogroup_irreps</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">enumerate_unitary_irreps</span><span class="p">(</span>
@@ -378,102 +425,93 @@ title="Fullscreen mode"
     <span class="p">)</span>
 
     <span class="c1"># Small representations of little group</span>
+    <span class="n">phases</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+        <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="n">j</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">kpoint</span><span class="p">,</span> <span class="n">translation</span><span class="p">))</span> <span class="k">for</span> <span class="n">translation</span> <span class="ow">in</span> <span class="n">little_translations</span><span class="p">]</span>
+    <span class="p">)</span>
     <span class="n">irreps</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">rep</span> <span class="ow">in</span> <span class="n">little_cogroup_irreps</span><span class="p">:</span>
-        <span class="n">phases</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
-            <span class="p">[</span>
-                <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="n">j</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">kpoint</span><span class="p">,</span> <span class="n">translation</span><span class="p">))</span>
-                <span class="k">for</span> <span class="n">translation</span> <span class="ow">in</span> <span class="n">little_translations</span>
-            <span class="p">]</span>
-        <span class="p">)</span>
         <span class="n">irreps</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rep</span> <span class="o">*</span> <span class="n">phases</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">])</span>
 
-    <span class="k">return</span> <span class="n">irreps</span><span class="p">,</span> <span class="n">unitary_rotations</span></div>
+    <span class="k">return</span> <span class="n">irreps</span><span class="p">,</span> <span class="n">spinor_factor_system</span><span class="p">,</span> <span class="n">unitary_rotations</span></div>
 
 
-<div class="viewcode-block" id="get_spinor_factor_system_and_rotations"><a class="viewcode-back" href="../../api/api_spinor.html#spgrep.spinor.get_spinor_factor_system_and_rotations">[docs]</a><span class="k">def</span> <span class="nf">get_spinor_factor_system_and_rotations</span><span class="p">(</span>
+<div class="viewcode-block" id="get_spinor_factor_system"><a class="viewcode-back" href="../../api/api_spinor.html#spgrep.spinor.get_spinor_factor_system">[docs]</a><span class="k">def</span> <span class="nf">get_spinor_factor_system</span><span class="p">(</span>
     <span class="n">lattice</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">,</span>
-    <span class="n">little_rotations</span><span class="p">:</span> <span class="n">NDArrayInt</span><span class="p">,</span>
-    <span class="n">little_translations</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">,</span>
-    <span class="n">kpoint</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">,</span>
+    <span class="n">rotations</span><span class="p">:</span> <span class="n">NDArrayInt</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">NDArrayComplex</span><span class="p">,</span> <span class="n">NDArrayComplex</span><span class="p">]:</span>
-    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Calculate factor system of spinor representation for little co-group.</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Calculate spin-derived factor system of spin representation.</span>
 
 <span class="sd">    .. math::</span>
-<span class="sd">       D^{\mathbf{k}\alpha}(S_{i}) D^{\mathbf{k}\alpha}(S_{j})</span>
-<span class="sd">       = z(S_{i}, S_{j}) \exp \left( -i \mathbf{g}_{i} \cdot \mathbf{w}_{j} \right) D^{\mathbf{k}\alpha}(S_{k})</span>
+<span class="sd">       \mathbf{U}(\mathbf{S}_{i}) \mathbf{U}(\mathbf{S}_{j})</span>
+<span class="sd">       = z(\mathbf{S}_{i}, \mathbf{S}_{j}) \mathbf{U}(\mathbf{S}_{k})</span>
 
-<span class="sd">    where :math:`S_{i}S_{j} = S_{k}` and :math:`\mathbf{g}_{i} = S_{i}^{-1} \mathbf{k} - \mathbf{k}`.</span>
-<span class="sd">    See :ref:`spinor_factor_system` for Spgrep&#39;s convention of spin-derived factor system :math:`z(S_{i}, S_{j})`.</span>
+<span class="sd">    where :math:`\mathbf{S}_{i} \mathbf{S}_{j} = \mathbf{S}_{k}`.</span>
+<span class="sd">    See :ref:`spinor_factor_system` for Spgrep&#39;s convention of spinor-derived factor system :math:`z(S_{i}, S_{j})` and a map from orthogonal matrix :math:`\mathbf{S}_{i} \in O(3)` to unitary matrix :math:`\mathbf{U}(\mathbf{S}_{i}) \in SU(2)`.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    lattice: array, (3, 3)</span>
 <span class="sd">        Row-wise basis vectors. ``lattice[i, :]`` is the i-th lattice vector.</span>
-<span class="sd">    little_rotations: array, (order, 3, 3)</span>
-<span class="sd">        Linear parts of coset of little group stabilizing ``kpoint``.</span>
-<span class="sd">    little_translations: array, (order, 3)</span>
-<span class="sd">        Translation parts of coset of little group stabilizing ``kpoint``.</span>
-<span class="sd">    kpoint: array, (3, )</span>
+<span class="sd">    rotations: array, (order, 3, 3)</span>
+<span class="sd">        Matrix group of :math:`\{ \mathbf{S}_{i} \}_{i}`</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    factor_system: array, (order, order)</span>
-<span class="sd">        Factor system of spinor representations for little co-group that have one-to-one correspondence to small representations</span>
+<span class="sd">    spinor_factor_system: array, (order, order)</span>
+<span class="sd">        ``factor_system[i, j]`` stands for :math:`z(\mathbf{S}_{i}, \mathbf{S}_{j})`</span>
 <span class="sd">    unitary_rotations: array, (order, 2, 2)</span>
+<span class="sd">        ``unitary_rotations[i]`` stands for :math:`\mathbf{U}(\mathbf{S}_{i}) \in SU(2)`.</span>
 <span class="sd">        SU(2) rotations on spinor.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">order</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">little_rotations</span><span class="p">)</span>
+    <span class="n">order</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">rotations</span><span class="p">)</span>
 
     <span class="c1"># Assign a SU(2) rotation for each O(3) operation</span>
     <span class="n">unitary_rotations</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">order</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex_</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">si</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">little_rotations</span><span class="p">):</span>
-        <span class="c1"># Ignore inversion parts</span>
-        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">det</span><span class="p">(</span><span class="n">si</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">sign</span> <span class="o">=</span> <span class="mi">1</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">sign</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
-        <span class="n">rotation</span> <span class="o">=</span> <span class="n">si</span> <span class="o">*</span> <span class="n">sign</span>
-
-        <span class="n">cart_rotation</span> <span class="o">=</span> <span class="n">lattice</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">rotation</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">lattice</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
-        <span class="n">theta</span><span class="p">,</span> <span class="n">cart_axis</span> <span class="o">=</span> <span class="n">get_rotation_angle_and_axis</span><span class="p">(</span><span class="n">cart_rotation</span><span class="p">)</span>
-        <span class="n">cos_half</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">theta</span><span class="p">)</span>
-        <span class="n">sin_half</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">theta</span><span class="p">)</span>
-        <span class="n">unitary_rotations</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
-            <span class="p">[</span>
-                <span class="p">[</span>
-                    <span class="n">cos_half</span> <span class="o">-</span> <span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="n">cart_axis</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="n">sin_half</span><span class="p">,</span>
-                    <span class="n">sin_half</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="n">cart_axis</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">cart_axis</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span>
-                <span class="p">],</span>
-                <span class="p">[</span>
-                    <span class="n">sin_half</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="n">cart_axis</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">cart_axis</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span>
-                    <span class="n">cos_half</span> <span class="o">+</span> <span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="n">cart_axis</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="n">sin_half</span><span class="p">,</span>
-                <span class="p">],</span>
-            <span class="p">]</span>
-        <span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">rotation</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">rotations</span><span class="p">):</span>
+        <span class="n">unitary_rotations</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">get_spinor_unitary_rotation</span><span class="p">(</span><span class="n">lattice</span><span class="p">,</span> <span class="n">rotation</span><span class="p">)</span>
 
     <span class="c1"># Factor system from spin</span>
-    <span class="n">table</span> <span class="o">=</span> <span class="n">get_cayley_table</span><span class="p">(</span><span class="n">little_rotations</span><span class="p">)</span>
-    <span class="n">spin_factor_system</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">order</span><span class="p">,</span> <span class="n">order</span><span class="p">))</span>
-    <span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">si</span><span class="p">),</span> <span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">sj</span><span class="p">)</span> <span class="ow">in</span> <span class="n">product</span><span class="p">(</span><span class="nb">enumerate</span><span class="p">(</span><span class="n">little_rotations</span><span class="p">),</span> <span class="n">repeat</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+    <span class="n">table</span> <span class="o">=</span> <span class="n">get_cayley_table</span><span class="p">(</span><span class="n">rotations</span><span class="p">)</span>
+    <span class="n">spinor_factor_system</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">order</span><span class="p">,</span> <span class="n">order</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex_</span><span class="p">)</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">ui</span><span class="p">),</span> <span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">uj</span><span class="p">)</span> <span class="ow">in</span> <span class="n">product</span><span class="p">(</span><span class="nb">enumerate</span><span class="p">(</span><span class="n">unitary_rotations</span><span class="p">),</span> <span class="n">repeat</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
         <span class="c1"># si @ sj = sk in O(3)</span>
         <span class="n">k</span> <span class="o">=</span> <span class="n">table</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span>
-        <span class="n">uiuj</span> <span class="o">=</span> <span class="n">unitary_rotations</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">@</span> <span class="n">unitary_rotations</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+        <span class="n">uiuj</span> <span class="o">=</span> <span class="n">ui</span> <span class="o">@</span> <span class="n">uj</span>
         <span class="c1"># Multiplier should be -1 or 1</span>
         <span class="k">for</span> <span class="n">multiplier</span> <span class="ow">in</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]:</span>
-            <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">uiuj</span> <span class="o">*</span> <span class="n">multiplier</span><span class="p">,</span> <span class="n">unitary_rotations</span><span class="p">[</span><span class="n">k</span><span class="p">]):</span>
-                <span class="n">spin_factor_system</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">multiplier</span>
+            <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">uiuj</span><span class="p">,</span> <span class="n">multiplier</span> <span class="o">*</span> <span class="n">unitary_rotations</span><span class="p">[</span><span class="n">k</span><span class="p">]):</span>
+                <span class="n">spinor_factor_system</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">multiplier</span>
                 <span class="k">break</span>
 
-    <span class="c1"># Factor system from nonsymmorphic</span>
-    <span class="n">nonsymmorphic_factor_system</span> <span class="o">=</span> <span class="n">get_factor_system_from_little_group</span><span class="p">(</span>
-        <span class="n">little_rotations</span><span class="o">=</span><span class="n">little_rotations</span><span class="p">,</span>
-        <span class="n">little_translations</span><span class="o">=</span><span class="n">little_translations</span><span class="p">,</span>
-        <span class="n">kpoint</span><span class="o">=</span><span class="n">kpoint</span><span class="p">,</span>
-    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">spinor_factor_system</span><span class="p">,</span> <span class="n">unitary_rotations</span></div>
 
-    <span class="n">factor_system</span> <span class="o">=</span> <span class="n">spin_factor_system</span> <span class="o">*</span> <span class="n">nonsymmorphic_factor_system</span>
-    <span class="k">return</span> <span class="n">factor_system</span><span class="p">,</span> <span class="n">unitary_rotations</span></div>
+
+<span class="k">def</span> <span class="nf">get_spinor_unitary_rotation</span><span class="p">(</span><span class="n">lattice</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">,</span> <span class="n">rotation</span><span class="p">:</span> <span class="n">NDArrayInt</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NDArrayComplex</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Return unitary matrix for given orthogonal matrix.&quot;&quot;&quot;</span>
+    <span class="c1"># Ignore inversion parts</span>
+    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">det</span><span class="p">(</span><span class="n">rotation</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">sign</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">sign</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+    <span class="n">proper_rotation</span> <span class="o">=</span> <span class="n">rotation</span> <span class="o">*</span> <span class="n">sign</span>
+
+    <span class="n">cart_rotation</span> <span class="o">=</span> <span class="n">lattice</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">proper_rotation</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">lattice</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+    <span class="n">theta</span><span class="p">,</span> <span class="n">cart_axis</span> <span class="o">=</span> <span class="n">get_rotation_angle_and_axis</span><span class="p">(</span><span class="n">cart_rotation</span><span class="p">)</span>
+    <span class="n">cos_half</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">theta</span><span class="p">)</span>
+    <span class="n">sin_half</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">theta</span><span class="p">)</span>
+    <span class="n">unitary_rotation</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+        <span class="p">[</span>
+            <span class="p">[</span>
+                <span class="n">cos_half</span> <span class="o">-</span> <span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="n">cart_axis</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="n">sin_half</span><span class="p">,</span>
+                <span class="n">sin_half</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="n">cart_axis</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">cart_axis</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span>
+            <span class="p">],</span>
+            <span class="p">[</span>
+                <span class="n">sin_half</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="n">cart_axis</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">cart_axis</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span>
+                <span class="n">cos_half</span> <span class="o">+</span> <span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="n">cart_axis</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="n">sin_half</span><span class="p">,</span>
+            <span class="p">],</span>
+        <span class="p">]</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">unitary_rotation</span>
 
 
 <span class="k">def</span> <span class="nf">get_rotation_angle_and_axis</span><span class="p">(</span><span class="n">cart_rotation</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">NDArrayFloat</span><span class="p">]:</span>

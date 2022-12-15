@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Transformation &#8212; spgrep 0.3.0</title>
+    <title>Transformation &#8212; spgrep 0.3.1</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -78,7 +78,7 @@
       
       
       
-      <h1 class="site-logo" id="site-title">spgrep 0.3.0</h1>
+      <h1 class="site-logo" id="site-title">spgrep 0.3.1</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
@@ -98,7 +98,7 @@
   </a>
  </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../examples.html">
+  <a class="reference internal" href="../examples/examples.html">
    Examples
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
@@ -117,10 +117,15 @@
      Application of space-group irreps to lattice vibration
     </a>
    </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../examples/spin_representation.html">
+     Spin representation
+    </a>
+   </li>
   </ul>
  </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../formulation.html">
+  <a class="reference internal" href="../formulation/formulation.html">
    Formulation
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
@@ -130,38 +135,43 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../spacegroup_irreps.html">
+    <a class="reference internal" href="../formulation/spacegroup_irreps.html">
      Irreps of space group
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../irreps_from_regular.html">
+    <a class="reference internal" href="../formulation/irreps_from_regular.html">
      On-the-fly irreps generation from regular representation
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../irreps_from_chain.html">
+    <a class="reference internal" href="../formulation/irreps_from_chain.html">
      On-the-fly irreps generation from solvable group chain
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../reality.html">
+    <a class="reference internal" href="../formulation/reality.html">
      Reality of irreps
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../projection.html">
+    <a class="reference internal" href="../formulation/projection.html">
      Symmetry-adapted basis
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../intertwiner.html">
+    <a class="reference internal" href="../formulation/intertwiner.html">
      Intertwiner
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../spinor.html">
+    <a class="reference internal" href="../formulation/spinor.html">
      Spin representation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../formulation/corepresentation.html">
+     Co-representation
     </a>
    </li>
   </ul>
@@ -214,6 +224,11 @@
    <li class="toctree-l2">
     <a class="reference internal" href="api_spinor.html">
      Spinor
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="api_corep.html">
+     Co-representation
     </a>
    </li>
   </ul>
@@ -292,6 +307,19 @@ title="Fullscreen mode"
   </span>
 
 </button>
+<a href="https://github.com/spglib/spgrep"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="bottom"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
 
 <div class="menu-dropdown menu-dropdown-download-buttons">
   <button class="headerbtn menu-dropdown__trigger"
@@ -367,12 +395,12 @@ title="Print to PDF"
 <blockquote>
 <div><dl class="py function">
 <dt class="sig sig-object py" id="spgrep.transform.transform_symmetry_and_kpoint">
-<span class="sig-prename descclassname"><span class="pre">spgrep.transform.</span></span><span class="sig-name descname"><span class="pre">transform_symmetry_and_kpoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">transformation_matrix</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.dtype</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rotations</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.dtype</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.int64</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">translations</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.dtype</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kpoint</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.dtype</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.dtype</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.int64</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.dtype</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.dtype</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/spgrep/transform.html#transform_symmetry_and_kpoint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spgrep.transform.transform_symmetry_and_kpoint" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">spgrep.transform.</span></span><span class="sig-name descname"><span class="pre">transform_symmetry_and_kpoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">transformation_matrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rotations</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">translations</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kpoint</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/spgrep/transform.html#transform_symmetry_and_kpoint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spgrep.transform.transform_symmetry_and_kpoint" title="Permalink to this definition">#</a></dt>
 <dd><p>Return symmetry and k-vector coefficients in transformed coordinates.</p>
 <p>This function does not unique duplicated symmetry operations after applying transformation_matrix.</p>
 <p>Let a given transformation_matrix be <code class="docutils literal notranslate"><span class="pre">P</span></code>.
 Symmetry operation <span class="math notranslate nohighlight">\((R, t)\)</span> is transformed to
-<span class="math notranslate nohighlight">\((P, 0){^-1} (R, t) (P, 0) = (P^{-1} R P, P^{-1} t)\)</span>.
+<span class="math notranslate nohighlight">\((P, 0)^{-1} (R, t) (P, 0) = (P^{-1} R P, P^{-1} t)\)</span>.
 Coefficients of k-vector are transformed to <code class="docutils literal notranslate"><span class="pre">P.T</span> <span class="pre">&#64;</span> <span class="pre">kpoint</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -398,7 +426,7 @@ Coefficients of k-vector are transformed to <code class="docutils literal notran
 <blockquote>
 <div><dl class="py function">
 <dt class="sig sig-object py" id="spgrep.transform.get_primitive_transformation_matrix">
-<span class="sig-prename descclassname"><span class="pre">spgrep.transform.</span></span><span class="sig-name descname"><span class="pre">get_primitive_transformation_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hall_number</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.dtype</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/spgrep/transform.html#get_primitive_transformation_matrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spgrep.transform.get_primitive_transformation_matrix" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">spgrep.transform.</span></span><span class="sig-name descname"><span class="pre">get_primitive_transformation_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hall_number</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/spgrep/transform.html#get_primitive_transformation_matrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spgrep.transform.get_primitive_transformation_matrix" title="Permalink to this definition">#</a></dt>
 <dd><p>Return transformation matrix from standard unit cell specified with hall_number into a primitive cell. The transformation matrix is consistent with Spglib’s convention [1,2] and KVEC’s convention [3].</p>
 <p>[1] <a class="reference external" href="https://spglib.github.io/spglib/definition.html">https://spglib.github.io/spglib/definition.html</a>
 [2] <a class="reference external" href="https://github.com/spglib/spglib/pull/137">https://github.com/spglib/spglib/pull/137</a>

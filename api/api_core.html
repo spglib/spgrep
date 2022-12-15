@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Core functions &#8212; spgrep 0.3.0</title>
+    <title>Core functions &#8212; spgrep 0.3.1</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -78,7 +78,7 @@
       
       
       
-      <h1 class="site-logo" id="site-title">spgrep 0.3.0</h1>
+      <h1 class="site-logo" id="site-title">spgrep 0.3.1</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
@@ -98,7 +98,7 @@
   </a>
  </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../examples.html">
+  <a class="reference internal" href="../examples/examples.html">
    Examples
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
@@ -117,10 +117,15 @@
      Application of space-group irreps to lattice vibration
     </a>
    </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../examples/spin_representation.html">
+     Spin representation
+    </a>
+   </li>
   </ul>
  </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../formulation.html">
+  <a class="reference internal" href="../formulation/formulation.html">
    Formulation
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
@@ -130,38 +135,43 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../spacegroup_irreps.html">
+    <a class="reference internal" href="../formulation/spacegroup_irreps.html">
      Irreps of space group
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../irreps_from_regular.html">
+    <a class="reference internal" href="../formulation/irreps_from_regular.html">
      On-the-fly irreps generation from regular representation
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../irreps_from_chain.html">
+    <a class="reference internal" href="../formulation/irreps_from_chain.html">
      On-the-fly irreps generation from solvable group chain
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../reality.html">
+    <a class="reference internal" href="../formulation/reality.html">
      Reality of irreps
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../projection.html">
+    <a class="reference internal" href="../formulation/projection.html">
      Symmetry-adapted basis
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../intertwiner.html">
+    <a class="reference internal" href="../formulation/intertwiner.html">
      Intertwiner
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../spinor.html">
+    <a class="reference internal" href="../formulation/spinor.html">
      Spin representation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../formulation/corepresentation.html">
+     Co-representation
     </a>
    </li>
   </ul>
@@ -214,6 +224,11 @@
    <li class="toctree-l2">
     <a class="reference internal" href="api_spinor.html">
      Spinor
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="api_corep.html">
+     Co-representation
     </a>
    </li>
   </ul>
@@ -292,6 +307,19 @@ title="Fullscreen mode"
   </span>
 
 </button>
+<a href="https://github.com/spglib/spgrep"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="bottom"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
 
 <div class="menu-dropdown menu-dropdown-download-buttons">
   <button class="headerbtn menu-dropdown__trigger"
@@ -338,12 +366,41 @@ title="Print to PDF"
     </ul>
   </div>
 </div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
 
     </div>
 </div>
 
 <!-- Table of contents -->
 <div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#linear-representation">
+   Linear representation
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#spin-representation">
+   Spin representation
+  </a>
+ </li>
+</ul>
+
+    </nav>
 </div>
     </div>
     <div class="article row">
@@ -355,6 +412,24 @@ title="Print to PDF"
                 <div id="print-main-content">
                     <div id="jb-print-toc">
                         
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#linear-representation">
+   Linear representation
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#spin-representation">
+   Spin representation
+  </a>
+ </li>
+</ul>
+
+                        </nav>
                     </div>
                 </div>
             </div>
@@ -364,10 +439,12 @@ title="Print to PDF"
                 
   <section class="tex2jax_ignore mathjax_ignore" id="core-functions">
 <h1>Core functions<a class="headerlink" href="#core-functions" title="Permalink to this headline">#</a></h1>
+<section id="linear-representation">
+<h2>Linear representation<a class="headerlink" href="#linear-representation" title="Permalink to this headline">#</a></h2>
 <blockquote>
 <div><dl class="py function">
 <dt class="sig sig-object py" id="spgrep.get_spacegroup_irreps">
-<span class="sig-prename descclassname"><span class="pre">spgrep.</span></span><span class="sig-name descname"><span class="pre">get_spacegroup_irreps</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lattice</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">NDArrayFloat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">positions</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">NDArrayFloat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numbers</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">NDArrayInt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kpoint</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">NDArrayFloat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'Neto'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'random'</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'Neto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reciprocal_lattice</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">NDArrayFloat</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">symprec</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1e-05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rtol</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1e-05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atol</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1e-08</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_num_random_generations</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">4</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">NDArrayComplex</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">NDArrayInt</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">NDArrayFloat</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">NDArrayInt</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/spgrep/core.html#get_spacegroup_irreps"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spgrep.get_spacegroup_irreps" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">spgrep.</span></span><span class="sig-name descname"><span class="pre">get_spacegroup_irreps</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lattice</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">positions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numbers</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kpoint</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Neto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reciprocal_lattice</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">symprec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rtol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-08</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_num_random_generations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/spgrep/core.html#get_spacegroup_irreps"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spgrep.get_spacegroup_irreps" title="Permalink to this definition">#</a></dt>
 <dd><p>Compute all irreducible representations of space group of given structure up to unitary transformation.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -375,13 +452,13 @@ title="Print to PDF"
 <li><p><strong>lattice</strong> (<em>array</em><em>, </em><em>(</em><em>3</em><em>, </em><em>3</em><em>)</em>) – Row-wise basis vectors. <code class="docutils literal notranslate"><span class="pre">lattice[i,</span> <span class="pre">:]</span></code> is the i-th lattice vector.</p></li>
 <li><p><strong>positions</strong> (<em>array</em><em>, </em><em>(</em><em>num_atoms</em><em>, </em><em>3</em><em>)</em>) – Fractional coordinates of sites</p></li>
 <li><p><strong>numbers</strong> (<em>array</em><em>, </em><em>(</em><em>num_atoms</em><em>, </em><em>)</em>) – Integer list specifying atomic species</p></li>
-<li><p><strong>method</strong> (<em>str</em><em>, </em><em>'Neto'</em><em> or </em><em>'random'</em>) – ‘Neto’: construct irreps from a fixed chain of subgroups of little co-group
-‘random’: construct irreps by numerically diagonalizing a random matrix commute with regular representation</p></li>
 <li><p><strong>kpoint</strong> (<em>array</em><em>, </em><em>(</em><em>3</em><em>, </em><em>)</em>) – <p>Reciprocal vector with respect to <code class="docutils literal notranslate"><span class="pre">reciprocal_lattice</span></code>
 For pure translation <span class="math notranslate nohighlight">\(\mathbf{t}\)</span>, returned irrep <span class="math notranslate nohighlight">\(\Gamma^{(\alpha)}\)</span> takes</p>
 <div class="math notranslate nohighlight">
 \[\Gamma^{(\alpha)}((E, \mathbf{t})) = e^{ -i\mathbf{k}\cdot\mathbf{t} } \mathbf{1}.\]</div>
 </p></li>
+<li><p><strong>method</strong> (<em>str</em><em>, </em><em>'Neto'</em><em> or </em><em>'random'</em>) – ‘Neto’: construct irreps from a fixed chain of subgroups of little co-group
+‘random’: construct irreps by numerically diagonalizing a random matrix commute with regular representation</p></li>
 <li><p><strong>reciprocal_lattice</strong> (<em>(</em><em>Optional</em><em>) </em><em>array</em><em>, </em><em>(</em><em>3</em><em>, </em><em>3</em><em>)</em>) – <code class="docutils literal notranslate"><span class="pre">reciprocal_lattice[i,</span> <span class="pre">:]</span></code> is the i-th basis vector of reciprocal lattice for <code class="docutils literal notranslate"><span class="pre">kpoint</span></code> without <cite>2 * pi factor</cite>.
 If not specified, <code class="docutils literal notranslate"><span class="pre">reciprocal_lattice</span></code> is set to <code class="docutils literal notranslate"><span class="pre">np.linalg.inv(lattice).T</span></code>.</p></li>
 <li><p><strong>symprec</strong> (<em>float</em>) – Parameter for searching symmetry operation in Spglib</p></li>
@@ -393,7 +470,7 @@ If not specified, <code class="docutils literal notranslate"><span class="pre">r
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p><ul class="simple">
 <li><p><strong>irreps</strong> (<em>list of Irreps with (little_group_order, dim, dim)</em>) – <code class="docutils literal notranslate"><span class="pre">irreps[alpha][i,</span> <span class="pre">:,</span> <span class="pre">:]</span></code> is the <code class="docutils literal notranslate"><span class="pre">alpha</span></code>-th irreducible matrix representation of <code class="docutils literal notranslate"><span class="pre">(little_rotations[i],</span> <span class="pre">little_translations[i])</span></code>.</p></li>
-<li><p><strong>rotations</strong> (<em>array, (num_sym, 3, 3)</em>)</p></li>
+<li><p><strong>rotations</strong> (<em>array[int], (num_sym, 3, 3)</em>)</p></li>
 <li><p><strong>translations</strong> (<em>array, (num_sym, 3)</em>)</p></li>
 <li><p><strong>mapping_little_group</strong> (<em>array, (little_group_order, )</em>) – Let <code class="docutils literal notranslate"><span class="pre">i</span> <span class="pre">=</span> <span class="pre">mapping_little_group[idx]</span></code>.
 (rotations[i], translations[i]) belongs to the little group of given space space group and kpoint.</p></li>
@@ -407,13 +484,13 @@ If not specified, <code class="docutils literal notranslate"><span class="pre">r
 <blockquote>
 <div><dl class="py function">
 <dt class="sig sig-object py" id="spgrep.get_spacegroup_irreps_from_primitive_symmetry">
-<span class="sig-prename descclassname"><span class="pre">spgrep.</span></span><span class="sig-name descname"><span class="pre">get_spacegroup_irreps_from_primitive_symmetry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rotations</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">NDArrayInt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">translations</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">NDArrayFloat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kpoint</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">NDArrayFloat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">real</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'Neto'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'random'</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'Neto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rtol</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1e-05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atol</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1e-08</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_num_random_generations</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">4</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">NDArrayComplex</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">NDArrayInt</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">NDArrayFloat</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">NDArrayInt</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/spgrep/core.html#get_spacegroup_irreps_from_primitive_symmetry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spgrep.get_spacegroup_irreps_from_primitive_symmetry" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">spgrep.</span></span><span class="sig-name descname"><span class="pre">get_spacegroup_irreps_from_primitive_symmetry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rotations</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">translations</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kpoint</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">real</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Neto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rtol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-08</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_num_random_generations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/spgrep/core.html#get_spacegroup_irreps_from_primitive_symmetry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spgrep.get_spacegroup_irreps_from_primitive_symmetry" title="Permalink to this definition">#</a></dt>
 <dd><p>Compute all irreducible representations of given space group up to unitary transformation.</p>
 <p>Note that rotations and translations should be specified in a primitive cell.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>rotations</strong> (<em>array</em><em>, </em><em>(</em><em>order</em><em>, </em><em>3</em><em>, </em><em>3</em><em>)</em>) – <dl class="simple">
+<li><p><strong>rotations</strong> (<em>array</em><em>[</em><em>int</em><em>]</em><em>, </em><em>(</em><em>order</em><em>, </em><em>3</em><em>, </em><em>3</em><em>)</em>) – <dl class="simple">
 <dt>Assume a fractional coordinates <cite>x</cite> are transformed by the i-th symmetry operation as follows:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">np.dot(rotations[i,</span> <span class="pre">:,</span> <span class="pre">:],</span> <span class="pre">x)</span> <span class="pre">+</span> <span class="pre">translations[i,</span> <span class="pre">:]</span></code></p>
 </dd>
 </dl>
@@ -455,13 +532,13 @@ For type-II and type-III cases, representation matrix for translation <span clas
 <blockquote>
 <div><dl class="py function">
 <dt class="sig sig-object py" id="spgrep.get_crystallographic_pointgroup_irreps_from_symmetry">
-<span class="sig-prename descclassname"><span class="pre">spgrep.</span></span><span class="sig-name descname"><span class="pre">get_crystallographic_pointgroup_irreps_from_symmetry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rotations</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.dtype</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.int64</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">real</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'Neto'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'random'</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'Neto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rtol</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1e-05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atol</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1e-08</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_num_random_generations</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">4</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.dtype</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.complex128</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/spgrep/core.html#get_crystallographic_pointgroup_irreps_from_symmetry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spgrep.get_crystallographic_pointgroup_irreps_from_symmetry" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">spgrep.</span></span><span class="sig-name descname"><span class="pre">get_crystallographic_pointgroup_irreps_from_symmetry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rotations</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">real</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Neto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rtol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-08</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_num_random_generations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/spgrep/core.html#get_crystallographic_pointgroup_irreps_from_symmetry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spgrep.get_crystallographic_pointgroup_irreps_from_symmetry" title="Permalink to this definition">#</a></dt>
 <dd><p>Compute all irreducible representations of given crystallographic point group up to unitary transformation.</p>
 <p>Assume matrix representation of given crystallographic point group is in “standard” setting shown in Table 3.2.3.3 of International Table for Crystallography Vol. A (2016).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>rotations</strong> (<em>array</em><em>, </em><em>(</em><em>order</em><em>, </em><em>3</em><em>, </em><em>3</em><em>)</em>) – Assume a point coordinates <code class="docutils literal notranslate"><span class="pre">x</span></code> are transformed into <code class="docutils literal notranslate"><span class="pre">np.dot(rotations[i,</span> <span class="pre">:,</span> <span class="pre">:],</span> <span class="pre">x)</span></code> by the <code class="docutils literal notranslate"><span class="pre">i</span></code>-th symmetry operation.</p></li>
+<li><p><strong>rotations</strong> (<em>array</em><em>[</em><em>int</em><em>]</em><em>, </em><em>(</em><em>order</em><em>, </em><em>3</em><em>, </em><em>3</em><em>)</em>) – Assume a point coordinates <code class="docutils literal notranslate"><span class="pre">x</span></code> are transformed into <code class="docutils literal notranslate"><span class="pre">np.dot(rotations[i,</span> <span class="pre">:,</span> <span class="pre">:],</span> <span class="pre">x)</span></code> by the <code class="docutils literal notranslate"><span class="pre">i</span></code>-th symmetry operation.</p></li>
 <li><p><strong>real</strong> (<em>bool</em><em>, </em><em>default=False</em>) – If True, return irreps over real vector space (so called physically irreducible representations)</p></li>
 <li><p><strong>method</strong> (<em>str</em><em>, </em><em>'Neto'</em><em> or </em><em>'random'</em>) – ‘Neto’: construct irreps from a fixed chain of subgroups of little co-group
 ‘random’: construct irreps by numerically diagonalizing a random matrix commute with regular representation</p></li>
@@ -480,6 +557,150 @@ For type-II and type-III cases, representation matrix for translation <span clas
 </dd></dl>
 
 </div></blockquote>
+</section>
+<section id="spin-representation">
+<h2>Spin representation<a class="headerlink" href="#spin-representation" title="Permalink to this headline">#</a></h2>
+<blockquote>
+<div><dl class="py function">
+<dt class="sig sig-object py" id="spgrep.get_spacegroup_spinor_irreps">
+<span class="sig-prename descclassname"><span class="pre">spgrep.</span></span><span class="sig-name descname"><span class="pre">get_spacegroup_spinor_irreps</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lattice</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">positions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numbers</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">magmoms</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kpoint</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Neto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reciprocal_lattice</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">symprec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rtol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-08</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_num_random_generations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/spgrep/core.html#get_spacegroup_spinor_irreps"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spgrep.get_spacegroup_spinor_irreps" title="Permalink to this definition">#</a></dt>
+<dd><p>Compute all irreducible representations <span class="math notranslate nohighlight">\(\mathbf{\Gamma}^{\mathbf{k}\alpha}\)</span> of space group of given structure up to unitary transformation for spinor.</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{\Gamma}^{\mathbf{k}\alpha}((\mathbf{S}_{i}, \mathbf{w}_{i})) \mathbf{\Gamma}^{\mathbf{k}\alpha}((\mathbf{S}_{j}, \mathbf{w}_{j}))
+= z(\mathbf{S}_{i}, \mathbf{S}_{j}) \mathbf{\Gamma}^{\mathbf{k}\alpha}((\mathbf{S}_{i}, \mathbf{w}_{i})(\mathbf{S}_{j}, \mathbf{w}_{j}))\]</div>
+<p>See <a class="reference internal" href="../formulation/spinor.html#spinor-factor-system"><span class="std std-ref">Factor system for spinor</span></a> for Spgrep’s convention of spin-derived factor system <span class="math notranslate nohighlight">\(z(\mathbf{S}_{i}, \mathbf{S}_{j})\)</span>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lattice</strong> (<em>array</em><em>, </em><em>(</em><em>3</em><em>, </em><em>3</em><em>)</em>) – Row-wise basis vectors. <code class="docutils literal notranslate"><span class="pre">lattice[i,</span> <span class="pre">:]</span></code> is the i-th lattice vector.</p></li>
+<li><p><strong>positions</strong> (<em>array</em><em>, </em><em>(</em><em>num_atoms</em><em>, </em><em>3</em><em>)</em>) – Fractional coordinates of sites</p></li>
+<li><p><strong>numbers</strong> (<em>array</em><em>, </em><em>(</em><em>num_atoms</em><em>, </em><em>)</em>) – Integer list specifying atomic species</p></li>
+<li><p><strong>magmoms</strong> (<em>(</em><em>Optional</em><em>) </em><em>array</em><em>, </em><em>(</em><em>num_atoms</em><em>, </em><em>)</em>) – Collinear magnetic moments. If specified, return co-representations.</p></li>
+<li><p><strong>kpoint</strong> (<em>array</em><em>, </em><em>(</em><em>3</em><em>, </em><em>)</em>) – <p>Reciprocal vector with respect to <code class="docutils literal notranslate"><span class="pre">reciprocal_lattice</span></code>
+For pure translation <span class="math notranslate nohighlight">\(\mathbf{t}\)</span>, returned irrep <span class="math notranslate nohighlight">\(\Gamma^{(\alpha)}\)</span> takes</p>
+<div class="math notranslate nohighlight">
+\[\Gamma^{(\alpha)}((E, \mathbf{t})) = e^{ -i\mathbf{k}\cdot\mathbf{t} } \mathbf{1}.\]</div>
+</p></li>
+<li><p><strong>method</strong> (<em>str</em><em>, </em><em>'Neto'</em><em> or </em><em>'random'</em>) – ‘Neto’: construct irreps from a fixed chain of subgroups of little co-group
+‘random’: construct irreps by numerically diagonalizing a random matrix commute with regular representation</p></li>
+<li><p><strong>reciprocal_lattice</strong> (<em>(</em><em>Optional</em><em>) </em><em>array</em><em>, </em><em>(</em><em>3</em><em>, </em><em>3</em><em>)</em>) – <code class="docutils literal notranslate"><span class="pre">reciprocal_lattice[i,</span> <span class="pre">:]</span></code> is the i-th basis vector of reciprocal lattice for <code class="docutils literal notranslate"><span class="pre">kpoint</span></code> without <cite>2 * pi factor</cite>.
+If not specified, <code class="docutils literal notranslate"><span class="pre">reciprocal_lattice</span></code> is set to <code class="docutils literal notranslate"><span class="pre">np.linalg.inv(lattice).T</span></code>.</p></li>
+<li><p><strong>symprec</strong> (<em>float</em>) – Parameter for searching symmetry operation in Spglib</p></li>
+<li><p><strong>rtol</strong> (<em>float</em>) – Relative tolerance for comparing float values</p></li>
+<li><p><strong>atol</strong> (<em>float</em>) – Absolute tolerance to distinguish difference eigenvalues</p></li>
+<li><p><strong>max_num_random_generations</strong> (<em>int</em>) – Maximum number of trials to generate random matrix</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>irreps</strong> (<em>list of Irreps with (little_group_order, dim, dim)</em>) – <code class="docutils literal notranslate"><span class="pre">irreps[alpha][i,</span> <span class="pre">:,</span> <span class="pre">:]</span></code> is the <code class="docutils literal notranslate"><span class="pre">alpha</span></code>-th irreducible matrix representation of <code class="docutils literal notranslate"><span class="pre">(little_rotations[i],</span> <span class="pre">little_translations[i])</span></code>.</p></li>
+<li><p><strong>little_spinor_factor_system</strong> (<em>array, (little_group_order, little_group_order)</em>) – <code class="docutils literal notranslate"><span class="pre">spinor_factor_system[i,</span> <span class="pre">j]</span></code> stands for factor system <span class="math notranslate nohighlight">\(z(\mathbf{S}_{i}, \mathbf{S}_{j})\)</span></p></li>
+<li><p><strong>little_unitary_rotations</strong> (<em>array, (little_group_order, 2, 2)</em>) – SU(2) rotations on spinor.</p></li>
+<li><p><strong>anti_linear</strong> (<em>(Optional) array[bool], (little_group_order, )</em>) – Appeared when <code class="docutils literal notranslate"><span class="pre">time_reversal</span></code> is specified.
+If <code class="docutils literal notranslate"><span class="pre">anti_linear[i]</span> <span class="pre">==</span> <span class="pre">True</span></code>, the <code class="docutils literal notranslate"><span class="pre">i</span></code>-th operator is anti-linear.</p></li>
+<li><p><strong>rotations</strong> (<em>array[int], (num_sym, 3, 3)</em>)</p></li>
+<li><p><strong>translations</strong> (<em>array, (num_sym, 3)</em>)</p></li>
+<li><p><strong>time_reversals</strong> (<em>array[int], (num_sym, )</em>)</p></li>
+<li><p><strong>mapping_little_group</strong> (<em>array, (little_group_order, )</em>) – Let <code class="docutils literal notranslate"><span class="pre">i</span> <span class="pre">=</span> <span class="pre">mapping_little_group[idx]</span></code>.
+(rotations[i], translations[i]) belongs to the little group of given space space group and kpoint.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div></blockquote>
+<blockquote>
+<div><dl class="py function">
+<dt class="sig sig-object py" id="spgrep.get_spacegroup_spinor_irreps_from_primitive_symmetry">
+<span class="sig-prename descclassname"><span class="pre">spgrep.</span></span><span class="sig-name descname"><span class="pre">get_spacegroup_spinor_irreps_from_primitive_symmetry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lattice</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rotations</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">translations</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_reversals</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kpoint</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Neto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rtol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-08</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_num_random_generations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/spgrep/core.html#get_spacegroup_spinor_irreps_from_primitive_symmetry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spgrep.get_spacegroup_spinor_irreps_from_primitive_symmetry" title="Permalink to this definition">#</a></dt>
+<dd><p>Compute all irreducible representations <span class="math notranslate nohighlight">\(\mathbf{\Gamma}^{\mathbf{k}\alpha}\)</span> of given space group up to unitary transformation fpr spinor.</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{\Gamma}^{\mathbf{k}\alpha}((\mathbf{S}_{i}, \mathbf{w}_{i})) \mathbf{\Gamma}^{\mathbf{k}\alpha}((\mathbf{S}_{j}, \mathbf{w}_{j}))
+= z(\mathbf{S}_{i}, \mathbf{S}_{j}) \mathbf{\Gamma}^{\mathbf{k}\alpha}((\mathbf{S}_{i}, \mathbf{w}_{i})(\mathbf{S}_{j}, \mathbf{w}_{j}))\]</div>
+<p>Note that rotations and translations should be specified in a primitive cell.
+See <a class="reference internal" href="../formulation/spinor.html#spinor-factor-system"><span class="std std-ref">Factor system for spinor</span></a> for Spgrep’s convention of spin-derived factor system <span class="math notranslate nohighlight">\(z(\mathbf{S}_{i}, \mathbf{S}_{j})\)</span>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lattice</strong> (<em>array</em><em>, </em><em>(</em><em>3</em><em>, </em><em>3</em><em>)</em>) – Row-wise basis vectors. <code class="docutils literal notranslate"><span class="pre">lattice[i,</span> <span class="pre">:]</span></code> is the i-th lattice vector.</p></li>
+<li><p><strong>rotations</strong> (<em>array</em><em>[</em><em>int</em><em>]</em><em>, </em><em>(</em><em>order</em><em>, </em><em>3</em><em>, </em><em>3</em><em>)</em>) – <dl class="simple">
+<dt>Assume a fractional coordinates <cite>x</cite> are transformed by the i-th symmetry operation as follows:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">np.dot(rotations[i,</span> <span class="pre">:,</span> <span class="pre">:],</span> <span class="pre">x)</span> <span class="pre">+</span> <span class="pre">translations[i,</span> <span class="pre">:]</span></code></p>
+</dd>
+</dl>
+</p></li>
+<li><p><strong>translations</strong> (<em>array</em><em>, </em><em>(</em><em>order</em><em>, </em><em>3</em><em>)</em>) – </p></li>
+<li><p><strong>time_reversals</strong> (<em>array</em><em>[</em><em>int</em><em>] </em><em>| </em><em>None</em><em>, </em><em>(</em><em>order</em><em>, </em><em>)</em>) – If specified, return co-representations</p></li>
+<li><p><strong>kpoint</strong> (<em>array</em><em>, </em><em>(</em><em>3</em><em>, </em><em>)</em>) – <p>Reciprocal vector with respect to reciprocal lattice.
+For pure translation <span class="math notranslate nohighlight">\(\mathbf{t}\)</span>, returned irrep <span class="math notranslate nohighlight">\(\Gamma^{(\alpha)}\)</span> takes</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{\Gamma}^{\mathbf{k}\alpha}((E, \mathbf{t})) = e^{ -i\mathbf{k}\cdot\mathbf{t} } \mathbf{1}.\]</div>
+</p></li>
+<li><p><strong>method</strong> (<em>str</em><em>, </em><em>'Neto'</em><em> or </em><em>'random'</em>) – ‘Neto’: construct irreps from a fixed chain of subgroups of little co-group
+‘random’: construct irreps by numerically diagonalizing a random matrix commute with regular representation</p></li>
+<li><p><strong>rtol</strong> (<em>float</em>) – Relative tolerance</p></li>
+<li><p><strong>atol</strong> (<em>float</em>) – Absolute tolerance to distinguish difference eigenvalues</p></li>
+<li><p><strong>max_num_random_generations</strong> (<em>int</em>) – Maximum number of trials to generate random matrix</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>irreps</strong> (<em>list of Irreps with (little_group_order, dim, dim)</em>) – Let <code class="docutils literal notranslate"><span class="pre">i</span> <span class="pre">=</span> <span class="pre">mapping_little_group[idx]</span></code>. <code class="docutils literal notranslate"><span class="pre">irreps[alpha][i,</span> <span class="pre">:,</span> <span class="pre">:]</span></code> is the <code class="docutils literal notranslate"><span class="pre">alpha</span></code>-th irreducible matrix representation of <code class="docutils literal notranslate"><span class="pre">(rotations[i],</span> <span class="pre">translations[i])</span></code>.</p></li>
+<li><p><strong>indicators</strong> (<em>(Optional) list[int]</em>) – Appeared when <code class="docutils literal notranslate"><span class="pre">time_reversal</span></code> is specified.
+Frobenius-Schur indicators for each small representation</p></li>
+<li><p><strong>little_spinor_factor_system</strong> (<em>array, (little_group_order, little_group_order)</em>) – <code class="docutils literal notranslate"><span class="pre">spinor_factor_system[i,</span> <span class="pre">j]</span></code> stands for factor system <span class="math notranslate nohighlight">\(z(\mathbf{S}_{i}, \mathbf{S}_{j})\)</span></p></li>
+<li><p><strong>little_unitary_rotations</strong> (<em>array, (little_group_order, 2, 2)</em>) – SU(2) rotations on spinor.</p></li>
+<li><p><strong>anti_linear</strong> (<em>(Optional) array[bool], (order, )</em>) – Appeared when <code class="docutils literal notranslate"><span class="pre">time_reversal</span></code> is specified.
+If <code class="docutils literal notranslate"><span class="pre">anti_linear[i]</span> <span class="pre">==</span> <span class="pre">True</span></code>, the <code class="docutils literal notranslate"><span class="pre">i</span></code>-th operator is anti-linear.</p></li>
+<li><p><strong>mapping_little_group</strong> (<em>array, (little_group_order, )</em>) – Let <code class="docutils literal notranslate"><span class="pre">i</span> <span class="pre">=</span> <span class="pre">mapping_little_group[idx]</span></code>.
+<code class="docutils literal notranslate"><span class="pre">(rotations[i],</span> <span class="pre">translations[i])</span></code> belongs to the little group of given space space group and kpoint.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div></blockquote>
+<blockquote>
+<div><dl class="py function">
+<dt class="sig sig-object py" id="spgrep.get_crystallographic_pointgroup_spinor_irreps_from_symmetry">
+<span class="sig-prename descclassname"><span class="pre">spgrep.</span></span><span class="sig-name descname"><span class="pre">get_crystallographic_pointgroup_spinor_irreps_from_symmetry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lattice</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rotations</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_reversals</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Neto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rtol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-08</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_num_random_generations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/spgrep/core.html#get_crystallographic_pointgroup_spinor_irreps_from_symmetry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spgrep.get_crystallographic_pointgroup_spinor_irreps_from_symmetry" title="Permalink to this definition">#</a></dt>
+<dd><p>Compute all irreducible representations <span class="math notranslate nohighlight">\(\mathbf{D}^{\alpha}\)</span> of given crystallographic point group up to unitary transformation for spinor.</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{D}^{\alpha}(\mathbf{S}_{i}) \mathbf{D}^{\alpha}(\mathbf{S}_{j})
+= z(\mathbf{S}_{i}, \mathbf{S}_{j}) \mathbf{D}^{\alpha}(\mathbf{S}_{k})\]</div>
+<p>Assume matrix representation of given crystallographic point group is in “standard” setting shown in Table 3.2.3.3 of International Table for Crystallography Vol. A (2016).</p>
+<p>See <a class="reference internal" href="../formulation/spinor.html#spinor-factor-system"><span class="std std-ref">Factor system for spinor</span></a> for Spgrep’s convention of spinor-derived factor system <span class="math notranslate nohighlight">\(z(\mathbf{S}_{i}, \mathbf{S}_{j})\)</span>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lattice</strong> (<em>array</em><em>, </em><em>(</em><em>3</em><em>, </em><em>3</em><em>)</em>) – Row-wise basis vectors. <code class="docutils literal notranslate"><span class="pre">lattice[i,</span> <span class="pre">:]</span></code> is the i-th lattice vector.</p></li>
+<li><p><strong>rotations</strong> (<em>array</em><em>[</em><em>int</em><em>]</em><em>, </em><em>(</em><em>order</em><em>, </em><em>3</em><em>, </em><em>3</em><em>)</em>) – Assume a point coordinates <code class="docutils literal notranslate"><span class="pre">x</span></code> are transformed into <code class="docutils literal notranslate"><span class="pre">np.dot(rotations[i,</span> <span class="pre">:,</span> <span class="pre">:],</span> <span class="pre">x)</span></code> by the <code class="docutils literal notranslate"><span class="pre">i</span></code>-th symmetry operation.</p></li>
+<li><p><strong>time_reversals</strong> (<em>array</em><em>[</em><em>int</em><em>] </em><em>| </em><em>None</em><em>, </em><em>(</em><em>order</em><em>, </em><em>)</em>) – If specified, return co-representations</p></li>
+<li><p><strong>method</strong> (<em>str</em><em>, </em><em>'Neto'</em><em> or </em><em>'random'</em>) – ‘Neto’: construct irreps from a fixed chain of subgroups of little co-group
+‘random’: construct irreps by numerically diagonalizing a random matrix commute with regular representation</p></li>
+<li><p><strong>rtol</strong> (<em>float</em>) – Relative tolerance to distinguish difference eigenvalues</p></li>
+<li><p><strong>atol</strong> (<em>float</em>) – Absolute tolerance to distinguish difference eigenvalues</p></li>
+<li><p><strong>max_num_random_generations</strong> (<em>int</em>) – Maximum number of trials to generate random matrix</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>irreps</strong> (<em>list of unitary irreps with (order, dim, dim)</em>)</p></li>
+<li><p><strong>indicators</strong> (<em>(Optional) list[int]</em>) – Appeared when <code class="docutils literal notranslate"><span class="pre">time_reversal</span></code> is specified.
+Frobenius-Schur indicators for each small representation</p></li>
+<li><p><strong>factor_system</strong> (<em>array, (order, order)</em>) – <code class="docutils literal notranslate"><span class="pre">factor_system[i,</span> <span class="pre">j]</span></code> stands for factor system <span class="math notranslate nohighlight">\(z(\mathbf{S}_{i}, \mathbf{S}_{j})\)</span></p></li>
+<li><p><strong>unitary_rotations</strong> (<em>array, (order, 2, 2)</em>) – SU(2) rotations on spinor.</p></li>
+<li><p><strong>anti_linear</strong> (<em>(Optional) array[bool], (order, )</em>) – Appeared when <code class="docutils literal notranslate"><span class="pre">time_reversal</span></code> is specified.
+If <code class="docutils literal notranslate"><span class="pre">anti_linear[i]</span> <span class="pre">==</span> <span class="pre">True</span></code>, the <code class="docutils literal notranslate"><span class="pre">i</span></code>-th operator is anti-linear.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div></blockquote>
+</section>
 </section>
 
 

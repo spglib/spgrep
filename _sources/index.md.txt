@@ -4,8 +4,8 @@ caption: Contents
 hidden:
 ---
    Introduction <self>
-   Examples <examples>
-   Formulation <formulation>
+   Examples <examples/examples>
+   Formulation <formulation/formulation>
    API Reference <api/api>
    Change Log <changelog>
    genindex <genindex>

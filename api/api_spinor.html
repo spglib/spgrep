@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Spinor representation &#8212; spgrep 0.3.0</title>
+    <title>Representation for spinor &#8212; spgrep 0.3.1</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -38,7 +38,7 @@
     <script>mermaid.initialize({startOnLoad:true});</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Change Log" href="../changelog.html" />
+    <link rel="next" title="Co-representation for spinor" href="api_corep.html" />
     <link rel="prev" title="Tensor" href="api_tensor.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
@@ -78,7 +78,7 @@
       
       
       
-      <h1 class="site-logo" id="site-title">spgrep 0.3.0</h1>
+      <h1 class="site-logo" id="site-title">spgrep 0.3.1</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
@@ -98,7 +98,7 @@
   </a>
  </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../examples.html">
+  <a class="reference internal" href="../examples/examples.html">
    Examples
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
@@ -117,10 +117,15 @@
      Application of space-group irreps to lattice vibration
     </a>
    </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../examples/spin_representation.html">
+     Spin representation
+    </a>
+   </li>
   </ul>
  </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../formulation.html">
+  <a class="reference internal" href="../formulation/formulation.html">
    Formulation
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
@@ -130,38 +135,43 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../spacegroup_irreps.html">
+    <a class="reference internal" href="../formulation/spacegroup_irreps.html">
      Irreps of space group
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../irreps_from_regular.html">
+    <a class="reference internal" href="../formulation/irreps_from_regular.html">
      On-the-fly irreps generation from regular representation
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../irreps_from_chain.html">
+    <a class="reference internal" href="../formulation/irreps_from_chain.html">
      On-the-fly irreps generation from solvable group chain
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../reality.html">
+    <a class="reference internal" href="../formulation/reality.html">
      Reality of irreps
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../projection.html">
+    <a class="reference internal" href="../formulation/projection.html">
      Symmetry-adapted basis
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../intertwiner.html">
+    <a class="reference internal" href="../formulation/intertwiner.html">
      Intertwiner
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../spinor.html">
+    <a class="reference internal" href="../formulation/spinor.html">
      Spin representation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../formulation/corepresentation.html">
+     Co-representation
     </a>
    </li>
   </ul>
@@ -214,6 +224,11 @@
    <li class="toctree-l2 current active">
     <a class="current reference internal" href="#">
      Spinor
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="api_corep.html">
+     Co-representation
     </a>
    </li>
   </ul>
@@ -292,6 +307,19 @@ title="Fullscreen mode"
   </span>
 
 </button>
+<a href="https://github.com/spglib/spgrep"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="bottom"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
 
 <div class="menu-dropdown menu-dropdown-download-buttons">
   <button class="headerbtn menu-dropdown__trigger"
@@ -350,7 +378,7 @@ title="Print to PDF"
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Spinor representation</h1>
+                <h1>Representation for spinor</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -362,19 +390,23 @@ title="Print to PDF"
                 
               <div>
                 
-  <section class="tex2jax_ignore mathjax_ignore" id="spinor-representation">
-<h1>Spinor representation<a class="headerlink" href="#spinor-representation" title="Permalink to this headline">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="representation-for-spinor">
+<h1>Representation for spinor<a class="headerlink" href="#representation-for-spinor" title="Permalink to this headline">#</a></h1>
 <blockquote>
 <div><dl class="py function">
 <dt class="sig sig-object py" id="spgrep.spinor.enumerate_spinor_small_representations">
-<span class="sig-prename descclassname"><span class="pre">spgrep.spinor.</span></span><span class="sig-name descname"><span class="pre">enumerate_spinor_small_representations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lattice</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.dtype</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">little_rotations</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.dtype</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.int64</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">little_translations</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.dtype</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kpoint</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.dtype</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'Neto'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'random'</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'Neto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rtol</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1e-05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atol</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1e-08</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_num_random_generations</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">4</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.dtype</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.complex128</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.dtype</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.complex128</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/spgrep/spinor.html#enumerate_spinor_small_representations"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spgrep.spinor.enumerate_spinor_small_representations" title="Permalink to this definition">#</a></dt>
-<dd><p>Enumerate all unitary irreps of little group for spinor.</p>
-<p>See <a class="reference internal" href="../spinor.html#spinor-factor-system"><span class="std std-ref">Factor system for spinor</span></a> for Spgrep’s convention of spin-derived factor system <span class="math notranslate nohighlight">\(z(S_{i}, S_{j})\)</span>.</p>
+<span class="sig-prename descclassname"><span class="pre">spgrep.spinor.</span></span><span class="sig-name descname"><span class="pre">enumerate_spinor_small_representations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lattice</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">little_rotations</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">little_translations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kpoint</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Neto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rtol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-08</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_num_random_generations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/spgrep/spinor.html#enumerate_spinor_small_representations"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spgrep.spinor.enumerate_spinor_small_representations" title="Permalink to this definition">#</a></dt>
+<dd><p>Enumerate all unitary irreps <span class="math notranslate nohighlight">\(\mathbf{D}^{\mathbf{k}\alpha}\)</span> of little group for spinor.</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{D}^{\mathbf{k}\alpha}(\mathbf{S}_{i}) \mathbf{D}^{\mathbf{k}\alpha}(\mathbf{S}_{j})
+= z(\mathbf{S}_{i}, \mathbf{S}_{j}) e^{ -i \mathbf{g}_{i} \cdot \mathbf{w}_{j} } \mathbf{D}^{\mathbf{k}\alpha}(\mathbf{S}_{k}),\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mathbf{g}_{i} = \mathbf{S}_{i}^{-1} \mathbf{k} - \mathbf{k}\)</span>.</p>
+<p>See <a class="reference internal" href="../formulation/spinor.html#spinor-factor-system"><span class="std std-ref">Factor system for spinor</span></a> for Spgrep’s convention of spinor-derived factor system.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>lattice</strong> (<em>array</em><em>, </em><em>(</em><em>3</em><em>, </em><em>3</em><em>)</em>) – Row-wise basis vectors. <code class="docutils literal notranslate"><span class="pre">lattice[i,</span> <span class="pre">:]</span></code> is the i-th lattice vector.</p></li>
-<li><p><strong>little_rotations</strong> (<em>array</em><em>, </em><em>(</em><em>order</em><em>, </em><em>3</em><em>, </em><em>3</em><em>)</em>) – </p></li>
+<li><p><strong>little_rotations</strong> (<em>array</em><em>[</em><em>int</em><em>]</em><em>, </em><em>(</em><em>order</em><em>, </em><em>3</em><em>, </em><em>3</em><em>)</em>) – </p></li>
 <li><p><strong>little_translations</strong> (<em>array</em><em>, </em><em>(</em><em>order</em><em>, </em><em>3</em><em>)</em>) – </p></li>
 <li><p><strong>kpoint</strong> (<em>array</em><em>, </em><em>(</em><em>3</em><em>, </em><em>)</em>) – </p></li>
 <li><p><strong>method</strong> (<em>str</em><em>, </em><em>'Neto'</em><em> or </em><em>'random'</em>) – ‘Neto’: construct irreps from a fixed chain of subgroups of little co-group
@@ -387,6 +419,7 @@ title="Print to PDF"
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p><ul class="simple">
 <li><p><strong>irreps</strong> (<em>list of unitary small representations (irreps of little group) with (order, dim, dim)</em>)</p></li>
+<li><p><strong>spinor_factor_system</strong> (<em>array, (order, order)</em>) – <code class="docutils literal notranslate"><span class="pre">spinor_factor_system[i,</span> <span class="pre">j]</span></code> stands for factor system <span class="math notranslate nohighlight">\(z(\mathbf{S}_{i}, \mathbf{S}_{j})\)</span></p></li>
 <li><p><strong>unitary_rotations</strong> (<em>array, (order, 2, 2)</em>) – SU(2) rotations on spinor.</p></li>
 </ul>
 </p>
@@ -397,27 +430,26 @@ title="Print to PDF"
 </div></blockquote>
 <blockquote>
 <div><dl class="py function">
-<dt class="sig sig-object py" id="spgrep.spinor.get_spinor_factor_system_and_rotations">
-<span class="sig-prename descclassname"><span class="pre">spgrep.spinor.</span></span><span class="sig-name descname"><span class="pre">get_spinor_factor_system_and_rotations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lattice</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.dtype</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">little_rotations</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.dtype</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.int64</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">little_translations</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.dtype</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kpoint</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.dtype</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.float64</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.dtype</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.complex128</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.dtype</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.complex128</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/spgrep/spinor.html#get_spinor_factor_system_and_rotations"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spgrep.spinor.get_spinor_factor_system_and_rotations" title="Permalink to this definition">#</a></dt>
-<dd><p>Calculate factor system of spinor representation for little co-group.</p>
+<dt class="sig sig-object py" id="spgrep.spinor.get_spinor_factor_system">
+<span class="sig-prename descclassname"><span class="pre">spgrep.spinor.</span></span><span class="sig-name descname"><span class="pre">get_spinor_factor_system</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lattice</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rotations</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/spgrep/spinor.html#get_spinor_factor_system"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spgrep.spinor.get_spinor_factor_system" title="Permalink to this definition">#</a></dt>
+<dd><p>Calculate spin-derived factor system of spin representation.</p>
 <div class="math notranslate nohighlight">
-\[D^{\mathbf{k}\alpha}(S_{i}) D^{\mathbf{k}\alpha}(S_{j})
-= z(S_{i}, S_{j}) \exp \left( -i \mathbf{g}_{i} \cdot \mathbf{w}_{j} \right) D^{\mathbf{k}\alpha}(S_{k})\]</div>
-<p>where <span class="math notranslate nohighlight">\(S_{i}S_{j} = S_{k}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{g}_{i} = S_{i}^{-1} \mathbf{k} - \mathbf{k}\)</span>.
-See <a class="reference internal" href="../spinor.html#spinor-factor-system"><span class="std std-ref">Factor system for spinor</span></a> for Spgrep’s convention of spin-derived factor system <span class="math notranslate nohighlight">\(z(S_{i}, S_{j})\)</span>.</p>
+\[\mathbf{U}(\mathbf{S}_{i}) \mathbf{U}(\mathbf{S}_{j})
+= z(\mathbf{S}_{i}, \mathbf{S}_{j}) \mathbf{U}(\mathbf{S}_{k})\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mathbf{S}_{i} \mathbf{S}_{j} = \mathbf{S}_{k}\)</span>.
+See <a class="reference internal" href="../formulation/spinor.html#spinor-factor-system"><span class="std std-ref">Factor system for spinor</span></a> for Spgrep’s convention of spinor-derived factor system <span class="math notranslate nohighlight">\(z(S_{i}, S_{j})\)</span> and a map from orthogonal matrix <span class="math notranslate nohighlight">\(\mathbf{S}_{i} \in O(3)\)</span> to unitary matrix <span class="math notranslate nohighlight">\(\mathbf{U}(\mathbf{S}_{i}) \in SU(2)\)</span>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>lattice</strong> (<em>array</em><em>, </em><em>(</em><em>3</em><em>, </em><em>3</em><em>)</em>) – Row-wise basis vectors. <code class="docutils literal notranslate"><span class="pre">lattice[i,</span> <span class="pre">:]</span></code> is the i-th lattice vector.</p></li>
-<li><p><strong>little_rotations</strong> (<em>array</em><em>, </em><em>(</em><em>order</em><em>, </em><em>3</em><em>, </em><em>3</em><em>)</em>) – Linear parts of coset of little group stabilizing <code class="docutils literal notranslate"><span class="pre">kpoint</span></code>.</p></li>
-<li><p><strong>little_translations</strong> (<em>array</em><em>, </em><em>(</em><em>order</em><em>, </em><em>3</em><em>)</em>) – Translation parts of coset of little group stabilizing <code class="docutils literal notranslate"><span class="pre">kpoint</span></code>.</p></li>
-<li><p><strong>kpoint</strong> (<em>array</em><em>, </em><em>(</em><em>3</em><em>, </em><em>)</em>) – </p></li>
+<li><p><strong>rotations</strong> (<em>array</em><em>, </em><em>(</em><em>order</em><em>, </em><em>3</em><em>, </em><em>3</em><em>)</em>) – Matrix group of <span class="math notranslate nohighlight">\(\{ \mathbf{S}_{i} \}_{i}\)</span></p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p><ul class="simple">
-<li><p><strong>factor_system</strong> (<em>array, (order, order)</em>) – Factor system of spinor representations for little co-group that have one-to-one correspondence to small representations</p></li>
-<li><p><strong>unitary_rotations</strong> (<em>array, (order, 2, 2)</em>) – SU(2) rotations on spinor.</p></li>
+<li><p><strong>spinor_factor_system</strong> (<em>array, (order, order)</em>) – <code class="docutils literal notranslate"><span class="pre">factor_system[i,</span> <span class="pre">j]</span></code> stands for <span class="math notranslate nohighlight">\(z(\mathbf{S}_{i}, \mathbf{S}_{j})\)</span></p></li>
+<li><p><strong>unitary_rotations</strong> (<em>array, (order, 2, 2)</em>) – <code class="docutils literal notranslate"><span class="pre">unitary_rotations[i]</span></code> stands for <span class="math notranslate nohighlight">\(\mathbf{U}(\mathbf{S}_{i}) \in SU(2)\)</span>.
+SU(2) rotations on spinor.</p></li>
 </ul>
 </p>
 </dd>
@@ -442,10 +474,10 @@ See <a class="reference internal" href="../spinor.html#spinor-factor-system"><sp
             <p class="prev-next-title">Tensor</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="../changelog.html" title="next page">
+    <a class='right-next' id="next-link" href="api_corep.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Change Log</p>
+        <p class="prev-next-title">Co-representation for spinor</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

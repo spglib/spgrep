@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>spgrep.core &#8212; spgrep 0.3.0</title>
+    <title>spgrep.core &#8212; spgrep 0.3.1</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -73,7 +73,7 @@
       
       
       
-      <h1 class="site-logo" id="site-title">spgrep 0.3.0</h1>
+      <h1 class="site-logo" id="site-title">spgrep 0.3.1</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
@@ -93,7 +93,7 @@
   </a>
  </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../../examples.html">
+  <a class="reference internal" href="../../examples/examples.html">
    Examples
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
@@ -112,10 +112,15 @@
      Application of space-group irreps to lattice vibration
     </a>
    </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../examples/spin_representation.html">
+     Spin representation
+    </a>
+   </li>
   </ul>
  </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../../formulation.html">
+  <a class="reference internal" href="../../formulation/formulation.html">
    Formulation
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
@@ -125,38 +130,43 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../spacegroup_irreps.html">
+    <a class="reference internal" href="../../formulation/spacegroup_irreps.html">
      Irreps of space group
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../irreps_from_regular.html">
+    <a class="reference internal" href="../../formulation/irreps_from_regular.html">
      On-the-fly irreps generation from regular representation
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../irreps_from_chain.html">
+    <a class="reference internal" href="../../formulation/irreps_from_chain.html">
      On-the-fly irreps generation from solvable group chain
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../reality.html">
+    <a class="reference internal" href="../../formulation/reality.html">
      Reality of irreps
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../projection.html">
+    <a class="reference internal" href="../../formulation/projection.html">
      Symmetry-adapted basis
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../intertwiner.html">
+    <a class="reference internal" href="../../formulation/intertwiner.html">
      Intertwiner
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../spinor.html">
+    <a class="reference internal" href="../../formulation/spinor.html">
      Spin representation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../formulation/corepresentation.html">
+     Co-representation
     </a>
    </li>
   </ul>
@@ -209,6 +219,11 @@
    <li class="toctree-l2">
     <a class="reference internal" href="../../api/api_spinor.html">
      Spinor
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../api/api_corep.html">
+     Co-representation
     </a>
    </li>
   </ul>
@@ -287,6 +302,19 @@ title="Fullscreen mode"
   </span>
 
 </button>
+<a href="https://github.com/spglib/spgrep"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="bottom"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
 
     </div>
 </div>
@@ -318,20 +346,29 @@ title="Fullscreen mode"
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Literal</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">spglib</span> <span class="kn">import</span> <span class="n">get_symmetry_dataset</span>
+<span class="kn">from</span> <span class="nn">spglib</span> <span class="kn">import</span> <span class="n">get_magnetic_symmetry_dataset</span><span class="p">,</span> <span class="n">get_symmetry_dataset</span>
 
+<span class="kn">from</span> <span class="nn">spgrep.corep</span> <span class="kn">import</span> <span class="n">enumerate_spinor_small_corepresentations</span>
 <span class="kn">from</span> <span class="nn">spgrep.group</span> <span class="kn">import</span> <span class="n">get_little_group</span>
 <span class="kn">from</span> <span class="nn">spgrep.irreps</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">enumerate_small_representations</span><span class="p">,</span>
     <span class="n">enumerate_unitary_irreps</span><span class="p">,</span>
     <span class="n">purify_irrep_value</span><span class="p">,</span>
 <span class="p">)</span>
+<span class="kn">from</span> <span class="nn">spgrep.spinor</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">enumerate_spinor_small_representations</span><span class="p">,</span>
+    <span class="n">get_spinor_factor_system</span><span class="p">,</span>
+<span class="p">)</span>
 <span class="kn">from</span> <span class="nn">spgrep.transform</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">get_primitive_transformation_matrix</span><span class="p">,</span>
     <span class="n">transform_symmetry_and_kpoint</span><span class="p">,</span>
     <span class="n">unique_primitive_symmetry</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">spgrep.utils</span> <span class="kn">import</span> <span class="n">NDArrayComplex</span><span class="p">,</span> <span class="n">NDArrayFloat</span><span class="p">,</span> <span class="n">NDArrayInt</span>
+<span class="kn">from</span> <span class="nn">spgrep.utils</span> <span class="kn">import</span> <span class="n">NDArrayBool</span><span class="p">,</span> <span class="n">NDArrayComplex</span><span class="p">,</span> <span class="n">NDArrayFloat</span><span class="p">,</span> <span class="n">NDArrayInt</span>
+
+<span class="c1">################################################################################</span>
+<span class="c1"># Linear representation</span>
+<span class="c1">################################################################################</span>
 
 
 <div class="viewcode-block" id="get_spacegroup_irreps"><a class="viewcode-back" href="../../api/api_core.html#spgrep.get_spacegroup_irreps">[docs]</a><span class="k">def</span> <span class="nf">get_spacegroup_irreps</span><span class="p">(</span>
@@ -356,9 +393,6 @@ title="Fullscreen mode"
 <span class="sd">        Fractional coordinates of sites</span>
 <span class="sd">    numbers: array, (num_atoms, )</span>
 <span class="sd">        Integer list specifying atomic species</span>
-<span class="sd">    method: str, &#39;Neto&#39; or &#39;random&#39;</span>
-<span class="sd">        &#39;Neto&#39;: construct irreps from a fixed chain of subgroups of little co-group</span>
-<span class="sd">        &#39;random&#39;: construct irreps by numerically diagonalizing a random matrix commute with regular representation</span>
 <span class="sd">    kpoint: array, (3, )</span>
 <span class="sd">        Reciprocal vector with respect to ``reciprocal_lattice``</span>
 <span class="sd">        For pure translation :math:`\mathbf{t}`, returned irrep :math:`\Gamma^{(\alpha)}` takes</span>
@@ -366,6 +400,9 @@ title="Fullscreen mode"
 <span class="sd">        .. math::</span>
 <span class="sd">            \Gamma^{(\alpha)}((E, \mathbf{t})) = e^{ -i\mathbf{k}\cdot\mathbf{t} } \mathbf{1}.</span>
 
+<span class="sd">    method: str, &#39;Neto&#39; or &#39;random&#39;</span>
+<span class="sd">        &#39;Neto&#39;: construct irreps from a fixed chain of subgroups of little co-group</span>
+<span class="sd">        &#39;random&#39;: construct irreps by numerically diagonalizing a random matrix commute with regular representation</span>
 <span class="sd">    reciprocal_lattice: (Optional) array, (3, 3)</span>
 <span class="sd">        ``reciprocal_lattice[i, :]`` is the i-th basis vector of reciprocal lattice for ``kpoint`` without `2 * pi factor`.</span>
 <span class="sd">        If not specified, ``reciprocal_lattice`` is set to ``np.linalg.inv(lattice).T``.</span>
@@ -382,7 +419,7 @@ title="Fullscreen mode"
 <span class="sd">    -------</span>
 <span class="sd">    irreps: list of Irreps with (little_group_order, dim, dim)</span>
 <span class="sd">        ``irreps[alpha][i, :, :]`` is the ``alpha``-th irreducible matrix representation of ``(little_rotations[i], little_translations[i])``.</span>
-<span class="sd">    rotations: array, (num_sym, 3, 3)</span>
+<span class="sd">    rotations: array[int], (num_sym, 3, 3)</span>
 <span class="sd">    translations: array, (num_sym, 3)</span>
 <span class="sd">    mapping_little_group: array, (little_group_order, )</span>
 <span class="sd">        Let ``i = mapping_little_group[idx]``.</span>
@@ -419,38 +456,18 @@ title="Fullscreen mode"
         <span class="n">atol</span><span class="o">=</span><span class="n">atol</span><span class="p">,</span>
         <span class="n">max_num_random_generations</span><span class="o">=</span><span class="n">max_num_random_generations</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="n">remapping_prim_little_group</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1"># [0..order) -&gt; [0..prim_little_group_order)</span>
-    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">mapping_prim_little_group</span><span class="p">):</span>
-        <span class="n">remapping_prim_little_group</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span>
 
-    <span class="n">mapping_little_group</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># [0..little_group_order) -&gt; [0..num_sym)</span>
-    <span class="n">mapping_conv_to_prim_little_group</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="p">[]</span>
-    <span class="p">)</span>  <span class="c1"># [0..little_group_order) -&gt; [0..prim_little_group_order)</span>
-    <span class="n">shifts</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># (little_group_order, )</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">mapping_to_prim</span><span class="p">)):</span>
-        <span class="n">idx_prim</span> <span class="o">=</span> <span class="n">mapping_to_prim</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>  <span class="c1"># in [0..order)</span>
-        <span class="n">idx_prim_little</span> <span class="o">=</span> <span class="n">remapping_prim_little_group</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
-            <span class="n">idx_prim</span>
-        <span class="p">)</span>  <span class="c1"># in [0..prim_little_group_order)</span>
-        <span class="k">if</span> <span class="n">idx_prim_little</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">continue</span>
+    <span class="c1"># Go back to conventional cell</span>
+    <span class="n">irreps</span><span class="p">,</span> <span class="n">mapping_little_group</span> <span class="o">=</span> <span class="n">_adjust_phase_for_centering_translations</span><span class="p">(</span>
+        <span class="n">prim_translations</span><span class="p">,</span>
+        <span class="n">prim_kpoint</span><span class="p">,</span>
+        <span class="n">uniq_prim_translations</span><span class="p">,</span>
+        <span class="n">mapping_to_prim</span><span class="p">,</span>
+        <span class="n">prim_irreps</span><span class="p">,</span>
+        <span class="n">mapping_prim_little_group</span><span class="p">,</span>
+    <span class="p">)</span>
 
-        <span class="n">mapping_little_group</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
-        <span class="n">mapping_conv_to_prim_little_group</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">idx_prim_little</span><span class="p">)</span>
-        <span class="n">shifts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">prim_translations</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">uniq_prim_translations</span><span class="p">[</span><span class="n">idx_prim</span><span class="p">])</span>
-
-    <span class="c1"># Adjust phase by centering translation</span>
-    <span class="n">phases</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="n">j</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">prim_kpoint</span><span class="p">,</span> <span class="n">shift</span><span class="p">))</span> <span class="k">for</span> <span class="n">shift</span> <span class="ow">in</span> <span class="n">shifts</span><span class="p">])</span>
-    <span class="n">irreps</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">for</span> <span class="n">prim_irrep</span> <span class="ow">in</span> <span class="n">prim_irreps</span><span class="p">:</span>
-        <span class="c1"># prim_irrep: (little_group_order, dim, dim)</span>
-        <span class="n">irrep</span> <span class="o">=</span> <span class="n">prim_irrep</span><span class="p">[</span><span class="n">mapping_conv_to_prim_little_group</span><span class="p">]</span> <span class="o">*</span> <span class="n">phases</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span>
-        <span class="n">irrep</span> <span class="o">=</span> <span class="n">purify_irrep_value</span><span class="p">(</span><span class="n">irrep</span><span class="p">)</span>
-
-        <span class="n">irreps</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">irrep</span><span class="p">)</span>
-
-    <span class="k">return</span> <span class="n">irreps</span><span class="p">,</span> <span class="n">rotations</span><span class="p">,</span> <span class="n">translations</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">mapping_little_group</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">irreps</span><span class="p">,</span> <span class="n">rotations</span><span class="p">,</span> <span class="n">translations</span><span class="p">,</span> <span class="n">mapping_little_group</span></div>
 
 
 <div class="viewcode-block" id="get_spacegroup_irreps_from_primitive_symmetry"><a class="viewcode-back" href="../../api/api_core.html#spgrep.get_spacegroup_irreps_from_primitive_symmetry">[docs]</a><span class="k">def</span> <span class="nf">get_spacegroup_irreps_from_primitive_symmetry</span><span class="p">(</span>
@@ -469,7 +486,7 @@ title="Fullscreen mode"
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    rotations: array, (order, 3, 3)</span>
+<span class="sd">    rotations: array[int], (order, 3, 3)</span>
 <span class="sd">        Assume a fractional coordinates `x` are transformed by the i-th symmetry operation as follows:</span>
 <span class="sd">            ``np.dot(rotations[i, :, :], x) + translations[i, :]``</span>
 <span class="sd">    translations: array, (order, 3)</span>
@@ -549,7 +566,7 @@ title="Fullscreen mode"
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    rotations: array, (order, 3, 3)</span>
+<span class="sd">    rotations: array[int], (order, 3, 3)</span>
 <span class="sd">        Assume a point coordinates ``x`` are transformed into ``np.dot(rotations[i, :, :], x)`` by the ``i``-th symmetry operation.</span>
 <span class="sd">    real: bool, default=False</span>
 <span class="sd">        If True, return irreps over real vector space (so called physically irreducible representations)</span>
@@ -577,6 +594,462 @@ title="Fullscreen mode"
         <span class="n">max_num_random_generations</span><span class="o">=</span><span class="n">max_num_random_generations</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="k">return</span> <span class="n">irreps</span></div>
+
+
+<span class="c1">################################################################################</span>
+<span class="c1"># Spin representation</span>
+<span class="c1">################################################################################</span>
+
+
+<div class="viewcode-block" id="get_spacegroup_spinor_irreps"><a class="viewcode-back" href="../../api/api_core.html#spgrep.get_spacegroup_spinor_irreps">[docs]</a><span class="k">def</span> <span class="nf">get_spacegroup_spinor_irreps</span><span class="p">(</span>
+    <span class="n">lattice</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">,</span>
+    <span class="n">positions</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">,</span>
+    <span class="n">numbers</span><span class="p">:</span> <span class="n">NDArrayInt</span><span class="p">,</span>
+    <span class="n">magmoms</span><span class="p">:</span> <span class="n">NDArrayFloat</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">kpoint</span><span class="p">:</span> <span class="n">NDArrayFloat</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">method</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;Neto&quot;</span><span class="p">,</span> <span class="s2">&quot;random&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Neto&quot;</span><span class="p">,</span>
+    <span class="n">reciprocal_lattice</span><span class="p">:</span> <span class="n">NDArrayFloat</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">symprec</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-5</span><span class="p">,</span>
+    <span class="n">rtol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-5</span><span class="p">,</span>
+    <span class="n">atol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-8</span><span class="p">,</span>
+    <span class="n">max_num_random_generations</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span>
+    <span class="nb">list</span><span class="p">[</span><span class="n">NDArrayComplex</span><span class="p">],</span>
+    <span class="n">NDArrayComplex</span><span class="p">,</span>
+    <span class="n">NDArrayComplex</span><span class="p">,</span>
+    <span class="n">NDArrayInt</span><span class="p">,</span>
+    <span class="n">NDArrayFloat</span><span class="p">,</span>
+    <span class="n">NDArrayInt</span><span class="p">,</span>
+<span class="p">]</span> <span class="o">|</span> <span class="nb">tuple</span><span class="p">[</span>
+    <span class="nb">list</span><span class="p">[</span><span class="n">NDArrayComplex</span><span class="p">],</span>
+    <span class="n">NDArrayComplex</span><span class="p">,</span>
+    <span class="n">NDArrayComplex</span><span class="p">,</span>
+    <span class="n">NDArrayBool</span><span class="p">,</span>
+    <span class="n">NDArrayInt</span><span class="p">,</span>
+    <span class="n">NDArrayFloat</span><span class="p">,</span>
+    <span class="n">NDArrayInt</span><span class="p">,</span>
+    <span class="n">NDArrayInt</span><span class="p">,</span>
+<span class="p">]:</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Compute all irreducible representations :math:`\mathbf{\Gamma}^{\mathbf{k}\alpha}` of space group of given structure up to unitary transformation for spinor.</span>
+
+<span class="sd">    .. math::</span>
+<span class="sd">       \mathbf{\Gamma}^{\mathbf{k}\alpha}((\mathbf{S}_{i}, \mathbf{w}_{i})) \mathbf{\Gamma}^{\mathbf{k}\alpha}((\mathbf{S}_{j}, \mathbf{w}_{j}))</span>
+<span class="sd">       = z(\mathbf{S}_{i}, \mathbf{S}_{j}) \mathbf{\Gamma}^{\mathbf{k}\alpha}((\mathbf{S}_{i}, \mathbf{w}_{i})(\mathbf{S}_{j}, \mathbf{w}_{j}))</span>
+
+<span class="sd">    See :ref:`spinor_factor_system` for Spgrep&#39;s convention of spin-derived factor system :math:`z(\mathbf{S}_{i}, \mathbf{S}_{j})`.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    lattice: array, (3, 3)</span>
+<span class="sd">        Row-wise basis vectors. ``lattice[i, :]`` is the i-th lattice vector.</span>
+<span class="sd">    positions: array, (num_atoms, 3)</span>
+<span class="sd">        Fractional coordinates of sites</span>
+<span class="sd">    numbers: array, (num_atoms, )</span>
+<span class="sd">        Integer list specifying atomic species</span>
+<span class="sd">    magmoms: (Optional) array, (num_atoms, )</span>
+<span class="sd">        Collinear magnetic moments. If specified, return co-representations.</span>
+<span class="sd">    kpoint: array, (3, )</span>
+<span class="sd">        Reciprocal vector with respect to ``reciprocal_lattice``</span>
+<span class="sd">        For pure translation :math:`\mathbf{t}`, returned irrep :math:`\Gamma^{(\alpha)}` takes</span>
+
+<span class="sd">        .. math::</span>
+<span class="sd">            \Gamma^{(\alpha)}((E, \mathbf{t})) = e^{ -i\mathbf{k}\cdot\mathbf{t} } \mathbf{1}.</span>
+
+<span class="sd">    method: str, &#39;Neto&#39; or &#39;random&#39;</span>
+<span class="sd">        &#39;Neto&#39;: construct irreps from a fixed chain of subgroups of little co-group</span>
+<span class="sd">        &#39;random&#39;: construct irreps by numerically diagonalizing a random matrix commute with regular representation</span>
+<span class="sd">    reciprocal_lattice: (Optional) array, (3, 3)</span>
+<span class="sd">        ``reciprocal_lattice[i, :]`` is the i-th basis vector of reciprocal lattice for ``kpoint`` without `2 * pi factor`.</span>
+<span class="sd">        If not specified, ``reciprocal_lattice`` is set to ``np.linalg.inv(lattice).T``.</span>
+<span class="sd">    symprec: float</span>
+<span class="sd">        Parameter for searching symmetry operation in Spglib</span>
+<span class="sd">    rtol: float</span>
+<span class="sd">        Relative tolerance for comparing float values</span>
+<span class="sd">    atol: float</span>
+<span class="sd">        Absolute tolerance to distinguish difference eigenvalues</span>
+<span class="sd">    max_num_random_generations: int</span>
+<span class="sd">        Maximum number of trials to generate random matrix</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    irreps: list of Irreps with (little_group_order, dim, dim)</span>
+<span class="sd">        ``irreps[alpha][i, :, :]`` is the ``alpha``-th irreducible matrix representation of ``(little_rotations[i], little_translations[i])``.</span>
+<span class="sd">    little_spinor_factor_system: array, (little_group_order, little_group_order)</span>
+<span class="sd">        ``spinor_factor_system[i, j]`` stands for factor system :math:`z(\mathbf{S}_{i}, \mathbf{S}_{j})`</span>
+<span class="sd">    little_unitary_rotations: array, (little_group_order, 2, 2)</span>
+<span class="sd">        SU(2) rotations on spinor.</span>
+<span class="sd">    anti_linear: (Optional) array[bool], (little_group_order, )</span>
+<span class="sd">        Appeared when ``time_reversal`` is specified.</span>
+<span class="sd">        If ``anti_linear[i] == True``, the ``i``-th operator is anti-linear.</span>
+<span class="sd">    rotations: array[int], (num_sym, 3, 3)</span>
+<span class="sd">    translations: array, (num_sym, 3)</span>
+<span class="sd">    time_reversals: array[int], (num_sym, )</span>
+<span class="sd">    mapping_little_group: array, (little_group_order, )</span>
+<span class="sd">        Let ``i = mapping_little_group[idx]``.</span>
+<span class="sd">        (rotations[i], translations[i]) belongs to the little group of given space space group and kpoint.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">kpoint</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">kpoint</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+
+    <span class="c1"># Transform given `kpoint` in dual of `lattice`</span>
+    <span class="n">dual_lattice</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">lattice</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+    <span class="k">if</span> <span class="n">reciprocal_lattice</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">reciprocal_lattice</span> <span class="o">=</span> <span class="n">dual_lattice</span>
+    <span class="c1"># kpoint @ reciprocal_lattice == kpoint_conv @ dual_lattice</span>
+    <span class="n">kpoint_conv</span> <span class="o">=</span> <span class="n">kpoint</span> <span class="o">@</span> <span class="n">reciprocal_lattice</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">dual_lattice</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">magmoms</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">dataset</span> <span class="o">=</span> <span class="n">get_symmetry_dataset</span><span class="p">(</span><span class="n">cell</span><span class="o">=</span><span class="p">(</span><span class="n">lattice</span><span class="p">,</span> <span class="n">positions</span><span class="p">,</span> <span class="n">numbers</span><span class="p">),</span> <span class="n">symprec</span><span class="o">=</span><span class="n">symprec</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">dataset</span> <span class="o">=</span> <span class="n">get_magnetic_symmetry_dataset</span><span class="p">(</span>
+            <span class="n">cell</span><span class="o">=</span><span class="p">(</span><span class="n">lattice</span><span class="p">,</span> <span class="n">positions</span><span class="p">,</span> <span class="n">numbers</span><span class="p">,</span> <span class="n">magmoms</span><span class="p">),</span> <span class="n">symprec</span><span class="o">=</span><span class="n">symprec</span>
+        <span class="p">)</span>
+
+    <span class="n">rotations</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">[</span><span class="s2">&quot;rotations&quot;</span><span class="p">]</span>
+    <span class="n">translations</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">[</span><span class="s2">&quot;translations&quot;</span><span class="p">]</span>
+
+    <span class="c1"># Transform to primitive</span>
+    <span class="n">to_primitive</span> <span class="o">=</span> <span class="n">get_primitive_transformation_matrix</span><span class="p">(</span><span class="n">dataset</span><span class="p">[</span><span class="s2">&quot;hall_number&quot;</span><span class="p">])</span>
+    <span class="n">prim_rotations</span><span class="p">,</span> <span class="n">prim_translations</span><span class="p">,</span> <span class="n">prim_kpoint</span> <span class="o">=</span> <span class="n">transform_symmetry_and_kpoint</span><span class="p">(</span>
+        <span class="n">to_primitive</span><span class="p">,</span> <span class="n">rotations</span><span class="p">,</span> <span class="n">translations</span><span class="p">,</span> <span class="n">kpoint_conv</span>
+    <span class="p">)</span>
+    <span class="n">prim_lattice</span> <span class="o">=</span> <span class="n">to_primitive</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">lattice</span>  <span class="c1"># (AP)^T = P^T @ A^T</span>
+    <span class="c1"># mapping_to_prim: [0..num_sym) -&gt; [0..order)</span>
+    <span class="n">uniq_prim_rotations</span><span class="p">,</span> <span class="n">uniq_prim_translations</span><span class="p">,</span> <span class="n">mapping_to_prim</span> <span class="o">=</span> <span class="n">unique_primitive_symmetry</span><span class="p">(</span>
+        <span class="n">prim_rotations</span><span class="p">,</span> <span class="n">prim_translations</span>
+    <span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">magmoms</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># mapping_prim_little_group: [0..prim_little_group_order) -&gt; [0..order)</span>
+        <span class="p">(</span>
+            <span class="n">prim_irreps</span><span class="p">,</span>
+            <span class="n">little_spinor_factor_system</span><span class="p">,</span>
+            <span class="n">little_unitary_rotations</span><span class="p">,</span>
+            <span class="n">mapping_prim_little_group</span><span class="p">,</span>
+        <span class="p">)</span> <span class="o">=</span> <span class="n">get_spacegroup_spinor_irreps_from_primitive_symmetry</span><span class="p">(</span>  <span class="c1"># type: ignore</span>
+            <span class="n">lattice</span><span class="o">=</span><span class="n">prim_lattice</span><span class="p">,</span>
+            <span class="n">rotations</span><span class="o">=</span><span class="n">uniq_prim_rotations</span><span class="p">,</span>
+            <span class="n">translations</span><span class="o">=</span><span class="n">uniq_prim_translations</span><span class="p">,</span>
+            <span class="n">kpoint</span><span class="o">=</span><span class="n">prim_kpoint</span><span class="p">,</span>
+            <span class="n">method</span><span class="o">=</span><span class="n">method</span><span class="p">,</span>
+            <span class="n">rtol</span><span class="o">=</span><span class="n">rtol</span><span class="p">,</span>
+            <span class="n">atol</span><span class="o">=</span><span class="n">atol</span><span class="p">,</span>
+            <span class="n">max_num_random_generations</span><span class="o">=</span><span class="n">max_num_random_generations</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">time_reversals</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">[</span><span class="s2">&quot;time_reversals&quot;</span><span class="p">]</span>
+        <span class="n">uniq_prim_time_reversals</span> <span class="o">=</span> <span class="n">time_reversals</span><span class="p">[</span><span class="n">mapping_to_prim</span><span class="p">]</span>
+        <span class="p">(</span>
+            <span class="n">prim_irreps</span><span class="p">,</span>
+            <span class="n">_</span><span class="p">,</span>
+            <span class="n">little_spinor_factor_system</span><span class="p">,</span>
+            <span class="n">little_unitary_rotations</span><span class="p">,</span>
+            <span class="n">little_anti_linear</span><span class="p">,</span>
+            <span class="n">mapping_prim_little_group</span><span class="p">,</span>
+        <span class="p">)</span> <span class="o">=</span> <span class="n">get_spacegroup_spinor_irreps_from_primitive_symmetry</span><span class="p">(</span>  <span class="c1"># type: ignore</span>
+            <span class="n">lattice</span><span class="o">=</span><span class="n">prim_lattice</span><span class="p">,</span>
+            <span class="n">rotations</span><span class="o">=</span><span class="n">uniq_prim_rotations</span><span class="p">,</span>
+            <span class="n">translations</span><span class="o">=</span><span class="n">uniq_prim_translations</span><span class="p">,</span>
+            <span class="n">time_reversals</span><span class="o">=</span><span class="n">uniq_prim_time_reversals</span><span class="p">,</span>
+            <span class="n">kpoint</span><span class="o">=</span><span class="n">prim_kpoint</span><span class="p">,</span>
+            <span class="n">method</span><span class="o">=</span><span class="n">method</span><span class="p">,</span>
+            <span class="n">rtol</span><span class="o">=</span><span class="n">rtol</span><span class="p">,</span>
+            <span class="n">atol</span><span class="o">=</span><span class="n">atol</span><span class="p">,</span>
+            <span class="n">max_num_random_generations</span><span class="o">=</span><span class="n">max_num_random_generations</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="c1"># Go back to conventional cell</span>
+    <span class="n">irreps</span><span class="p">,</span> <span class="n">mapping_little_group</span> <span class="o">=</span> <span class="n">_adjust_phase_for_centering_translations</span><span class="p">(</span>
+        <span class="n">prim_translations</span><span class="p">,</span>
+        <span class="n">prim_kpoint</span><span class="p">,</span>
+        <span class="n">uniq_prim_translations</span><span class="p">,</span>
+        <span class="n">mapping_to_prim</span><span class="p">,</span>
+        <span class="n">prim_irreps</span><span class="p">,</span>
+        <span class="n">mapping_prim_little_group</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">magmoms</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="n">irreps</span><span class="p">,</span>
+            <span class="n">little_spinor_factor_system</span><span class="p">,</span>
+            <span class="n">little_unitary_rotations</span><span class="p">,</span>
+            <span class="n">rotations</span><span class="p">,</span>
+            <span class="n">translations</span><span class="p">,</span>
+            <span class="n">mapping_little_group</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="n">irreps</span><span class="p">,</span>
+            <span class="n">little_spinor_factor_system</span><span class="p">,</span>
+            <span class="n">little_unitary_rotations</span><span class="p">,</span>
+            <span class="n">little_anti_linear</span><span class="p">,</span>
+            <span class="n">rotations</span><span class="p">,</span>
+            <span class="n">translations</span><span class="p">,</span>
+            <span class="n">time_reversals</span><span class="p">,</span>
+            <span class="n">mapping_little_group</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="get_spacegroup_spinor_irreps_from_primitive_symmetry"><a class="viewcode-back" href="../../api/api_core.html#spgrep.get_spacegroup_spinor_irreps_from_primitive_symmetry">[docs]</a><span class="k">def</span> <span class="nf">get_spacegroup_spinor_irreps_from_primitive_symmetry</span><span class="p">(</span>
+    <span class="n">lattice</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">,</span>
+    <span class="n">rotations</span><span class="p">:</span> <span class="n">NDArrayInt</span><span class="p">,</span>
+    <span class="n">translations</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">,</span>
+    <span class="n">time_reversals</span><span class="p">:</span> <span class="n">NDArrayInt</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">kpoint</span><span class="p">:</span> <span class="n">NDArrayFloat</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">method</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;Neto&quot;</span><span class="p">,</span> <span class="s2">&quot;random&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Neto&quot;</span><span class="p">,</span>
+    <span class="n">rtol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-5</span><span class="p">,</span>
+    <span class="n">atol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-8</span><span class="p">,</span>
+    <span class="n">max_num_random_generations</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="n">NDArrayComplex</span><span class="p">],</span> <span class="n">NDArrayComplex</span><span class="p">,</span> <span class="n">NDArrayComplex</span><span class="p">,</span> <span class="n">NDArrayInt</span><span class="p">]</span> <span class="o">|</span> <span class="nb">tuple</span><span class="p">[</span>
+    <span class="nb">list</span><span class="p">[</span><span class="n">NDArrayComplex</span><span class="p">],</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">NDArrayComplex</span><span class="p">,</span> <span class="n">NDArrayComplex</span><span class="p">,</span> <span class="n">NDArrayBool</span><span class="p">,</span> <span class="n">NDArrayInt</span>
+<span class="p">]:</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Compute all irreducible representations :math:`\mathbf{\Gamma}^{\mathbf{k}\alpha}` of given space group up to unitary transformation fpr spinor.</span>
+
+<span class="sd">    .. math::</span>
+<span class="sd">       \mathbf{\Gamma}^{\mathbf{k}\alpha}((\mathbf{S}_{i}, \mathbf{w}_{i})) \mathbf{\Gamma}^{\mathbf{k}\alpha}((\mathbf{S}_{j}, \mathbf{w}_{j}))</span>
+<span class="sd">       = z(\mathbf{S}_{i}, \mathbf{S}_{j}) \mathbf{\Gamma}^{\mathbf{k}\alpha}((\mathbf{S}_{i}, \mathbf{w}_{i})(\mathbf{S}_{j}, \mathbf{w}_{j}))</span>
+
+<span class="sd">    Note that rotations and translations should be specified in a primitive cell.</span>
+<span class="sd">    See :ref:`spinor_factor_system` for Spgrep&#39;s convention of spin-derived factor system :math:`z(\mathbf{S}_{i}, \mathbf{S}_{j})`.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    lattice: array, (3, 3)</span>
+<span class="sd">        Row-wise basis vectors. ``lattice[i, :]`` is the i-th lattice vector.</span>
+<span class="sd">    rotations: array[int], (order, 3, 3)</span>
+<span class="sd">        Assume a fractional coordinates `x` are transformed by the i-th symmetry operation as follows:</span>
+<span class="sd">            ``np.dot(rotations[i, :, :], x) + translations[i, :]``</span>
+<span class="sd">    translations: array, (order, 3)</span>
+<span class="sd">    time_reversals: array[int] | None, (order, )</span>
+<span class="sd">        If specified, return co-representations</span>
+<span class="sd">    kpoint: array, (3, )</span>
+<span class="sd">        Reciprocal vector with respect to reciprocal lattice.</span>
+<span class="sd">        For pure translation :math:`\mathbf{t}`, returned irrep :math:`\Gamma^{(\alpha)}` takes</span>
+
+<span class="sd">        .. math::</span>
+<span class="sd">            \mathbf{\Gamma}^{\mathbf{k}\alpha}((E, \mathbf{t})) = e^{ -i\mathbf{k}\cdot\mathbf{t} } \mathbf{1}.</span>
+<span class="sd">    method: str, &#39;Neto&#39; or &#39;random&#39;</span>
+<span class="sd">        &#39;Neto&#39;: construct irreps from a fixed chain of subgroups of little co-group</span>
+<span class="sd">        &#39;random&#39;: construct irreps by numerically diagonalizing a random matrix commute with regular representation</span>
+<span class="sd">    rtol: float</span>
+<span class="sd">        Relative tolerance</span>
+<span class="sd">    atol: float</span>
+<span class="sd">        Absolute tolerance to distinguish difference eigenvalues</span>
+<span class="sd">    max_num_random_generations: int</span>
+<span class="sd">        Maximum number of trials to generate random matrix</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    irreps: list of Irreps with (little_group_order, dim, dim)</span>
+<span class="sd">        Let ``i = mapping_little_group[idx]``. ``irreps[alpha][i, :, :]`` is the ``alpha``-th irreducible matrix representation of ``(rotations[i], translations[i])``.</span>
+<span class="sd">    indicators: (Optional) list[int]</span>
+<span class="sd">        Appeared when ``time_reversal`` is specified.</span>
+<span class="sd">        Frobenius-Schur indicators for each small representation</span>
+<span class="sd">    little_spinor_factor_system: array, (little_group_order, little_group_order)</span>
+<span class="sd">        ``spinor_factor_system[i, j]`` stands for factor system :math:`z(\mathbf{S}_{i}, \mathbf{S}_{j})`</span>
+<span class="sd">    little_unitary_rotations: array, (little_group_order, 2, 2)</span>
+<span class="sd">        SU(2) rotations on spinor.</span>
+<span class="sd">    anti_linear: (Optional) array[bool], (order, )</span>
+<span class="sd">        Appeared when ``time_reversal`` is specified.</span>
+<span class="sd">        If ``anti_linear[i] == True``, the ``i``-th operator is anti-linear.</span>
+<span class="sd">    mapping_little_group: array, (little_group_order, )</span>
+<span class="sd">        Let ``i = mapping_little_group[idx]``.</span>
+<span class="sd">        ``(rotations[i], translations[i])`` belongs to the little group of given space space group and kpoint.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">kpoint</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">kpoint</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+
+    <span class="c1"># Sanity check to use primitive cell</span>
+    <span class="k">for</span> <span class="n">rotation</span><span class="p">,</span> <span class="n">translation</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">rotations</span><span class="p">,</span> <span class="n">translations</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">rotation</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span> <span class="n">rtol</span><span class="o">=</span><span class="n">rtol</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="n">atol</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span>
+            <span class="n">translation</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="n">atol</span>
+        <span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Specify symmetry operations in primitive cell!&quot;</span><span class="p">)</span>
+
+    <span class="n">little_rotations</span><span class="p">,</span> <span class="n">little_translations</span><span class="p">,</span> <span class="n">mapping_little_group</span> <span class="o">=</span> <span class="n">get_little_group</span><span class="p">(</span>
+        <span class="n">rotations</span><span class="p">,</span> <span class="n">translations</span><span class="p">,</span> <span class="n">kpoint</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="n">atol</span>
+    <span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">time_reversals</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="p">(</span>
+            <span class="n">irreps</span><span class="p">,</span>
+            <span class="n">little_spin_factor_system</span><span class="p">,</span>
+            <span class="n">little_unitary_rotations</span><span class="p">,</span>
+        <span class="p">)</span> <span class="o">=</span> <span class="n">enumerate_spinor_small_representations</span><span class="p">(</span>
+            <span class="n">lattice</span><span class="o">=</span><span class="n">lattice</span><span class="p">,</span>
+            <span class="n">little_rotations</span><span class="o">=</span><span class="n">little_rotations</span><span class="p">,</span>
+            <span class="n">little_translations</span><span class="o">=</span><span class="n">little_translations</span><span class="p">,</span>
+            <span class="n">kpoint</span><span class="o">=</span><span class="n">kpoint</span><span class="p">,</span>
+            <span class="n">method</span><span class="o">=</span><span class="n">method</span><span class="p">,</span>
+            <span class="n">rtol</span><span class="o">=</span><span class="n">rtol</span><span class="p">,</span>
+            <span class="n">atol</span><span class="o">=</span><span class="n">atol</span><span class="p">,</span>
+            <span class="n">max_num_random_generations</span><span class="o">=</span><span class="n">max_num_random_generations</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">irreps</span><span class="p">,</span> <span class="n">little_spin_factor_system</span><span class="p">,</span> <span class="n">little_unitary_rotations</span><span class="p">,</span> <span class="n">mapping_little_group</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># Co-representation</span>
+        <span class="n">little_time_reversals</span> <span class="o">=</span> <span class="n">time_reversals</span><span class="p">[</span><span class="n">mapping_little_group</span><span class="p">]</span>
+        <span class="p">(</span>
+            <span class="n">irreps</span><span class="p">,</span>
+            <span class="n">indicators</span><span class="p">,</span>
+            <span class="n">little_spin_factor_system</span><span class="p">,</span>
+            <span class="n">little_unitary_rotations</span><span class="p">,</span>
+            <span class="n">little_anti_linear</span><span class="p">,</span>
+        <span class="p">)</span> <span class="o">=</span> <span class="n">enumerate_spinor_small_corepresentations</span><span class="p">(</span>
+            <span class="n">lattice</span><span class="p">,</span>
+            <span class="n">little_rotations</span><span class="p">,</span>
+            <span class="n">little_translations</span><span class="p">,</span>
+            <span class="n">little_time_reversals</span><span class="p">,</span>
+            <span class="n">kpoint</span><span class="o">=</span><span class="n">kpoint</span><span class="p">,</span>
+            <span class="n">method</span><span class="o">=</span><span class="n">method</span><span class="p">,</span>
+            <span class="n">rtol</span><span class="o">=</span><span class="n">rtol</span><span class="p">,</span>
+            <span class="n">atol</span><span class="o">=</span><span class="n">atol</span><span class="p">,</span>
+            <span class="n">max_num_random_generations</span><span class="o">=</span><span class="n">max_num_random_generations</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="n">irreps</span><span class="p">,</span>
+            <span class="n">indicators</span><span class="p">,</span>
+            <span class="n">little_spin_factor_system</span><span class="p">,</span>
+            <span class="n">little_unitary_rotations</span><span class="p">,</span>
+            <span class="n">little_anti_linear</span><span class="p">,</span>
+            <span class="n">mapping_little_group</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="get_crystallographic_pointgroup_spinor_irreps_from_symmetry"><a class="viewcode-back" href="../../api/api_core.html#spgrep.get_crystallographic_pointgroup_spinor_irreps_from_symmetry">[docs]</a><span class="k">def</span> <span class="nf">get_crystallographic_pointgroup_spinor_irreps_from_symmetry</span><span class="p">(</span>
+    <span class="n">lattice</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">,</span>
+    <span class="n">rotations</span><span class="p">:</span> <span class="n">NDArrayInt</span><span class="p">,</span>
+    <span class="n">time_reversals</span><span class="p">:</span> <span class="n">NDArrayInt</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">method</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;Neto&quot;</span><span class="p">,</span> <span class="s2">&quot;random&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Neto&quot;</span><span class="p">,</span>
+    <span class="n">rtol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-5</span><span class="p">,</span>
+    <span class="n">atol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-8</span><span class="p">,</span>
+    <span class="n">max_num_random_generations</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="n">NDArrayComplex</span><span class="p">],</span> <span class="n">NDArrayComplex</span><span class="p">,</span> <span class="n">NDArrayComplex</span><span class="p">]</span> <span class="o">|</span> <span class="nb">tuple</span><span class="p">[</span>
+    <span class="nb">list</span><span class="p">[</span><span class="n">NDArrayComplex</span><span class="p">],</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">NDArrayComplex</span><span class="p">,</span> <span class="n">NDArrayComplex</span><span class="p">,</span> <span class="n">NDArrayBool</span>
+<span class="p">]:</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Compute all irreducible representations :math:`\mathbf{D}^{\alpha}` of given crystallographic point group up to unitary transformation for spinor.</span>
+
+<span class="sd">    .. math::</span>
+<span class="sd">       \mathbf{D}^{\alpha}(\mathbf{S}_{i}) \mathbf{D}^{\alpha}(\mathbf{S}_{j})</span>
+<span class="sd">       = z(\mathbf{S}_{i}, \mathbf{S}_{j}) \mathbf{D}^{\alpha}(\mathbf{S}_{k})</span>
+
+<span class="sd">    Assume matrix representation of given crystallographic point group is in &quot;standard&quot; setting shown in Table 3.2.3.3 of International Table for Crystallography Vol. A (2016).</span>
+
+<span class="sd">    See :ref:`spinor_factor_system` for Spgrep&#39;s convention of spinor-derived factor system :math:`z(\mathbf{S}_{i}, \mathbf{S}_{j})`.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    lattice: array, (3, 3)</span>
+<span class="sd">        Row-wise basis vectors. ``lattice[i, :]`` is the i-th lattice vector.</span>
+<span class="sd">    rotations: array[int], (order, 3, 3)</span>
+<span class="sd">        Assume a point coordinates ``x`` are transformed into ``np.dot(rotations[i, :, :], x)`` by the ``i``-th symmetry operation.</span>
+<span class="sd">    time_reversals: array[int] | None, (order, )</span>
+<span class="sd">        If specified, return co-representations</span>
+<span class="sd">    method: str, &#39;Neto&#39; or &#39;random&#39;</span>
+<span class="sd">        &#39;Neto&#39;: construct irreps from a fixed chain of subgroups of little co-group</span>
+<span class="sd">        &#39;random&#39;: construct irreps by numerically diagonalizing a random matrix commute with regular representation</span>
+<span class="sd">    rtol: float</span>
+<span class="sd">        Relative tolerance to distinguish difference eigenvalues</span>
+<span class="sd">    atol: float</span>
+<span class="sd">        Absolute tolerance to distinguish difference eigenvalues</span>
+<span class="sd">    max_num_random_generations: int</span>
+<span class="sd">        Maximum number of trials to generate random matrix</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    irreps: list of unitary irreps with (order, dim, dim)</span>
+<span class="sd">    indicators: (Optional) list[int]</span>
+<span class="sd">        Appeared when ``time_reversal`` is specified.</span>
+<span class="sd">        Frobenius-Schur indicators for each small representation</span>
+<span class="sd">    factor_system: array, (order, order)</span>
+<span class="sd">        ``factor_system[i, j]`` stands for factor system :math:`z(\mathbf{S}_{i}, \mathbf{S}_{j})`</span>
+<span class="sd">    unitary_rotations: array, (order, 2, 2)</span>
+<span class="sd">        SU(2) rotations on spinor.</span>
+<span class="sd">    anti_linear: (Optional) array[bool], (order, )</span>
+<span class="sd">        Appeared when ``time_reversal`` is specified.</span>
+<span class="sd">        If ``anti_linear[i] == True``, the ``i``-th operator is anti-linear.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">time_reversals</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">factor_system</span><span class="p">,</span> <span class="n">unitary_rotations</span> <span class="o">=</span> <span class="n">get_spinor_factor_system</span><span class="p">(</span><span class="n">lattice</span><span class="p">,</span> <span class="n">rotations</span><span class="p">)</span>
+
+        <span class="n">irreps</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">enumerate_unitary_irreps</span><span class="p">(</span>
+            <span class="n">rotations</span><span class="p">,</span>
+            <span class="n">factor_system</span><span class="o">=</span><span class="n">factor_system</span><span class="p">,</span>
+            <span class="n">real</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>  <span class="c1"># Nonsense to consider real-value irreps</span>
+            <span class="n">method</span><span class="o">=</span><span class="n">method</span><span class="p">,</span>
+            <span class="n">rtol</span><span class="o">=</span><span class="n">rtol</span><span class="p">,</span>
+            <span class="n">atol</span><span class="o">=</span><span class="n">atol</span><span class="p">,</span>
+            <span class="n">max_num_random_generations</span><span class="o">=</span><span class="n">max_num_random_generations</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">irreps</span><span class="p">,</span> <span class="n">factor_system</span><span class="p">,</span> <span class="n">unitary_rotations</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># Co-representation</span>
+        <span class="n">order</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">rotations</span><span class="p">)</span>
+        <span class="p">(</span>
+            <span class="n">irreps</span><span class="p">,</span>
+            <span class="n">indicators</span><span class="p">,</span>
+            <span class="n">factor_system</span><span class="p">,</span>
+            <span class="n">unitary_rotations</span><span class="p">,</span>
+            <span class="n">anti_linear</span><span class="p">,</span>
+        <span class="p">)</span> <span class="o">=</span> <span class="n">enumerate_spinor_small_corepresentations</span><span class="p">(</span>
+            <span class="n">lattice</span><span class="p">,</span>
+            <span class="n">little_rotations</span><span class="o">=</span><span class="n">rotations</span><span class="p">,</span>
+            <span class="n">little_translations</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">order</span><span class="p">,</span> <span class="mi">3</span><span class="p">)),</span>
+            <span class="n">little_time_reversals</span><span class="o">=</span><span class="n">time_reversals</span><span class="p">,</span>
+            <span class="n">kpoint</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span>
+            <span class="n">method</span><span class="o">=</span><span class="n">method</span><span class="p">,</span>
+            <span class="n">rtol</span><span class="o">=</span><span class="n">rtol</span><span class="p">,</span>
+            <span class="n">atol</span><span class="o">=</span><span class="n">atol</span><span class="p">,</span>
+            <span class="n">max_num_random_generations</span><span class="o">=</span><span class="n">max_num_random_generations</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">irreps</span><span class="p">,</span> <span class="n">indicators</span><span class="p">,</span> <span class="n">factor_system</span><span class="p">,</span> <span class="n">unitary_rotations</span><span class="p">,</span> <span class="n">anti_linear</span></div>
+
+
+<span class="c1">################################################################################</span>
+<span class="c1"># Auxiliary functions</span>
+<span class="c1">################################################################################</span>
+
+
+<span class="k">def</span> <span class="nf">_adjust_phase_for_centering_translations</span><span class="p">(</span>
+    <span class="n">prim_translations</span><span class="p">,</span>
+    <span class="n">prim_kpoint</span><span class="p">,</span>
+    <span class="n">uniq_prim_translations</span><span class="p">,</span>
+    <span class="n">mapping_to_prim</span><span class="p">,</span>
+    <span class="n">prim_irreps</span><span class="p">,</span>
+    <span class="n">mapping_prim_little_group</span><span class="p">,</span>
+<span class="p">):</span>
+    <span class="n">remapping_prim_little_group</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1"># [0..order) -&gt; [0..prim_little_group_order)</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">mapping_prim_little_group</span><span class="p">):</span>
+        <span class="n">remapping_prim_little_group</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span>
+
+    <span class="n">mapping_little_group</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># [0..little_group_order) -&gt; [0..num_sym)</span>
+    <span class="n">mapping_conv_to_prim_little_group</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="p">[]</span>
+    <span class="p">)</span>  <span class="c1"># [0..little_group_order) -&gt; [0..prim_little_group_order)</span>
+    <span class="n">shifts</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># (little_group_order, )</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">mapping_to_prim</span><span class="p">)):</span>
+        <span class="n">idx_prim</span> <span class="o">=</span> <span class="n">mapping_to_prim</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>  <span class="c1"># in [0..order)</span>
+        <span class="n">idx_prim_little</span> <span class="o">=</span> <span class="n">remapping_prim_little_group</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+            <span class="n">idx_prim</span>
+        <span class="p">)</span>  <span class="c1"># in [0..prim_little_group_order)</span>
+        <span class="k">if</span> <span class="n">idx_prim_little</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">continue</span>
+
+        <span class="n">mapping_little_group</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+        <span class="n">mapping_conv_to_prim_little_group</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">idx_prim_little</span><span class="p">)</span>
+        <span class="n">shifts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">prim_translations</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">uniq_prim_translations</span><span class="p">[</span><span class="n">idx_prim</span><span class="p">])</span>
+
+    <span class="n">phases</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="n">j</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">prim_kpoint</span><span class="p">,</span> <span class="n">shift</span><span class="p">))</span> <span class="k">for</span> <span class="n">shift</span> <span class="ow">in</span> <span class="n">shifts</span><span class="p">])</span>
+
+    <span class="n">irreps</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">prim_irrep</span> <span class="ow">in</span> <span class="n">prim_irreps</span><span class="p">:</span>
+        <span class="c1"># prim_irrep: (little_group_order, dim, dim)</span>
+        <span class="n">irrep</span> <span class="o">=</span> <span class="n">prim_irrep</span><span class="p">[</span><span class="n">mapping_conv_to_prim_little_group</span><span class="p">]</span> <span class="o">*</span> <span class="n">phases</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span>
+        <span class="n">irrep</span> <span class="o">=</span> <span class="n">purify_irrep_value</span><span class="p">(</span><span class="n">irrep</span><span class="p">)</span>
+
+        <span class="n">irreps</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">irrep</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">irreps</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">mapping_little_group</span><span class="p">)</span>
 </pre></div>
 
               </div>

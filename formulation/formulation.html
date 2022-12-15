@@ -4,8 +4,9 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Overview: module code &#8212; spgrep 0.3.1</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Formulation &#8212; spgrep 0.3.1</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -31,10 +32,14 @@
     <script src="../_static/doctools.js"></script>
     <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
     <script>mermaid.initialize({startOnLoad:true});</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Irreps of space group" href="spacegroup_irreps.html" />
+    <link rel="prev" title="Spin representation for \(C_{3v}\)" href="../examples/spin_representation.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -86,7 +91,7 @@
   Contents
  </span>
 </p>
-<ul class="nav bd-sidenav">
+<ul class="current nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="../index.html">
    Introduction
@@ -119,53 +124,53 @@
    </li>
   </ul>
  </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../formulation/formulation.html">
+ <li class="toctree-l1 current active has-children">
+  <a class="current reference internal" href="#">
    Formulation
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
   <label for="toctree-checkbox-2">
    <i class="fas fa-chevron-down">
    </i>
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../formulation/spacegroup_irreps.html">
+    <a class="reference internal" href="spacegroup_irreps.html">
      Irreps of space group
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../formulation/irreps_from_regular.html">
+    <a class="reference internal" href="irreps_from_regular.html">
      On-the-fly irreps generation from regular representation
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../formulation/irreps_from_chain.html">
+    <a class="reference internal" href="irreps_from_chain.html">
      On-the-fly irreps generation from solvable group chain
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../formulation/reality.html">
+    <a class="reference internal" href="reality.html">
      Reality of irreps
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../formulation/projection.html">
+    <a class="reference internal" href="projection.html">
      Symmetry-adapted basis
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../formulation/intertwiner.html">
+    <a class="reference internal" href="intertwiner.html">
      Intertwiner
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../formulation/spinor.html">
+    <a class="reference internal" href="spinor.html">
      Spin representation
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../formulation/corepresentation.html">
+    <a class="reference internal" href="corepresentation.html">
      Co-representation
     </a>
    </li>
@@ -316,22 +321,125 @@ title="Source repository"
 
 </a>
 
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/formulation/formulation.md.txt"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.md</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
     </div>
 </div>
 
 <!-- Table of contents -->
 <div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#overview">
+   Overview
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#subpages">
+   Subpages
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#references">
+   References
+  </a>
+ </li>
+</ul>
+
+    </nav>
 </div>
     </div>
     <div class="article row">
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1></h1>
+                <h1>Formulation</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
                         
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#overview">
+   Overview
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#subpages">
+   Subpages
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#references">
+   References
+  </a>
+ </li>
+</ul>
+
+                        </nav>
                     </div>
                 </div>
             </div>
@@ -339,17 +447,57 @@ title="Source repository"
                 
               <div>
                 
-  <h1>All modules for which code is available</h1>
-<ul><li><a href="spgrep/core.html">spgrep.core</a></li>
-<li><a href="spgrep/corep.html">spgrep.corep</a></li>
-<li><a href="spgrep/group.html">spgrep.group</a></li>
-<li><a href="spgrep/irreps.html">spgrep.irreps</a></li>
-<li><a href="spgrep/pointgroup.html">spgrep.pointgroup</a></li>
-<li><a href="spgrep/representation.html">spgrep.representation</a></li>
-<li><a href="spgrep/spinor.html">spgrep.spinor</a></li>
-<li><a href="spgrep/tensor.html">spgrep.tensor</a></li>
-<li><a href="spgrep/transform.html">spgrep.transform</a></li>
+  <section class="tex2jax_ignore mathjax_ignore" id="formulation">
+<h1>Formulation<a class="headerlink" href="#formulation" title="Permalink to this headline">#</a></h1>
+<p>General references <span id="id1">[<a class="reference internal" href="irreps_from_regular.html#id5" title="Christopher Bradley and Arthur P Cracknell. The mathematical theory of symmetry in solids. Oxford Classic Texts in the Physical Sciences. Oxford University Press, London, England, December 2009.">BC09</a>, <a class="reference internal" href="reality.html#id7" title="Teturo Inui, Yukito Tanabe, and Yositaka Onodera. Group theory and its applications in physics. Springer Series in Solid-State Sciences. Springer, Berlin, Germany, March 1996.">ITO96</a>]</span></p>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">#</a></h2>
+<p>Irreps of crystallographic point groups or space groups are calculated in following steps:</p>
+<p>Option-A (<a class="reference internal" href="../api/api_irreps.html#spgrep.irreps.enumerate_unitary_irreps_from_regular_representation" title="spgrep.irreps.enumerate_unitary_irreps_from_regular_representation"><code class="xref py py-func docutils literal notranslate"><span class="pre">spgrep.irreps.enumerate_unitary_irreps_from_regular_representation()</span></code></a>)</p>
+<ol class="arabic simple">
+<li><p>Construct regular representation (crystallographic point group) or projective regular representation (space group).</p></li>
+<li><p>Construct random matrix that commutes with (projective) regular representation and obtain irreps by diagonalizing it.</p></li>
+</ol>
+<p>Option-B (<a class="reference internal" href="../api/api_irreps.html#spgrep.irreps.enumerate_unitary_irreps_from_solvable_group_chain" title="spgrep.irreps.enumerate_unitary_irreps_from_solvable_group_chain"><code class="xref py py-func docutils literal notranslate"><span class="pre">spgrep.irreps.enumerate_unitary_irreps_from_solvable_group_chain()</span></code></a>)</p>
+<ol class="arabic simple">
+<li><p>Decompose little co-group <span class="math notranslate nohighlight">\(\overline{\mathcal{G}}^{\mathbf{k}}\)</span> into series</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[  E = G_{0} \triangleleft G_{1} \triangleleft \dots \triangleleft G_{m} = \overline{\mathcal{G}}^{\mathbf{k}}.\]</div>
+<ol class="arabic simple" start="2">
+<li><p>Construct irrep <span class="math notranslate nohighlight">\(\Delta\)</span> of <span class="math notranslate nohighlight">\(G_{i}\)</span> and use induced representation <span class="math notranslate nohighlight">\(\Delta \uparrow G_{i+1}\)</span> to obtain irreps of <span class="math notranslate nohighlight">\(G_{i+1}\)</span></p></li>
+</ol>
+</section>
+<section id="subpages">
+<h2>Subpages<a class="headerlink" href="#subpages" title="Permalink to this headline">#</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="spacegroup_irreps.html">  Irreps of space group</a></li>
+<li class="toctree-l1"><a class="reference internal" href="irreps_from_regular.html">  On-the-fly irreps generation from regular representation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="irreps_from_chain.html">  On-the-fly irreps generation from solvable group chain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reality.html">  Reality of irreps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="projection.html">  Symmetry-adapted basis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="intertwiner.html">  Intertwiner</a></li>
+<li class="toctree-l1"><a class="reference internal" href="spinor.html">  Spin representation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="corepresentation.html">  Co-representation</a></li>
 </ul>
+</div>
+</section>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">#</a></h2>
+<div class="docutils container" id="id2">
+<dl class="citation">
+<dt class="label" id="id3"><span class="brackets"><a class="fn-backref" href="#id1">BC09</a></span></dt>
+<dd><p>Christopher Bradley and Arthur P Cracknell. <em>The mathematical theory of symmetry in solids</em>. Oxford Classic Texts in the Physical Sciences. Oxford University Press, London, England, December 2009.</p>
+</dd>
+<dt class="label" id="id4"><span class="brackets"><a class="fn-backref" href="#id1">ITO96</a></span></dt>
+<dd><p>Teturo Inui, Yukito Tanabe, and Yositaka Onodera. <em>Group theory and its applications in physics</em>. Springer Series in Solid-State Sciences. Springer, Berlin, Germany, March 1996.</p>
+</dd>
+</dl>
+</div>
+</section>
+</section>
+
 
               </div>
               
@@ -358,6 +506,20 @@ title="Source repository"
                 
     <!-- Previous / next buttons -->
 <div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="../examples/spin_representation.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Spin representation for <span class="math notranslate nohighlight">\(C_{3v}\)</span></p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="spacegroup_irreps.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Irreps of space group</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
 </div>
             </footer>
         </div>
