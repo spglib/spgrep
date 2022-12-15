@@ -33,7 +33,7 @@ def test_get_little_group_and_factor_system(P42mnm):
 
 
 def test_decompose_by_maximal_space_subgroup(P42mnm_type3):
-    rotations, translations, time_reversals = P42mnm_type3
+    rotations, translations, time_reversals, _ = P42mnm_type3
     (xsg_indices, time_reversal_indices, _) = decompose_by_maximal_space_subgroup(
         rotations, translations, time_reversals
     )
