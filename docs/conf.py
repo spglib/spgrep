@@ -40,6 +40,7 @@ extensions = [
     "sphinx.ext.viewcode",
     "sphinx.ext.autosummary",
     "sphinx.ext.mathjax",
+    "sphinx.ext.intersphinx",
     "sphinxcontrib.bibtex",
     "sphinxcontrib.mermaid",
     "nbsphinx",
@@ -68,6 +69,10 @@ napoleon_use_ivar = True
 
 # https://pypi.org/project/sphinxcontrib-bibtex/
 bibtex_bibfiles = ["references.bib"]
+
+intersphinx_mapping = {
+    "spglib": ("https://spglib.github.io/spglib/", None),
+}
 
 # MyST
 myst_enable_extensions = [

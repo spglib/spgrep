@@ -21,8 +21,9 @@
 - Calculate irreps of crystallographic point groups
 - Calculate physically irreducible representations (irreps over real numbers)
 - Calculate irreducible spin representations
+- Calculate irreducible co-representations
 - Find symmetry-adapted basis forming given irreps
-- Minimal dependencies (numpy and spglib)
+- Minimal dependencies (numpy and [spglib](https://spglib.github.io/spglib/))
 
 ## Usage
 
