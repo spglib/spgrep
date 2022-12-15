@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Core functions &#8212; spgrep 0.1.dev1+g35472c0</title>
+    <title>Core functions &#8212; spgrep 0.1.dev1+g188c22e</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -78,7 +78,7 @@
       
       
       
-      <h1 class="site-logo" id="site-title">spgrep 0.1.dev1+g35472c0</h1>
+      <h1 class="site-logo" id="site-title">spgrep 0.1.dev1+g188c22e</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
@@ -224,6 +224,11 @@
    <li class="toctree-l2">
     <a class="reference internal" href="api_spinor.html">
      Spinor
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="api_corep.html">
+     Co-representation
     </a>
    </li>
   </ul>
@@ -558,7 +563,7 @@ For type-II and type-III cases, representation matrix for translation <span clas
 <blockquote>
 <div><dl class="py function">
 <dt class="sig sig-object py" id="spgrep.get_spacegroup_spinor_irreps">
-<span class="sig-prename descclassname"><span class="pre">spgrep.</span></span><span class="sig-name descname"><span class="pre">get_spacegroup_spinor_irreps</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lattice</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">positions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numbers</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kpoint</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Neto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reciprocal_lattice</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">symprec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rtol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-08</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_num_random_generations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/spgrep/core.html#get_spacegroup_spinor_irreps"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spgrep.get_spacegroup_spinor_irreps" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">spgrep.</span></span><span class="sig-name descname"><span class="pre">get_spacegroup_spinor_irreps</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lattice</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">positions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numbers</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">magmoms</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kpoint</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Neto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reciprocal_lattice</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">symprec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rtol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-08</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_num_random_generations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/spgrep/core.html#get_spacegroup_spinor_irreps"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spgrep.get_spacegroup_spinor_irreps" title="Permalink to this definition">#</a></dt>
 <dd><p>Compute all irreducible representations <span class="math notranslate nohighlight">\(\mathbf{\Gamma}^{\mathbf{k}\alpha}\)</span> of space group of given structure up to unitary transformation for spinor.</p>
 <div class="math notranslate nohighlight">
 \[\mathbf{\Gamma}^{\mathbf{k}\alpha}((\mathbf{S}_{i}, \mathbf{w}_{i})) \mathbf{\Gamma}^{\mathbf{k}\alpha}((\mathbf{S}_{j}, \mathbf{w}_{j}))
@@ -570,6 +575,7 @@ For type-II and type-III cases, representation matrix for translation <span clas
 <li><p><strong>lattice</strong> (<em>array</em><em>, </em><em>(</em><em>3</em><em>, </em><em>3</em><em>)</em>) – Row-wise basis vectors. <code class="docutils literal notranslate"><span class="pre">lattice[i,</span> <span class="pre">:]</span></code> is the i-th lattice vector.</p></li>
 <li><p><strong>positions</strong> (<em>array</em><em>, </em><em>(</em><em>num_atoms</em><em>, </em><em>3</em><em>)</em>) – Fractional coordinates of sites</p></li>
 <li><p><strong>numbers</strong> (<em>array</em><em>, </em><em>(</em><em>num_atoms</em><em>, </em><em>)</em>) – Integer list specifying atomic species</p></li>
+<li><p><strong>magmoms</strong> (<em>(</em><em>Optional</em><em>) </em><em>array</em><em>, </em><em>(</em><em>num_atoms</em><em>, </em><em>)</em>) – Collinear magnetic moments. If specified, return co-representations.</p></li>
 <li><p><strong>kpoint</strong> (<em>array</em><em>, </em><em>(</em><em>3</em><em>, </em><em>)</em>) – <p>Reciprocal vector with respect to <code class="docutils literal notranslate"><span class="pre">reciprocal_lattice</span></code>
 For pure translation <span class="math notranslate nohighlight">\(\mathbf{t}\)</span>, returned irrep <span class="math notranslate nohighlight">\(\Gamma^{(\alpha)}\)</span> takes</p>
 <div class="math notranslate nohighlight">
@@ -590,8 +596,11 @@ If not specified, <code class="docutils literal notranslate"><span class="pre">r
 <li><p><strong>irreps</strong> (<em>list of Irreps with (little_group_order, dim, dim)</em>) – <code class="docutils literal notranslate"><span class="pre">irreps[alpha][i,</span> <span class="pre">:,</span> <span class="pre">:]</span></code> is the <code class="docutils literal notranslate"><span class="pre">alpha</span></code>-th irreducible matrix representation of <code class="docutils literal notranslate"><span class="pre">(little_rotations[i],</span> <span class="pre">little_translations[i])</span></code>.</p></li>
 <li><p><strong>little_spinor_factor_system</strong> (<em>array, (little_group_order, little_group_order)</em>) – <code class="docutils literal notranslate"><span class="pre">spinor_factor_system[i,</span> <span class="pre">j]</span></code> stands for factor system <span class="math notranslate nohighlight">\(z(\mathbf{S}_{i}, \mathbf{S}_{j})\)</span></p></li>
 <li><p><strong>little_unitary_rotations</strong> (<em>array, (little_group_order, 2, 2)</em>) – SU(2) rotations on spinor.</p></li>
+<li><p><strong>anti_linear</strong> (<em>(Optional) array[bool], (little_group_order, )</em>) – Appeared when <code class="docutils literal notranslate"><span class="pre">time_reversal</span></code> is specified.
+If <code class="docutils literal notranslate"><span class="pre">anti_linear[i]</span> <span class="pre">==</span> <span class="pre">True</span></code>, the <code class="docutils literal notranslate"><span class="pre">i</span></code>-th operator is anti-linear.</p></li>
 <li><p><strong>rotations</strong> (<em>array[int], (num_sym, 3, 3)</em>)</p></li>
 <li><p><strong>translations</strong> (<em>array, (num_sym, 3)</em>)</p></li>
+<li><p><strong>time_reversals</strong> (<em>array[int], (num_sym, )</em>)</p></li>
 <li><p><strong>mapping_little_group</strong> (<em>array, (little_group_order, )</em>) – Let <code class="docutils literal notranslate"><span class="pre">i</span> <span class="pre">=</span> <span class="pre">mapping_little_group[idx]</span></code>.
 (rotations[i], translations[i]) belongs to the little group of given space space group and kpoint.</p></li>
 </ul>
@@ -621,6 +630,7 @@ See <a class="reference internal" href="../formulation/spinor.html#spinor-factor
 </dl>
 </p></li>
 <li><p><strong>translations</strong> (<em>array</em><em>, </em><em>(</em><em>order</em><em>, </em><em>3</em><em>)</em>) – </p></li>
+<li><p><strong>time_reversals</strong> (<em>array</em><em>[</em><em>int</em><em>] </em><em>| </em><em>None</em><em>, </em><em>(</em><em>order</em><em>, </em><em>)</em>) – If specified, return co-representations</p></li>
 <li><p><strong>kpoint</strong> (<em>array</em><em>, </em><em>(</em><em>3</em><em>, </em><em>)</em>) – <p>Reciprocal vector with respect to reciprocal lattice.
 For pure translation <span class="math notranslate nohighlight">\(\mathbf{t}\)</span>, returned irrep <span class="math notranslate nohighlight">\(\Gamma^{(\alpha)}\)</span> takes</p>
 <div class="math notranslate nohighlight">
@@ -666,7 +676,7 @@ If <code class="docutils literal notranslate"><span class="pre">anti_linear[i]</
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>lattice</strong> (<em>array</em><em>, </em><em>(</em><em>3</em><em>, </em><em>3</em><em>)</em>) – Row-wise basis vectors. <code class="docutils literal notranslate"><span class="pre">lattice[i,</span> <span class="pre">:]</span></code> is the i-th lattice vector.</p></li>
 <li><p><strong>rotations</strong> (<em>array</em><em>[</em><em>int</em><em>]</em><em>, </em><em>(</em><em>order</em><em>, </em><em>3</em><em>, </em><em>3</em><em>)</em>) – Assume a point coordinates <code class="docutils literal notranslate"><span class="pre">x</span></code> are transformed into <code class="docutils literal notranslate"><span class="pre">np.dot(rotations[i,</span> <span class="pre">:,</span> <span class="pre">:],</span> <span class="pre">x)</span></code> by the <code class="docutils literal notranslate"><span class="pre">i</span></code>-th symmetry operation.</p></li>
-<li><p><strong>time_reversals</strong> (<em>array</em><em>[</em><em>int</em><em>] </em><em>| </em><em>None</em><em>, </em><em>(</em><em>order</em><em>, </em><em>)</em>) – If specified, return co-representation</p></li>
+<li><p><strong>time_reversals</strong> (<em>array</em><em>[</em><em>int</em><em>] </em><em>| </em><em>None</em><em>, </em><em>(</em><em>order</em><em>, </em><em>)</em>) – If specified, return co-representations</p></li>
 <li><p><strong>method</strong> (<em>str</em><em>, </em><em>'Neto'</em><em> or </em><em>'random'</em>) – ‘Neto’: construct irreps from a fixed chain of subgroups of little co-group
 ‘random’: construct irreps by numerically diagonalizing a random matrix commute with regular representation</p></li>
 <li><p><strong>rtol</strong> (<em>float</em>) – Relative tolerance to distinguish difference eigenvalues</p></li>

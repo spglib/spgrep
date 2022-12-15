@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Representation &#8212; spgrep 0.1.dev1+g188c22e</title>
+    <title>Co-representation for spinor &#8212; spgrep 0.1.dev1+g188c22e</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -38,8 +38,8 @@
     <script>mermaid.initialize({startOnLoad:true});</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Transformation" href="api_transformation.html" />
-    <link rel="prev" title="Pointgroup" href="api_pointgroup.html" />
+    <link rel="next" title="Change Log" href="../changelog.html" />
+    <link rel="prev" title="Representation for spinor" href="api_spinor.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -206,8 +206,8 @@
      Point group
     </a>
    </li>
-   <li class="toctree-l2 current active">
-    <a class="current reference internal" href="#">
+   <li class="toctree-l2">
+    <a class="reference internal" href="api_representation.html">
      Representation
     </a>
    </li>
@@ -226,8 +226,8 @@
      Spinor
     </a>
    </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="api_corep.html">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
      Co-representation
     </a>
    </li>
@@ -329,7 +329,7 @@ title="Source repository"
   <div class="menu-dropdown__content">
     <ul>
       <li>
-        <a href="../_sources/api/api_representation.md.txt"
+        <a href="../_sources/api/api_corep.md.txt"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -378,7 +378,7 @@ title="Print to PDF"
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Representation</h1>
+                <h1>Co-representation for spinor</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -390,91 +390,43 @@ title="Print to PDF"
                 
               <div>
                 
-  <section class="tex2jax_ignore mathjax_ignore" id="representation">
-<h1>Representation<a class="headerlink" href="#representation" title="Permalink to this headline">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="co-representation-for-spinor">
+<h1>Co-representation for spinor<a class="headerlink" href="#co-representation-for-spinor" title="Permalink to this headline">#</a></h1>
 <blockquote>
 <div><dl class="py function">
-<dt class="sig sig-object py" id="spgrep.representation.get_regular_representation">
-<span class="sig-prename descclassname"><span class="pre">spgrep.representation.</span></span><span class="sig-name descname"><span class="pre">get_regular_representation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rotations</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/spgrep/representation.html#get_regular_representation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spgrep.representation.get_regular_representation" title="Permalink to this definition">#</a></dt>
-<dd><p>Calculate regular representation of point group.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>rotations</strong> (<em>array</em><em>, </em><em>(</em><em>order</em><em>, </em><em>3</em><em>, </em><em>3</em><em>)</em>) – </p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>reg</strong> – <code class="docutils literal notranslate"><span class="pre">reg[k]</span></code> is a representation matrix for <code class="docutils literal notranslate"><span class="pre">rotations[k]</span></code>.
-If and only if <code class="docutils literal notranslate"><span class="pre">np.dot(rotations[k],</span> <span class="pre">rotations[j])</span> <span class="pre">==</span> <span class="pre">rotations[i]</span></code>, <code class="docutils literal notranslate"><span class="pre">reg[k,</span> <span class="pre">i,</span> <span class="pre">j]</span> <span class="pre">==</span> <span class="pre">1</span></code>.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>array, (order, order, order)</p>
-</dd>
-</dl>
-</dd></dl>
-
-</div></blockquote>
-<blockquote>
-<div><dl class="py function">
-<dt class="sig sig-object py" id="spgrep.representation.get_projective_regular_representation">
-<span class="sig-prename descclassname"><span class="pre">spgrep.representation.</span></span><span class="sig-name descname"><span class="pre">get_projective_regular_representation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rotations</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">factor_system</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/spgrep/representation.html#get_projective_regular_representation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spgrep.representation.get_projective_regular_representation" title="Permalink to this definition">#</a></dt>
-<dd><p>Calculate regular representation of space group with factor system.</p>
+<dt class="sig sig-object py" id="spgrep.corep.enumerate_spinor_small_corepresentations">
+<span class="sig-prename descclassname"><span class="pre">spgrep.corep.</span></span><span class="sig-name descname"><span class="pre">enumerate_spinor_small_corepresentations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lattice</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">little_rotations</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">little_translations</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">little_time_reversals</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kpoint</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Neto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rtol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-08</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_num_random_generations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/spgrep/corep.html#enumerate_spinor_small_corepresentations"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spgrep.corep.enumerate_spinor_small_corepresentations" title="Permalink to this definition">#</a></dt>
+<dd><p>Enumerate all unitary co-irreps of little group for spinor.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\overline{\mathbf{D}}^{\mathbf{k}\alpha}(\mathbf{S}_{i}1) \overline{\mathbf{D}}^{\mathbf{k}\alpha}(\mathbf{S}_{j}\theta_{j})
+     = \omega(\mathbf{S}_{i}1, \mathbf{S}_{j}\theta_{j}) e^{ -i \mathbf{g}_{i} \cdot \mathbf{w}_{j} } \overline{\mathbf{D}}^{\mathbf{k}\alpha}(\mathbf{S}_{k}\theta_{k}) \\
+\overline{\mathbf{D}}^{\mathbf{k}\alpha}(\mathbf{S}_{i}1') \overline{\mathbf{D}}^{\mathbf{k}\alpha}(\mathbf{S}_{j}\theta_{j})^{\ast}
+     = \omega(\mathbf{S}_{i}1', \mathbf{S}_{j}\theta_{j}) e^{ -i \mathbf{g}_{i} \cdot \mathbf{w}_{j} } \overline{\mathbf{D}}^{\mathbf{k}\alpha}(\mathbf{S}_{k}\theta_{k}) \\\end{split}\]</div>
+<p>See <a class="reference internal" href="../formulation/corepresentation.html#corep-spinor-factor-system"><span class="std std-ref">Convention of anti-linear operators in spgrep</span></a> for spinor-derived factor system <span class="math notranslate nohighlight">\(\omega\)</span>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>rotations</strong> (<em>array</em><em>, </em><em>(</em><em>order</em><em>, </em><em>3</em><em>, </em><em>3</em><em>)</em>) – </p></li>
-<li><p><strong>factor_system</strong> (<em>array</em><em>, </em><em>(</em><em>order</em><em>, </em><em>order</em><em>)</em>) – </p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>reg</strong> – <code class="docutils literal notranslate"><span class="pre">reg[k]</span></code> is a representation matrix for <code class="docutils literal notranslate"><span class="pre">rotations[k]</span></code>.
-If and only if <code class="docutils literal notranslate"><span class="pre">np.dot(rotations[k],</span> <span class="pre">rotations[j])</span> <span class="pre">==</span> <span class="pre">rotations[i]</span></code>, <code class="docutils literal notranslate"><span class="pre">reg[k,</span> <span class="pre">i,</span> <span class="pre">j]</span> <span class="pre">==</span> <span class="pre">factor_system[k,</span> <span class="pre">j]</span></code>.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>array, (order, order, order)</p>
-</dd>
-</dl>
-</dd></dl>
-
-</div></blockquote>
-<blockquote>
-<div><dl class="py function">
-<dt class="sig sig-object py" id="spgrep.representation.get_intertwiner">
-<span class="sig-prename descclassname"><span class="pre">spgrep.representation.</span></span><span class="sig-name descname"><span class="pre">get_intertwiner</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rep1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rep2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-08</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_num_random_generations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/spgrep/representation.html#get_intertwiner"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spgrep.representation.get_intertwiner" title="Permalink to this definition">#</a></dt>
-<dd><p>Calculate intertwiner matrix between <code class="docutils literal notranslate"><span class="pre">rep1</span></code> and <code class="docutils literal notranslate"><span class="pre">rep2</span></code> such that <code class="docutils literal notranslate"><span class="pre">rep1</span> <span class="pre">&#64;</span> <span class="pre">matrix</span> <span class="pre">==</span> <span class="pre">matrix</span> <span class="pre">&#64;</span> <span class="pre">rep2</span></code> if they are equivalent.</p>
-<p>The determinant of <code class="docutils literal notranslate"><span class="pre">matrix</span></code> is scaled to be unity.</p>
-<p>This function takes O(order * dim^4).</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>rep1</strong> (<em>array</em><em>, </em><em>(</em><em>order</em><em>, </em><em>dim</em><em>, </em><em>dim</em><em>)</em>) – Unitary irrep</p></li>
-<li><p><strong>rep2</strong> (<em>array</em><em>, </em><em>(</em><em>order</em><em>, </em><em>dim</em><em>, </em><em>dim</em><em>)</em>) – Unitary irrep</p></li>
-<li><p><strong>atol</strong> (<em>float</em>) – Absolute tolerance to distinguish difference eigenvalues</p></li>
+<li><p><strong>lattice</strong> (<em>array</em><em>, </em><em>(</em><em>3</em><em>, </em><em>3</em><em>)</em>) – Row-wise basis vectors. <code class="docutils literal notranslate"><span class="pre">lattice[i,</span> <span class="pre">:]</span></code> is the i-th lattice vector.</p></li>
+<li><p><strong>little_rotations</strong> (<em>array</em><em>[</em><em>int</em><em>]</em><em>, </em><em>(</em><em>order</em><em>, </em><em>3</em><em>, </em><em>3</em><em>)</em>) – </p></li>
+<li><p><strong>little_translations</strong> (<em>array</em><em>, </em><em>(</em><em>order</em><em>, </em><em>3</em><em>)</em>) – </p></li>
+<li><p><strong>little_time_reversals</strong> (<em>array</em><em>[</em><em>int</em><em>]</em><em>, </em><em>(</em><em>order</em><em>)</em>) – </p></li>
+<li><p><strong>kpoint</strong> (<em>array</em><em>, </em><em>(</em><em>3</em><em>, </em><em>)</em>) – </p></li>
+<li><p><strong>method</strong> (<em>str</em><em>, </em><em>'Neto'</em><em> or </em><em>'random'</em>) – ‘Neto’: construct irreps from a fixed chain of subgroups of little co-group
+‘random’: construct irreps by numerically diagonalizing a random matrix commute with regular representation</p></li>
+<li><p><strong>rtol</strong> (<em>float</em>) – Relative tolerance to distinguish difference eigenvalues</p></li>
+<li><p><strong>atol</strong> (<em>float</em>) – Relative tolerance to compare</p></li>
 <li><p><strong>max_num_random_generations</strong> (<em>int</em>) – Maximum number of trials to generate random matrix</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>matrix</strong></p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>array, (dim, dim)</p>
-</dd>
-</dl>
-</dd></dl>
-
-</div></blockquote>
-<blockquote>
-<div><dl class="py function">
-<dt class="sig sig-object py" id="spgrep.representation.get_character">
-<span class="sig-prename descclassname"><span class="pre">spgrep.representation.</span></span><span class="sig-name descname"><span class="pre">get_character</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">representation</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/spgrep/representation.html#get_character"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spgrep.representation.get_character" title="Permalink to this definition">#</a></dt>
-<dd><p>Calculate character of representation.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>representation</strong> (<em>array</em><em>, </em><em>(</em><em>order</em><em>, </em><em>dim</em><em>, </em><em>dim</em><em>)</em>) – </p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>character</strong></p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>array, (order, )</p>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>small_coreps</strong> (<em>list of array</em>) – Unitary small co-representations (irreps of little group), <span class="math notranslate nohighlight">\(\{ \overline{\mathbf{D}}^{\mathbf{k}\alpha} \}_{\alpha}\)</span></p></li>
+<li><p><strong>indicators</strong> (<em>list[int]</em>) – Frobenius-Schur indicators for each small representation</p></li>
+<li><p><strong>corep_spinor_factor_system</strong> (<em>array, (order, order)</em>) – <code class="docutils literal notranslate"><span class="pre">factor_system[i,</span> <span class="pre">j]</span></code> stands for <span class="math notranslate nohighlight">\(\omega(\mathbf{S}_{i}\theta_{i}, \mathbf{S}_{j}\theta_{j})\)</span></p></li>
+<li><p><strong>unitary_rotations</strong> (<em>array, (order, 2, 2)</em>) – <code class="docutils literal notranslate"><span class="pre">unitary_rotations[i]</span></code> stands for <span class="math notranslate nohighlight">\(\mathbf{U}(\mathbf{S}_{i}) \in SU(2)\)</span>.</p></li>
+<li><p><strong>anti_linear</strong> (<em>array[bool], (order, )</em>) – If <code class="docutils literal notranslate"><span class="pre">anti_linear[i]</span> <span class="pre">==</span> <span class="pre">True</span></code>, the <code class="docutils literal notranslate"><span class="pre">i</span></code>-th operator is anti-linear.</p></li>
+</ul>
+</p>
 </dd>
 </dl>
 </dd></dl>
@@ -482,47 +434,27 @@ If and only if <code class="docutils literal notranslate"><span class="pre">np.d
 </div></blockquote>
 <blockquote>
 <div><dl class="py function">
-<dt class="sig sig-object py" id="spgrep.representation.project_to_irrep">
-<span class="sig-prename descclassname"><span class="pre">spgrep.representation.</span></span><span class="sig-name descname"><span class="pre">project_to_irrep</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">representation</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">irrep</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-06</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_num_trials</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/spgrep/representation.html#project_to_irrep"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spgrep.representation.project_to_irrep" title="Permalink to this definition">#</a></dt>
-<dd><p>Construct basis functions for <code class="docutils literal notranslate"><span class="pre">irrep</span></code> by linear combinations of basis functions of <code class="docutils literal notranslate"><span class="pre">representation</span></code>.</p>
+<dt class="sig sig-object py" id="spgrep.corep.get_corep_spinor_factor_system">
+<span class="sig-prename descclassname"><span class="pre">spgrep.corep.</span></span><span class="sig-name descname"><span class="pre">get_corep_spinor_factor_system</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lattice</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rotations</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_reversals</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/spgrep/corep.html#get_corep_spinor_factor_system"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spgrep.corep.get_corep_spinor_factor_system" title="Permalink to this definition">#</a></dt>
+<dd><p>Calculate spin-derived factor system of spin co-representation.</p>
+<p>See <a class="reference internal" href="../formulation/corepresentation.html#corep-spinor-factor-system"><span class="std std-ref">Convention of anti-linear operators in spgrep</span></a> for spinor-derived factor system <span class="math notranslate nohighlight">\(\omega\)</span>.
+An ordinary symmetry operation <span class="math notranslate nohighlight">\(\mathbf{S}_{i}1\)</span> maps to unitary operator <span class="math notranslate nohighlight">\(\mathbf{U}(\mathbf{S}_{i})\)</span>.
+An antisymmetry operation <span class="math notranslate nohighlight">\(\mathbf{S}_{i}1'\)</span> maps to</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>representation</strong> (<em>array</em><em>, </em><em>(</em><em>order</em><em>, </em><em>dim</em><em>, </em><em>dim</em><em>)</em>) – </p></li>
-<li><p><strong>irrep</strong> (<em>array</em><em>, </em><em>(</em><em>order</em><em>, </em><em>dim_irrep</em><em>, </em><em>dim_irrep</em><em>)</em>) – Unitary (projective) irrep with factor system s.t. <span class="math notranslate nohighlight">\(\mu(E, E) = 1\)</span>.</p></li>
-<li><p><strong>atol</strong> (<em>float</em><em>, </em><em>default=1e-5</em>) – Absolute tolerance to compare basis vectors</p></li>
-<li><p><strong>max_num_trials</strong> (<em>int</em><em>, </em><em>default=10</em>) – Maximum number to retry when failed to select projected basis vectors</p></li>
+<li><p><strong>lattice</strong> (<em>array</em><em>, </em><em>(</em><em>3</em><em>, </em><em>3</em><em>)</em>) – Row-wise basis vectors. <code class="docutils literal notranslate"><span class="pre">lattice[i,</span> <span class="pre">:]</span></code> is the i-th lattice vector.</p></li>
+<li><p><strong>rotations</strong> (<em>array</em><em>[</em><em>int</em><em>]</em><em>, </em><em>(</em><em>order</em><em>, </em><em>3</em><em>, </em><em>3</em><em>)</em>) – Rotation parts of magnetic point group, <span class="math notranslate nohighlight">\(\mathbf{S}_{i}\)</span></p></li>
+<li><p><strong>time_reversals</strong> (<em>array</em><em>[</em><em>int</em><em>]</em><em>, </em><em>(</em><em>order</em><em>, </em><em>)</em>) – Time-reversal parts of magnetic point group, <span class="math notranslate nohighlight">\(\theta_{i}\)</span></p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>basis</strong> – Each basis vectors are orthonormal.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>list of array with (irrep_dim, dim)</p>
-</dd>
-</dl>
-</dd></dl>
-
-</div></blockquote>
-<blockquote>
-<div><dl class="py function">
-<dt class="sig sig-object py" id="spgrep.representation.frobenius_schur_indicator">
-<span class="sig-prename descclassname"><span class="pre">spgrep.representation.</span></span><span class="sig-name descname"><span class="pre">frobenius_schur_indicator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">irrep</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/spgrep/representation.html#frobenius_schur_indicator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spgrep.representation.frobenius_schur_indicator" title="Permalink to this definition">#</a></dt>
-<dd><p>Inspect given unitary (projective) irrep is real, pseudo-real, or not unitary equivalent.</p>
-<div class="math notranslate nohighlight">
-\[\mathrm{indicator} =
-\frac{1}{|G|} \sum_{ g \in G } \chi(g^{2})\]</div>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>irrep</strong> (<em>array</em><em>, </em><em>(</em><em>order</em><em>, </em><em>dim</em><em>, </em><em>dim</em><em>)</em>) – </p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>indicator</strong> – If <code class="docutils literal notranslate"><span class="pre">indicator==1</span></code>, it is real Reps.
-If <code class="docutils literal notranslate"><span class="pre">indicator==-1</span></code>, it is psedu-real Reps.
-Otherwise, it and adjoint Reps. are not equivalent.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>int</p>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>corep_spinor_factor_system</strong> (<em>array, (order, order)</em>) – <code class="docutils literal notranslate"><span class="pre">factor_system[i,</span> <span class="pre">j]</span></code> stands for <span class="math notranslate nohighlight">\(\omega(\mathbf{S}_{i}\theta_{i}, \mathbf{S}_{j}\theta_{j})\)</span></p></li>
+<li><p><strong>unitary_rotations</strong> (<em>array, (order, 2, 2)</em>) – <code class="docutils literal notranslate"><span class="pre">unitary_rotations[i]</span></code> stands for <span class="math notranslate nohighlight">\(\mathbf{U}(\mathbf{S}_{i}) \in SU(2)\)</span>.</p></li>
+<li><p><strong>anti_linear</strong> (<em>array[bool], (order, )</em>) – If <code class="docutils literal notranslate"><span class="pre">anti_linear[i]</span> <span class="pre">==</span> <span class="pre">True</span></code>, the <code class="docutils literal notranslate"><span class="pre">i</span></code>-th operator is anti-linear.</p></li>
+</ul>
+</p>
 </dd>
 </dl>
 </dd></dl>
@@ -538,17 +470,17 @@ Otherwise, it and adjoint Reps. are not equivalent.</p>
                 
     <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="api_pointgroup.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="api_spinor.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Pointgroup</p>
+            <p class="prev-next-title">Representation for spinor</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="api_transformation.html" title="next page">
+    <a class='right-next' id="next-link" href="../changelog.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Transformation</p>
+        <p class="prev-next-title">Change Log</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>
