@@ -9,6 +9,12 @@ from spgrep.utils import NDArrayFloat, NDArrayInt, get_symmetry_from_hall_number
 
 
 @pytest.fixture
+def rng() -> np.random.Generator:
+    rng = np.random.default_rng(0)
+    return rng
+
+
+@pytest.fixture
 def hexagonal_lattice():
     a = 2.0
     c = 3.0
@@ -50,6 +56,23 @@ def C3v() -> NDArrayInt:
 def P42mnm() -> tuple[NDArrayInt, NDArrayFloat]:
     # P4_2/mnm (No. 136)
     return get_symmetry_from_hall_number(hall_number=419)
+
+
+@pytest.fixture
+def P42mnm_type1() -> tuple[NDArrayInt, NDArrayFloat, NDArrayInt, NDArrayFloat]:
+    # "136.495": -P 4n 2n
+    symmetry = get_magnetic_symmetry_from_database(uni_number=1155)
+    lattice = np.eye(3)
+    return symmetry["rotations"], symmetry["translations"], symmetry["time_reversals"], lattice
+
+
+@pytest.fixture
+def P42mnm_type2() -> tuple[NDArrayInt, NDArrayFloat, NDArrayInt, NDArrayFloat]:
+    # -P 4n' 2n' (BNS number 136.498)
+    # "136.496": -P 4n 2n 1'
+    symmetry = get_magnetic_symmetry_from_database(uni_number=1156)
+    lattice = np.eye(3)
+    return symmetry["rotations"], symmetry["translations"], symmetry["time_reversals"], lattice
 
 
 @pytest.fixture
