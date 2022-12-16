@@ -1,4 +1,4 @@
-# spgrep
+# Spgrep
 [![testing](https://github.com/spglib/spgrep/actions/workflows/testing.yml/badge.svg)](https://github.com/spglib/spgrep/actions/workflows/testing.yml)
 [![pre-commit.ci status](https://results.pre-commit.ci/badge/github/spglib/spgrep/main.svg)](https://results.pre-commit.ci/latest/github/spglib/spgrep/main)
 [![codecov](https://codecov.io/gh/spglib/spgrep/branch/main/graph/badge.svg?token=DQGVFCTB1P)](https://codecov.io/gh/spglib/spgrep)
@@ -8,7 +8,7 @@
 [![PyPI Downloads](https://img.shields.io/pypi/dm/spgrep)](https://img.shields.io/pypi/dm/spgrep)
 ![Lines of code](https://img.shields.io/tokei/lines/github/spglib/spgrep)
 
-**spgrep** is a Python package of on-the-fly generator of space-group irreducible representations.
+**Spgrep** is a Python package of on-the-fly generator of space-group irreducible representations.
 
 - Github: <https://github.com/spglib/spgrep>
 - Document: <https://spglib.github.io/spgrep>
@@ -17,11 +17,12 @@
 
 ## Features
 
-- Calculate irreducible representations (irreps) of space groups from spglib’s cell and kpoints
-- Calculate irreps of crystallographic point groups
-- Calculate physically irreducible representations (irreps over real numbers)
-- Calculate irreducible spin representations
-- Calculate irreducible co-representations
+- Enumerate the following irreducible representations (irreps) of space groups from [spglib](https://spglib.github.io/spglib/)’s cell and kpoints:
+    - Linear irreps
+    - Physically irreps (irreps over real numbers)
+    - Projective irreps for spnior
+    - Projective irreducible co-representations for spinor
+- Enumerate irreps of crystallographic point groups as well
 - Find symmetry-adapted basis forming given irreps
 - Minimal dependencies (numpy and [spglib](https://spglib.github.io/spglib/))
 
@@ -75,7 +76,7 @@ See [example pages](docs/examples/examples) for more detailed use cases and [API
 
 ## Installation
 
-spgrep works with Python3.8+ and can be installed via PyPI:
+Spgrep works with Python3.8+ and can be installed via PyPI:
 ```shell
 pip install spgrep
 ```
@@ -89,44 +90,16 @@ cd spgrep
 pip install -e .
 ```
 
+## Change log
+
+See the [change log](docs/changelog) for recent changes.
+
+## How to contribute
+
+We welcome any contributions to improve functionalities.
+Please open [issues](https://github.com/spglib/spgrep/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc) or create [pull requests](https://github.com/spglib/spgrep/pulls?q=is%3Apr+is%3Aopen+sort%3Aupdated-desc).
+See the [development page](docs/development) for preparing an environment.
+
 ## License
 
-spgrep is released under a BSD 3-clause license.
-
-## Development
-
-### Installation
-
-```shell
-conda create -n spgrep python=3.10 pip
-conda activate spgrep
-git clone git@github.com:spglib/spgrep.git
-cd spgrep
-pip install -e ".[dev,docs]"
-pre-commit install
-
-# Run pre-commit manually
-pre-commit run --all-file 
-```
-
-### Document
-
-```shell
-sphinx-autobuild docs docs_build
-# open localhost:8000 in your browser
-```
-
-### Release
-
-```shell
-# Confirm the version number via `setuptools-scm`
-python -m setuptools_scm
-
-# Update changelog here
-vim docs/changelog.md
-
-# Push with tag
-git tag <next-version>
-git push origin main
-git push origin --tags
-```
+Spgrep is released under a BSD 3-clause license.

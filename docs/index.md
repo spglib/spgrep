@@ -8,6 +8,7 @@ hidden:
    Formulation <formulation/formulation>
    API Reference <api/api>
    Change Log <changelog>
+   Development <development>
    Index <genindex>
 ```
 
