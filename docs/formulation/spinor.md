@@ -1,3 +1,4 @@
+(spin_representation)=
 # Spin representation
 
 - Spin-orbit coupling in VASP: {cite}`PhysRevB.62.11556`, {cite}`PhysRevB.93.224425`

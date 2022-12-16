@@ -1,3 +1,4 @@
+(corep)=
 # Co-representation of magnetic point and space group
 
 Refs: {cite}`doi:10.1126/sciadv.aat8685,wigner1959group`

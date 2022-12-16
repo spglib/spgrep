@@ -90,6 +90,13 @@ The coefficient {math}`\omega_{q} \, (q = 0, \cdots, p - 1)` is determined as fo
 A crystallographic point group {math}`G` can always be decomposed as Eq. {eq}`decomp` because it is a solvable group.
 spgrep adapts the following decomposition {cite}`ITA2016`:
 
+
+<!--
+nbsphinx and sphinxcontrib.mermaid are conflicted.
+So, we need to use mermaid CLI instead of a raw HTML output.
+https://github.com/mgaitan/sphinxcontrib-mermaid/issues/74
+-->
+
 ![point_group_chain](point_group_chain.mmd.svg)
 
 ## References

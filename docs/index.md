@@ -8,8 +8,9 @@ hidden:
    Formulation <formulation/formulation>
    API Reference <api/api>
    Change Log <changelog>
-   genindex <genindex>
+   Index <genindex>
 ```
 
 ```{include} ../README.md
+:relative-docs: docs/
 ```

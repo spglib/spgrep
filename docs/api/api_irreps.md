@@ -23,3 +23,7 @@
 ```{eval-rst}
     .. autofunction:: spgrep.irreps.get_physically_irrep
 ```
+
+```{eval-rst}
+    .. autofunction:: spgrep.irreps.is_equivalent_irrep
+```

@@ -15,14 +15,14 @@ def transform_symmetry_and_kpoint(
     translations: NDArrayFloat,
     kpoint: NDArrayFloat,
 ) -> tuple[NDArrayInt, NDArrayFloat, NDArrayFloat]:
-    """Return symmetry and k-vector coefficients in transformed coordinates.
+    r"""Return symmetry and k-vector coefficients in transformed coordinates.
 
     This function does not unique duplicated symmetry operations after applying transformation_matrix.
 
-    Let a given transformation_matrix be ``P``.
-    Symmetry operation :math:`(R, t)` is transformed to
-    :math:`(P, 0)^{-1} (R, t) (P, 0) = (P^{-1} R P, P^{-1} t)`.
-    Coefficients of k-vector are transformed to ``P.T @ kpoint``.
+    Let a given transformation_matrix be :math:`\mathbf{P}`.
+    Symmetry operation :math:`(\mathbf{R}, \mathbf{v})` is transformed to
+    :math:`(\mathbf{P}, 0)^{-1} (\mathbf{R}, \mathbf{v}) (\mathbf{P}, 0) = (\mathbf{P}^{-1} \mathbf{R} \mathbf{P}, \mathbf{P}^{-1} \mathbf{v})`.
+    Coefficients of k-vector :math:`\mathbf{k}` are transformed to :math:`\mathbf{P}^{T} \mathbf{k}`.
 
     Parameters
     ----------
@@ -92,9 +92,9 @@ def unique_primitive_symmetry(
 def get_primitive_transformation_matrix(hall_number: int) -> NDArrayFloat:
     """Return transformation matrix from standard unit cell specified with hall_number into a primitive cell. The transformation matrix is consistent with Spglib's convention [1,2] and KVEC's convention [3].
 
-    [1] https://spglib.github.io/spglib/definition.html
-    [2] https://github.com/spglib/spglib/pull/137
-    [3] M. I. Aroyo, D. Orobengoa, G. de la Flor, E.S. Tasci, J. M. Perez-Mato and H. Wondratschek, Acta Cryst. A70 126-137 (2014).
+    * [1] https://spglib.github.io/spglib/definition.html
+    * [2] https://github.com/spglib/spglib/pull/137
+    * [3] M. I. Aroyo, D. Orobengoa, G. de la Flor, E.S. Tasci, J. M. Perez-Mato and H. Wondratschek, Acta Cryst. A70 126-137 (2014).
     """
     crystal_system = get_crystal_system(hall_number)
     spacegroup_type = get_spacegroup_type(hall_number)

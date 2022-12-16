@@ -1,3 +1,4 @@
+(physically_irreps)=
 # Reality of (projective) irrep
 
 Let {math}`(\Gamma, \mathrm{Span}_{\mathbb{C}} \{ \mathbf{v}_{i} \}_{i=1}^{d} )` be a unitary (projective) irrep of group {math}`G`.

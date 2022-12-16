@@ -45,7 +45,6 @@ EXTRAS = {
         "sphinx-autobuild",
         "nbsphinx",
         "sphinxcontrib-bibtex",
-        "sphinxcontrib-mermaid",
         "myst-parser",
         "sphinx-book-theme",
         "linkify-it-py",

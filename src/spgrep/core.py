@@ -78,10 +78,12 @@ def get_spacegroup_irreps(
     irreps: list of Irreps with (little_group_order, dim, dim)
         ``irreps[alpha][i, :, :]`` is the ``alpha``-th irreducible matrix representation of ``(little_rotations[i], little_translations[i])``.
     rotations: array[int], (num_sym, 3, 3)
+        Linear parts of symmetry operations
     translations: array, (num_sym, 3)
+        Translation parts of symmetry operations
     mapping_little_group: array, (little_group_order, )
         Let ``i = mapping_little_group[idx]``.
-        (rotations[i], translations[i]) belongs to the little group of given space space group and kpoint.
+        ``(rotations[i], translations[i])`` belongs to the little group of given space space group and kpoint.
     """
     # Transform given `kpoint` in dual of `lattice`
     dual_lattice = np.linalg.inv(lattice).T
@@ -140,7 +142,7 @@ def get_spacegroup_irreps_from_primitive_symmetry(
 ) -> tuple[list[NDArrayComplex], NDArrayInt] | tuple[list[NDArrayFloat], NDArrayInt]:
     r"""Compute all irreducible representations of given space group up to unitary transformation.
 
-    Note that rotations and translations should be specified in a primitive cell.
+    Note that ``rotations`` and ``translations`` should be specified in a primitive cell.
 
     Parameters
     ----------
@@ -154,6 +156,8 @@ def get_spacegroup_irreps_from_primitive_symmetry(
 
         .. math::
             \Gamma^{(\alpha)}((E, \mathbf{t})) = e^{ -i\mathbf{k}\cdot\mathbf{t} } \mathbf{1}.
+
+        See :ref:`physically_irreps` for details.
 
     real: bool, default=False
         If True, return irreps over real vector space (so called physically irreducible representations).
@@ -227,7 +231,8 @@ def get_crystallographic_pointgroup_irreps_from_symmetry(
     rotations: array[int], (order, 3, 3)
         Assume a point coordinates ``x`` are transformed into ``np.dot(rotations[i, :, :], x)`` by the ``i``-th symmetry operation.
     real: bool, default=False
-        If True, return irreps over real vector space (so called physically irreducible representations)
+        If True, return irreps over real vector space (so called physically irreducible representations).
+        See :ref:`physically_irreps` for details.
     method: str, 'Neto' or 'random'
         'Neto': construct irreps from a fixed chain of subgroups of little co-group
         'random': construct irreps by numerically diagonalizing a random matrix commute with regular representation
@@ -242,7 +247,7 @@ def get_crystallographic_pointgroup_irreps_from_symmetry(
     -------
     irreps: list of Irreps with (order, dim, dim)
     """
-    irreps, indicators = enumerate_unitary_irreps(
+    irreps, _ = enumerate_unitary_irreps(
         rotations,
         factor_system=None,
         real=real,
@@ -290,9 +295,11 @@ def get_spacegroup_spinor_irreps(
 ]:
     r"""Compute all irreducible representations :math:`\mathbf{\Gamma}^{\mathbf{k}\alpha}` of space group of given structure up to unitary transformation for spinor.
 
+    Each irrep :math:`\mathbf{\Gamma}^{\mathbf{k}\alpha}` satisfies
+
     .. math::
        \mathbf{\Gamma}^{\mathbf{k}\alpha}((\mathbf{S}_{i}, \mathbf{w}_{i})) \mathbf{\Gamma}^{\mathbf{k}\alpha}((\mathbf{S}_{j}, \mathbf{w}_{j}))
-       = z(\mathbf{S}_{i}, \mathbf{S}_{j}) \mathbf{\Gamma}^{\mathbf{k}\alpha}((\mathbf{S}_{i}, \mathbf{w}_{i})(\mathbf{S}_{j}, \mathbf{w}_{j}))
+       = z(\mathbf{S}_{i}, \mathbf{S}_{j}) \mathbf{\Gamma}^{\mathbf{k}\alpha}((\mathbf{S}_{i}, \mathbf{w}_{i})(\mathbf{S}_{j}, \mathbf{w}_{j})).
 
     See :ref:`spinor_factor_system` for Spgrep's convention of spin-derived factor system :math:`z(\mathbf{S}_{i}, \mathbf{S}_{j})`.
 
@@ -306,6 +313,7 @@ def get_spacegroup_spinor_irreps(
         Integer list specifying atomic species
     magmoms: (Optional) array, (num_atoms, )
         Collinear magnetic moments. If specified, return co-representations.
+        See :ref:{corep} for details.
     kpoint: array, (3, )
         Reciprocal vector with respect to ``reciprocal_lattice``
         For pure translation :math:`\mathbf{t}`, returned irrep :math:`\Gamma^{(\alpha)}` takes
@@ -461,11 +469,13 @@ def get_spacegroup_spinor_irreps_from_primitive_symmetry(
 ) -> tuple[list[NDArrayComplex], NDArrayComplex, NDArrayComplex, NDArrayInt] | tuple[
     list[NDArrayComplex], list[int], NDArrayComplex, NDArrayComplex, NDArrayBool, NDArrayInt
 ]:
-    r"""Compute all irreducible representations :math:`\mathbf{\Gamma}^{\mathbf{k}\alpha}` of given space group up to unitary transformation fpr spinor.
+    r"""Compute all irreducible representations :math:`\mathbf{\Gamma}^{\mathbf{k}\alpha}` of given space group up to unitary transformation for spinor.
+
+    Each irrep :math:`\mathbf{\Gamma}^{\mathbf{k}\alpha}` satisfies
 
     .. math::
        \mathbf{\Gamma}^{\mathbf{k}\alpha}((\mathbf{S}_{i}, \mathbf{w}_{i})) \mathbf{\Gamma}^{\mathbf{k}\alpha}((\mathbf{S}_{j}, \mathbf{w}_{j}))
-       = z(\mathbf{S}_{i}, \mathbf{S}_{j}) \mathbf{\Gamma}^{\mathbf{k}\alpha}((\mathbf{S}_{i}, \mathbf{w}_{i})(\mathbf{S}_{j}, \mathbf{w}_{j}))
+       = z(\mathbf{S}_{i}, \mathbf{S}_{j}) \mathbf{\Gamma}^{\mathbf{k}\alpha}((\mathbf{S}_{i}, \mathbf{w}_{i})(\mathbf{S}_{j}, \mathbf{w}_{j})).
 
     Note that rotations and translations should be specified in a primitive cell.
     See :ref:`spinor_factor_system` for Spgrep's convention of spin-derived factor system :math:`z(\mathbf{S}_{i}, \mathbf{S}_{j})`.
@@ -480,6 +490,7 @@ def get_spacegroup_spinor_irreps_from_primitive_symmetry(
     translations: array, (order, 3)
     time_reversals: array[int] | None, (order, )
         If specified, return co-representations
+        See :ref:{corep} for details.
     kpoint: array, (3, )
         Reciprocal vector with respect to reciprocal lattice.
         For pure translation :math:`\mathbf{t}`, returned irrep :math:`\Gamma^{(\alpha)}` takes
@@ -588,9 +599,11 @@ def get_crystallographic_pointgroup_spinor_irreps_from_symmetry(
 ]:
     r"""Compute all irreducible representations :math:`\mathbf{D}^{\alpha}` of given crystallographic point group up to unitary transformation for spinor.
 
+    Each irrep :math:`\mathbf{D}^{\alpha}` satisfies
+
     .. math::
        \mathbf{D}^{\alpha}(\mathbf{S}_{i}) \mathbf{D}^{\alpha}(\mathbf{S}_{j})
-       = z(\mathbf{S}_{i}, \mathbf{S}_{j}) \mathbf{D}^{\alpha}(\mathbf{S}_{k})
+       = z(\mathbf{S}_{i}, \mathbf{S}_{j}) \mathbf{D}^{\alpha}(\mathbf{S}_{k}).
 
     Assume matrix representation of given crystallographic point group is in "standard" setting shown in Table 3.2.3.3 of International Table for Crystallography Vol. A (2016).
 
@@ -604,6 +617,7 @@ def get_crystallographic_pointgroup_spinor_irreps_from_symmetry(
         Assume a point coordinates ``x`` are transformed into ``np.dot(rotations[i, :, :], x)`` by the ``i``-th symmetry operation.
     time_reversals: array[int] | None, (order, )
         If specified, return co-representations
+        See :ref:{corep} for details.
     method: str, 'Neto' or 'random'
         'Neto': construct irreps from a fixed chain of subgroups of little co-group
         'random': construct irreps by numerically diagonalizing a random matrix commute with regular representation
