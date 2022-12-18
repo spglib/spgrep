@@ -301,7 +301,7 @@ def get_spacegroup_spinor_irreps(
        \mathbf{\Gamma}^{\mathbf{k}\alpha}((\mathbf{S}_{i}, \mathbf{w}_{i})) \mathbf{\Gamma}^{\mathbf{k}\alpha}((\mathbf{S}_{j}, \mathbf{w}_{j}))
        = z(\mathbf{S}_{i}, \mathbf{S}_{j}) \mathbf{\Gamma}^{\mathbf{k}\alpha}((\mathbf{S}_{i}, \mathbf{w}_{i})(\mathbf{S}_{j}, \mathbf{w}_{j})).
 
-    See :ref:`spinor_factor_system` for Spgrep's convention of spin-derived factor system :math:`z(\mathbf{S}_{i}, \mathbf{S}_{j})`.
+    See :ref:`spin_representation` for Spgrep's convention of spin-derived factor system :math:`z(\mathbf{S}_{i}, \mathbf{S}_{j})`.
 
     Parameters
     ----------
@@ -478,7 +478,7 @@ def get_spacegroup_spinor_irreps_from_primitive_symmetry(
        = z(\mathbf{S}_{i}, \mathbf{S}_{j}) \mathbf{\Gamma}^{\mathbf{k}\alpha}((\mathbf{S}_{i}, \mathbf{w}_{i})(\mathbf{S}_{j}, \mathbf{w}_{j})).
 
     Note that rotations and translations should be specified in a primitive cell.
-    See :ref:`spinor_factor_system` for Spgrep's convention of spin-derived factor system :math:`z(\mathbf{S}_{i}, \mathbf{S}_{j})`.
+    See :ref:`spin_representation` for Spgrep's convention of spin-derived factor system :math:`z(\mathbf{S}_{i}, \mathbf{S}_{j})`.
 
     Parameters
     ----------
@@ -607,7 +607,7 @@ def get_crystallographic_pointgroup_spinor_irreps_from_symmetry(
 
     Assume matrix representation of given crystallographic point group is in "standard" setting shown in Table 3.2.3.3 of International Table for Crystallography Vol. A (2016).
 
-    See :ref:`spinor_factor_system` for Spgrep's convention of spinor-derived factor system :math:`z(\mathbf{S}_{i}, \mathbf{S}_{j})`.
+    See :ref:`spin_representation` for Spgrep's convention of spinor-derived factor system :math:`z(\mathbf{S}_{i}, \mathbf{S}_{j})`.
 
     Parameters
     ----------

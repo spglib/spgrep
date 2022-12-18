@@ -1,41 +1,14 @@
 (spin_representation)=
 # Spin representation
 
-- Spin-orbit coupling in VASP: {cite}`PhysRevB.62.11556`, {cite}`PhysRevB.93.224425`
-- $SU(2)$ and $SO(3)$: {cite}`altmann2005rotations`, {cite}`so3su2`
+A spin representation is a projective representation with a factor system for spinor wave functions.
+Here, we give the convention to choose the factor system for spinor in spgrep.
 
-## Bloch sphere
+## Factor system for spinor
 
-Consider a spinor $\psi_{\uparrow}(\mathbf{r})\ket{\uparrow} + \psi_{\downarrow}(\mathbf{r})\ket{\downarrow}$ with $|\psi_{\uparrow}(\mathbf{r})|^{2} + |\psi_{\downarrow}(\mathbf{r})|^{2} = 1$.
+### Symmetry operation of the first kind
 
-The following construction maps the spinor to a point $\left( m_{x}(\mathbf{r}), m_{y}(\mathbf{r}), m_{z}(\mathbf{r}) \right) \in S^{2}$:
-$$
-m_{x}(\mathbf{r})
-    &:=
-    \begin{pmatrix} \psi_{\uparrow}(\mathbf{r})^{\ast} & \psi_{\downarrow}(\mathbf{r})^{\ast} \end{pmatrix}
-    \mathbf{\sigma}_{x}
-    \begin{pmatrix} \psi_{\uparrow}(\mathbf{r}) \\ \psi_{\downarrow}(\mathbf{r}) \end{pmatrix} \\
-    &=
-    2 \,\mathrm{Re} \left( \psi_{\uparrow}(\mathbf{r})^{\ast} \psi_{\downarrow}(\mathbf{r}) \right) \in \mathbb{R} \\
-m_{y}(\mathbf{r})
-    &:=
-    \begin{pmatrix} \psi_{\uparrow}(\mathbf{r})^{\ast} & \psi_{\downarrow}(\mathbf{r})^{\ast} \end{pmatrix}
-    \mathbf{\sigma}_{y}
-    \begin{pmatrix} \psi_{\uparrow}(\mathbf{r}) \\ \psi_{\downarrow}(\mathbf{r}) \end{pmatrix} \\
-    &=
-    2 \,\mathrm{Im} \left( \psi_{\uparrow}(\mathbf{r})^{\ast} \psi_{\downarrow}(\mathbf{r}) \right) \in \mathbb{R} \\
-m_{z}(\mathbf{r})
-    &:=
-    \begin{pmatrix} \psi_{\uparrow}(\mathbf{r})^{\ast} & \psi_{\downarrow}(\mathbf{r})^{\ast} \end{pmatrix}
-    \mathbf{\sigma}_{z}
-    \begin{pmatrix} \psi_{\uparrow}(\mathbf{r}) \\ \psi_{\downarrow}(\mathbf{r}) \end{pmatrix} \\
-    &=
-    |\psi_{\uparrow}(\mathbf{r})|^{2} - |\psi_{\downarrow}(\mathbf{r})|^{2} \in \mathbb{R} \\
-$$
-$$
-m_{x}(\mathbf{r})^{2} + m_{y}(\mathbf{r})^{2} + m_{z}(\mathbf{r})^{2} = 1,
-$$
-where $\mathbf{\sigma}_{i} \, (i=x,y,z)$ are Pauli matrices
+The map $\mathrm{SO}(3) \ni \mathbf{R}_{ \theta\hat{\mathbf{n}} } \mapsto \mathbf{U} ( \mathbf{R}_{ \theta\hat{\mathbf{n}} } ) := \exp \left( -\frac{i}{2}\theta \hat{\mathbf{n}} \cdot \mathbf{\sigma} \right) \in \mathrm{SU}(2)$ is not surjective, where $\mathbf{\sigma}_{i} \, (i=x,y,z)$ are Pauli matrices
 $$
 \mathbf{\sigma}_{x}
     = \begin{pmatrix}
@@ -53,13 +26,6 @@ $$
         0 & -1 \\
     \end{pmatrix}.
 $$
-
-(spinor_factor_system)=
-## Factor system for spinor
-
-### Symmetry operation of the first kind
-
-The map $SO(3) \ni \mathbf{R}_{ \theta\hat{\mathbf{n}} } \mapsto \mathbf{U} ( \mathbf{R}_{ \theta\hat{\mathbf{n}} } ) := \exp \left( -\frac{i}{2}\theta \hat{\mathbf{n}} \cdot \mathbf{\sigma} \right) \in SU(2)$ is not surjective.
 In fact, $\mathbf{R}_{\theta\hat{\mathbf{n}}}$ and $\mathbf{R}_{2\pi - \theta, -\hat{\mathbf{n}}}$ represents the identical rotation.
 However they gives different unitary matrices with opposite signs.
 We choose either of the unitary matices for each rotations as convention.
@@ -68,9 +34,9 @@ We define a factor system from the ambiguity as
 $$
 \mathbf{U}(\mathbf{R}) \mathbf{U}(\mathbf{R}')
     =: z(\mathbf{R}, \mathbf{R}') \mathbf{U}(\mathbf{R}\mathbf{R}')
-    \quad (\mathbf{R}, \mathbf{R}' \in SO(3)).
+    \quad (\mathbf{R}, \mathbf{R}' \in \mathrm{SO}(3)).
 $$
-In our convention, $z(\mathbf{E}, \mathbf{R}) = z(\mathbf{R}, \mathbf{E}) = 1 \,(\forall \mathbf{R} \in SO(3))$.
+In our convention, $z(\mathbf{E}, \mathbf{R}) = z(\mathbf{R}, \mathbf{E}) = 1 \,(\forall \mathbf{R} \in \mathrm{SO}(3))$.
 Also, this representation matrix adapts Condon-Shortley phase.
 
 We define the action of a symmetry operation of the first kind on spinor as
@@ -79,7 +45,7 @@ $$
     &:= \mathbf{U}( \mathbf{R} ) \mathbf{\Psi}( (\mathbf{R}, \mathbf{v})^{-1} \mathbf{r}) \\
 \Rightarrow \left[ g_{1} \left[ g_{2} \mathbf{\Psi} \right] \right](\mathbf{r})
     &= \mathbf{U}(\mathbf{p}_{g_{1}}) \left[ g_{2} \mathbf{\Psi} \right](g_{1}^{-1}\mathbf{r}) \\
-    &= z(\mathbf{p}_{g_{1}}, \mathbf{p}_{g_{2}}) \left[ (g_{1}g_{2}) \mathbf{\Psi} \right](\mathbf{r}) \\
+    &= z(\mathbf{p}_{g_{1}}, \mathbf{p}_{g_{2}}) \left[ (g_{1}g_{2}) \mathbf{\Psi} \right](\mathbf{r}).
 $$
 
 Consider Bloch function with $\mathbf{k}$
@@ -92,17 +58,17 @@ $$
 (\mathbf{E}, \mathbf{t}) \mathbf{\Psi}_{\mathbf{k}}(\mathbf{r})
     &= \mathbf{\Psi}( (\mathbf{E}, \mathbf{t})^{-1} \mathbf{r}) \\
     &= e^{ -i \mathbf{k} \cdot \mathbf{t} } \mathbf{\Psi}(\mathbf{r})
-        \quad (\mathbf{t} \in L_{\mathcal{T}})
+        \quad (\mathbf{t} \in L_{\mathcal{T}}).
 $$
 
-$(\mathbf{R}, \mathbf{v}) \mathbf{\Psi}_{\mathbf{k}}(\mathbf{r})$ is a Bloch function with $\mathbf{Rk}$:
+A transformed Bloch function $(\mathbf{R}, \mathbf{v}) \mathbf{\Psi}_{\mathbf{k}}(\mathbf{r})$ is a Bloch function with $\mathbf{Rk}$:
 $$
 (\mathbf{E}, \mathbf{t}) (\mathbf{R}, \mathbf{v}) \mathbf{\Psi}_{\mathbf{k}}(\mathbf{r})
     &= (\mathbf{R}, \mathbf{v}) (\mathbf{E}, \mathbf{R}^{-1}\mathbf{t}) \mathbf{\Psi}_{\mathbf{k}}(\mathbf{r})
         \quad (\because z(\mathbf{E}, \mathbf{R}) = z(\mathbf{R}, \mathbf{E}) = 1 ) \\
     &= \exp \left( -i \mathbf{k} \cdot \mathbf{R}^{-1} \mathbf{t} \right) (\mathbf{R}, \mathbf{v}) \mathbf{\Psi}_{\mathbf{k}}(\mathbf{r}) \\
     &= \exp \left( -i \mathbf{Rk} \cdot \mathbf{t} \right) (\mathbf{R}, \mathbf{v}) \mathbf{\Psi}_{\mathbf{k}}(\mathbf{r})
-        \quad (\because \mathbf{R} \in SO(3) ).
+        \quad (\because \mathbf{R} \in \mathrm{SO}(3) ).
 $$
 
 Let {math}`\Gamma^{\mathbf{k}\alpha}` be a projective irrep of the little group {math}`\mathcal{G}^{\mathbf{k}} = \coprod_{ \{ i \mid \mathbf{S}_{i} \in \overline{\mathcal{G}}^{\mathbf{k}} \} } (\mathbf{S}_{i}, \mathbf{w}_{i}) \mathcal{T}` and $\{ \mathbf{\Psi}^{\mathbf{k}\alpha}_{\mu} \}_{\mu=1}^{d_{\mathbf{k}\alpha}}$ form the projective irrep.
@@ -125,7 +91,7 @@ $$
 
 Then, Simplifying by
 $$
-  \Gamma^{\mathbf{k}\alpha}((\mathbf{R}, \mathbf{v}))
+  \mathbf{\Gamma}^{\mathbf{k}\alpha}((\mathbf{R}, \mathbf{v}))
     &=: e^{ -i \mathbf{k} \cdot \mathbf{v} } \mathbf{D}^{\mathbf{k}\alpha}((\mathbf{R}, \mathbf{v})) \\
   \mathbf{D}^{\mathbf{k}\alpha}((\mathbf{S}_{i}, \mathbf{w}_{i})) \mathbf{D}^{\mathbf{k}\alpha}((\mathbf{S}_{j}, \mathbf{w}_{j}))
     &= z(\mathbf{S}_{i}, \mathbf{S}_{j}) e^{ -i \mathbf{g}_{i} \cdot \mathbf{w}_{j} } \mathbf{D}^{\mathbf{k}\alpha}((\mathbf{S}_{k}, \mathbf{w}_{k})),
@@ -145,12 +111,12 @@ In this convention, we can choose factor system as follows:
 $$
 z(\mathbf{I}, \mathbf{I}) &= 1 \\
 z(\mathbf{R}, \mathbf{I}\mathbf{R}') &= z(\mathbf{IR}, \mathbf{R}') = z(\mathbf{IR}, \mathbf{I}\mathbf{R}') = z(\mathbf{R}, \mathbf{R}')
-    \quad (\mathbf{R}, \mathbf{R}' \in SO(3)).
+    \quad (\mathbf{R}, \mathbf{R}' \in \mathrm{SO}(3)).
 $$
 
-### Convention of rotations for spinor in spgrep
+## Convention of rotations for spinor
 
-A rotation $\mathbf{R}_{ \theta\hat{\mathbf{n}} } \in SO(3)$ can be written with angular momentum operators:
+A rotation $\mathbf{R}_{ \theta\hat{\mathbf{n}} } \in \mathrm{SO}(3)$ can be written with angular momentum operators:
 $$
 \mathbf{R}_{ \theta\hat{\mathbf{n}} }
     &= \exp \left( -i \theta \hat{\mathbf{n}} \cdot \mathbf{L} \right) \\
@@ -197,9 +163,7 @@ $$
 = -2 (\sin \theta) \hat{\mathbf{n}}
 $$
 
-
-Unitary rotation
-
+The corresponding unitary rotation is explicitly written as
 $$
 \mathbf{U} ( \mathbf{R}_{ \theta\hat{\mathbf{n}} } )
     &= \exp \left( -\frac{i}{2}\theta \hat{\mathbf{n}} \cdot \mathbf{\sigma} \right) \\
@@ -208,7 +172,7 @@ $$
         \begin{pmatrix}
             \cos \frac{\theta}{2} - i n_{z} \sin \frac{\theta}{2} & (-i n_{x} - n_{y}) \sin \frac{\theta}{2} \\
             (-i n_{x} + n_{y}) \sin \frac{\theta}{2} & \cos \frac{\theta}{2} + i n_{z} \sin \frac{\theta}{2} \\
-        \end{pmatrix}
+        \end{pmatrix}.
 $$
 
 ## References

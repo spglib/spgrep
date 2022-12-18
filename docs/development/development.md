@@ -44,3 +44,10 @@ git tag <next-version>
 git push origin main
 git push origin --tags
 ```
+
+## Subpages
+
+```{toctree}
+  :maxdepth: 1
+  Memo <memo>
+```

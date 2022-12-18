@@ -98,7 +98,7 @@ See the [change log](docs/changelog) for recent changes.
 
 We welcome any contributions to improve functionalities.
 Please open [issues](https://github.com/spglib/spgrep/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc) or create [pull requests](https://github.com/spglib/spgrep/pulls?q=is%3Apr+is%3Aopen+sort%3Aupdated-desc).
-See the [development page](docs/development) for preparing an environment.
+See the [development page](docs/development/development) for preparing an environment.
 
 ## License
 

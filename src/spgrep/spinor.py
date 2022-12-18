@@ -29,7 +29,7 @@ def enumerate_spinor_small_representations(
 
     where :math:`\mathbf{g}_{i} = \mathbf{S}_{i}^{-1} \mathbf{k} - \mathbf{k}`.
 
-    See :ref:`spinor_factor_system` for Spgrep's convention of spinor-derived factor system.
+    See :ref:`spin_representation` for Spgrep's convention of spinor-derived factor system.
 
     Parameters
     ----------
@@ -104,7 +104,7 @@ def get_spinor_factor_system(
        = z(\mathbf{S}_{i}, \mathbf{S}_{j}) \mathbf{U}(\mathbf{S}_{k})
 
     where :math:`\mathbf{S}_{i} \mathbf{S}_{j} = \mathbf{S}_{k}`.
-    See :ref:`spinor_factor_system` for Spgrep's convention of spinor-derived factor system :math:`z(S_{i}, S_{j})` and a map from orthogonal matrix :math:`\mathbf{S}_{i} \in O(3)` to unitary matrix :math:`\mathbf{U}(\mathbf{S}_{i}) \in SU(2)`.
+    See :ref:`spin_representation` for Spgrep's convention of spinor-derived factor system :math:`z(S_{i}, S_{j})` and a map from orthogonal matrix :math:`\mathbf{S}_{i} \in O(3)` to unitary matrix :math:`\mathbf{U}(\mathbf{S}_{i}) \in SU(2)`.
 
     Parameters
     ----------

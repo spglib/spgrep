@@ -21,10 +21,10 @@ Then, $M$ can be decomposed as $M = D \sqcup a_{0} D$, where $a_{0}$ is an antis
 
 A co-representation $\Gamma$ gives linear or anti-linear operator for each element in $M$ while satisfying
 $$
-    \Gamma(u) \Gamma(u')        &= \omega(u, u') \Gamma(uu') \\
-    \Gamma(u) \Gamma(a')        &= \omega(u, a') \Gamma(ua') \\
-    \Gamma(a) \Gamma(u')^{\ast} &= \omega(a, u') \Gamma(au') \\
-    \Gamma(a) \Gamma(a')^{\ast} &= \omega(a, a') \Gamma(aa'), \\
+    \mathbf{\Gamma}(u) \mathbf{\Gamma}(u')        &= \omega(u, u') \mathbf{\Gamma}(uu') \\
+    \mathbf{\Gamma}(u) \mathbf{\Gamma}(a')        &= \omega(u, a') \mathbf{\Gamma}(ua') \\
+    \mathbf{\Gamma}(a) \mathbf{\Gamma}(u')^{\ast} &= \omega(a, u') \mathbf{\Gamma}(au') \\
+    \mathbf{\Gamma}(a) \mathbf{\Gamma}(a')^{\ast} &= \omega(a, a') \mathbf{\Gamma}(aa'), \\
 $$
 where $u, u' \in D$ and $a, a' \in a_{0}D$.
 The factor system $\omega$ satisfies a cocycle condition:
@@ -34,12 +34,12 @@ $$
 $$
 for $u \in D$, $a \in a_{0}D$, and $m, m \in M$ [^footnote1].
 
-[^footnote1]: Consider $\Gamma(a)\Gamma(m)^{\ast}\Gamma(m')^{\ast}$ for $m \in D$ and $\Gamma(a)\Gamma(m)^{\ast}\Gamma(m')$ for $m \in a_{0}D$.
+[^footnote1]: Consider $\mathbf{\Gamma}(a) \mathbf{\Gamma}(m)^{\ast} \mathbf{\Gamma}(m')^{\ast}$ for $m \in D$ and $\mathbf{\Gamma}(a) \mathbf{\Gamma}(m)^{\ast} \mathbf{\Gamma}(m')$ for $m \in a_{0}D$.
 
 Co-representations $\Gamma$ and $\Gamma'$ are equivalent if an invertible matrix $\mathbf{T}$ exists such that
 $$
-    \Gamma'(u) &= \mathbf{T}^{-1} \Gamma(u) \mathbf{T} \quad (u \in D) \\
-    \Gamma'(a) &= \mathbf{T}^{-1} \Gamma(a) \mathbf{T}^{\ast} \quad (a \in a_{0}D) \\
+    \mathbf{\Gamma}'(u) &= \mathbf{T}^{-1} \mathbf{\Gamma}(u) \mathbf{T} \quad (u \in D) \\
+    \mathbf{\Gamma}'(a) &= \mathbf{T}^{-1} \mathbf{\Gamma}(a) \mathbf{T}^{\ast} \quad (a \in a_{0}D) \\
 $$
 
 ## Frobenius-Schur indicator for co-representation
@@ -47,14 +47,15 @@ $$
 Let $(\Gamma, \mathrm{Span}_{\mathbb{C}} \{ \mathbf{\phi}_{i} \}_{i=1}^{d} )$ be one of **unitary** irreps for $D$ with factor system $\omega$.
 Then, $\{ a_{0} \mathbf{v}_{i} \}_{i}$ also form irrep as
 $$
-    \overline{\Gamma}(u) &:= \frac{ \omega(u, a_{0}) }{ \omega( a_{0}, a_{0}^{-1} u a_{0} ) } \Gamma( a_{0}^{-1} u a_{0} )^{\ast} \quad (u \in D) \\
-    u a_{0} \mathbf{\phi}_{j} &= \sum_{j} a_{0} \mathbf{\phi}_{j} \overline{\Gamma}(u)_{ij}.
+    \overline{\mathbf{\Gamma}}(u)
+        &:= \frac{ \omega(u, a_{0}) }{ \omega( a_{0}, a_{0}^{-1} u a_{0} ) } \mathbf{\Gamma}( a_{0}^{-1} u a_{0} )^{\ast} \quad (u \in D) \\
+    u a_{0} \mathbf{\phi}_{j} &= \sum_{j} a_{0} \mathbf{\phi}_{j} \overline{\mathbf{\Gamma}}(u)_{ij}.
 $$
 
 The following Frobenius-Schur indicator should be one of $\{ -1, 0, 1 \}$:
 $$
     \xi^{\alpha} &:= \frac{1}{|D|} \sum_{ u \in D } \omega(a_{0}u, a_{0}u) \chi( (a_{0}u)^{2} ) \\
-    \chi(u) &:= \mathrm{Tr} \Gamma(u) \quad (u \in D).
+    \chi(u) &:= \mathrm{Tr}\, \mathbf{\Gamma}(u) \quad (u \in D).
 $$
 This indicator can check if $\Gamma$ and $\overline{\Gamma}$ are equivalent.
 
@@ -63,7 +64,7 @@ This indicator can check if $\Gamma$ and $\overline{\Gamma}$ are equivalent.
 In this case, $\Gamma$ and $\overline{\Gamma}$ are equivalent.
 Let $\mathbf{U}$ be a **unitary** intertwiner between $\Gamma$ and $\overline{\Gamma}$:
 $$
-    \overline{\Gamma}(u) = \mathbf{U}^{-1} \Gamma(u) \mathbf{U} \quad (u \in D).
+    \overline{\mathbf{\Gamma}}(u) = \mathbf{U}^{-1} \mathbf{\Gamma}(u) \mathbf{U} \quad (u \in D).
 $$
 Then, a transformed basis $\{ \mathbf{\psi}_{i} := \sum_{j} a_{0} \mathbf{\phi}_{j} [\mathbf{U}^{\dagger}]_{ji} \}_{i}$ also forms $\Gamma$.
 
@@ -78,8 +79,8 @@ $$
 [^derivation]: Be careful anti-linear operators,
 $$
     a_{0} \psi_{i}
-        &= \sum_{j} [U^{\dagger\ast}]_{ji} a_{0} (a_{0} \phi_{j}) \\
-        &= \sum_{jk} \phi_{k} \omega(a_{0}, a_{0}) \Gamma(a_{0}^{2})_{kj} [U^{\dagger\ast}]_{ji} \\
+        &= \sum_{j} [\mathbf{U}^{\dagger\ast}]_{ji} a_{0} (a_{0} \phi_{j}) \\
+        &= \sum_{jk} \phi_{k} \omega(a_{0}, a_{0}) \Gamma(a_{0}^{2})_{kj} [\mathbf{U}^{\dagger\ast}]_{ji} \\
         &= \sum_{k} \phi_{k} U_{ki}
 $$
 
@@ -138,7 +139,7 @@ $$
     % a_{0} &\mapsto \mathbf{U}(\mathbf{S}_{0}) \left( -i \sigma_{y} \right) K \\
     % a_{0} D \ni a_{0} \mathbf{S} &\mapsto \mathbf{U}(\mathbf{S}_{0}) \left( -i \sigma_{y} \right) \mathbf{U}(\mathbf{S})^{\ast} K,
 $$
-where $\mathbf{U}: O(3) \to SU(2)$ is defined in {ref}`spinor_factor_system`.
+where $\mathbf{U}: \mathrm{O}(3) \to \mathrm{SU}(2)$ is defined {ref}`here <spin_representation>`.
 $\sigma_{y}$ is the Pauli matrix.
 $K$ is an anti-linear operator that takes complex conjugate.
 
