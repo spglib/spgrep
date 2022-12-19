@@ -135,6 +135,8 @@ docs_build
 .DS_Store
 *.txt
 *.lprof
+*.jats
+*.pdf
 
 gh-pages
 gh-pages.pub
