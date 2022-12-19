@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Development &#8212; spgrep 0.1.dev1+g3363a85</title>
+    <title>Development &#8212; spgrep 0.3.2</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -74,7 +74,7 @@
       
       
       
-      <h1 class="site-logo" id="site-title">spgrep 0.1.dev1+g3363a85</h1>
+      <h1 class="site-logo" id="site-title">spgrep 0.3.2</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
@@ -440,6 +440,11 @@ title="Print to PDF"
      How to generate diagram from Mermaid file
     </a>
    </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#how-to-compile-joss-draft">
+     How to compile JOSS draft
+    </a>
+   </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -484,6 +489,11 @@ title="Print to PDF"
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#how-to-generate-diagram-from-mermaid-file">
      How to generate diagram from Mermaid file
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#how-to-compile-joss-draft">
+     How to compile JOSS draft
     </a>
    </li>
   </ul>
@@ -535,6 +545,13 @@ pre-commit run --all-file
 <p><a class="reference external" href="https://www.npmjs.com/package/&#64;mermaid-js/mermaid-cli/v/8.9.2">https://www.npmjs.com/package/&#64;mermaid-js/mermaid-cli/v/8.9.2</a></p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>npm install @mermaid-js/mermaid-cli
 ./node_modules/.bin/mmdc --input docs/point_group_chain.mmd
+</pre></div>
+</div>
+</section>
+<section id="how-to-compile-joss-draft">
+<h3>How to compile JOSS draft<a class="headerlink" href="#how-to-compile-joss-draft" title="Permalink to this headline">#</a></h3>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># At root directory</span>
+docker run --rm --volume <span class="nv">$PWD</span>/docs/paper:/data --user <span class="k">$(</span>id -u<span class="k">)</span>:<span class="k">$(</span>id -g<span class="k">)</span> --env <span class="nv">JOURNAL</span><span class="o">=</span>joss openjournals/inara
 </pre></div>
 </div>
 </section>

@@ -30,6 +30,13 @@ npm install @mermaid-js/mermaid-cli
 ./node_modules/.bin/mmdc --input docs/point_group_chain.mmd
 ```
 
+### How to compile JOSS draft
+
+```shell
+# At root directory
+docker run --rm --volume $PWD/docs/paper:/data --user $(id -u):$(id -g) --env JOURNAL=joss openjournals/inara
+```
+
 ## Release
 
 ```shell
