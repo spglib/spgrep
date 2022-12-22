@@ -137,6 +137,7 @@ docs_build
 *.lprof
 *.jats
 *.pdf
+._.*
 
 gh-pages
 gh-pages.pub
