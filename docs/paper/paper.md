@@ -36,7 +36,7 @@ bibliography: paper.bib
 
 The group theory and representation theory provide a formal and helpful way to exploit the symmetry of systems in condensed-matter physics and materials science [@Inui1996-et; @el2008symmetry; @Bradley2009-ze; @dresselhaus2010group].
 When we consider the microscopic structure of a crystal, its symmetry is classified by space groups [@ITA2016].
-Irreducible representations (irreps) of space groups serves as fundamental building blocks for classifying physical states and simplifying numerical calculations for crystals.
+Irreducible representations (irreps) of space groups serve as fundamental building blocks for classifying physical states and simplifying numerical calculations for crystals.
 Although irreps of space groups were tabulated in seminal works [@faddeyev1964; @kovalev1965irreducible; @miller1967tables; @Zak1969; @Bradley2009-ze; @cracknell1979kronecker; @altmann1994point], it is tedious and error-prone to look up these tables.
 `spgrep` is a Python package to enumerate irreps of space groups from given crystal structures or symmetry operations without the need for consulting databases of irreps.
 `spgrep` computes various kinds of representations: (1) linear irreps, (2) physically irreducible irreps [@PhysRevB.43.11010], (3) projective irreps for spinor, and (4) projective irreducible co-representations for spinor.
@@ -57,7 +57,7 @@ Additionally, `spgrep` can be used in conjunction with these tabulation-based pa
 
 <!-- Related packages computing characters from eigenvectors -->
 For density functional theory calculations, there are a few packages to compute irreps from Bloch wave functions, including `Irvsp` [@GAO2021107760] and `qeirreps` [@MATSUGATANI2021107948].
-Although these packages do not rely on tabulations of irreps, arbitrary irreps will be obtained within unitary equivalence for multi-dimensional irreps, which undermine a deterministic symmetry-adapted basis.
+Although these packages do not rely on tabulations of irreps, an arbitrary irrep will be obtained within unitary equivalence for multi-dimensional irreps, which undermines a deterministic symmetry-adapted basis.
 On the other hand, `spgrep` provides unique irreps for given space groups through the implementation of a deterministic algorithm in @Neto:a09740.
 
 <!--
