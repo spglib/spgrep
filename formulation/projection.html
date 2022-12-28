@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Constructing symmetry-adapted basis &#8212; spgrep 0.3.1</title>
+    <title>Constructing symmetry-adapted basis &#8212; spgrep 0.3.2</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -34,12 +34,10 @@
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
-    <script>mermaid.initialize({startOnLoad:true});</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Numerically obtain intertwiner between equivalent representations" href="intertwiner.html" />
-    <link rel="prev" title="Reality of (projective) irrep" href="reality.html" />
+    <link rel="next" title="API Reference" href="../api/api.html" />
+    <link rel="prev" title="Numerically obtain intertwiner between equivalent representations" href="algorithm/intertwiner.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -78,7 +76,7 @@
       
       
       
-      <h1 class="site-logo" id="site-title">spgrep 0.3.1</h1>
+      <h1 class="site-logo" id="site-title">spgrep 0.3.2</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
@@ -134,44 +132,68 @@
    </i>
   </label>
   <ul class="current">
-   <li class="toctree-l2">
-    <a class="reference internal" href="spacegroup_irreps.html">
-     Irreps of space group
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="irreps/irreps.html">
+     Irreducible representation
     </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+    <label for="toctree-checkbox-3">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="irreps/spacegroup_irreps.html">
+       Irreps of space group
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="irreps/reality.html">
+       Physically irreps
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="irreps/spinor.html">
+       Spin representation
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="irreps/corep.html">
+       Co-representation
+      </a>
+     </li>
+    </ul>
    </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="irreps_from_regular.html">
-     On-the-fly irreps generation from regular representation
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="algorithm/algorithm.html">
+     Algorithm for enumerating irreps
     </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="irreps_from_chain.html">
-     On-the-fly irreps generation from solvable group chain
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="reality.html">
-     Reality of irreps
-    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+    <label for="toctree-checkbox-4">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="algorithm/irreps_from_regular.html">
+       On-the-fly irreps generation from regular representation
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="algorithm/irreps_from_chain.html">
+       On-the-fly irreps generation from solvable group chain
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="algorithm/intertwiner.html">
+       Intertwiner
+      </a>
+     </li>
+    </ul>
    </li>
    <li class="toctree-l2 current active">
     <a class="current reference internal" href="#">
      Symmetry-adapted basis
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="intertwiner.html">
-     Intertwiner
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="spinor.html">
-     Spin representation
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="corepresentation.html">
-     Co-representation
     </a>
    </li>
   </ul>
@@ -180,8 +202,8 @@
   <a class="reference internal" href="../api/api.html">
    API Reference
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
-  <label for="toctree-checkbox-3">
+  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+  <label for="toctree-checkbox-5">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -197,18 +219,8 @@
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../api/api_irreps.html">
-     Irreps
-    </a>
-   </li>
-   <li class="toctree-l2">
     <a class="reference internal" href="../api/api_pointgroup.html">
      Point group
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../api/api_representation.html">
-     Representation
     </a>
    </li>
    <li class="toctree-l2">
@@ -217,8 +229,13 @@
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../api/api_tensor.html">
-     Tensor
+    <a class="reference internal" href="../api/api_representation.html">
+     Representation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../api/api_irreps.html">
+     Irreps
     </a>
    </li>
    <li class="toctree-l2">
@@ -231,6 +248,11 @@
      Co-representation
     </a>
    </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../api/api_tensor.html">
+     Tensor
+    </a>
+   </li>
   </ul>
  </li>
  <li class="toctree-l1">
@@ -238,9 +260,26 @@
    Change Log
   </a>
  </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../development/development.html">
+   Development
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+  <label for="toctree-checkbox-6">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../development/memo.html">
+     Memo
+    </a>
+   </li>
+  </ul>
+ </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../genindex.html">
-   genindex
+   Index
   </a>
  </li>
 </ul>
@@ -394,11 +433,6 @@ title="Print to PDF"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#symmetry-adapted-tensor-with-intrinsic-symmetry">
-   Symmetry-adapted tensor with intrinsic symmetry
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#references">
    References
   </a>
@@ -428,11 +462,6 @@ title="Print to PDF"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#symmetry-adapted-tensor-with-intrinsic-symmetry">
-   Symmetry-adapted tensor with intrinsic symmetry
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#references">
    References
   </a>
@@ -456,8 +485,8 @@ title="Print to PDF"
 <div class="math notranslate nohighlight">
 \[\begin{split}    g \phi^{(\mathbf{k})}_{j} &amp;= \sum_{i} \phi^{(\mathbf{k})}_{i} \Gamma^{(\mathbf{k})}_{ij} 
     \quad (g \in \mathcal{G}^{\mathbf{k}}) \\
-    \Gamma^{(\mathbf{k})}((E, \mathbf{t})) &amp;= e^{ -i\mathbf{k}\cdot\mathbf{t} } \mathbf{1}
-    \quad ( (E, \mathbf{t}) \in \mathcal{G}^{\mathbf{k}}) \\\end{split}\]</div>
+    \mathbf{\Gamma}^{(\mathbf{k})}((\mathbf{E}, \mathbf{t})) &amp;= e^{ -i\mathbf{k}\cdot\mathbf{t} } \mathbf{1}
+    \quad ( (\mathbf{E}, \mathbf{t}) \in \mathcal{G}^{\mathbf{k}}) \\\end{split}\]</div>
 </li>
 <li><p>Compute unitary small representations <span class="math notranslate nohighlight">\(\Gamma^{ (\mathbf{k}, \alpha) }\)</span> of little group <span class="math notranslate nohighlight">\(\mathcal{G}^{\mathbf{k}}\)</span> by <a class="reference internal" href="../api/api_core.html#spgrep.get_spacegroup_irreps_from_primitive_symmetry" title="spgrep.get_spacegroup_irreps_from_primitive_symmetry"><code class="xref py py-func docutils literal notranslate"><span class="pre">spgrep.get_spacegroup_irreps_from_primitive_symmetry()</span></code></a> in primitive cell</p></li>
 <li><p>Apply projection operator by <a class="reference internal" href="../api/api_representation.html#spgrep.representation.project_to_irrep" title="spgrep.representation.project_to_irrep"><code class="xref py py-func docutils literal notranslate"><span class="pre">spgrep.representation.project_to_irrep()</span></code></a></p></li>
@@ -465,14 +494,18 @@ title="Print to PDF"
 <section id="projection-operator">
 <h2>Projection operator<a class="headerlink" href="#projection-operator" title="Permalink to this headline">#</a></h2>
 <p>Let <span class="math notranslate nohighlight">\(\Delta^{(\alpha)}\)</span> be <strong>unitary</strong> projective irrep of group <span class="math notranslate nohighlight">\(G\)</span> with <span class="math notranslate nohighlight">\(\mu(E, E)=1\)</span>.
-The projection operator can be defined as the same form with the ordinary representation <span id="id1">[<a class="reference internal" href="#id22" title="S. L. Altmann. Projection operators and clebsch–gordan coefficients for projective representations. International Journal of Quantum Chemistry, 35(3):441-456, 1989. URL: https://onlinelibrary.wiley.com/doi/abs/10.1002/qua.560350309, doi:https://doi.org/10.1002/qua.560350309.">Alt89</a>]</span> <a class="footnote-reference brackets" href="#proj-derivation" id="id2">1</a>,</p>
+The projection operator can be defined as the same form with the ordinary representation <span id="id1">[<a class="reference internal" href="#id21" title="S. L. Altmann. Projection operators and clebsch–gordan coefficients for projective representations. Int. J. Quantum Chem., 35(3):441–456, 1989. URL: https://onlinelibrary.wiley.com/doi/abs/10.1002/qua.560350309, doi:https://doi.org/10.1002/qua.560350309.">Alt89</a>]</span> <a class="footnote-reference brackets" href="#proj-derivation" id="id2">1</a>,
 <div class="math notranslate nohighlight">
-\[    P^{(\alpha)}_{ij}
-        := \frac{ d_{\alpha} }{|G|} \sum_{ R \in G } \Delta^{ (\alpha) }(R)_{ij}^{\ast} R.\]</div>
-<p>Let <span class="math notranslate nohighlight">\(\phi^{(\alpha,j)}_{i} := P^{(\alpha)}_{ij} \phi\)</span>.
-Basis vectors <span class="math notranslate nohighlight">\(\{ \phi^{(\alpha,j)}_{i} \}_{i}\)</span> forms <span class="math notranslate nohighlight">\(\Delta^{ (\alpha) }\)</span>.</p>
+\[
+    P^{(\alpha)}_{ij}
+        := \frac{ d_{\alpha} }{|G|} \sum_{ R \in G } \Delta^{ (\alpha) }(R)_{ij}^{\ast} R.
+\]</div>
+
+Let <span class="math notranslate nohighlight">\(\phi^{(\alpha,j)}_{i} := P^{(\alpha)}_{ij} \phi\)</span>.
+Basis vectors <span class="math notranslate nohighlight">\(\{ \phi^{(\alpha,j)}_{i} \}_{i}` forms {math}`\Delta^{ (\alpha) }\)</span>.</p>
 <div class="math notranslate nohighlight">
-\[\begin{split}    P^{(\alpha)}_{ij} P^{(\alpha)}_{i'j'}
+\[\begin{split}
+    P^{(\alpha)}_{ij} P^{(\alpha)}_{i'j'}
         &amp;= \frac{ d_{\alpha}^{2} }{|G|^{2}}
            \sum_{ R, R' \in G } \Delta^{ (\alpha) }(R)_{ij}^{\ast} \Delta^{ (\alpha) }(R)_{i'j'}^{\ast} RR' \\
         &amp;= \frac{ d_{\alpha}^{2} }{|G|^{2}}
@@ -484,46 +517,25 @@ Basis vectors <span class="math notranslate nohighlight">\(\{ \phi^{(\alpha,j)}_
            \quad (\because \mu(E, T) = 1) \\
         &amp;= \delta_{ji'} P^{(\alpha)}_{ij'} \\
     P^{(\alpha) \dagger}_{ij}
-        &amp;= P^{(\alpha)}_{ji} \\\end{split}\]</div>
-<p>Basis vectors <span class="math notranslate nohighlight">\(\{ \phi^{(\alpha,j)}_{i} \}_{i}\)</span> are mutually orthogonal:</p>
+        &amp;= P^{(\alpha)}_{ji} \\
+\end{split}\]</div>
+<p>Basis vectors <span class="math notranslate nohighlight">\(\{ \phi^{(\alpha,j)}_{i} \}_{i}\)</span> are mutually orthogonal:
 <div class="math notranslate nohighlight">
-\[\begin{split}    ( \phi^{(\alpha,j)}_{i}, \phi^{(\alpha,j)}_{i'} )
+\[\begin{split}
+    ( \phi^{(\alpha,j)}_{i}, \phi^{(\alpha,j)}_{i'} )
         &amp;= (P^{(\alpha)}_{ij}\phi, P^{(\alpha)}_{i'j}\phi) \\
         &amp;= (\phi, P^{(\alpha)}_{ji}P^{(\alpha)}_{i'j}\phi) \\
         &amp;= \delta_{ii'}(\phi, P^{(\alpha)}_{jj}\phi) \\
-        &amp;= \delta_{ii'}(\phi, \phi^{(\alpha, j)}_{j}) \\\end{split}\]</div>
-</section>
-<section id="symmetry-adapted-tensor-with-intrinsic-symmetry">
-<h2>Symmetry-adapted tensor with intrinsic symmetry<a class="headerlink" href="#symmetry-adapted-tensor-with-intrinsic-symmetry" title="Permalink to this headline">#</a></h2>
-<p><span id="id3">[<a class="reference internal" href="#id24" title="Michael El-Batanouny and Frederick Wooten. Symmetry and condensed matter physics: a computational approach. Cambridge University Press, 2008.">EBW08</a>]</span></p>
-<p>Consider vector space <span class="math notranslate nohighlight">\(V\)</span> and its symmetry adapted basis <span class="math notranslate nohighlight">\(\{ \mathbf{f}^{\alpha m}_{i} \}\)</span> w.r.t. group <span class="math notranslate nohighlight">\(G\)</span>.</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}    V &amp;= \bigoplus_{\alpha} \bigoplus_{m=1}^{m_{\alpha}} V^{\alpha m} \\
-    V^{\alpha m} &amp;= \bigoplus_{i=1}^{d_{\alpha}} K \mathbf{f}^{\alpha m}_{i} \\
-    g \mathbf{f}^{\alpha m}_{j}
-        &amp;= \sum_{i=1} ^{d_{\alpha}} \mathbf{f}^{\alpha m}_{i} \Gamma^{\alpha}_{ij}(g)
-        \quad (g \in G, j = 1, \dots, d_{\alpha}),\end{split}\]</div>
-<p>where <span class="math notranslate nohighlight">\(K\)</span> is <span class="math notranslate nohighlight">\(\mathbb{C}\)</span> or <span class="math notranslate nohighlight">\(\mathbb{R}\)</span>, and <span class="math notranslate nohighlight">\(\Gamma^{\alpha}\)</span> is irrep over <span class="math notranslate nohighlight">\(K\)</span>.</p>
-<p>Action of <span class="math notranslate nohighlight">\(G\)</span> on rank-<span class="math notranslate nohighlight">\(p\)</span> tensor <span class="math notranslate nohighlight">\(\mathsf{T}: V^{\ast \otimes p}\)</span> is defined as</p>
-<div class="math notranslate nohighlight">
-\[    (g \mathsf{T})(\mathbf{v}_{1}, \dots, \mathbf{v}_{p})
-        := \mathsf{T}(g^{-1} \mathbf{v}_{1}, \dots, g^{-1} \mathbf{v}_{p})
-        \quad (g \in G).\]</div>
-<p>We also consider intrinsic symmetry <span class="math notranslate nohighlight">\(\Sigma\)</span> of <span class="math notranslate nohighlight">\(\mathsf{T}\)</span> as <a class="footnote-reference brackets" href="#check-action" id="id4">2</a></p>
-<div class="math notranslate nohighlight">
-\[    (\sigma \mathsf{T})(\mathbf{v}_{1}, \dots, \mathbf{v}_{p})
-        := \mathsf{T}(\mathbf{v}_{\sigma^{-1}(1)}, \dots, \mathbf{v}_{\sigma^{-1}(p)})
-        \quad (\sigma \in \Sigma).\]</div>
+        &amp;= \delta_{ii'}(\phi, \phi^{(\alpha, j)}_{j}).
+\end{split}\]</div>
+</p>
 </section>
 <section id="references">
 <h2>References<a class="headerlink" href="#references" title="Permalink to this headline">#</a></h2>
-<div class="docutils container" id="id5">
+<div class="docutils container" id="id3">
 <dl class="citation">
-<dt class="label" id="id22"><span class="brackets"><a class="fn-backref" href="#id1">Alt89</a></span></dt>
-<dd><p>S. L. Altmann. Projection operators and clebsch–gordan coefficients for projective representations. <em>International Journal of Quantum Chemistry</em>, 35(3):441–456, 1989. URL: <a class="reference external" href="https://onlinelibrary.wiley.com/doi/abs/10.1002/qua.560350309">https://onlinelibrary.wiley.com/doi/abs/10.1002/qua.560350309</a>, <a class="reference external" href="https://doi.org/https://doi.org/10.1002/qua.560350309">doi:https://doi.org/10.1002/qua.560350309</a>.</p>
-</dd>
-<dt class="label" id="id24"><span class="brackets"><a class="fn-backref" href="#id3">EBW08</a></span></dt>
-<dd><p>Michael El-Batanouny and Frederick Wooten. <em>Symmetry and condensed matter physics: a computational approach</em>. Cambridge University Press, 2008.</p>
+<dt class="label" id="id21"><span class="brackets"><a class="fn-backref" href="#id1">Alt89</a></span></dt>
+<dd><p>S. L. Altmann. Projection operators and clebsch–gordan coefficients for projective representations. <em>Int. J. Quantum Chem.</em>, 35(3):441–456, 1989. URL: <a class="reference external" href="https://onlinelibrary.wiley.com/doi/abs/10.1002/qua.560350309">https://onlinelibrary.wiley.com/doi/abs/10.1002/qua.560350309</a>, <a class="reference external" href="https://doi.org/https://doi.org/10.1002/qua.560350309">doi:https://doi.org/10.1002/qua.560350309</a>.</p>
 </dd>
 </dl>
 </div>
@@ -541,16 +553,6 @@ The derivation is as follows:</p>
 <p>Here we assume the factor system is chosen as <span class="math notranslate nohighlight">\(\mu(E, E) = 1\)</span>.
 Then, we use <span class="math notranslate nohighlight">\(\mu(S, S^{-1}) = \mu(S^{-1}, S)\)</span>.</p>
 </dd>
-<dt class="label" id="check-action"><span class="brackets"><a class="fn-backref" href="#id4">2</a></span></dt>
-<dd><p>These definitions follow the condition of left actions:</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}    (\sigma (\sigma' \mathsf{T}))(\mathbf{v}_{1}, \dots, \mathbf{v}_{p})
-        &amp;= (\sigma' \mathsf{T})(\mathbf{v}_{\sigma^{-1}(1)}, \dots, \mathbf{v}_{\sigma^{-1}(p)}) \\
-        &amp;= \mathsf{T}(\mathbf{v}_{\sigma'^{-1}(\sigma^{-1}(1))}, \dots, \mathbf{v}_{\sigma'^{-1}(\sigma^{-1}(p))}) \\
-        &amp;= \mathsf{T}(\mathbf{v}_{\sigma\sigma'(1)}, \dots, \mathbf{v}_{\sigma\sigma'(p)}) \\
-        &amp;= ((\sigma \sigma') \mathsf{T})(\mathbf{v}_{1}, \dots, \mathbf{v}_{p}) \\
-    \therefore \sigma (\sigma' \mathsf{T}) &amp;= (\sigma \sigma') \mathsf{T}\end{split}\]</div>
-</dd>
 </dl>
 </section>
 </section>
@@ -563,17 +565,17 @@ Then, we use <span class="math notranslate nohighlight">\(\mu(S, S^{-1}) = \mu(S
                 
     <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="reality.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="algorithm/intertwiner.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Reality of (projective) irrep</p>
+            <p class="prev-next-title">Numerically obtain intertwiner between equivalent representations</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="intertwiner.html" title="next page">
+    <a class='right-next' id="next-link" href="../api/api.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Numerically obtain intertwiner between equivalent representations</p>
+        <p class="prev-next-title">API Reference</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

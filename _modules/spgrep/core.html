@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>spgrep.core &#8212; spgrep 0.3.1</title>
+    <title>spgrep.core &#8212; spgrep 0.3.2</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -31,8 +31,6 @@
     <script src="../../_static/doctools.js"></script>
     <script src="../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
-    <script>mermaid.initialize({startOnLoad:true});</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -73,7 +71,7 @@
       
       
       
-      <h1 class="site-logo" id="site-title">spgrep 0.3.1</h1>
+      <h1 class="site-logo" id="site-title">spgrep 0.3.2</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
@@ -129,44 +127,68 @@
    </i>
   </label>
   <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../formulation/spacegroup_irreps.html">
-     Irreps of space group
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../../formulation/irreps/irreps.html">
+     Irreducible representation
     </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+    <label for="toctree-checkbox-3">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../formulation/irreps/spacegroup_irreps.html">
+       Irreps of space group
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../formulation/irreps/reality.html">
+       Physically irreps
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../formulation/irreps/spinor.html">
+       Spin representation
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../formulation/irreps/corep.html">
+       Co-representation
+      </a>
+     </li>
+    </ul>
    </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../formulation/irreps_from_regular.html">
-     On-the-fly irreps generation from regular representation
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../../formulation/algorithm/algorithm.html">
+     Algorithm for enumerating irreps
     </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../formulation/irreps_from_chain.html">
-     On-the-fly irreps generation from solvable group chain
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../formulation/reality.html">
-     Reality of irreps
-    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+    <label for="toctree-checkbox-4">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../formulation/algorithm/irreps_from_regular.html">
+       On-the-fly irreps generation from regular representation
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../formulation/algorithm/irreps_from_chain.html">
+       On-the-fly irreps generation from solvable group chain
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../formulation/algorithm/intertwiner.html">
+       Intertwiner
+      </a>
+     </li>
+    </ul>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../../formulation/projection.html">
      Symmetry-adapted basis
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../formulation/intertwiner.html">
-     Intertwiner
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../formulation/spinor.html">
-     Spin representation
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../formulation/corepresentation.html">
-     Co-representation
     </a>
    </li>
   </ul>
@@ -175,8 +197,8 @@
   <a class="reference internal" href="../../api/api.html">
    API Reference
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
-  <label for="toctree-checkbox-3">
+  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+  <label for="toctree-checkbox-5">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -192,18 +214,8 @@
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../api/api_irreps.html">
-     Irreps
-    </a>
-   </li>
-   <li class="toctree-l2">
     <a class="reference internal" href="../../api/api_pointgroup.html">
      Point group
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../api/api_representation.html">
-     Representation
     </a>
    </li>
    <li class="toctree-l2">
@@ -212,8 +224,13 @@
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../api/api_tensor.html">
-     Tensor
+    <a class="reference internal" href="../../api/api_representation.html">
+     Representation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../api/api_irreps.html">
+     Irreps
     </a>
    </li>
    <li class="toctree-l2">
@@ -226,6 +243,11 @@
      Co-representation
     </a>
    </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../api/api_tensor.html">
+     Tensor
+    </a>
+   </li>
   </ul>
  </li>
  <li class="toctree-l1">
@@ -233,9 +255,26 @@
    Change Log
   </a>
  </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../development/development.html">
+   Development
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+  <label for="toctree-checkbox-6">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../development/memo.html">
+     Memo
+    </a>
+   </li>
+  </ul>
+ </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../../genindex.html">
-   genindex
+   Index
   </a>
  </li>
 </ul>
@@ -420,10 +459,12 @@ title="Source repository"
 <span class="sd">    irreps: list of Irreps with (little_group_order, dim, dim)</span>
 <span class="sd">        ``irreps[alpha][i, :, :]`` is the ``alpha``-th irreducible matrix representation of ``(little_rotations[i], little_translations[i])``.</span>
 <span class="sd">    rotations: array[int], (num_sym, 3, 3)</span>
+<span class="sd">        Linear parts of symmetry operations</span>
 <span class="sd">    translations: array, (num_sym, 3)</span>
+<span class="sd">        Translation parts of symmetry operations</span>
 <span class="sd">    mapping_little_group: array, (little_group_order, )</span>
 <span class="sd">        Let ``i = mapping_little_group[idx]``.</span>
-<span class="sd">        (rotations[i], translations[i]) belongs to the little group of given space space group and kpoint.</span>
+<span class="sd">        ``(rotations[i], translations[i])`` belongs to the little group of given space space group and kpoint.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Transform given `kpoint` in dual of `lattice`</span>
     <span class="n">dual_lattice</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">lattice</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
@@ -482,7 +523,7 @@ title="Source repository"
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="n">NDArrayComplex</span><span class="p">],</span> <span class="n">NDArrayInt</span><span class="p">]</span> <span class="o">|</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="n">NDArrayFloat</span><span class="p">],</span> <span class="n">NDArrayInt</span><span class="p">]:</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Compute all irreducible representations of given space group up to unitary transformation.</span>
 
-<span class="sd">    Note that rotations and translations should be specified in a primitive cell.</span>
+<span class="sd">    Note that ``rotations`` and ``translations`` should be specified in a primitive cell.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -496,6 +537,8 @@ title="Source repository"
 
 <span class="sd">        .. math::</span>
 <span class="sd">            \Gamma^{(\alpha)}((E, \mathbf{t})) = e^{ -i\mathbf{k}\cdot\mathbf{t} } \mathbf{1}.</span>
+
+<span class="sd">        See :ref:`physically_irreps` for details.</span>
 
 <span class="sd">    real: bool, default=False</span>
 <span class="sd">        If True, return irreps over real vector space (so called physically irreducible representations).</span>
@@ -569,7 +612,8 @@ title="Source repository"
 <span class="sd">    rotations: array[int], (order, 3, 3)</span>
 <span class="sd">        Assume a point coordinates ``x`` are transformed into ``np.dot(rotations[i, :, :], x)`` by the ``i``-th symmetry operation.</span>
 <span class="sd">    real: bool, default=False</span>
-<span class="sd">        If True, return irreps over real vector space (so called physically irreducible representations)</span>
+<span class="sd">        If True, return irreps over real vector space (so called physically irreducible representations).</span>
+<span class="sd">        See :ref:`physically_irreps` for details.</span>
 <span class="sd">    method: str, &#39;Neto&#39; or &#39;random&#39;</span>
 <span class="sd">        &#39;Neto&#39;: construct irreps from a fixed chain of subgroups of little co-group</span>
 <span class="sd">        &#39;random&#39;: construct irreps by numerically diagonalizing a random matrix commute with regular representation</span>
@@ -584,7 +628,7 @@ title="Source repository"
 <span class="sd">    -------</span>
 <span class="sd">    irreps: list of Irreps with (order, dim, dim)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">irreps</span><span class="p">,</span> <span class="n">indicators</span> <span class="o">=</span> <span class="n">enumerate_unitary_irreps</span><span class="p">(</span>
+    <span class="n">irreps</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">enumerate_unitary_irreps</span><span class="p">(</span>
         <span class="n">rotations</span><span class="p">,</span>
         <span class="n">factor_system</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">real</span><span class="o">=</span><span class="n">real</span><span class="p">,</span>
@@ -632,11 +676,13 @@ title="Source repository"
 <span class="p">]:</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Compute all irreducible representations :math:`\mathbf{\Gamma}^{\mathbf{k}\alpha}` of space group of given structure up to unitary transformation for spinor.</span>
 
+<span class="sd">    Each irrep :math:`\mathbf{\Gamma}^{\mathbf{k}\alpha}` satisfies</span>
+
 <span class="sd">    .. math::</span>
 <span class="sd">       \mathbf{\Gamma}^{\mathbf{k}\alpha}((\mathbf{S}_{i}, \mathbf{w}_{i})) \mathbf{\Gamma}^{\mathbf{k}\alpha}((\mathbf{S}_{j}, \mathbf{w}_{j}))</span>
-<span class="sd">       = z(\mathbf{S}_{i}, \mathbf{S}_{j}) \mathbf{\Gamma}^{\mathbf{k}\alpha}((\mathbf{S}_{i}, \mathbf{w}_{i})(\mathbf{S}_{j}, \mathbf{w}_{j}))</span>
+<span class="sd">       = z(\mathbf{S}_{i}, \mathbf{S}_{j}) \mathbf{\Gamma}^{\mathbf{k}\alpha}((\mathbf{S}_{i}, \mathbf{w}_{i})(\mathbf{S}_{j}, \mathbf{w}_{j})).</span>
 
-<span class="sd">    See :ref:`spinor_factor_system` for Spgrep&#39;s convention of spin-derived factor system :math:`z(\mathbf{S}_{i}, \mathbf{S}_{j})`.</span>
+<span class="sd">    See :ref:`spin_representation` for Spgrep&#39;s convention of spin-derived factor system :math:`z(\mathbf{S}_{i}, \mathbf{S}_{j})`.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -648,6 +694,7 @@ title="Source repository"
 <span class="sd">        Integer list specifying atomic species</span>
 <span class="sd">    magmoms: (Optional) array, (num_atoms, )</span>
 <span class="sd">        Collinear magnetic moments. If specified, return co-representations.</span>
+<span class="sd">        See :ref:{corep} for details.</span>
 <span class="sd">    kpoint: array, (3, )</span>
 <span class="sd">        Reciprocal vector with respect to ``reciprocal_lattice``</span>
 <span class="sd">        For pure translation :math:`\mathbf{t}`, returned irrep :math:`\Gamma^{(\alpha)}` takes</span>
@@ -803,14 +850,16 @@ title="Source repository"
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="n">NDArrayComplex</span><span class="p">],</span> <span class="n">NDArrayComplex</span><span class="p">,</span> <span class="n">NDArrayComplex</span><span class="p">,</span> <span class="n">NDArrayInt</span><span class="p">]</span> <span class="o">|</span> <span class="nb">tuple</span><span class="p">[</span>
     <span class="nb">list</span><span class="p">[</span><span class="n">NDArrayComplex</span><span class="p">],</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">NDArrayComplex</span><span class="p">,</span> <span class="n">NDArrayComplex</span><span class="p">,</span> <span class="n">NDArrayBool</span><span class="p">,</span> <span class="n">NDArrayInt</span>
 <span class="p">]:</span>
-    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Compute all irreducible representations :math:`\mathbf{\Gamma}^{\mathbf{k}\alpha}` of given space group up to unitary transformation fpr spinor.</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Compute all irreducible representations :math:`\mathbf{\Gamma}^{\mathbf{k}\alpha}` of given space group up to unitary transformation for spinor.</span>
+
+<span class="sd">    Each irrep :math:`\mathbf{\Gamma}^{\mathbf{k}\alpha}` satisfies</span>
 
 <span class="sd">    .. math::</span>
 <span class="sd">       \mathbf{\Gamma}^{\mathbf{k}\alpha}((\mathbf{S}_{i}, \mathbf{w}_{i})) \mathbf{\Gamma}^{\mathbf{k}\alpha}((\mathbf{S}_{j}, \mathbf{w}_{j}))</span>
-<span class="sd">       = z(\mathbf{S}_{i}, \mathbf{S}_{j}) \mathbf{\Gamma}^{\mathbf{k}\alpha}((\mathbf{S}_{i}, \mathbf{w}_{i})(\mathbf{S}_{j}, \mathbf{w}_{j}))</span>
+<span class="sd">       = z(\mathbf{S}_{i}, \mathbf{S}_{j}) \mathbf{\Gamma}^{\mathbf{k}\alpha}((\mathbf{S}_{i}, \mathbf{w}_{i})(\mathbf{S}_{j}, \mathbf{w}_{j})).</span>
 
 <span class="sd">    Note that rotations and translations should be specified in a primitive cell.</span>
-<span class="sd">    See :ref:`spinor_factor_system` for Spgrep&#39;s convention of spin-derived factor system :math:`z(\mathbf{S}_{i}, \mathbf{S}_{j})`.</span>
+<span class="sd">    See :ref:`spin_representation` for Spgrep&#39;s convention of spin-derived factor system :math:`z(\mathbf{S}_{i}, \mathbf{S}_{j})`.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -822,6 +871,7 @@ title="Source repository"
 <span class="sd">    translations: array, (order, 3)</span>
 <span class="sd">    time_reversals: array[int] | None, (order, )</span>
 <span class="sd">        If specified, return co-representations</span>
+<span class="sd">        See :ref:{corep} for details.</span>
 <span class="sd">    kpoint: array, (3, )</span>
 <span class="sd">        Reciprocal vector with respect to reciprocal lattice.</span>
 <span class="sd">        For pure translation :math:`\mathbf{t}`, returned irrep :math:`\Gamma^{(\alpha)}` takes</span>
@@ -930,13 +980,15 @@ title="Source repository"
 <span class="p">]:</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Compute all irreducible representations :math:`\mathbf{D}^{\alpha}` of given crystallographic point group up to unitary transformation for spinor.</span>
 
+<span class="sd">    Each irrep :math:`\mathbf{D}^{\alpha}` satisfies</span>
+
 <span class="sd">    .. math::</span>
 <span class="sd">       \mathbf{D}^{\alpha}(\mathbf{S}_{i}) \mathbf{D}^{\alpha}(\mathbf{S}_{j})</span>
-<span class="sd">       = z(\mathbf{S}_{i}, \mathbf{S}_{j}) \mathbf{D}^{\alpha}(\mathbf{S}_{k})</span>
+<span class="sd">       = z(\mathbf{S}_{i}, \mathbf{S}_{j}) \mathbf{D}^{\alpha}(\mathbf{S}_{k}).</span>
 
 <span class="sd">    Assume matrix representation of given crystallographic point group is in &quot;standard&quot; setting shown in Table 3.2.3.3 of International Table for Crystallography Vol. A (2016).</span>
 
-<span class="sd">    See :ref:`spinor_factor_system` for Spgrep&#39;s convention of spinor-derived factor system :math:`z(\mathbf{S}_{i}, \mathbf{S}_{j})`.</span>
+<span class="sd">    See :ref:`spin_representation` for Spgrep&#39;s convention of spinor-derived factor system :math:`z(\mathbf{S}_{i}, \mathbf{S}_{j})`.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -946,6 +998,7 @@ title="Source repository"
 <span class="sd">        Assume a point coordinates ``x`` are transformed into ``np.dot(rotations[i, :, :], x)`` by the ``i``-th symmetry operation.</span>
 <span class="sd">    time_reversals: array[int] | None, (order, )</span>
 <span class="sd">        If specified, return co-representations</span>
+<span class="sd">        See :ref:{corep} for details.</span>
 <span class="sd">    method: str, &#39;Neto&#39; or &#39;random&#39;</span>
 <span class="sd">        &#39;Neto&#39;: construct irreps from a fixed chain of subgroups of little co-group</span>
 <span class="sd">        &#39;random&#39;: construct irreps by numerically diagonalizing a random matrix commute with regular representation</span>

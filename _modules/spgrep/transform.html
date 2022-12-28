@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>spgrep.transform &#8212; spgrep 0.3.1</title>
+    <title>spgrep.transform &#8212; spgrep 0.3.2</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -31,8 +31,6 @@
     <script src="../../_static/doctools.js"></script>
     <script src="../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
-    <script>mermaid.initialize({startOnLoad:true});</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -73,7 +71,7 @@
       
       
       
-      <h1 class="site-logo" id="site-title">spgrep 0.3.1</h1>
+      <h1 class="site-logo" id="site-title">spgrep 0.3.2</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
@@ -129,44 +127,68 @@
    </i>
   </label>
   <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../formulation/spacegroup_irreps.html">
-     Irreps of space group
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../../formulation/irreps/irreps.html">
+     Irreducible representation
     </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+    <label for="toctree-checkbox-3">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../formulation/irreps/spacegroup_irreps.html">
+       Irreps of space group
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../formulation/irreps/reality.html">
+       Physically irreps
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../formulation/irreps/spinor.html">
+       Spin representation
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../formulation/irreps/corep.html">
+       Co-representation
+      </a>
+     </li>
+    </ul>
    </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../formulation/irreps_from_regular.html">
-     On-the-fly irreps generation from regular representation
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../../formulation/algorithm/algorithm.html">
+     Algorithm for enumerating irreps
     </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../formulation/irreps_from_chain.html">
-     On-the-fly irreps generation from solvable group chain
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../formulation/reality.html">
-     Reality of irreps
-    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+    <label for="toctree-checkbox-4">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../formulation/algorithm/irreps_from_regular.html">
+       On-the-fly irreps generation from regular representation
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../formulation/algorithm/irreps_from_chain.html">
+       On-the-fly irreps generation from solvable group chain
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../formulation/algorithm/intertwiner.html">
+       Intertwiner
+      </a>
+     </li>
+    </ul>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../../formulation/projection.html">
      Symmetry-adapted basis
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../formulation/intertwiner.html">
-     Intertwiner
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../formulation/spinor.html">
-     Spin representation
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../formulation/corepresentation.html">
-     Co-representation
     </a>
    </li>
   </ul>
@@ -175,8 +197,8 @@
   <a class="reference internal" href="../../api/api.html">
    API Reference
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
-  <label for="toctree-checkbox-3">
+  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+  <label for="toctree-checkbox-5">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -192,18 +214,8 @@
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../api/api_irreps.html">
-     Irreps
-    </a>
-   </li>
-   <li class="toctree-l2">
     <a class="reference internal" href="../../api/api_pointgroup.html">
      Point group
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../api/api_representation.html">
-     Representation
     </a>
    </li>
    <li class="toctree-l2">
@@ -212,8 +224,13 @@
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../api/api_tensor.html">
-     Tensor
+    <a class="reference internal" href="../../api/api_representation.html">
+     Representation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../api/api_irreps.html">
+     Irreps
     </a>
    </li>
    <li class="toctree-l2">
@@ -226,6 +243,11 @@
      Co-representation
     </a>
    </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../api/api_tensor.html">
+     Tensor
+    </a>
+   </li>
   </ul>
  </li>
  <li class="toctree-l1">
@@ -233,9 +255,26 @@
    Change Log
   </a>
  </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../development/development.html">
+   Development
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+  <label for="toctree-checkbox-6">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../development/memo.html">
+     Memo
+    </a>
+   </li>
+  </ul>
+ </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../../genindex.html">
-   genindex
+   Index
   </a>
  </li>
 </ul>
@@ -357,14 +396,14 @@ title="Source repository"
     <span class="n">translations</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">,</span>
     <span class="n">kpoint</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">NDArrayInt</span><span class="p">,</span> <span class="n">NDArrayFloat</span><span class="p">,</span> <span class="n">NDArrayFloat</span><span class="p">]:</span>
-    <span class="sd">&quot;&quot;&quot;Return symmetry and k-vector coefficients in transformed coordinates.</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Return symmetry and k-vector coefficients in transformed coordinates.</span>
 
 <span class="sd">    This function does not unique duplicated symmetry operations after applying transformation_matrix.</span>
 
-<span class="sd">    Let a given transformation_matrix be ``P``.</span>
-<span class="sd">    Symmetry operation :math:`(R, t)` is transformed to</span>
-<span class="sd">    :math:`(P, 0)^{-1} (R, t) (P, 0) = (P^{-1} R P, P^{-1} t)`.</span>
-<span class="sd">    Coefficients of k-vector are transformed to ``P.T @ kpoint``.</span>
+<span class="sd">    Let a given transformation_matrix be :math:`\mathbf{P}`.</span>
+<span class="sd">    Symmetry operation :math:`(\mathbf{R}, \mathbf{v})` is transformed to</span>
+<span class="sd">    :math:`(\mathbf{P}, 0)^{-1} (\mathbf{R}, \mathbf{v}) (\mathbf{P}, 0) = (\mathbf{P}^{-1} \mathbf{R} \mathbf{P}, \mathbf{P}^{-1} \mathbf{v})`.</span>
+<span class="sd">    Coefficients of k-vector :math:`\mathbf{k}` are transformed to :math:`\mathbf{P}^{T} \mathbf{k}`.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -434,9 +473,9 @@ title="Source repository"
 <div class="viewcode-block" id="get_primitive_transformation_matrix"><a class="viewcode-back" href="../../api/api_transformation.html#spgrep.transform.get_primitive_transformation_matrix">[docs]</a><span class="k">def</span> <span class="nf">get_primitive_transformation_matrix</span><span class="p">(</span><span class="n">hall_number</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NDArrayFloat</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Return transformation matrix from standard unit cell specified with hall_number into a primitive cell. The transformation matrix is consistent with Spglib&#39;s convention [1,2] and KVEC&#39;s convention [3].</span>
 
-<span class="sd">    [1] https://spglib.github.io/spglib/definition.html</span>
-<span class="sd">    [2] https://github.com/spglib/spglib/pull/137</span>
-<span class="sd">    [3] M. I. Aroyo, D. Orobengoa, G. de la Flor, E.S. Tasci, J. M. Perez-Mato and H. Wondratschek, Acta Cryst. A70 126-137 (2014).</span>
+<span class="sd">    * [1] https://spglib.github.io/spglib/definition.html</span>
+<span class="sd">    * [2] https://github.com/spglib/spglib/pull/137</span>
+<span class="sd">    * [3] M. I. Aroyo, D. Orobengoa, G. de la Flor, E.S. Tasci, J. M. Perez-Mato and H. Wondratschek, Acta Cryst. A70 126-137 (2014).</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">crystal_system</span> <span class="o">=</span> <span class="n">get_crystal_system</span><span class="p">(</span><span class="n">hall_number</span><span class="p">)</span>
     <span class="n">spacegroup_type</span> <span class="o">=</span> <span class="n">get_spacegroup_type</span><span class="p">(</span><span class="n">hall_number</span><span class="p">)</span>

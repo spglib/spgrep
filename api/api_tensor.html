@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Tensor &#8212; spgrep 0.3.1</title>
+    <title>Tensor &#8212; spgrep 0.3.2</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -32,12 +32,10 @@
     <script src="../_static/doctools.js"></script>
     <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
-    <script>mermaid.initialize({startOnLoad:true});</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Representation for spinor" href="api_spinor.html" />
-    <link rel="prev" title="Transformation" href="api_transformation.html" />
+    <link rel="next" title="Change Log" href="../changelog.html" />
+    <link rel="prev" title="Co-representation for spinor" href="api_corep.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -76,7 +74,7 @@
       
       
       
-      <h1 class="site-logo" id="site-title">spgrep 0.3.1</h1>
+      <h1 class="site-logo" id="site-title">spgrep 0.3.2</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
@@ -132,44 +130,68 @@
    </i>
   </label>
   <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../formulation/spacegroup_irreps.html">
-     Irreps of space group
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../formulation/irreps/irreps.html">
+     Irreducible representation
     </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+    <label for="toctree-checkbox-3">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../formulation/irreps/spacegroup_irreps.html">
+       Irreps of space group
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../formulation/irreps/reality.html">
+       Physically irreps
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../formulation/irreps/spinor.html">
+       Spin representation
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../formulation/irreps/corep.html">
+       Co-representation
+      </a>
+     </li>
+    </ul>
    </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../formulation/irreps_from_regular.html">
-     On-the-fly irreps generation from regular representation
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../formulation/algorithm/algorithm.html">
+     Algorithm for enumerating irreps
     </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../formulation/irreps_from_chain.html">
-     On-the-fly irreps generation from solvable group chain
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../formulation/reality.html">
-     Reality of irreps
-    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+    <label for="toctree-checkbox-4">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../formulation/algorithm/irreps_from_regular.html">
+       On-the-fly irreps generation from regular representation
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../formulation/algorithm/irreps_from_chain.html">
+       On-the-fly irreps generation from solvable group chain
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../formulation/algorithm/intertwiner.html">
+       Intertwiner
+      </a>
+     </li>
+    </ul>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../formulation/projection.html">
      Symmetry-adapted basis
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../formulation/intertwiner.html">
-     Intertwiner
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../formulation/spinor.html">
-     Spin representation
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../formulation/corepresentation.html">
-     Co-representation
     </a>
    </li>
   </ul>
@@ -178,8 +200,8 @@
   <a class="reference internal" href="api.html">
    API Reference
   </a>
-  <input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
-  <label for="toctree-checkbox-3">
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+  <label for="toctree-checkbox-5">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -195,13 +217,13 @@
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="api_irreps.html">
-     Irreps
+    <a class="reference internal" href="api_pointgroup.html">
+     Point group
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="api_pointgroup.html">
-     Point group
+    <a class="reference internal" href="api_transformation.html">
+     Transformation
     </a>
    </li>
    <li class="toctree-l2">
@@ -210,13 +232,8 @@
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="api_transformation.html">
-     Transformation
-    </a>
-   </li>
-   <li class="toctree-l2 current active">
-    <a class="current reference internal" href="#">
-     Tensor
+    <a class="reference internal" href="api_irreps.html">
+     Irreps
     </a>
    </li>
    <li class="toctree-l2">
@@ -229,6 +246,11 @@
      Co-representation
     </a>
    </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     Tensor
+    </a>
+   </li>
   </ul>
  </li>
  <li class="toctree-l1">
@@ -236,9 +258,26 @@
    Change Log
   </a>
  </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../development/development.html">
+   Development
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+  <label for="toctree-checkbox-6">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../development/memo.html">
+     Memo
+    </a>
+   </li>
+  </ul>
+ </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../genindex.html">
-   genindex
+   Index
   </a>
  </li>
 </ul>
@@ -436,17 +475,17 @@ title="Print to PDF"
                 
     <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="api_transformation.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="api_corep.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Transformation</p>
+            <p class="prev-next-title">Co-representation for spinor</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="api_spinor.html" title="next page">
+    <a class='right-next' id="next-link" href="../changelog.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Representation for spinor</p>
+        <p class="prev-next-title">Change Log</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Spin representation for \(C_{3v}\) &#8212; spgrep 0.3.1</title>
+    <title>Spin representation for \(C_{3v}\) &#8212; spgrep 0.3.2</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -34,8 +34,6 @@
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
-    <script>mermaid.initialize({startOnLoad:true});</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Formulation" href="../formulation/formulation.html" />
@@ -78,7 +76,7 @@
       
       
       
-      <h1 class="site-logo" id="site-title">spgrep 0.3.1</h1>
+      <h1 class="site-logo" id="site-title">spgrep 0.3.2</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
@@ -134,44 +132,68 @@
    </i>
   </label>
   <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../formulation/spacegroup_irreps.html">
-     Irreps of space group
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../formulation/irreps/irreps.html">
+     Irreducible representation
     </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+    <label for="toctree-checkbox-3">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../formulation/irreps/spacegroup_irreps.html">
+       Irreps of space group
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../formulation/irreps/reality.html">
+       Physically irreps
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../formulation/irreps/spinor.html">
+       Spin representation
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../formulation/irreps/corep.html">
+       Co-representation
+      </a>
+     </li>
+    </ul>
    </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../formulation/irreps_from_regular.html">
-     On-the-fly irreps generation from regular representation
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../formulation/algorithm/algorithm.html">
+     Algorithm for enumerating irreps
     </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../formulation/irreps_from_chain.html">
-     On-the-fly irreps generation from solvable group chain
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../formulation/reality.html">
-     Reality of irreps
-    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+    <label for="toctree-checkbox-4">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../formulation/algorithm/irreps_from_regular.html">
+       On-the-fly irreps generation from regular representation
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../formulation/algorithm/irreps_from_chain.html">
+       On-the-fly irreps generation from solvable group chain
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../formulation/algorithm/intertwiner.html">
+       Intertwiner
+      </a>
+     </li>
+    </ul>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../formulation/projection.html">
      Symmetry-adapted basis
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../formulation/intertwiner.html">
-     Intertwiner
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../formulation/spinor.html">
-     Spin representation
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../formulation/corepresentation.html">
-     Co-representation
     </a>
    </li>
   </ul>
@@ -180,8 +202,8 @@
   <a class="reference internal" href="../api/api.html">
    API Reference
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
-  <label for="toctree-checkbox-3">
+  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+  <label for="toctree-checkbox-5">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -197,18 +219,8 @@
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../api/api_irreps.html">
-     Irreps
-    </a>
-   </li>
-   <li class="toctree-l2">
     <a class="reference internal" href="../api/api_pointgroup.html">
      Point group
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../api/api_representation.html">
-     Representation
     </a>
    </li>
    <li class="toctree-l2">
@@ -217,8 +229,13 @@
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../api/api_tensor.html">
-     Tensor
+    <a class="reference internal" href="../api/api_representation.html">
+     Representation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../api/api_irreps.html">
+     Irreps
     </a>
    </li>
    <li class="toctree-l2">
@@ -231,6 +248,11 @@
      Co-representation
     </a>
    </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../api/api_tensor.html">
+     Tensor
+    </a>
+   </li>
   </ul>
  </li>
  <li class="toctree-l1">
@@ -238,9 +260,26 @@
    Change Log
   </a>
  </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../development/development.html">
+   Development
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+  <label for="toctree-checkbox-6">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../development/memo.html">
+     Memo
+    </a>
+   </li>
+  </ul>
+ </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../genindex.html">
-   genindex
+   Index
   </a>
  </li>
 </ul>
@@ -389,6 +428,11 @@ title="Print to PDF"
     <nav id="bd-toc-nav" aria-label="Page">
         <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#Prepare-point-group-operations">
+   Prepare point-group operations
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#Unitary-matrices-for-spinor">
    Unitary matrices for spinor
   </a>
@@ -417,6 +461,11 @@ title="Print to PDF"
                         </div>
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#Prepare-point-group-operations">
+   Prepare point-group operations
+  </a>
+ </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#Unitary-matrices-for-spinor">
    Unitary matrices for spinor
@@ -697,7 +746,7 @@ div.rendered_html tbody tr:hover {
 <section id="Spin-representation-for-C_{3v}">
 <h1>Spin representation for <span class="math notranslate nohighlight">\(C_{3v}\)</span><a class="headerlink" href="#Spin-representation-for-C_{3v}" title="Permalink to this headline">#</a></h1>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from __future__ import annotations
@@ -705,11 +754,9 @@ div.rendered_html tbody tr:hover {
 import numpy as np
 
 import spgrep
+from spgrep import get_crystallographic_pointgroup_spinor_irreps_from_symmetry
 from spgrep.representation import get_character
 from spgrep.pointgroup import pg_dataset
-from spgrep.spinor import (
-    enumerate_spinor_small_representations,
-)
 
 print(f&quot;spgrep=={spgrep.__version__}&quot;)
 </pre></div>
@@ -720,11 +767,13 @@ print(f&quot;spgrep=={spgrep.__version__}&quot;)
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-spgrep==0.3.0
+spgrep==0.3.2.dev5+ga44d231
 </pre></div></div>
 </div>
+<section id="Prepare-point-group-operations">
+<h2>Prepare point-group operations<a class="headerlink" href="#Prepare-point-group-operations" title="Permalink to this headline">#</a></h2>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Hexagonal lattice
@@ -741,7 +790,7 @@ lattice = np.array(
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># C3v (3m1)
@@ -749,122 +798,99 @@ rotations = np.array(pg_dataset[&quot;3m&quot;][0])
 </pre></div>
 </div>
 </div>
+</section>
 <section id="Unitary-matrices-for-spinor">
 <h2>Unitary matrices for spinor<a class="headerlink" href="#Unitary-matrices-for-spinor" title="Permalink to this headline">#</a></h2>
+<p>We can enumerate irreps of a point group for spinor by <code class="docutils literal notranslate"><span class="pre">get_crystallographic_pointgroup_spinor_irreps_from_symmetry</span></code>.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>irreps, unitary_rotations, factor_system = enumerate_spinor_small_representations(
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># We need ``lattice`` to convert rotations into Cartesian coordinates
+(
+    irreps,
+    factor_system,
+    unitary_rotations,
+) = get_crystallographic_pointgroup_spinor_irreps_from_symmetry(
     lattice,
-    little_rotations=rotations,
-    little_translations=np.zeros((len(rotations), 3)),
-    kpoint=np.zeros(3),
+    rotations,
 )
 </pre></div>
 </div>
 </div>
+<p>We write <code class="docutils literal notranslate"><span class="pre">rotations[i]</span></code> as <span class="math notranslate nohighlight">\(\mathbf{R}_{i}\)</span> and <code class="docutils literal notranslate"><span class="pre">unitary_rotations[i]</span></code> as <span class="math notranslate nohighlight">\(\mathbf{U}_{i}\)</span> for clarity. Be careful that <code class="docutils literal notranslate"><span class="pre">unitary_rotations</span></code> live in <span class="math notranslate nohighlight">\(\mathrm{SU}(2)\)</span>. For example, while the third power of <span class="math notranslate nohighlight">\(\mathbf{R}_{1}\)</span> gives the identity, that of <code class="docutils literal notranslate"><span class="pre">\mathbf{U}_{1}</span></code> gives <span class="math notranslate nohighlight">\(-\mathbf{1}\)</span>:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>for rot, unitary_rot in zip(rotations, unitary_rotations):
-    print(rot)
-    print(np.around(unitary_rot, 4))
-    print()
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>rotations[1] @ rotations[1] @ rotations[1]
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-[[1 0 0]
- [0 1 0]
- [0 0 1]]
-[[1.+0.j 0.+0.j]
- [0.+0.j 1.+0.j]]
-
-[[ 0 -1  0]
- [ 1 -1  0]
- [ 0  0  1]]
-[[0.5-0.866j 0. +0.j   ]
- [0. +0.j    0.5+0.866j]]
-
-[[-1  1  0]
- [-1  0  0]
- [ 0  0  1]]
-[[0.5+0.866j 0. +0.j   ]
- [0. +0.j    0.5-0.866j]]
-
-[[ 0 -1  0]
- [-1  0  0]
- [ 0  0  1]]
-[[ 0.   +0.j  -0.866-0.5j]
- [ 0.866-0.5j  0.   +0.j ]]
-
-[[-1  1  0]
- [ 0  1  0]
- [ 0  0  1]]
-[[0.+0.j 0.-1.j]
- [0.-1.j 0.+0.j]]
-
-[[ 1  0  0]
- [ 1 -1  0]
- [ 0  0  1]]
-[[ 0.   +0.j   0.866-0.5j]
- [-0.866-0.5j  0.   +0.j ]]
-
+array([[1, 0, 0],
+       [0, 1, 0],
+       [0, 0, 1]])
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>factor_system
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>np.around(unitary_rotations[1] @ unitary_rotations[1] @ unitary_rotations[1], 8)
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-array([[ 1.+0.j,  1.+0.j,  1.+0.j,  1.+0.j,  1.+0.j,  1.+0.j],
-       [ 1.+0.j, -1.+0.j,  1.+0.j, -1.+0.j,  1.+0.j,  1.+0.j],
-       [ 1.+0.j,  1.+0.j, -1.+0.j,  1.+0.j,  1.+0.j, -1.+0.j],
-       [ 1.+0.j,  1.+0.j, -1.+0.j, -1.+0.j, -1.+0.j,  1.+0.j],
-       [ 1.+0.j,  1.+0.j,  1.+0.j, -1.+0.j, -1.+0.j, -1.+0.j],
-       [ 1.+0.j, -1.+0.j,  1.+0.j,  1.+0.j, -1.+0.j, -1.+0.j]])
+array([[-1.-0.j,  0.+0.j],
+       [ 0.+0.j, -1.+0.j]])
 </pre></div></div>
 </div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+<p>Such an ambiguity is reflected in <code class="docutils literal notranslate"><span class="pre">factor_system</span></code>. For another example, while <span class="math notranslate nohighlight">\(\mathbf{R}_{1} \mathbf{R}_{3} = \mathbf{R}_{5}\)</span>, we obtain <span class="math notranslate nohighlight">\(\mathbf{U}_{1} \mathbf{U}_{3} = -\mathbf{U}_{5}\)</span> in our convention:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>np.allclose(
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>assert np.allclose(
     unitary_rotations[1] @ unitary_rotations[3],
     -unitary_rotations[5],
 )
 </pre></div>
 </div>
 </div>
+<p>The corresponding multiplier <span class="math notranslate nohighlight">\(z(\mathbf{R}_{1}, \mathbf{R}_{3})\)</span> is given in <code class="docutils literal notranslate"><span class="pre">factor_system</span></code>,</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>factor_system[1, 3]
+</pre></div>
+</div>
+</div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-True
+(-1+0j)
 </pre></div></div>
 </div>
 </section>
 <section id="Enumerate-spin-representations-from-factor-system">
 <h2>Enumerate spin representations from factor system<a class="headerlink" href="#Enumerate-spin-representations-from-factor-system" title="Permalink to this headline">#</a></h2>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>for irrep in irreps:

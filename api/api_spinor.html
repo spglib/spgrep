@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Representation for spinor &#8212; spgrep 0.3.1</title>
+    <title>Representation for spinor &#8212; spgrep 0.3.2</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -34,12 +34,10 @@
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
-    <script>mermaid.initialize({startOnLoad:true});</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Co-representation for spinor" href="api_corep.html" />
-    <link rel="prev" title="Tensor" href="api_tensor.html" />
+    <link rel="prev" title="Irreps" href="api_irreps.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -78,7 +76,7 @@
       
       
       
-      <h1 class="site-logo" id="site-title">spgrep 0.3.1</h1>
+      <h1 class="site-logo" id="site-title">spgrep 0.3.2</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
@@ -134,44 +132,68 @@
    </i>
   </label>
   <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../formulation/spacegroup_irreps.html">
-     Irreps of space group
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../formulation/irreps/irreps.html">
+     Irreducible representation
     </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+    <label for="toctree-checkbox-3">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../formulation/irreps/spacegroup_irreps.html">
+       Irreps of space group
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../formulation/irreps/reality.html">
+       Physically irreps
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../formulation/irreps/spinor.html">
+       Spin representation
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../formulation/irreps/corep.html">
+       Co-representation
+      </a>
+     </li>
+    </ul>
    </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../formulation/irreps_from_regular.html">
-     On-the-fly irreps generation from regular representation
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../formulation/algorithm/algorithm.html">
+     Algorithm for enumerating irreps
     </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../formulation/irreps_from_chain.html">
-     On-the-fly irreps generation from solvable group chain
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../formulation/reality.html">
-     Reality of irreps
-    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+    <label for="toctree-checkbox-4">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../formulation/algorithm/irreps_from_regular.html">
+       On-the-fly irreps generation from regular representation
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../formulation/algorithm/irreps_from_chain.html">
+       On-the-fly irreps generation from solvable group chain
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../formulation/algorithm/intertwiner.html">
+       Intertwiner
+      </a>
+     </li>
+    </ul>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../formulation/projection.html">
      Symmetry-adapted basis
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../formulation/intertwiner.html">
-     Intertwiner
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../formulation/spinor.html">
-     Spin representation
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../formulation/corepresentation.html">
-     Co-representation
     </a>
    </li>
   </ul>
@@ -180,8 +202,8 @@
   <a class="reference internal" href="api.html">
    API Reference
   </a>
-  <input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
-  <label for="toctree-checkbox-3">
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+  <label for="toctree-checkbox-5">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -197,18 +219,8 @@
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="api_irreps.html">
-     Irreps
-    </a>
-   </li>
-   <li class="toctree-l2">
     <a class="reference internal" href="api_pointgroup.html">
      Point group
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="api_representation.html">
-     Representation
     </a>
    </li>
    <li class="toctree-l2">
@@ -217,8 +229,13 @@
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="api_tensor.html">
-     Tensor
+    <a class="reference internal" href="api_representation.html">
+     Representation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="api_irreps.html">
+     Irreps
     </a>
    </li>
    <li class="toctree-l2 current active">
@@ -231,6 +248,11 @@
      Co-representation
     </a>
    </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="api_tensor.html">
+     Tensor
+    </a>
+   </li>
   </ul>
  </li>
  <li class="toctree-l1">
@@ -238,9 +260,26 @@
    Change Log
   </a>
  </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../development/development.html">
+   Development
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+  <label for="toctree-checkbox-6">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../development/memo.html">
+     Memo
+    </a>
+   </li>
+  </ul>
+ </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../genindex.html">
-   genindex
+   Index
   </a>
  </li>
 </ul>
@@ -401,7 +440,7 @@ title="Print to PDF"
 \[\mathbf{D}^{\mathbf{k}\alpha}(\mathbf{S}_{i}) \mathbf{D}^{\mathbf{k}\alpha}(\mathbf{S}_{j})
 = z(\mathbf{S}_{i}, \mathbf{S}_{j}) e^{ -i \mathbf{g}_{i} \cdot \mathbf{w}_{j} } \mathbf{D}^{\mathbf{k}\alpha}(\mathbf{S}_{k}),\]</div>
 <p>where <span class="math notranslate nohighlight">\(\mathbf{g}_{i} = \mathbf{S}_{i}^{-1} \mathbf{k} - \mathbf{k}\)</span>.</p>
-<p>See <a class="reference internal" href="../formulation/spinor.html#spinor-factor-system"><span class="std std-ref">Factor system for spinor</span></a> for Spgrep’s convention of spinor-derived factor system.</p>
+<p>See <a class="reference internal" href="../formulation/irreps/spinor.html#spin-representation"><span class="std std-ref">Spin representation</span></a> for Spgrep’s convention of spinor-derived factor system.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -437,7 +476,7 @@ title="Print to PDF"
 \[\mathbf{U}(\mathbf{S}_{i}) \mathbf{U}(\mathbf{S}_{j})
 = z(\mathbf{S}_{i}, \mathbf{S}_{j}) \mathbf{U}(\mathbf{S}_{k})\]</div>
 <p>where <span class="math notranslate nohighlight">\(\mathbf{S}_{i} \mathbf{S}_{j} = \mathbf{S}_{k}\)</span>.
-See <a class="reference internal" href="../formulation/spinor.html#spinor-factor-system"><span class="std std-ref">Factor system for spinor</span></a> for Spgrep’s convention of spinor-derived factor system <span class="math notranslate nohighlight">\(z(S_{i}, S_{j})\)</span> and a map from orthogonal matrix <span class="math notranslate nohighlight">\(\mathbf{S}_{i} \in O(3)\)</span> to unitary matrix <span class="math notranslate nohighlight">\(\mathbf{U}(\mathbf{S}_{i}) \in SU(2)\)</span>.</p>
+See <a class="reference internal" href="../formulation/irreps/spinor.html#spin-representation"><span class="std std-ref">Spin representation</span></a> for Spgrep’s convention of spinor-derived factor system <span class="math notranslate nohighlight">\(z(S_{i}, S_{j})\)</span> and a map from orthogonal matrix <span class="math notranslate nohighlight">\(\mathbf{S}_{i} \in O(3)\)</span> to unitary matrix <span class="math notranslate nohighlight">\(\mathbf{U}(\mathbf{S}_{i}) \in SU(2)\)</span>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -457,6 +496,14 @@ SU(2) rotations on spinor.</p></li>
 </dd></dl>
 
 </div></blockquote>
+<blockquote>
+<div><dl class="py function">
+<dt class="sig sig-object py" id="spgrep.spinor.get_spinor_unitary_rotation">
+<span class="sig-prename descclassname"><span class="pre">spgrep.spinor.</span></span><span class="sig-name descname"><span class="pre">get_spinor_unitary_rotation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lattice</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rotation</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/spgrep/spinor.html#get_spinor_unitary_rotation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spgrep.spinor.get_spinor_unitary_rotation" title="Permalink to this definition">#</a></dt>
+<dd><p>Return unitary matrix for given orthogonal matrix.</p>
+</dd></dl>
+
+</div></blockquote>
 </section>
 
 
@@ -467,11 +514,11 @@ SU(2) rotations on spinor.</p></li>
                 
     <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="api_tensor.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="api_irreps.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Tensor</p>
+            <p class="prev-next-title">Irreps</p>
         </div>
     </a>
     <a class='right-next' id="next-link" href="api_corep.html" title="next page">

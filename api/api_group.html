@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Group &#8212; spgrep 0.3.1</title>
+    <title>Group &#8212; spgrep 0.3.2</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -34,11 +34,9 @@
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
-    <script>mermaid.initialize({startOnLoad:true});</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Irreps" href="api_irreps.html" />
+    <link rel="next" title="Pointgroup" href="api_pointgroup.html" />
     <link rel="prev" title="Core functions" href="api_core.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
@@ -78,7 +76,7 @@
       
       
       
-      <h1 class="site-logo" id="site-title">spgrep 0.3.1</h1>
+      <h1 class="site-logo" id="site-title">spgrep 0.3.2</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
@@ -134,44 +132,68 @@
    </i>
   </label>
   <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../formulation/spacegroup_irreps.html">
-     Irreps of space group
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../formulation/irreps/irreps.html">
+     Irreducible representation
     </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+    <label for="toctree-checkbox-3">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../formulation/irreps/spacegroup_irreps.html">
+       Irreps of space group
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../formulation/irreps/reality.html">
+       Physically irreps
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../formulation/irreps/spinor.html">
+       Spin representation
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../formulation/irreps/corep.html">
+       Co-representation
+      </a>
+     </li>
+    </ul>
    </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../formulation/irreps_from_regular.html">
-     On-the-fly irreps generation from regular representation
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../formulation/algorithm/algorithm.html">
+     Algorithm for enumerating irreps
     </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../formulation/irreps_from_chain.html">
-     On-the-fly irreps generation from solvable group chain
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../formulation/reality.html">
-     Reality of irreps
-    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+    <label for="toctree-checkbox-4">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../formulation/algorithm/irreps_from_regular.html">
+       On-the-fly irreps generation from regular representation
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../formulation/algorithm/irreps_from_chain.html">
+       On-the-fly irreps generation from solvable group chain
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../formulation/algorithm/intertwiner.html">
+       Intertwiner
+      </a>
+     </li>
+    </ul>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../formulation/projection.html">
      Symmetry-adapted basis
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../formulation/intertwiner.html">
-     Intertwiner
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../formulation/spinor.html">
-     Spin representation
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../formulation/corepresentation.html">
-     Co-representation
     </a>
    </li>
   </ul>
@@ -180,8 +202,8 @@
   <a class="reference internal" href="api.html">
    API Reference
   </a>
-  <input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
-  <label for="toctree-checkbox-3">
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+  <label for="toctree-checkbox-5">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -197,18 +219,8 @@
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="api_irreps.html">
-     Irreps
-    </a>
-   </li>
-   <li class="toctree-l2">
     <a class="reference internal" href="api_pointgroup.html">
      Point group
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="api_representation.html">
-     Representation
     </a>
    </li>
    <li class="toctree-l2">
@@ -217,8 +229,13 @@
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="api_tensor.html">
-     Tensor
+    <a class="reference internal" href="api_representation.html">
+     Representation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="api_irreps.html">
+     Irreps
     </a>
    </li>
    <li class="toctree-l2">
@@ -231,6 +248,11 @@
      Co-representation
     </a>
    </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="api_tensor.html">
+     Tensor
+    </a>
+   </li>
   </ul>
  </li>
  <li class="toctree-l1">
@@ -238,9 +260,26 @@
    Change Log
   </a>
  </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../development/development.html">
+   Development
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+  <label for="toctree-checkbox-6">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../development/memo.html">
+     Memo
+    </a>
+   </li>
+  </ul>
+ </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../genindex.html">
-   genindex
+   Index
   </a>
  </li>
 </ul>
@@ -394,14 +433,6 @@ title="Print to PDF"
 <h1>Group<a class="headerlink" href="#group" title="Permalink to this headline">#</a></h1>
 <blockquote>
 <div><dl class="py function">
-<dt class="sig sig-object py" id="spgrep.group.is_matrix_group">
-<span class="sig-prename descclassname"><span class="pre">spgrep.group.</span></span><span class="sig-name descname"><span class="pre">is_matrix_group</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rotations</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/spgrep/group.html#is_matrix_group"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spgrep.group.is_matrix_group" title="Permalink to this definition">#</a></dt>
-<dd><p>Return True iff given integer matrices forms group.</p>
-</dd></dl>
-
-</div></blockquote>
-<blockquote>
-<div><dl class="py function">
 <dt class="sig sig-object py" id="spgrep.group.get_cayley_table">
 <span class="sig-prename descclassname"><span class="pre">spgrep.group.</span></span><span class="sig-name descname"><span class="pre">get_cayley_table</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rotations</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_reversals</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/spgrep/group.html#get_cayley_table"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spgrep.group.get_cayley_table" title="Permalink to this definition">#</a></dt>
 <dd><p>Calculate Group multiplication table.</p>
@@ -419,6 +450,38 @@ title="Print to PDF"
 <dd class="field-odd"><p>(order, order)</p>
 </dd>
 </dl>
+</dd></dl>
+
+</div></blockquote>
+<blockquote>
+<div><dl class="py function">
+<dt class="sig sig-object py" id="spgrep.group.get_identity_index">
+<span class="sig-prename descclassname"><span class="pre">spgrep.group.</span></span><span class="sig-name descname"><span class="pre">get_identity_index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/spgrep/group.html#get_identity_index"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spgrep.group.get_identity_index" title="Permalink to this definition">#</a></dt>
+<dd><p>Return index for identity of group.</p>
+</dd></dl>
+
+</div></blockquote>
+<blockquote>
+<div><dl class="py function">
+<dt class="sig sig-object py" id="spgrep.group.get_inverse_index">
+<span class="sig-prename descclassname"><span class="pre">spgrep.group.</span></span><span class="sig-name descname"><span class="pre">get_inverse_index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">idx</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/spgrep/group.html#get_inverse_index"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spgrep.group.get_inverse_index" title="Permalink to this definition">#</a></dt>
+<dd><p>Return index of inverse of <code class="docutils literal notranslate"><span class="pre">idx</span></code> element in <code class="docutils literal notranslate"><span class="pre">table</span></code>.</p>
+</dd></dl>
+
+</div></blockquote>
+<blockquote>
+<div><dl class="py function">
+<dt class="sig sig-object py" id="spgrep.group.get_order">
+<span class="sig-prename descclassname"><span class="pre">spgrep.group.</span></span><span class="sig-name descname"><span class="pre">get_order</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">idx</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/spgrep/group.html#get_order"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spgrep.group.get_order" title="Permalink to this definition">#</a></dt>
+<dd><p>Return order of element <code class="docutils literal notranslate"><span class="pre">idx</span></code> in <code class="docutils literal notranslate"><span class="pre">table</span></code>.</p>
+</dd></dl>
+
+</div></blockquote>
+<blockquote>
+<div><dl class="py function">
+<dt class="sig sig-object py" id="spgrep.group.is_matrix_group">
+<span class="sig-prename descclassname"><span class="pre">spgrep.group.</span></span><span class="sig-name descname"><span class="pre">is_matrix_group</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rotations</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/spgrep/group.html#is_matrix_group"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spgrep.group.is_matrix_group" title="Permalink to this definition">#</a></dt>
+<dd><p>Return True iff given integer matrices forms group.</p>
 </dd></dl>
 
 </div></blockquote>
@@ -477,6 +540,14 @@ title="Print to PDF"
 </div></blockquote>
 <blockquote>
 <div><dl class="py function">
+<dt class="sig sig-object py" id="spgrep.group.check_cocycle_condition">
+<span class="sig-prename descclassname"><span class="pre">spgrep.group.</span></span><span class="sig-name descname"><span class="pre">check_cocycle_condition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rotations</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">factor_system</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/spgrep/group.html#check_cocycle_condition"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spgrep.group.check_cocycle_condition" title="Permalink to this definition">#</a></dt>
+<dd><p>Return true if given factor system satisfies the cocycle condition.</p>
+</dd></dl>
+
+</div></blockquote>
+<blockquote>
+<div><dl class="py function">
 <dt class="sig sig-object py" id="spgrep.group.decompose_by_maximal_space_subgroup">
 <span class="sig-prename descclassname"><span class="pre">spgrep.group.</span></span><span class="sig-name descname"><span class="pre">decompose_by_maximal_space_subgroup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rotations</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">translations</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_reversals</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/spgrep/group.html#decompose_by_maximal_space_subgroup"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spgrep.group.decompose_by_maximal_space_subgroup" title="Permalink to this definition">#</a></dt>
 <dd><p>Coset-decompose magnetic space group <span class="math notranslate nohighlight">\(M\)</span> by its maximal space subgroup (XSG) <span class="math notranslate nohighlight">\(D(M)\)</span>.</p>
@@ -514,10 +585,10 @@ Then, <code class="docutils literal notranslate"><span class="pre">time_reversal
             <p class="prev-next-title">Core functions</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="api_irreps.html" title="next page">
+    <a class='right-next' id="next-link" href="api_pointgroup.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Irreps</p>
+        <p class="prev-next-title">Pointgroup</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>
