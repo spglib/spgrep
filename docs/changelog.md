@@ -1,5 +1,8 @@
 # Change Log
 
+## v0.3.2 (28 Dec. 2022)
+- Clean documents and add JOSS draft [[#50]](https://github.com/spglib/spgrep/pull/50)
+
 ## v0.3.1 (15 Dec. 2022)
 
 - Add co-representation [[#47]](https://github.com/spglib/spgrep/pull/47)
