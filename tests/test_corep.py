@@ -68,6 +68,8 @@ def test_corep_spinor_factor_system(request, symmetry_and_lattice):
 @pytest.mark.parametrize(
     "symmetry_and_lattice",
     [
+        ("P42mnm_type1"),
+        ("P42mnm_type2"),
         ("P42mnm_type3"),
         ("bcc_type4"),
     ],

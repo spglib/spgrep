@@ -1,7 +1,4 @@
-#!/usr/bin/env python
-# https://github.com/kennethreitz/setup.py/blob/master/setup.py
-
-import os
+from pathlib import Path
 
 from setuptools import find_packages, setup
 
@@ -48,24 +45,15 @@ EXTRAS = {
         "sphinx-autobuild",
         "nbsphinx",
         "sphinxcontrib-bibtex",
-        "sphinxcontrib-mermaid",
         "myst-parser",
         "sphinx-book-theme",
         "linkify-it-py",
     ],
 }
 
-# The rest you shouldn't have to touch too much :)
-# ------------------------------------------------
-# Except, perhaps the License and Trove Classifiers!
-# If you do change the License, remember to change the Trove Classifier for that!
-
-here = os.path.abspath(os.path.dirname(__file__))
-
 # Import the README and use it as the long-description.
-# Note: this will only work if 'README.md' is present in your MANIFEST.in file!
 try:
-    with open(os.path.join(here, "README.md"), encoding="utf-8") as f:
+    with open(Path(__file__).parent.resolve() / "README.md", encoding="utf-8") as f:
         long_description = "\n" + f.read()
 except FileNotFoundError:
     long_description = DESCRIPTION
@@ -84,11 +72,6 @@ setup(
     package_dir={"": "src"},
     packages=find_packages(where="src", include=["spgrep"]),
     package_data={},
-    # If your package is a single module, use this instead of 'packages':
-    # py_modules=['mypackage'],
-    # entry_points={
-    #     'console_scripts': ['mycli=mymodule:cli'],
-    # },
     # numpy: https://github.com/numpy/numpy/issues/2434
     setup_requires=["setuptools_scm", "numpy"],
     install_requires=REQUIRED,
@@ -101,7 +84,7 @@ setup(
     classifiers=[
         # Trove classifiers
         # Full list: https://pypi.python.org/pypi?%3Aaction=list_classifiers
-        "Development Status :: 2 - Pre-Alpha",
+        "Development Status :: 3 - Alpha",
         "Intended Audience :: Science/Research",
         "License :: OSI Approved :: BSD License",
         "Operating System :: OS Independent",

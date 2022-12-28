@@ -1,7 +1,9 @@
 import numpy as np
+import pytest
 from spglib import get_symmetry_dataset
 
 from spgrep.transform import (
+    get_centering,
     get_primitive_transformation_matrix,
     transform_symmetry_and_kpoint,
     unique_primitive_symmetry,
@@ -29,3 +31,14 @@ def test_transformation(corundum_cell):
     assert set(mapping) == set(range(12))
 
     assert np.allclose([np.abs(np.linalg.det(r)) for r in primitive_rotations], 1)
+
+
+@pytest.mark.parametrize(
+    "hall_symbol,expect",
+    [
+        ("-P 2c 2b", "P"),
+        ("R -3c", "R"),
+    ],
+)
+def test_get_centering(hall_symbol, expect):
+    assert get_centering(hall_symbol) == expect

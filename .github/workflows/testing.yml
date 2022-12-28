@@ -11,6 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
+        # Python 3.11 is blocked by the following issue: https://github.com/h5py/h5py/issues/2146
         python-version: ["3.8", "3.9", "3.10"]
 
     steps:
@@ -49,6 +50,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
 
     - uses: actions/setup-python@v4
       with:

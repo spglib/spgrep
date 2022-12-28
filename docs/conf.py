@@ -42,7 +42,6 @@ extensions = [
     "sphinx.ext.mathjax",
     "sphinx.ext.intersphinx",
     "sphinxcontrib.bibtex",
-    "sphinxcontrib.mermaid",
     "nbsphinx",
     "myst_parser",
 ]
@@ -53,7 +52,7 @@ templates_path = ["_templates"]
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path.
-exclude_patterns = ["README.md"]
+exclude_patterns = ["README.md", "paper/**"]
 
 # The suffix(es) of source filenames.
 source_suffix = [".rst"]
@@ -86,12 +85,6 @@ myst_enable_extensions = [
     "tasklist",
 ]
 myst_dmath_double_inline = True
-
-# nbsphinx and sphinxcontrib.mermaid are conflicted.
-# So, we need to use mermaid CLI instead of a raw HTML output.
-# https://github.com/mgaitan/sphinxcontrib-mermaid/issues/74
-mermaid_output_format = "svg"
-mermaid_verbose = True
 
 # -- Options for HTML output -------------------------------------------------
 
