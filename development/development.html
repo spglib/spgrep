@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Development &#8212; spgrep 0.3.2</title>
+    <title>Development &#8212; spgrep 0.3.3</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -74,7 +74,7 @@
       
       
       
-      <h1 class="site-logo" id="site-title">spgrep 0.3.2</h1>
+      <h1 class="site-logo" id="site-title">spgrep 0.3.3</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
@@ -249,6 +249,11 @@
    <li class="toctree-l2">
     <a class="reference internal" href="../api/api_tensor.html">
      Tensor
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../api/api_utils.html">
+     Utility functions
     </a>
    </li>
   </ul>
@@ -522,36 +527,36 @@ title="Print to PDF"
 <h1>Development<a class="headerlink" href="#development" title="Permalink to this headline">#</a></h1>
 <section id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">#</a></h2>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>conda create -n spgrep <span class="nv">python</span><span class="o">=</span><span class="m">3</span>.10 pip
-conda activate spgrep
-git clone git@github.com:spglib/spgrep.git
-<span class="nb">cd</span> spgrep
-pip install -e <span class="s2">&quot;.[dev,docs]&quot;</span>
-pre-commit install
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>spgrep<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.10<span class="w"> </span>pip
+conda<span class="w"> </span>activate<span class="w"> </span>spgrep
+git<span class="w"> </span>clone<span class="w"> </span>git@github.com:spglib/spgrep.git
+<span class="nb">cd</span><span class="w"> </span>spgrep
+pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[dev,docs]&quot;</span>
+pre-commit<span class="w"> </span>install
 
 <span class="c1"># Run pre-commit manually</span>
-pre-commit run --all-file 
+pre-commit<span class="w"> </span>run<span class="w"> </span>--all-file<span class="w"> </span>
 </pre></div>
 </div>
 </section>
 <section id="how-to-compile-documents">
 <h2>How to compile documents<a class="headerlink" href="#how-to-compile-documents" title="Permalink to this headline">#</a></h2>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sphinx-autobuild docs docs_build
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sphinx-autobuild<span class="w"> </span>docs<span class="w"> </span>docs_build
 <span class="c1"># open localhost:8000 in your browser</span>
 </pre></div>
 </div>
 <section id="how-to-generate-diagram-from-mermaid-file">
 <h3>How to generate diagram from Mermaid file<a class="headerlink" href="#how-to-generate-diagram-from-mermaid-file" title="Permalink to this headline">#</a></h3>
 <p><a class="reference external" href="https://www.npmjs.com/package/&#64;mermaid-js/mermaid-cli/v/8.9.2">https://www.npmjs.com/package/&#64;mermaid-js/mermaid-cli/v/8.9.2</a></p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>npm install @mermaid-js/mermaid-cli
-./node_modules/.bin/mmdc --input docs/point_group_chain.mmd
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>npm<span class="w"> </span>install<span class="w"> </span>@mermaid-js/mermaid-cli
+./node_modules/.bin/mmdc<span class="w"> </span>--input<span class="w"> </span>docs/point_group_chain.mmd
 </pre></div>
 </div>
 </section>
 <section id="how-to-compile-joss-draft">
 <h3>How to compile JOSS draft<a class="headerlink" href="#how-to-compile-joss-draft" title="Permalink to this headline">#</a></h3>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># At root directory</span>
-docker run --rm --volume <span class="nv">$PWD</span>/docs/paper:/data --user <span class="k">$(</span>id -u<span class="k">)</span>:<span class="k">$(</span>id -g<span class="k">)</span> --env <span class="nv">JOURNAL</span><span class="o">=</span>joss openjournals/inara
+docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>--volume<span class="w"> </span><span class="nv">$PWD</span>/docs/paper:/data<span class="w"> </span>--user<span class="w"> </span><span class="k">$(</span>id<span class="w"> </span>-u<span class="k">)</span>:<span class="k">$(</span>id<span class="w"> </span>-g<span class="k">)</span><span class="w"> </span>--env<span class="w"> </span><span class="nv">JOURNAL</span><span class="o">=</span>joss<span class="w"> </span>openjournals/inara
 </pre></div>
 </div>
 </section>
@@ -559,15 +564,15 @@ docker run --rm --volume <span class="nv">$PWD</span>/docs/paper:/data --user <s
 <section id="release">
 <h2>Release<a class="headerlink" href="#release" title="Permalink to this headline">#</a></h2>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Confirm the version number via `setuptools-scm`</span>
-python -m setuptools_scm
+python<span class="w"> </span>-m<span class="w"> </span>setuptools_scm
 
 <span class="c1"># Update changelog here</span>
-vim docs/changelog.md
+vim<span class="w"> </span>docs/changelog.md
 
 <span class="c1"># Push with tag</span>
-git tag &lt;next-version&gt;
-git push origin main
-git push origin --tags
+git<span class="w"> </span>tag<span class="w"> </span>&lt;next-version&gt;
+git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>main
+git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>--tags
 </pre></div>
 </div>
 </section>

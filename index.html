@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Spgrep &#8212; spgrep 0.3.2</title>
+    <title>Spgrep &#8212; spgrep 0.3.3</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -73,7 +73,7 @@
       
       
       
-      <h1 class="site-logo" id="site-title">spgrep 0.3.2</h1>
+      <h1 class="site-logo" id="site-title">spgrep 0.3.3</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
@@ -248,6 +248,11 @@
    <li class="toctree-l2">
     <a class="reference internal" href="api/api_tensor.html">
      Tensor
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="api/api_utils.html">
+     Utility functions
     </a>
    </li>
   </ul>
@@ -598,15 +603,15 @@ title="Print to PDF"
 <section id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">#</a></h2>
 <p>Spgrep works with Python3.8+ and can be installed via PyPI:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pip install spgrep
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>spgrep
 </pre></div>
 </div>
 <p>or in local:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>conda create -n spgrep <span class="nv">python</span><span class="o">=</span><span class="m">3</span>.10 pip
-conda activate spgrep
-git clone git@github.com:spglib/spgrep.git
-<span class="nb">cd</span> spgrep
-pip install -e .
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>spgrep<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.10<span class="w"> </span>pip
+conda<span class="w"> </span>activate<span class="w"> </span>spgrep
+git<span class="w"> </span>clone<span class="w"> </span>git@github.com:spglib/spgrep.git
+<span class="nb">cd</span><span class="w"> </span>spgrep
+pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
 </pre></div>
 </div>
 </section>

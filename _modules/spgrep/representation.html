@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>spgrep.representation &#8212; spgrep 0.3.2</title>
+    <title>spgrep.representation &#8212; spgrep 0.3.3</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -71,7 +71,7 @@
       
       
       
-      <h1 class="site-logo" id="site-title">spgrep 0.3.2</h1>
+      <h1 class="site-logo" id="site-title">spgrep 0.3.3</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
@@ -248,6 +248,11 @@
      Tensor
     </a>
    </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../api/api_utils.html">
+     Utility functions
+    </a>
+   </li>
   </ul>
  </li>
  <li class="toctree-l1">
@@ -392,13 +397,13 @@ title="Source repository"
     <span class="n">NDArrayComplex</span><span class="p">,</span>
     <span class="n">NDArrayFloat</span><span class="p">,</span>
     <span class="n">NDArrayInt</span><span class="p">,</span>
-    <span class="n">contain_space</span><span class="p">,</span>
+    <span class="n">grassmann_distance</span><span class="p">,</span>
     <span class="n">ndarray2d_to_integer_tuple</span><span class="p">,</span>
 <span class="p">)</span>
 
 
 <div class="viewcode-block" id="get_regular_representation"><a class="viewcode-back" href="../../api/api_representation.html#spgrep.representation.get_regular_representation">[docs]</a><span class="k">def</span> <span class="nf">get_regular_representation</span><span class="p">(</span><span class="n">rotations</span><span class="p">:</span> <span class="n">NDArrayInt</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NDArrayInt</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Calculate regular representation of point group.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculate regular representation of point group.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -423,7 +428,7 @@ title="Source repository"
 <div class="viewcode-block" id="get_projective_regular_representation"><a class="viewcode-back" href="../../api/api_representation.html#spgrep.representation.get_projective_regular_representation">[docs]</a><span class="k">def</span> <span class="nf">get_projective_regular_representation</span><span class="p">(</span>
     <span class="n">rotations</span><span class="p">:</span> <span class="n">NDArrayInt</span><span class="p">,</span> <span class="n">factor_system</span><span class="p">:</span> <span class="n">NDArrayComplex</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NDArrayComplex</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Calculate regular representation of space group with factor system.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculate regular representation of space group with factor system.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -452,7 +457,7 @@ title="Source repository"
     <span class="n">atol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-8</span><span class="p">,</span>
     <span class="n">max_num_random_generations</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span>
 <span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Calculate intertwiner matrix between ``rep1`` and ``rep2`` such that ``rep1 @ matrix == matrix @ rep2`` if they are equivalent.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculate intertwiner matrix between ``rep1`` and ``rep2`` such that ``rep1 @ matrix == matrix @ rep2`` if they are equivalent.</span>
 
 <span class="sd">    The determinant of ``matrix`` is scaled to be unity.</span>
 
@@ -490,7 +495,7 @@ title="Source repository"
 
 
 <div class="viewcode-block" id="get_character"><a class="viewcode-back" href="../../api/api_representation.html#spgrep.representation.get_character">[docs]</a><span class="k">def</span> <span class="nf">get_character</span><span class="p">(</span><span class="n">representation</span><span class="p">:</span> <span class="n">NDArrayComplex</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NDArrayComplex</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Calculate character of representation.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculate character of representation.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -510,7 +515,7 @@ title="Source repository"
     <span class="n">atol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-6</span><span class="p">,</span>  <span class="c1"># A bit large tolerance setting to handle numerical noise in `representation`</span>
     <span class="n">max_num_trials</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">NDArrayComplex</span><span class="p">]:</span>
-    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Construct basis functions for ``irrep`` by linear combinations of basis functions of ``representation``.</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Construct basis functions for ``irrep`` by linear combinations of basis functions of ``representation``.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -565,16 +570,15 @@ title="Source repository"
                 <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">basis_nj</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="n">adjusted_atol</span><span class="p">):</span>
                     <span class="k">continue</span>
 
-                <span class="c1"># Them, normalize basis vectors s.t. they are orthonormal.</span>
+                <span class="c1"># Normalize basis vectors s.t. they are orthonormal.</span>
                 <span class="n">basis_nj</span> <span class="o">/=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">basis_nj</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)[:,</span> <span class="kc">None</span><span class="p">]</span>
 
                 <span class="c1"># Check if linearly independent with other basis vectors</span>
-                <span class="c1"># Two subspaces spanned by orthonormal basis vectors V1 and V2 are the same if and only if</span>
-                <span class="c1"># triangular matrices R1 and R2 in QR decomposition of V1 and V2 are the same.</span>
-                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">basis</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">contain_space</span><span class="p">(</span>
-                    <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">basis</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span> <span class="n">basis_nj</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="n">adjusted_atol</span>
-                <span class="p">):</span>
-                    <span class="c1"># if any([contain_space(basis_nj, other, atol=adjusted_atol) for other in basis]):</span>
+                <span class="c1"># If basis_nj is not independent, Grassmann distance (min correlation) should be one.</span>
+                <span class="c1"># We use very rough tolerance, 0.5 to avoid numerical noises.</span>
+                <span class="k">if</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">basis</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">and</span> <span class="n">grassmann_distance</span><span class="p">(</span>
+                    <span class="n">basis_nj</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">basis</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+                <span class="p">)</span> <span class="o">&lt;</span> <span class="mf">0.5</span><span class="p">:</span>
                     <span class="k">continue</span>
 
                 <span class="n">basis</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">basis_nj</span><span class="p">)</span>
@@ -582,25 +586,29 @@ title="Source repository"
 
         <span class="k">return</span> <span class="n">basis</span><span class="p">,</span> <span class="n">count</span>
 
-    <span class="n">adjusted_atol</span> <span class="o">=</span> <span class="n">atol</span>
+    <span class="c1"># Binary search for appropriate tolerance</span>
+    <span class="n">atol_lb</span> <span class="o">=</span> <span class="mf">1e-10</span>
+    <span class="n">atol_ub</span> <span class="o">=</span> <span class="mf">1e-2</span>
+    <span class="n">adjusted_atol</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">atol</span><span class="p">,</span> <span class="n">atol_lb</span><span class="p">,</span> <span class="n">atol_ub</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_num_trials</span><span class="p">):</span>
         <span class="n">basis</span><span class="p">,</span> <span class="n">count</span> <span class="o">=</span> <span class="n">_project_to_irrep</span><span class="p">(</span><span class="n">adjusted_atol</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">count</span> <span class="o">==</span> <span class="n">num_basis</span><span class="p">:</span>
             <span class="k">break</span>
-        <span class="k">elif</span> <span class="n">count</span> <span class="o">&gt;</span> <span class="n">num_basis</span><span class="p">:</span>
+        <span class="k">elif</span> <span class="n">count</span> <span class="o">&lt;</span> <span class="n">num_basis</span><span class="p">:</span>
             <span class="c1"># Tighten tolerance to compare basis vectors</span>
-            <span class="n">adjusted_atol</span> <span class="o">/=</span> <span class="mi">2</span>
-            <span class="nb">print</span><span class="p">(</span><span class="n">count</span><span class="p">,</span> <span class="n">num_basis</span><span class="p">,</span> <span class="n">adjusted_atol</span><span class="p">)</span>
+            <span class="n">adjusted_atol</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">atol_lb</span> <span class="o">*</span> <span class="n">adjusted_atol</span><span class="p">)</span>
+            <span class="n">warn</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Tighten tolerance for projection: </span><span class="si">{</span><span class="n">adjusted_atol</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="c1"># Loosen tolerance to compare basis vectors</span>
-            <span class="n">adjusted_atol</span> <span class="o">*=</span> <span class="mi">2</span>
+            <span class="n">adjusted_atol</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">atol_ub</span> <span class="o">*</span> <span class="n">adjusted_atol</span><span class="p">)</span>
+            <span class="n">warn</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Loosen tolerance for projection: </span><span class="si">{</span><span class="n">adjusted_atol</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="n">count</span> <span class="o">&gt;</span> <span class="n">num_basis</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">count</span> <span class="o">&lt;</span> <span class="n">num_basis</span><span class="p">:</span>
         <span class="n">warn</span><span class="p">(</span>
             <span class="sa">f</span><span class="s2">&quot;Inconsistent number of independent basis vectors (expect=</span><span class="si">{</span><span class="n">num_basis</span><span class="si">}</span><span class="s2">, actual=</span><span class="si">{</span><span class="n">count</span><span class="si">}</span><span class="s2">).&quot;</span>
             <span class="s2">&quot;Try decreasing atol.&quot;</span>
         <span class="p">)</span>
-    <span class="k">elif</span> <span class="n">count</span> <span class="o">&lt;</span> <span class="n">num_basis</span><span class="p">:</span>
+    <span class="k">elif</span> <span class="n">count</span> <span class="o">&gt;</span> <span class="n">num_basis</span><span class="p">:</span>
         <span class="n">warn</span><span class="p">(</span>
             <span class="sa">f</span><span class="s2">&quot;Inconsistent number of independent basis vectors (expect=</span><span class="si">{</span><span class="n">num_basis</span><span class="si">}</span><span class="s2">, actual=</span><span class="si">{</span><span class="n">count</span><span class="si">}</span><span class="s2">).&quot;</span>
             <span class="s2">&quot;Try increasing atol.&quot;</span>
@@ -610,7 +618,7 @@ title="Source repository"
 
 
 <div class="viewcode-block" id="is_unitary"><a class="viewcode-back" href="../../api/api_representation.html#spgrep.representation.is_unitary">[docs]</a><span class="k">def</span> <span class="nf">is_unitary</span><span class="p">(</span><span class="n">representation</span><span class="p">:</span> <span class="n">NDArrayComplex</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Return true if given representation is unitary.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return true if given representation is unitary.&quot;&quot;&quot;</span>
     <span class="n">dim</span> <span class="o">=</span> <span class="n">representation</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
     <span class="k">for</span> <span class="n">matrix</span> <span class="ow">in</span> <span class="n">representation</span><span class="p">:</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">matrix</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">conj</span><span class="p">(</span><span class="n">matrix</span><span class="o">.</span><span class="n">T</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">dim</span><span class="p">)):</span>
@@ -625,7 +633,7 @@ title="Source repository"
     <span class="n">rtol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-5</span><span class="p">,</span>
     <span class="n">atol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-8</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Return true if given matrix function is a (projective) representation with given factor system.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return true if given matrix function is a (projective) representation with given factor system.&quot;&quot;&quot;</span>
     <span class="n">order</span> <span class="o">=</span> <span class="n">rep</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
     <span class="k">if</span> <span class="n">factor_system</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">factor_system</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">order</span><span class="p">,</span> <span class="n">order</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex_</span><span class="p">)</span>
@@ -641,7 +649,7 @@ title="Source repository"
 
 
 <div class="viewcode-block" id="frobenius_schur_indicator"><a class="viewcode-back" href="../../api/api_representation.html#spgrep.representation.frobenius_schur_indicator">[docs]</a><span class="k">def</span> <span class="nf">frobenius_schur_indicator</span><span class="p">(</span><span class="n">irrep</span><span class="p">:</span> <span class="n">NDArrayComplex</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Inspect given unitary (projective) irrep is real, pseudo-real, or not unitary equivalent.</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Inspect given unitary (projective) irrep is real, pseudo-real, or not unitary equivalent.</span>
 
 <span class="sd">    .. math::</span>
 <span class="sd">       \mathrm{indicator} =</span>
@@ -676,7 +684,7 @@ title="Source repository"
     <span class="n">spinor_factor_system</span><span class="p">:</span> <span class="n">NDArrayComplex</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">rtol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-5</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Check definition of representation. This function works for primitive and conventional cell.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Check definition of representation. This function works for primitive and conventional cell.&quot;&quot;&quot;</span>
     <span class="n">order</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">little_rotations</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">spinor_factor_system</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">spinor_factor_system</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">order</span><span class="p">,</span> <span class="n">order</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex_</span><span class="p">)</span>
@@ -705,7 +713,7 @@ title="Source repository"
 <div class="viewcode-block" id="get_direct_product"><a class="viewcode-back" href="../../api/api_representation.html#spgrep.representation.get_direct_product">[docs]</a><span class="k">def</span> <span class="nf">get_direct_product</span><span class="p">(</span>
     <span class="n">rep1</span><span class="p">:</span> <span class="n">NDArrayComplex</span> <span class="o">|</span> <span class="n">NDArrayFloat</span><span class="p">,</span> <span class="n">rep2</span><span class="p">:</span> <span class="n">NDArrayComplex</span> <span class="o">|</span> <span class="n">NDArrayFloat</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NDArrayComplex</span> <span class="o">|</span> <span class="n">NDArrayFloat</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Return Knocker product of two representations.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return Knocker product of two representations.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>

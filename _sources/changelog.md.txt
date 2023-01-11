@@ -1,5 +1,10 @@
 # Change Log
 
+## v0.3.3 (11 Jan. 2023)
+- Improve comparison between linear subspaces [[#53]](https://github.com/spglib/spgrep/pull/53)
+    - Use Grassmann distance to measure linear subspaces: {func}`spgrep.utils.grassmann_distance`
+    - Drop `spgrep.utils.contain_space`
+
 ## v0.3.2 (28 Dec. 2022)
 - Clean documents and add JOSS draft [[#50]](https://github.com/spglib/spgrep/pull/50)
 

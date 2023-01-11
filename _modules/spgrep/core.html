@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>spgrep.core &#8212; spgrep 0.3.2</title>
+    <title>spgrep.core &#8212; spgrep 0.3.3</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -71,7 +71,7 @@
       
       
       
-      <h1 class="site-logo" id="site-title">spgrep 0.3.2</h1>
+      <h1 class="site-logo" id="site-title">spgrep 0.3.3</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
@@ -248,6 +248,11 @@
      Tensor
     </a>
    </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../api/api_utils.html">
+     Utility functions
+    </a>
+   </li>
   </ul>
  </li>
  <li class="toctree-l1">
@@ -422,7 +427,7 @@ title="Source repository"
     <span class="n">atol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-8</span><span class="p">,</span>
     <span class="n">max_num_random_generations</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="n">NDArrayComplex</span><span class="p">],</span> <span class="n">NDArrayInt</span><span class="p">,</span> <span class="n">NDArrayFloat</span><span class="p">,</span> <span class="n">NDArrayInt</span><span class="p">]:</span>
-    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Compute all irreducible representations of space group of given structure up to unitary transformation.</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Compute all irreducible representations of space group of given structure up to unitary transformation.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -521,7 +526,7 @@ title="Source repository"
     <span class="n">atol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-8</span><span class="p">,</span>
     <span class="n">max_num_random_generations</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="n">NDArrayComplex</span><span class="p">],</span> <span class="n">NDArrayInt</span><span class="p">]</span> <span class="o">|</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="n">NDArrayFloat</span><span class="p">],</span> <span class="n">NDArrayInt</span><span class="p">]:</span>
-    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Compute all irreducible representations of given space group up to unitary transformation.</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Compute all irreducible representations of given space group up to unitary transformation.</span>
 
 <span class="sd">    Note that ``rotations`` and ``translations`` should be specified in a primitive cell.</span>
 
@@ -603,7 +608,7 @@ title="Source repository"
     <span class="n">atol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-8</span><span class="p">,</span>
     <span class="n">max_num_random_generations</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">NDArrayComplex</span><span class="p">]:</span>
-    <span class="sd">&quot;&quot;&quot;Compute all irreducible representations of given crystallographic point group up to unitary transformation.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute all irreducible representations of given crystallographic point group up to unitary transformation.</span>
 
 <span class="sd">    Assume matrix representation of given crystallographic point group is in &quot;standard&quot; setting shown in Table 3.2.3.3 of International Table for Crystallography Vol. A (2016).</span>
 
@@ -674,7 +679,7 @@ title="Source repository"
     <span class="n">NDArrayInt</span><span class="p">,</span>
     <span class="n">NDArrayInt</span><span class="p">,</span>
 <span class="p">]:</span>
-    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Compute all irreducible representations :math:`\mathbf{\Gamma}^{\mathbf{k}\alpha}` of space group of given structure up to unitary transformation for spinor.</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Compute all irreducible representations :math:`\mathbf{\Gamma}^{\mathbf{k}\alpha}` of space group of given structure up to unitary transformation for spinor.</span>
 
 <span class="sd">    Each irrep :math:`\mathbf{\Gamma}^{\mathbf{k}\alpha}` satisfies</span>
 
@@ -850,7 +855,7 @@ title="Source repository"
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="n">NDArrayComplex</span><span class="p">],</span> <span class="n">NDArrayComplex</span><span class="p">,</span> <span class="n">NDArrayComplex</span><span class="p">,</span> <span class="n">NDArrayInt</span><span class="p">]</span> <span class="o">|</span> <span class="nb">tuple</span><span class="p">[</span>
     <span class="nb">list</span><span class="p">[</span><span class="n">NDArrayComplex</span><span class="p">],</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">NDArrayComplex</span><span class="p">,</span> <span class="n">NDArrayComplex</span><span class="p">,</span> <span class="n">NDArrayBool</span><span class="p">,</span> <span class="n">NDArrayInt</span>
 <span class="p">]:</span>
-    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Compute all irreducible representations :math:`\mathbf{\Gamma}^{\mathbf{k}\alpha}` of given space group up to unitary transformation for spinor.</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Compute all irreducible representations :math:`\mathbf{\Gamma}^{\mathbf{k}\alpha}` of given space group up to unitary transformation for spinor.</span>
 
 <span class="sd">    Each irrep :math:`\mathbf{\Gamma}^{\mathbf{k}\alpha}` satisfies</span>
 
@@ -978,7 +983,7 @@ title="Source repository"
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="n">NDArrayComplex</span><span class="p">],</span> <span class="n">NDArrayComplex</span><span class="p">,</span> <span class="n">NDArrayComplex</span><span class="p">]</span> <span class="o">|</span> <span class="nb">tuple</span><span class="p">[</span>
     <span class="nb">list</span><span class="p">[</span><span class="n">NDArrayComplex</span><span class="p">],</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">NDArrayComplex</span><span class="p">,</span> <span class="n">NDArrayComplex</span><span class="p">,</span> <span class="n">NDArrayBool</span>
 <span class="p">]:</span>
-    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Compute all irreducible representations :math:`\mathbf{D}^{\alpha}` of given crystallographic point group up to unitary transformation for spinor.</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Compute all irreducible representations :math:`\mathbf{D}^{\alpha}` of given crystallographic point group up to unitary transformation for spinor.</span>
 
 <span class="sd">    Each irrep :math:`\mathbf{D}^{\alpha}` satisfies</span>
 

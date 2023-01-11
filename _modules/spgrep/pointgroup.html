@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>spgrep.pointgroup &#8212; spgrep 0.3.2</title>
+    <title>spgrep.pointgroup &#8212; spgrep 0.3.3</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -71,7 +71,7 @@
       
       
       
-      <h1 class="site-logo" id="site-title">spgrep 0.3.2</h1>
+      <h1 class="site-logo" id="site-title">spgrep 0.3.3</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
@@ -246,6 +246,11 @@
    <li class="toctree-l2">
     <a class="reference internal" href="../../api/api_tensor.html">
      Tensor
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../api/api_utils.html">
+     Utility functions
     </a>
    </li>
   </ul>
@@ -1041,7 +1046,7 @@ title="Source repository"
 
 
 <span class="k">def</span> <span class="nf">get_generators</span><span class="p">(</span><span class="n">pg_symbol</span><span class="p">,</span> <span class="n">idx</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Return indices of symmetry operations which generate given point group.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return indices of symmetry operations which generate given point group.&quot;&quot;&quot;</span>
     <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">gens</span> <span class="o">=</span> <span class="n">_get_generators</span><span class="p">(</span><span class="n">pg_symbol</span><span class="p">,</span> <span class="n">idx</span><span class="p">,</span> <span class="p">[])</span>
     <span class="k">return</span> <span class="n">gens</span>
 
@@ -1057,7 +1062,7 @@ title="Source repository"
 
 
 <div class="viewcode-block" id="get_pointgroup_chain_generators"><a class="viewcode-back" href="../../api/api_pointgroup.html#spgrep.pointgroup.get_pointgroup_chain_generators">[docs]</a><span class="k">def</span> <span class="nf">get_pointgroup_chain_generators</span><span class="p">(</span><span class="n">prim_rotations</span><span class="p">:</span> <span class="n">NDArrayInt</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
-    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Calculate generators of given crystallographic point group in primitive basis.</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Calculate generators of given crystallographic point group in primitive basis.</span>
 
 <span class="sd">    The returned generators give a normal series whose factor groups are all Abelian.</span>
 

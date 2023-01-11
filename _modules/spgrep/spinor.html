@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>spgrep.spinor &#8212; spgrep 0.3.2</title>
+    <title>spgrep.spinor &#8212; spgrep 0.3.3</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -71,7 +71,7 @@
       
       
       
-      <h1 class="site-logo" id="site-title">spgrep 0.3.2</h1>
+      <h1 class="site-logo" id="site-title">spgrep 0.3.3</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
@@ -248,6 +248,11 @@
      Tensor
     </a>
    </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../api/api_utils.html">
+     Utility functions
+    </a>
+   </li>
   </ul>
  </li>
  <li class="toctree-l1">
@@ -402,7 +407,7 @@ title="Source repository"
     <span class="n">atol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-8</span><span class="p">,</span>
     <span class="n">max_num_random_generations</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="n">NDArrayComplex</span><span class="p">],</span> <span class="n">NDArrayComplex</span><span class="p">,</span> <span class="n">NDArrayComplex</span><span class="p">]:</span>
-    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Enumerate all unitary irreps :math:`\mathbf{D}^{\mathbf{k}\alpha}` of little group for spinor.</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Enumerate all unitary irreps :math:`\mathbf{D}^{\mathbf{k}\alpha}` of little group for spinor.</span>
 
 <span class="sd">    .. math::</span>
 <span class="sd">       \mathbf{D}^{\mathbf{k}\alpha}(\mathbf{S}_{i}) \mathbf{D}^{\mathbf{k}\alpha}(\mathbf{S}_{j})</span>
@@ -478,7 +483,7 @@ title="Source repository"
     <span class="n">lattice</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">,</span>
     <span class="n">rotations</span><span class="p">:</span> <span class="n">NDArrayInt</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">NDArrayComplex</span><span class="p">,</span> <span class="n">NDArrayComplex</span><span class="p">]:</span>
-    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Calculate spin-derived factor system of spin representation.</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Calculate spin-derived factor system of spin representation.</span>
 
 <span class="sd">    .. math::</span>
 <span class="sd">       \mathbf{U}(\mathbf{S}_{i}) \mathbf{U}(\mathbf{S}_{j})</span>
@@ -526,7 +531,7 @@ title="Source repository"
 
 
 <div class="viewcode-block" id="get_spinor_unitary_rotation"><a class="viewcode-back" href="../../api/api_spinor.html#spgrep.spinor.get_spinor_unitary_rotation">[docs]</a><span class="k">def</span> <span class="nf">get_spinor_unitary_rotation</span><span class="p">(</span><span class="n">lattice</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">,</span> <span class="n">rotation</span><span class="p">:</span> <span class="n">NDArrayInt</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NDArrayComplex</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Return unitary matrix for given orthogonal matrix.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return unitary matrix for given orthogonal matrix.&quot;&quot;&quot;</span>
     <span class="c1"># Ignore inversion parts</span>
     <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">det</span><span class="p">(</span><span class="n">rotation</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
         <span class="n">sign</span> <span class="o">=</span> <span class="mi">1</span>
@@ -554,7 +559,7 @@ title="Source repository"
 
 
 <span class="k">def</span> <span class="nf">get_rotation_angle_and_axis</span><span class="p">(</span><span class="n">cart_rotation</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">NDArrayFloat</span><span class="p">]:</span>
-    <span class="sd">&quot;&quot;&quot;Return angle and axis of a rotation.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return angle and axis of a rotation.</span>
 
 <span class="sd">    Angle is chosen between 0 and pi.</span>
 <span class="sd">    &quot;&quot;&quot;</span>

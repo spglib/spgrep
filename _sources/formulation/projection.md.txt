@@ -22,7 +22,7 @@ $$
         := \frac{ d_{\alpha} }{|G|} \sum_{ R \in G } \Delta^{ (\alpha) }(R)_{ij}^{\ast} R.
 $$
 Let $\phi^{(\alpha,j)}_{i} := P^{(\alpha)}_{ij} \phi$.
-Basis vectors $\{ \phi^{(\alpha,j)}_{i} \}_{i}` forms {math}`\Delta^{ (\alpha) }$.
+Basis vectors $\{ \phi^{(\alpha,j)}_{i} \}_{i}$ forms $\Delta^{ (\alpha) }$.
 
 $$
     P^{(\alpha)}_{ij} P^{(\alpha)}_{i'j'}
