@@ -97,7 +97,6 @@ def get_representation_on_symmetric_matrix(rotations: np.ndarray) -> np.ndarray:
         (485, 1, 2),
         (485, 2, 5),
         (485, 3, 10),
-        # (485, 4, 18),  # TODO
     ],
 )
 def test_symmetric_tensor(hall_number, rank, num_expect):
@@ -105,8 +104,19 @@ def test_symmetric_tensor(hall_number, rank, num_expect):
     rotations = symmetry["rotations"]
 
     rep = get_representation_on_symmetric_matrix(rotations)
-    atol = 1e-8
-    tensors = get_symmetry_adapted_tensors(rep, rotations, rank, real=True, atol=atol)
-    sym_tensors = apply_intrinsic_symmetry(tensors, atol=atol)
+    tensors = get_symmetry_adapted_tensors(rep, rotations, rank, real=True)
+    sym_tensors = apply_intrinsic_symmetry(tensors)
 
     assert len(sym_tensors) == num_expect
+
+
+@pytest.mark.skip()
+def test_symmetric_tensor_hexagonal_rank4():
+    symmetry = get_symmetry_from_database(hall_number=485)
+    rotations = symmetry["rotations"]
+
+    rep = get_representation_on_symmetric_matrix(rotations)
+    tensors = get_symmetry_adapted_tensors(rep, rotations, rank=4, real=True)
+    sym_tensors = apply_intrinsic_symmetry(tensors)
+
+    assert len(sym_tensors) == 18

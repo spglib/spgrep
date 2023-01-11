@@ -7,7 +7,7 @@ import numpy as np
 
 from spgrep.irreps import enumerate_unitary_irreps, is_equivalent_irrep
 from spgrep.representation import get_character, get_direct_product, project_to_irrep
-from spgrep.utils import NDArrayComplex, NDArrayFloat, NDArrayInt, contain_space
+from spgrep.utils import NDArrayComplex, NDArrayFloat, NDArrayInt, grassmann_distance
 
 
 def get_symmetry_adapted_tensors(
@@ -81,7 +81,7 @@ def get_symmetry_adapted_tensors(
 
 def apply_intrinsic_symmetry(
     tensors: list[NDArrayComplex] | list[NDArrayFloat],
-    atol: float = 1e-8,
+    atol: float = 1e-6,  # A bit large tolerance setting to handle numerical noise
 ) -> list[NDArrayComplex] | list[NDArrayFloat]:
     """Apply symmetric group on tensors.
 
@@ -103,10 +103,12 @@ def apply_intrinsic_symmetry(
         sym_tensor /= np.linalg.norm(sym_tensor)
 
         # Store if independent to other symmetric tensors
-        if len(list_sym_basis) > 0 and contain_space(
-            np.concatenate(list_sym_basis, axis=0),
-            sym_tensor.reshape(1, -1),
-            atol=atol,
+        if (
+            len(list_sym_basis) > 0
+            and grassmann_distance(
+                sym_tensor.reshape(1, -1), np.concatenate(list_sym_basis, axis=0)
+            )
+            < 0.5
         ):
             continue
 

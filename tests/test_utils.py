@@ -2,7 +2,7 @@ import numpy as np
 import pytest
 
 from spgrep.utils import (
-    contain_space,
+    grassmann_distance,
     is_integer_array,
     is_prime,
     mode_dot,
@@ -39,35 +39,60 @@ def test_nroot():
     assert np.allclose(actual, expect)
 
 
-def test_contain_space():
-    # Strictly contained
-    assert contain_space(
-        np.array([[1, 0, 0], [0, 1, 0]]),
-        np.array([[1, 1, 0]]),
+def test_grassmann_distance():
+    assert (
+        grassmann_distance(
+            np.array(
+                [
+                    [1, 0, 0],
+                    [0, 1j, 0],
+                ]
+            ),
+            np.array(
+                [
+                    [0, 1, 0],
+                    [0, 0, 1],
+                ]
+            ),
+        )
+        > 0
     )
 
-    # Equal case
-    assert contain_space(
-        np.array([[1, 0, 0], [0, 1, 0]]),
-        np.array([[1, 1, 0], [1, -1, 0]]),
+    assert np.isclose(
+        grassmann_distance(
+            np.array(
+                [
+                    [2, 0, 0],
+                    [0, 4j, 0],
+                ]
+            ),
+            np.array(
+                [
+                    [1, 1j, 0],
+                    [8, 0, 0],
+                ]
+            ),
+        ),
+        0,
+        atol=1e-5,
     )
 
-    # False cases
-    assert not contain_space(
-        np.array([]),
-        np.array([[1, 0, 1]]),
-    )
-    assert not contain_space(
-        np.array([[1, 0, 0], [0, 1, 0]]),
-        np.array([[1, 0, 1]]),
-    )
-    assert not contain_space(
-        np.array([[1, 0, 0], [0, 1, 0]]),
-        np.array([[1, 0, 0], [0, 0, 1]]),
-    )
-    assert not contain_space(
-        np.array([[1, 0, 0], [0, 1, 0]]),
-        np.array([[1, 0, 0], [0, 1, 0], [0, 0, 1]]),
+    assert np.isclose(
+        grassmann_distance(
+            np.array(
+                [
+                    [1, 1j, 0],
+                ]
+            ),
+            np.array(
+                [
+                    [0, 1, 0],
+                    [1, 0, 0],
+                ]
+            ),
+        ),
+        0,
+        atol=1e-5,
     )
 
 

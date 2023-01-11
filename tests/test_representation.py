@@ -51,6 +51,9 @@ def test_project_to_irrep(C3v):
         projected = project_to_irrep(reg, irrep)
         count += len(projected)
 
+        for basis in projected:
+            assert np.allclose(np.linalg.norm(basis, axis=1), 1)
+
     assert count == sum(irrep.shape[1] for irrep in irreps)
 
 

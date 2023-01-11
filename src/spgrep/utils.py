@@ -1,7 +1,7 @@
 """Utility functions."""
 from __future__ import annotations
 
-from typing import Any
+from typing import Any, Literal
 
 import numpy as np
 from numpy.typing import NDArray
@@ -62,31 +62,62 @@ def nroot(z: np.complex_, n: int) -> np.complex_:
     return r * np.exp(1j * angle)
 
 
-def contain_space(
+def grassmann_distance(
     basis1: NDArrayComplex,
     basis2: NDArrayComplex,
-    atol: float = 1e-8,
-) -> bool:
-    """Return true if vector space spanned by ``basis2`` is contained in that by ``basis1``.
+    ord: Literal["min", "projection"] = "min",
+    skip_orthonormalization: bool = False,
+) -> float:
+    r"""Return Grassmann distance between two linear subspaces spanned by ``basis1`` and ``basis2``.
 
-    That is, return True if any linear combination A[i, j] exists such that
-        basis2[j] == sum_{i} basis1[i] * A[i, j]
-    which is equivalent to ``A.T @ basis1 == basis2``.
+    References
+    * [1] Jihun Hamm and Daniel D. Lee. 2008. Grassmann discriminant analysis: a unifying view on subspace-based learning. In Proceedings of the 25th international conference on Machine learning (ICML '08). Association for Computing Machinery, New York, NY, USA, 376–383. https://doi.org/10.1145/1390156.1390204
+    * [2] Schubert Varieties and Distances between Subspaces of Different Dimensions, Ke Ye and Lek-Heng Lim, SIAM Journal on Matrix Analysis and Applications 2016 37:3, 1176-1197
 
     Parameters
     ----------
-    basis1: array, (dim_irrep, dim)
-    basis2: array, (dim_irrep, dim)
+    basis1: array, (k, n)
+        ``k``-dimensional subspace in :math:`\mathbb{C}^{n}`.
+        ``basis1[i]`` is the ``i``-th basis vector.
+    basis2: array, (l, n)
+        ``l``-dimensional subspace in :math:`\mathbb{C}^{n}`.
+        ``basis2[i]`` is the ``i``-th basis vector.
+    ord: str
+        Kind of Grassmann distance to be calculated
+        * ``ord='min'``: Min correlation
+        * ``ord='projection'``: Projection metric
+    skip_orthonormalization: bool default=False
+        If true, skip to orthonormalize bases.
+
+    Returns
+    -------
+    distance: float
     """
-    if len(basis1) == 0:
-        return False  # basis1 is empty
+    # Orthonormal bases
+    if skip_orthonormalization:
+        col_orthonormal_basis1 = basis1.T
+        col_orthonormal_basis2 = basis2.T
+    else:
+        # QR decomposition of column-wise vectors gives Gram-Schmidt orthonormalized vectors in column wise.
+        col_orthonormal_basis1 = np.linalg.qr(np.transpose(basis1))[0]
+        col_orthonormal_basis2 = np.linalg.qr(np.transpose(basis2))[0]
 
-    # Solve basis1.T @ A = basis2.T
-    A, residual, _, _ = np.linalg.lstsq(basis1.T, basis2.T, rcond=None)
+    # Singular values in descending order
+    canonical_correlations = np.linalg.svd(
+        np.conj(col_orthonormal_basis1.T) @ col_orthonormal_basis2, compute_uv=False
+    )
 
-    # Always compare vectors by L_infinity norm
-    basis2_T_near = basis1.T @ A
-    return np.allclose(basis2_T_near, basis2.T, atol=atol)
+    dim = min(basis1.shape[0], basis2.shape[0])
+    if ord == "min":
+        distance = np.sqrt(np.clip(1 - canonical_correlations[dim - 1] ** 2, a_min=0, a_max=None))
+    elif ord == "projection":
+        distance = np.sqrt(
+            np.mean(np.arccos(np.clip(canonical_correlations[:dim], a_min=-1, a_max=1)) ** 2)
+        )
+    else:
+        raise ValueError(f"Unknown type of Grassmann distance: {ord}")
+
+    return distance
 
 
 def mode_dot(coeffs: NDArray, list_matrix: list[NDArray]) -> NDArray:

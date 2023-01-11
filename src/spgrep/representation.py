@@ -11,7 +11,7 @@ from spgrep.utils import (
     NDArrayComplex,
     NDArrayFloat,
     NDArrayInt,
-    contain_space,
+    grassmann_distance,
     ndarray2d_to_integer_tuple,
 )
 
@@ -184,16 +184,15 @@ def project_to_irrep(
                 if np.allclose(basis_nj, 0, atol=adjusted_atol):
                     continue
 
-                # Them, normalize basis vectors s.t. they are orthonormal.
+                # Normalize basis vectors s.t. they are orthonormal.
                 basis_nj /= np.linalg.norm(basis_nj, axis=1)[:, None]
 
                 # Check if linearly independent with other basis vectors
-                # Two subspaces spanned by orthonormal basis vectors V1 and V2 are the same if and only if
-                # triangular matrices R1 and R2 in QR decomposition of V1 and V2 are the same.
-                if len(basis) > 0 and contain_space(
-                    np.concatenate(basis, axis=0), basis_nj, atol=adjusted_atol
-                ):
-                    # if any([contain_space(basis_nj, other, atol=adjusted_atol) for other in basis]):
+                # If basis_nj is not independent, Grassmann distance (min correlation) should be one.
+                # We use very rough tolerance, 0.5 to avoid numerical noises.
+                if (len(basis) > 0) and grassmann_distance(
+                    basis_nj, np.concatenate(np.array(basis), axis=0)
+                ) < 0.5:
                     continue
 
                 basis.append(basis_nj)
@@ -201,25 +200,29 @@ def project_to_irrep(
 
         return basis, count
 
-    adjusted_atol = atol
+    # Binary search for appropriate tolerance
+    atol_lb = 1e-10
+    atol_ub = 1e-2
+    adjusted_atol = np.clip(atol, atol_lb, atol_ub)
     for _ in range(max_num_trials):
         basis, count = _project_to_irrep(adjusted_atol)
         if count == num_basis:
             break
-        elif count > num_basis:
+        elif count < num_basis:
             # Tighten tolerance to compare basis vectors
-            adjusted_atol /= 2
-            print(count, num_basis, adjusted_atol)
+            adjusted_atol = np.sqrt(atol_lb * adjusted_atol)
+            warn(f"Tighten tolerance for projection: {adjusted_atol}")
         else:
             # Loosen tolerance to compare basis vectors
-            adjusted_atol *= 2
+            adjusted_atol = np.sqrt(atol_ub * adjusted_atol)
+            warn(f"Loosen tolerance for projection: {adjusted_atol}")
 
-    if count > num_basis:
+    if count < num_basis:
         warn(
             f"Inconsistent number of independent basis vectors (expect={num_basis}, actual={count})."
             "Try decreasing atol."
         )
-    elif count < num_basis:
+    elif count > num_basis:
         warn(
             f"Inconsistent number of independent basis vectors (expect={num_basis}, actual={count})."
             "Try increasing atol."
