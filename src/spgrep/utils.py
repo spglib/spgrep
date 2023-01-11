@@ -66,6 +66,7 @@ def grassmann_distance(
     basis1: NDArrayComplex,
     basis2: NDArrayComplex,
     ord: Literal["min", "projection"] = "min",
+    skip_orthonormalization: bool = False,
 ) -> float:
     r"""Return Grassmann distance between two linear subspaces spanned by ``basis1`` and ``basis2``.
 
@@ -85,15 +86,21 @@ def grassmann_distance(
         Kind of Grassmann distance to be calculated
         * ``ord='min'``: Min correlation
         * ``ord='projection'``: Projection metric
+    skip_orthonormalization: bool default=False
+        If true, skip to orthonormalize bases.
 
     Returns
     -------
     distance: float
     """
     # Orthonormal bases
-    # QR decomposition of column-wise vectors gives Gram-Schmidt orthonormalized vectors in column wise.
-    col_orthonormal_basis1 = np.linalg.qr(np.transpose(basis1))[0]
-    col_orthonormal_basis2 = np.linalg.qr(np.transpose(basis2))[0]
+    if skip_orthonormalization:
+        col_orthonormal_basis1 = basis1.T
+        col_orthonormal_basis2 = basis2.T
+    else:
+        # QR decomposition of column-wise vectors gives Gram-Schmidt orthonormalized vectors in column wise.
+        col_orthonormal_basis1 = np.linalg.qr(np.transpose(basis1))[0]
+        col_orthonormal_basis2 = np.linalg.qr(np.transpose(basis2))[0]
 
     # Singular values in descending order
     canonical_correlations = np.linalg.svd(

@@ -184,6 +184,9 @@ def project_to_irrep(
                 if np.allclose(basis_nj, 0, atol=adjusted_atol):
                     continue
 
+                # Normalize basis vectors s.t. they are orthonormal.
+                basis_nj /= np.linalg.norm(basis_nj, axis=1)[:, None]
+
                 # Check if linearly independent with other basis vectors
                 # If basis_nj is not independent, Grassmann distance (min correlation) should be one.
                 # We use very rough tolerance, 0.5 to avoid numerical noises.
