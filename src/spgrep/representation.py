@@ -185,10 +185,11 @@ def project_to_irrep(
                     continue
 
                 # Check if linearly independent with other basis vectors
-                if (len(basis) > 0) and (
-                    grassmann_distance(basis_nj, np.concatenate(np.array(basis), axis=0))
-                    < adjusted_atol
-                ):
+                # If basis_nj is not independent, Grassmann distance (min correlation) should be one.
+                # We use very rough tolerance, 0.5 to avoid numerical noises.
+                if (len(basis) > 0) and grassmann_distance(
+                    basis_nj, np.concatenate(np.array(basis), axis=0)
+                ) < 0.5:
                     continue
 
                 basis.append(basis_nj)

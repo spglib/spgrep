@@ -1,7 +1,7 @@
 """Utility functions."""
 from __future__ import annotations
 
-from typing import Any
+from typing import Any, Literal
 
 import numpy as np
 from numpy.typing import NDArray
@@ -65,6 +65,7 @@ def nroot(z: np.complex_, n: int) -> np.complex_:
 def grassmann_distance(
     basis1: NDArrayComplex,
     basis2: NDArrayComplex,
+    ord: Literal["min", "projection"] = "min",
 ) -> float:
     r"""Return Grassmann distance between two linear subspaces spanned by ``basis1`` and ``basis2``.
 
@@ -80,11 +81,14 @@ def grassmann_distance(
     basis2: array, (l, n)
         ``l``-dimensional subspace in :math:`\mathbb{C}^{n}`.
         ``basis2[i]`` is the ``i``-th basis vector.
+    ord: str
+        Kind of Grassmann distance to be calculated
+        * ``ord='min'``: Min correlation
+        * ``ord='projection'``: Projection metric
 
     Returns
     -------
     distance: float
-        Min correlation of the two subspaces.
     """
     # Orthonormal bases
     # QR decomposition of column-wise vectors gives Gram-Schmidt orthonormalized vectors in column wise.
@@ -96,11 +100,15 @@ def grassmann_distance(
         np.conj(col_orthonormal_basis1.T) @ col_orthonormal_basis2, compute_uv=False
     )
 
-    # Averaged projection metric
     dim = min(basis1.shape[0], basis2.shape[0])
-    distance = np.sqrt(
-        np.mean(np.arccos(np.clip(canonical_correlations[:dim], a_min=-1, a_max=1)) ** 2)
-    )
+    if ord == "min":
+        distance = np.sqrt(np.clip(1 - canonical_correlations[dim - 1] ** 2, a_min=0, a_max=None))
+    elif ord == "projection":
+        distance = np.sqrt(
+            np.mean(np.arccos(np.clip(canonical_correlations[:dim], a_min=-1, a_max=1)) ** 2)
+        )
+    else:
+        raise ValueError(f"Unknown type of Grassmann distance: {ord}")
 
     return distance
 

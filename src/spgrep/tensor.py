@@ -106,10 +106,9 @@ def apply_intrinsic_symmetry(
         if (
             len(list_sym_basis) > 0
             and grassmann_distance(
-                sym_tensor.reshape(1, -1),
-                np.concatenate(list_sym_basis, axis=0),
+                sym_tensor.reshape(1, -1), np.concatenate(list_sym_basis, axis=0)
             )
-            < atol
+            < 0.5
         ):
             continue
 
