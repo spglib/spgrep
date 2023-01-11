@@ -10,4 +10,5 @@
     Spinor <api_spinor>
     Co-representation <api_corep>
     Tensor <api_tensor>
+    Utility functions <api_utils>
 ```

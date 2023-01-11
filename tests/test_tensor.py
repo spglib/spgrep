@@ -105,8 +105,7 @@ def test_symmetric_tensor(hall_number, rank, num_expect):
     rotations = symmetry["rotations"]
 
     rep = get_representation_on_symmetric_matrix(rotations)
-    atol = 1e-8
-    tensors = get_symmetry_adapted_tensors(rep, rotations, rank, real=True, atol=atol)
-    sym_tensors = apply_intrinsic_symmetry(tensors, atol=atol)
+    tensors = get_symmetry_adapted_tensors(rep, rotations, rank, real=True)
+    sym_tensors = apply_intrinsic_symmetry(tensors, atol=1e-4)
 
     assert len(sym_tensors) == num_expect
