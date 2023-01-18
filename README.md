@@ -72,7 +72,7 @@ for irrep in irreps:
 # [2.+0.j 0.+0.j 0.+0.j -2.+0.j 0.+0.j 0.+0.j 0.+0.j 0.+0.j]
 ```
 
-See [example pages](docs/examples/examples) for more detailed use cases and [API summary](docs/api/api_core) for summary of functionalities.
+See [example pages](docs/examples/examples.md) for more detailed use cases and [API summary](docs/api/api_core.md) for summary of functionalities.
 
 ## Installation
 
@@ -92,13 +92,13 @@ pip install -e .
 
 ## Change log
 
-See the [change log](docs/changelog) for recent changes.
+See the [change log](docs/changelog.md) for recent changes.
 
 ## How to contribute
 
 We welcome any contributions to improve functionalities.
 Please open [issues](https://github.com/spglib/spgrep/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc) or create [pull requests](https://github.com/spglib/spgrep/pulls?q=is%3Apr+is%3Aopen+sort%3Aupdated-desc).
-See the [development page](docs/development/development) for preparing an environment.
+See the [development page](docs/development/development.md) for preparing an environment.
 
 ## License
 
