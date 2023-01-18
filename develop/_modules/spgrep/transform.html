@@ -1,0 +1,615 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>spgrep.transform &#8212; spgrep 0.3.4</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">spgrep 0.3.4</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Contents
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../index.html">
+   Introduction
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../examples/examples.html">
+   Examples
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../examples/symmetry_adapted_tensor.html">
+     Symmetry-adapted tensors
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../examples/lattice_vibration.html">
+     Application of space-group irreps to lattice vibration
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../examples/spin_representation.html">
+     Spin representation
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../formulation/formulation.html">
+   Formulation
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../../formulation/irreps/irreps.html">
+     Irreducible representation
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+    <label for="toctree-checkbox-3">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../formulation/irreps/spacegroup_irreps.html">
+       Irreps of space group
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../formulation/irreps/reality.html">
+       Physically irreps
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../formulation/irreps/spinor.html">
+       Spin representation
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../formulation/irreps/corep.html">
+       Co-representation
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../../formulation/algorithm/algorithm.html">
+     Algorithm for enumerating irreps
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+    <label for="toctree-checkbox-4">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../formulation/algorithm/irreps_from_regular.html">
+       On-the-fly irreps generation from regular representation
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../formulation/algorithm/irreps_from_chain.html">
+       On-the-fly irreps generation from solvable group chain
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../formulation/algorithm/intertwiner.html">
+       Intertwiner
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../formulation/projection.html">
+     Symmetry-adapted basis
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../api/api.html">
+   API Reference
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+  <label for="toctree-checkbox-5">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../api/api_core.html">
+     Core functions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../api/api_group.html">
+     Group
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../api/api_pointgroup.html">
+     Point group
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../api/api_transformation.html">
+     Transformation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../api/api_representation.html">
+     Representation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../api/api_irreps.html">
+     Irreps
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../api/api_spinor.html">
+     Spinor
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../api/api_corep.html">
+     Co-representation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../api/api_tensor.html">
+     Tensor
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../api/api_utils.html">
+     Utility functions
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../changelog.html">
+   Change Log
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../development/development.html">
+   Development
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+  <label for="toctree-checkbox-6">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../development/memo.html">
+     Memo
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../genindex.html">
+   Index
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+<a href="https://github.com/spglib/spgrep"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="bottom"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1></h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <h1>Source code for spgrep.transform</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Transformation of space group and kpoints.&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Literal</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">spglib</span> <span class="kn">import</span> <span class="n">get_spacegroup_type</span>
+
+<span class="kn">from</span> <span class="nn">spgrep.utils</span> <span class="kn">import</span> <span class="n">NDArrayFloat</span><span class="p">,</span> <span class="n">NDArrayInt</span><span class="p">,</span> <span class="n">ndarray2d_to_integer_tuple</span>
+
+
+<div class="viewcode-block" id="transform_symmetry_and_kpoint"><a class="viewcode-back" href="../../api/api_transformation.html#spgrep.transform.transform_symmetry_and_kpoint">[docs]</a><span class="k">def</span> <span class="nf">transform_symmetry_and_kpoint</span><span class="p">(</span>
+    <span class="n">transformation_matrix</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">,</span>
+    <span class="n">rotations</span><span class="p">:</span> <span class="n">NDArrayInt</span><span class="p">,</span>
+    <span class="n">translations</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">,</span>
+    <span class="n">kpoint</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">NDArrayInt</span><span class="p">,</span> <span class="n">NDArrayFloat</span><span class="p">,</span> <span class="n">NDArrayFloat</span><span class="p">]:</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Return symmetry and k-vector coefficients in transformed coordinates.</span>
+
+<span class="sd">    This function does not unique duplicated symmetry operations after applying transformation_matrix.</span>
+
+<span class="sd">    Let a given transformation_matrix be :math:`\mathbf{P}`.</span>
+<span class="sd">    Symmetry operation :math:`(\mathbf{R}, \mathbf{v})` is transformed to</span>
+<span class="sd">    :math:`(\mathbf{P}, 0)^{-1} (\mathbf{R}, \mathbf{v}) (\mathbf{P}, 0) = (\mathbf{P}^{-1} \mathbf{R} \mathbf{P}, \mathbf{P}^{-1} \mathbf{v})`.</span>
+<span class="sd">    Coefficients of k-vector :math:`\mathbf{k}` are transformed to :math:`\mathbf{P}^{T} \mathbf{k}`.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    transformation_matrix: array, (3, 3)</span>
+<span class="sd">    rotations: array, (num_sym, 3, 3)</span>
+<span class="sd">    translations: array, (num_sym, 3)</span>
+<span class="sd">    kpoint: array, (3, )</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    transformed_rotations: array, (num_sym, 3, 3)</span>
+<span class="sd">    transformed_translations: array, (num_sym, 3)</span>
+<span class="sd">    transformed_kpoint: array, (3, )</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># (R, t) -&gt; (P^-1 R P, P^-1 t)</span>
+    <span class="n">pinv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">transformation_matrix</span><span class="p">)</span>
+    <span class="n">transformed_rotations</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+        <span class="p">[</span><span class="n">pinv</span> <span class="o">@</span> <span class="n">rotation</span> <span class="o">@</span> <span class="n">transformation_matrix</span> <span class="k">for</span> <span class="n">rotation</span> <span class="ow">in</span> <span class="n">rotations</span><span class="p">]</span>
+    <span class="p">)</span>
+    <span class="n">transformed_rotations</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">around</span><span class="p">(</span><span class="n">transformed_rotations</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+    <span class="c1"># Never take modulus for translations here!</span>
+    <span class="n">transformed_translations</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">pinv</span> <span class="o">@</span> <span class="n">translation</span> <span class="k">for</span> <span class="n">translation</span> <span class="ow">in</span> <span class="n">translations</span><span class="p">])</span>
+    <span class="c1"># k -&gt; P^T k</span>
+    <span class="n">transformed_kpoint</span> <span class="o">=</span> <span class="n">transformation_matrix</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">kpoint</span>
+
+    <span class="k">return</span> <span class="n">transformed_rotations</span><span class="p">,</span> <span class="n">transformed_translations</span><span class="p">,</span> <span class="n">transformed_kpoint</span></div>
+
+
+<span class="k">def</span> <span class="nf">unique_primitive_symmetry</span><span class="p">(</span>
+    <span class="n">rotations</span><span class="p">:</span> <span class="n">NDArrayInt</span><span class="p">,</span> <span class="n">translations</span><span class="p">:</span> <span class="n">NDArrayFloat</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">NDArrayInt</span><span class="p">,</span> <span class="n">NDArrayFloat</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Remove duplicated symmetry operations.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    rotations: array, (num_sym, 3, 3)</span>
+<span class="sd">    translations: array, (num_sym, 3)</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    unique_rotations: array, (new_num_sym, 3, 3)</span>
+<span class="sd">    unique_translations: array, (new_num_sym, 3)</span>
+<span class="sd">    mapping_to_primitive_symmetry: array, (num_sym, )</span>
+<span class="sd">        ``(rotations[i], translations[i])`` is transformed to ``(unique_rotations[j], unique_translations[j])`` where ``j = mapping_to_primitive_symmetry[i]``.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">rotations_int</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">]]]</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="n">unique_rotations</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">unique_translations</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">mapping_to_primitive_symmetry</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">rotations</span><span class="p">))]</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">rotation</span><span class="p">,</span> <span class="n">translation</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">rotations</span><span class="p">,</span> <span class="n">translations</span><span class="p">)):</span>
+        <span class="n">rotation_int</span> <span class="o">=</span> <span class="n">ndarray2d_to_integer_tuple</span><span class="p">(</span><span class="n">rotation</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">j</span> <span class="o">=</span> <span class="n">rotations_int</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">rotation_int</span><span class="p">)</span>
+            <span class="c1"># Duplicated symmetry operation</span>
+            <span class="n">mapping_to_primitive_symmetry</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">j</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="c1"># New symmetry operation</span>
+            <span class="n">unique_rotations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rotation</span><span class="p">)</span>
+            <span class="n">unique_translations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">remainder</span><span class="p">(</span><span class="n">translation</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+            <span class="n">mapping_to_primitive_symmetry</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span>
+            <span class="n">rotations_int</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rotation_int</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">unique_rotations</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">unique_translations</span><span class="p">),</span> <span class="n">mapping_to_primitive_symmetry</span>
+
+
+<div class="viewcode-block" id="get_primitive_transformation_matrix"><a class="viewcode-back" href="../../api/api_transformation.html#spgrep.transform.get_primitive_transformation_matrix">[docs]</a><span class="k">def</span> <span class="nf">get_primitive_transformation_matrix</span><span class="p">(</span><span class="n">hall_number</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NDArrayFloat</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return transformation matrix from standard unit cell specified with hall_number into a primitive cell. The transformation matrix is consistent with Spglib&#39;s convention [1,2] and KVEC&#39;s convention [3].</span>
+
+<span class="sd">    * [1] https://spglib.github.io/spglib/definition.html</span>
+<span class="sd">    * [2] https://github.com/spglib/spglib/pull/137</span>
+<span class="sd">    * [3] M. I. Aroyo, D. Orobengoa, G. de la Flor, E.S. Tasci, J. M. Perez-Mato and H. Wondratschek, Acta Cryst. A70 126-137 (2014).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">crystal_system</span> <span class="o">=</span> <span class="n">get_crystal_system</span><span class="p">(</span><span class="n">hall_number</span><span class="p">)</span>
+    <span class="n">spacegroup_type</span> <span class="o">=</span> <span class="n">get_spacegroup_type</span><span class="p">(</span><span class="n">hall_number</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">crystal_system</span> <span class="o">==</span> <span class="s2">&quot;trigonal&quot;</span><span class="p">:</span>
+        <span class="n">choice</span> <span class="o">=</span> <span class="n">spacegroup_type</span><span class="p">[</span><span class="s2">&quot;choice&quot;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">choice</span> <span class="o">==</span> <span class="s2">&quot;H&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+                <span class="p">[</span>
+                    <span class="p">[</span><span class="mi">2</span> <span class="o">/</span> <span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span> <span class="o">/</span> <span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span> <span class="o">/</span> <span class="mi">3</span><span class="p">],</span>
+                    <span class="p">[</span><span class="mi">1</span> <span class="o">/</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span> <span class="o">/</span> <span class="mi">3</span><span class="p">],</span>
+                    <span class="p">[</span><span class="mi">1</span> <span class="o">/</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">3</span><span class="p">],</span>
+                <span class="p">]</span>
+            <span class="p">)</span>
+        <span class="k">elif</span> <span class="n">choice</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;R&quot;</span><span class="p">]:</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Unreachable!&quot;</span><span class="p">)</span>
+
+    <span class="n">hall_symbol</span> <span class="o">=</span> <span class="n">spacegroup_type</span><span class="p">[</span><span class="s2">&quot;hall_symbol&quot;</span><span class="p">]</span>
+    <span class="n">centering</span> <span class="o">=</span> <span class="n">get_centering</span><span class="p">(</span><span class="n">hall_symbol</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">centering</span> <span class="o">==</span> <span class="s2">&quot;P&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">centering</span> <span class="o">==</span> <span class="s2">&quot;A&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+            <span class="p">[</span>
+                <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+                <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span> <span class="o">/</span> <span class="mi">2</span><span class="p">],</span>
+                <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">2</span><span class="p">],</span>
+            <span class="p">]</span>
+        <span class="p">)</span>
+    <span class="k">elif</span> <span class="n">centering</span> <span class="o">==</span> <span class="s2">&quot;B&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+            <span class="p">[</span>
+                <span class="p">[</span><span class="mi">1</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span> <span class="o">/</span> <span class="mi">2</span><span class="p">],</span>
+                <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+                <span class="p">[</span><span class="mi">1</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">2</span><span class="p">],</span>
+            <span class="p">]</span>
+        <span class="p">)</span>
+    <span class="k">elif</span> <span class="n">centering</span> <span class="o">==</span> <span class="s2">&quot;C&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+            <span class="p">[</span>
+                <span class="p">[</span><span class="mi">1</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+                <span class="p">[</span><span class="o">-</span><span class="mi">1</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+                <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+            <span class="p">]</span>
+        <span class="p">)</span>
+    <span class="k">elif</span> <span class="n">centering</span> <span class="o">==</span> <span class="s2">&quot;I&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+            <span class="p">[</span>
+                <span class="p">[</span><span class="o">-</span><span class="mi">1</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">2</span><span class="p">],</span>
+                <span class="p">[</span><span class="mi">1</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">2</span><span class="p">],</span>
+                <span class="p">[</span><span class="mi">1</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span> <span class="o">/</span> <span class="mi">2</span><span class="p">],</span>
+            <span class="p">]</span>
+        <span class="p">)</span>
+    <span class="k">elif</span> <span class="n">centering</span> <span class="o">==</span> <span class="s2">&quot;F&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+            <span class="p">[</span>
+                <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">2</span><span class="p">],</span>
+                <span class="p">[</span><span class="mi">1</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">2</span><span class="p">],</span>
+                <span class="p">[</span><span class="mi">1</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+            <span class="p">]</span>
+        <span class="p">)</span>
+
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Unreachable!&quot;</span><span class="p">)</span></div>
+
+
+<span class="k">def</span> <span class="nf">get_crystal_system</span><span class="p">(</span>
+    <span class="n">hall_number</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Literal</span><span class="p">[</span>
+    <span class="s2">&quot;triclinic&quot;</span><span class="p">,</span> <span class="s2">&quot;monoclinic&quot;</span><span class="p">,</span> <span class="s2">&quot;orthorhombic&quot;</span><span class="p">,</span> <span class="s2">&quot;tetragonal&quot;</span><span class="p">,</span> <span class="s2">&quot;trigonal&quot;</span><span class="p">,</span> <span class="s2">&quot;hexagonal&quot;</span><span class="p">,</span> <span class="s2">&quot;cubic&quot;</span>
+<span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return crystal system from Hall number.&quot;&quot;&quot;</span>
+    <span class="n">crystal_system_range</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;triclinic&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+        <span class="s2">&quot;monoclinic&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">107</span><span class="p">],</span>
+        <span class="s2">&quot;orthorhombic&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">108</span><span class="p">,</span> <span class="mi">348</span><span class="p">],</span>
+        <span class="s2">&quot;tetragonal&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">349</span><span class="p">,</span> <span class="mi">429</span><span class="p">],</span>
+        <span class="s2">&quot;trigonal&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">430</span><span class="p">,</span> <span class="mi">461</span><span class="p">],</span>
+        <span class="s2">&quot;hexagonal&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">462</span><span class="p">,</span> <span class="mi">488</span><span class="p">],</span>
+        <span class="s2">&quot;cubic&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">489</span><span class="p">,</span> <span class="mi">530</span><span class="p">],</span>
+    <span class="p">}</span>
+
+    <span class="k">for</span> <span class="n">csystem</span><span class="p">,</span> <span class="p">(</span><span class="n">lb</span><span class="p">,</span> <span class="n">ub</span><span class="p">)</span> <span class="ow">in</span> <span class="n">crystal_system_range</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">lb</span> <span class="o">&lt;=</span> <span class="n">hall_number</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">hall_number</span> <span class="o">&lt;=</span> <span class="n">ub</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">csystem</span>  <span class="c1"># type: ignore</span>
+
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Unknown Hall number: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">hall_number</span><span class="p">))</span>
+
+
+<span class="k">def</span> <span class="nf">get_centering</span><span class="p">(</span><span class="n">hall_symbol</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;P&quot;</span><span class="p">,</span> <span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="s2">&quot;C&quot;</span><span class="p">,</span> <span class="s2">&quot;I&quot;</span><span class="p">,</span> <span class="s2">&quot;R&quot;</span><span class="p">,</span> <span class="s2">&quot;F&quot;</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return centering symbol from Hall symbol.&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">hall_symbol</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;-&quot;</span><span class="p">:</span>
+        <span class="c1"># e.g. &quot;-P 2c 2b&quot;</span>
+        <span class="k">return</span> <span class="n">hall_symbol</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># type: ignore</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">hall_symbol</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># type: ignore</span>
+</pre></div>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Kohei Shinohara<br/>
+  
+      &copy; Copyright 2022, Kohei Shinohara.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>
