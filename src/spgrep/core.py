@@ -276,23 +276,26 @@ def get_spacegroup_spinor_irreps(
     rtol: float = 1e-5,
     atol: float = 1e-8,
     max_num_random_generations: int = 4,
-) -> tuple[
-    list[NDArrayComplex],
-    NDArrayComplex,
-    NDArrayComplex,
-    NDArrayInt,
-    NDArrayFloat,
-    NDArrayInt,
-] | tuple[
-    list[NDArrayComplex],
-    NDArrayComplex,
-    NDArrayComplex,
-    NDArrayBool,
-    NDArrayInt,
-    NDArrayFloat,
-    NDArrayInt,
-    NDArrayInt,
-]:
+) -> (
+    tuple[
+        list[NDArrayComplex],
+        NDArrayComplex,
+        NDArrayComplex,
+        NDArrayInt,
+        NDArrayFloat,
+        NDArrayInt,
+    ]
+    | tuple[
+        list[NDArrayComplex],
+        NDArrayComplex,
+        NDArrayComplex,
+        NDArrayBool,
+        NDArrayInt,
+        NDArrayFloat,
+        NDArrayInt,
+        NDArrayInt,
+    ]
+):
     r"""Compute all irreducible representations :math:`\mathbf{\Gamma}^{\mathbf{k}\alpha}` of space group of given structure up to unitary transformation for spinor.
 
     Each irrep :math:`\mathbf{\Gamma}^{\mathbf{k}\alpha}` satisfies
@@ -466,9 +469,12 @@ def get_spacegroup_spinor_irreps_from_primitive_symmetry(
     rtol: float = 1e-5,
     atol: float = 1e-8,
     max_num_random_generations: int = 4,
-) -> tuple[list[NDArrayComplex], NDArrayComplex, NDArrayComplex, NDArrayInt] | tuple[
-    list[NDArrayComplex], list[int], NDArrayComplex, NDArrayComplex, NDArrayBool, NDArrayInt
-]:
+) -> (
+    tuple[list[NDArrayComplex], NDArrayComplex, NDArrayComplex, NDArrayInt]
+    | tuple[
+        list[NDArrayComplex], list[int], NDArrayComplex, NDArrayComplex, NDArrayBool, NDArrayInt
+    ]
+):
     r"""Compute all irreducible representations :math:`\mathbf{\Gamma}^{\mathbf{k}\alpha}` of given space group up to unitary transformation for spinor.
 
     Each irrep :math:`\mathbf{\Gamma}^{\mathbf{k}\alpha}` satisfies
@@ -594,9 +600,10 @@ def get_crystallographic_pointgroup_spinor_irreps_from_symmetry(
     rtol: float = 1e-5,
     atol: float = 1e-8,
     max_num_random_generations: int = 4,
-) -> tuple[list[NDArrayComplex], NDArrayComplex, NDArrayComplex] | tuple[
-    list[NDArrayComplex], list[int], NDArrayComplex, NDArrayComplex, NDArrayBool
-]:
+) -> (
+    tuple[list[NDArrayComplex], NDArrayComplex, NDArrayComplex]
+    | tuple[list[NDArrayComplex], list[int], NDArrayComplex, NDArrayComplex, NDArrayBool]
+):
     r"""Compute all irreducible representations :math:`\mathbf{D}^{\alpha}` of given crystallographic point group up to unitary transformation for spinor.
 
     Each irrep :math:`\mathbf{D}^{\alpha}` satisfies
