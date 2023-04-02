@@ -3,12 +3,11 @@
 <!DOCTYPE html>
 
 
-<html lang="en" >
+<html >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>API Reference &#8212; spgrep 0.3.4</title>
   
   
@@ -19,12 +18,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
 
   
-  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -33,12 +32,13 @@
     <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d" />
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'api/api';</script>
@@ -47,7 +47,7 @@
     <link rel="next" title="Core functions" href="api_core.html" />
     <link rel="prev" title="Constructing symmetry-adapted basis" href="../formulation/projection.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:language" content="None"/>
   </head>
   
   
@@ -330,8 +330,8 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="api-reference">
-<h1>API Reference<a class="headerlink" href="#api-reference" title="Permalink to this heading">#</a></h1>
+  <div class="tex2jax_ignore mathjax_ignore section" id="api-reference">
+<h1>API Reference<a class="headerlink" href="#api-reference" title="Permalink to this headline">#</a></h1>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="api_core.html">    Core functions</a><ul>
@@ -342,98 +342,29 @@ document.write(`
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="api_core.html#linear-representation">Linear representation</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="api_core.html#space-group">Space group</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="api_core.html#spgrep.get_spacegroup_irreps"><code class="docutils literal notranslate"><span class="pre">get_spacegroup_irreps()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="api_core.html#spgrep.get_spacegroup_irreps_from_primitive_symmetry"><code class="docutils literal notranslate"><span class="pre">get_spacegroup_irreps_from_primitive_symmetry()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="api_core.html#crystallographic-point-group">Crystallographic point group</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="api_core.html#spgrep.get_crystallographic_pointgroup_irreps_from_symmetry"><code class="docutils literal notranslate"><span class="pre">get_crystallographic_pointgroup_irreps_from_symmetry()</span></code></a></li>
-</ul>
-</li>
+<li class="toctree-l3"><a class="reference internal" href="api_core.html#space-group">Space group</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_core.html#crystallographic-point-group">Crystallographic point group</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="api_core.html#spin-representation">Spin representation</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="api_core.html#id1">Space group</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="api_core.html#spgrep.get_spacegroup_spinor_irreps"><code class="docutils literal notranslate"><span class="pre">get_spacegroup_spinor_irreps()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="api_core.html#spgrep.get_spacegroup_spinor_irreps_from_primitive_symmetry"><code class="docutils literal notranslate"><span class="pre">get_spacegroup_spinor_irreps_from_primitive_symmetry()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="api_core.html#id2">Crystallographic point group</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="api_core.html#spgrep.get_crystallographic_pointgroup_spinor_irreps_from_symmetry"><code class="docutils literal notranslate"><span class="pre">get_crystallographic_pointgroup_spinor_irreps_from_symmetry()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_core.html#id1">Space group</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_core.html#id2">Crystallographic point group</a></li>
 </ul>
 </li>
 </ul>
 </li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="api_group.html">    Group</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="api_group.html#spgrep.group.get_cayley_table"><code class="docutils literal notranslate"><span class="pre">get_cayley_table()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api_group.html#spgrep.group.get_identity_index"><code class="docutils literal notranslate"><span class="pre">get_identity_index()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api_group.html#spgrep.group.get_inverse_index"><code class="docutils literal notranslate"><span class="pre">get_inverse_index()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api_group.html#spgrep.group.get_order"><code class="docutils literal notranslate"><span class="pre">get_order()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api_group.html#spgrep.group.is_matrix_group"><code class="docutils literal notranslate"><span class="pre">is_matrix_group()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api_group.html#spgrep.group.get_factor_system_from_little_group"><code class="docutils literal notranslate"><span class="pre">get_factor_system_from_little_group()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api_group.html#spgrep.group.get_little_group"><code class="docutils literal notranslate"><span class="pre">get_little_group()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api_group.html#spgrep.group.check_cocycle_condition"><code class="docutils literal notranslate"><span class="pre">check_cocycle_condition()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api_group.html#spgrep.group.decompose_by_maximal_space_subgroup"><code class="docutils literal notranslate"><span class="pre">decompose_by_maximal_space_subgroup()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="api_pointgroup.html">    Point group</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="api_pointgroup.html#spgrep.pointgroup.get_pointgroup_chain_generators"><code class="docutils literal notranslate"><span class="pre">get_pointgroup_chain_generators()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="api_transformation.html">    Transformation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="api_transformation.html#spgrep.transform.transform_symmetry_and_kpoint"><code class="docutils literal notranslate"><span class="pre">transform_symmetry_and_kpoint()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api_transformation.html#spgrep.transform.get_primitive_transformation_matrix"><code class="docutils literal notranslate"><span class="pre">get_primitive_transformation_matrix()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="api_representation.html">    Representation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="api_representation.html#spgrep.representation.get_regular_representation"><code class="docutils literal notranslate"><span class="pre">get_regular_representation()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api_representation.html#spgrep.representation.get_projective_regular_representation"><code class="docutils literal notranslate"><span class="pre">get_projective_regular_representation()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api_representation.html#spgrep.representation.get_intertwiner"><code class="docutils literal notranslate"><span class="pre">get_intertwiner()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api_representation.html#spgrep.representation.get_character"><code class="docutils literal notranslate"><span class="pre">get_character()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api_representation.html#spgrep.representation.project_to_irrep"><code class="docutils literal notranslate"><span class="pre">project_to_irrep()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api_representation.html#spgrep.representation.is_unitary"><code class="docutils literal notranslate"><span class="pre">is_unitary()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api_representation.html#spgrep.representation.is_representation"><code class="docutils literal notranslate"><span class="pre">is_representation()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api_representation.html#spgrep.representation.frobenius_schur_indicator"><code class="docutils literal notranslate"><span class="pre">frobenius_schur_indicator()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api_representation.html#spgrep.representation.check_spacegroup_representation"><code class="docutils literal notranslate"><span class="pre">check_spacegroup_representation()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api_representation.html#spgrep.representation.get_direct_product"><code class="docutils literal notranslate"><span class="pre">get_direct_product()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="api_irreps.html">    Irreps</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="api_irreps.html#spgrep.irreps.enumerate_small_representations"><code class="docutils literal notranslate"><span class="pre">enumerate_small_representations()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api_irreps.html#spgrep.irreps.enumerate_unitary_irreps"><code class="docutils literal notranslate"><span class="pre">enumerate_unitary_irreps()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api_irreps.html#spgrep.irreps.enumerate_unitary_irreps_from_regular_representation"><code class="docutils literal notranslate"><span class="pre">enumerate_unitary_irreps_from_regular_representation()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api_irreps.html#spgrep.irreps.decompose_representation"><code class="docutils literal notranslate"><span class="pre">decompose_representation()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api_irreps.html#spgrep.irreps.enumerate_unitary_irreps_from_solvable_group_chain"><code class="docutils literal notranslate"><span class="pre">enumerate_unitary_irreps_from_solvable_group_chain()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api_irreps.html#spgrep.irreps.get_physically_irrep"><code class="docutils literal notranslate"><span class="pre">get_physically_irrep()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api_irreps.html#spgrep.irreps.is_equivalent_irrep"><code class="docutils literal notranslate"><span class="pre">is_equivalent_irrep()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="api_spinor.html">    Spinor</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="api_spinor.html#spgrep.spinor.enumerate_spinor_small_representations"><code class="docutils literal notranslate"><span class="pre">enumerate_spinor_small_representations()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api_spinor.html#spgrep.spinor.get_spinor_factor_system"><code class="docutils literal notranslate"><span class="pre">get_spinor_factor_system()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api_spinor.html#spgrep.spinor.get_spinor_unitary_rotation"><code class="docutils literal notranslate"><span class="pre">get_spinor_unitary_rotation()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="api_corep.html">    Co-representation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="api_corep.html#spgrep.corep.enumerate_spinor_small_corepresentations"><code class="docutils literal notranslate"><span class="pre">enumerate_spinor_small_corepresentations()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api_corep.html#spgrep.corep.get_corep_spinor_factor_system"><code class="docutils literal notranslate"><span class="pre">get_corep_spinor_factor_system()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="api_tensor.html">    Tensor</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="api_tensor.html#spgrep.tensor.get_symmetry_adapted_tensors"><code class="docutils literal notranslate"><span class="pre">get_symmetry_adapted_tensors()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api_tensor.html#spgrep.tensor.apply_intrinsic_symmetry"><code class="docutils literal notranslate"><span class="pre">apply_intrinsic_symmetry()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="api_utils.html">    Utility functions</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="api_utils.html#spgrep.utils.grassmann_distance"><code class="docutils literal notranslate"><span class="pre">grassmann_distance()</span></code></a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="api_group.html">    Group</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_pointgroup.html">    Point group</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_transformation.html">    Transformation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_representation.html">    Representation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_irreps.html">    Irreps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_spinor.html">    Spinor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_corep.html">    Co-representation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_tensor.html">    Tensor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_utils.html">    Utility functions</a></li>
 </ul>
 </div>
-</section>
+</div>
 
 
                 </article>
@@ -442,7 +373,10 @@ document.write(`
               
               
                 <footer class="bd-footer-article">
-                  <!-- Previous / next buttons -->
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
        href="../formulation/projection.html"
@@ -462,7 +396,10 @@ document.write(`
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
+</div></div>
+  
 </div>
+
                 </footer>
               
             </div>
@@ -472,7 +409,7 @@ document.write(`
             
           </div>
           <footer class="bd-footer-content">
-            <div class="bd-footer-content__inner">
+            
 <div class="bd-footer-content__inner container">
   
   <div class="footer-item">
@@ -502,7 +439,7 @@ By Kohei Shinohara
     
   </div>
   
-</div></div>
+</div>
           </footer>
         
 
@@ -511,8 +448,8 @@ By Kohei Shinohara
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
 
   <footer class="bd-footer">
   </footer>

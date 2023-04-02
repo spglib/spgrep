@@ -3,12 +3,11 @@
 <!DOCTYPE html>
 
 
-<html lang="en" >
+<html >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Representation &#8212; spgrep 0.3.4</title>
   
   
@@ -19,12 +18,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
 
   
-  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -33,23 +32,24 @@
     <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d" />
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'api/api_representation';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Irreps" href="api_irreps.html" />
     <link rel="prev" title="Transformation" href="api_transformation.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:language" content="None"/>
   </head>
   
   
@@ -307,9 +307,7 @@ document.write(`
   </button>
 `);
 </script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="fa-solid fa-list"></span>
-</label>
+
 </div></div>
       
     </div>
@@ -325,23 +323,6 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
-            <div>
-                <h2> Contents </h2>
-            </div>
-            <nav aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spgrep.representation.get_regular_representation"><code class="docutils literal notranslate"><span class="pre">get_regular_representation()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spgrep.representation.get_projective_regular_representation"><code class="docutils literal notranslate"><span class="pre">get_projective_regular_representation()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spgrep.representation.get_intertwiner"><code class="docutils literal notranslate"><span class="pre">get_intertwiner()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spgrep.representation.get_character"><code class="docutils literal notranslate"><span class="pre">get_character()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spgrep.representation.project_to_irrep"><code class="docutils literal notranslate"><span class="pre">project_to_irrep()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spgrep.representation.is_unitary"><code class="docutils literal notranslate"><span class="pre">is_unitary()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spgrep.representation.is_representation"><code class="docutils literal notranslate"><span class="pre">is_representation()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spgrep.representation.frobenius_schur_indicator"><code class="docutils literal notranslate"><span class="pre">frobenius_schur_indicator()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spgrep.representation.check_spacegroup_representation"><code class="docutils literal notranslate"><span class="pre">check_spacegroup_representation()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spgrep.representation.get_direct_product"><code class="docutils literal notranslate"><span class="pre">get_direct_product()</span></code></a></li>
-</ul>
-            </nav>
         </div>
     </div>
 </div>
@@ -351,22 +332,22 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="representation">
-<h1>Representation<a class="headerlink" href="#representation" title="Permalink to this heading">#</a></h1>
+  <div class="tex2jax_ignore mathjax_ignore section" id="representation">
+<h1>Representation<a class="headerlink" href="#representation" title="Permalink to this headline">#</a></h1>
 <blockquote>
 <div><dl class="py function">
 <dt class="sig sig-object py" id="spgrep.representation.get_regular_representation">
 <span class="sig-prename descclassname"><span class="pre">spgrep.representation.</span></span><span class="sig-name descname"><span class="pre">get_regular_representation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rotations</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/spgrep/representation.html#get_regular_representation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spgrep.representation.get_regular_representation" title="Permalink to this definition">#</a></dt>
 <dd><p>Calculate regular representation of point group.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>rotations</strong> (<em>array</em><em>, </em><em>(</em><em>order</em><em>, </em><em>3</em><em>, </em><em>3</em><em>)</em>) – </p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p><strong>reg</strong> – <code class="docutils literal notranslate"><span class="pre">reg[k]</span></code> is a representation matrix for <code class="docutils literal notranslate"><span class="pre">rotations[k]</span></code>.
 If and only if <code class="docutils literal notranslate"><span class="pre">np.dot(rotations[k],</span> <span class="pre">rotations[j])</span> <span class="pre">==</span> <span class="pre">rotations[i]</span></code>, <code class="docutils literal notranslate"><span class="pre">reg[k,</span> <span class="pre">i,</span> <span class="pre">j]</span> <span class="pre">==</span> <span class="pre">1</span></code>.</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>array, (order, order, order)</p>
 </dd>
 </dl>
@@ -379,17 +360,17 @@ If and only if <code class="docutils literal notranslate"><span class="pre">np.d
 <span class="sig-prename descclassname"><span class="pre">spgrep.representation.</span></span><span class="sig-name descname"><span class="pre">get_projective_regular_representation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rotations</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">factor_system</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/spgrep/representation.html#get_projective_regular_representation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spgrep.representation.get_projective_regular_representation" title="Permalink to this definition">#</a></dt>
 <dd><p>Calculate regular representation of space group with factor system.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>rotations</strong> (<em>array</em><em>, </em><em>(</em><em>order</em><em>, </em><em>3</em><em>, </em><em>3</em><em>)</em>) – </p></li>
 <li><p><strong>factor_system</strong> (<em>array</em><em>, </em><em>(</em><em>order</em><em>, </em><em>order</em><em>)</em>) – </p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p><strong>reg</strong> – <code class="docutils literal notranslate"><span class="pre">reg[k]</span></code> is a representation matrix for <code class="docutils literal notranslate"><span class="pre">rotations[k]</span></code>.
 If and only if <code class="docutils literal notranslate"><span class="pre">np.dot(rotations[k],</span> <span class="pre">rotations[j])</span> <span class="pre">==</span> <span class="pre">rotations[i]</span></code>, <code class="docutils literal notranslate"><span class="pre">reg[k,</span> <span class="pre">i,</span> <span class="pre">j]</span> <span class="pre">==</span> <span class="pre">factor_system[k,</span> <span class="pre">j]</span></code>.</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>array, (order, order, order)</p>
 </dd>
 </dl>
@@ -404,7 +385,7 @@ If and only if <code class="docutils literal notranslate"><span class="pre">np.d
 <p>The determinant of <code class="docutils literal notranslate"><span class="pre">matrix</span></code> is scaled to be unity.</p>
 <p>This function takes O(order * dim^4).</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>rep1</strong> (<em>array</em><em>, </em><em>(</em><em>order</em><em>, </em><em>dim</em><em>, </em><em>dim</em><em>)</em>) – Unitary irrep</p></li>
 <li><p><strong>rep2</strong> (<em>array</em><em>, </em><em>(</em><em>order</em><em>, </em><em>dim</em><em>, </em><em>dim</em><em>)</em>) – Unitary irrep</p></li>
@@ -412,10 +393,10 @@ If and only if <code class="docutils literal notranslate"><span class="pre">np.d
 <li><p><strong>max_num_random_generations</strong> (<em>int</em>) – Maximum number of trials to generate random matrix</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p><strong>matrix</strong></p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>array, (dim, dim)</p>
 </dd>
 </dl>
@@ -428,13 +409,13 @@ If and only if <code class="docutils literal notranslate"><span class="pre">np.d
 <span class="sig-prename descclassname"><span class="pre">spgrep.representation.</span></span><span class="sig-name descname"><span class="pre">get_character</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">representation</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/spgrep/representation.html#get_character"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spgrep.representation.get_character" title="Permalink to this definition">#</a></dt>
 <dd><p>Calculate character of representation.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>representation</strong> (<em>array</em><em>, </em><em>(</em><em>order</em><em>, </em><em>dim</em><em>, </em><em>dim</em><em>)</em>) – </p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p><strong>character</strong></p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>array, (order, )</p>
 </dd>
 </dl>
@@ -447,7 +428,7 @@ If and only if <code class="docutils literal notranslate"><span class="pre">np.d
 <span class="sig-prename descclassname"><span class="pre">spgrep.representation.</span></span><span class="sig-name descname"><span class="pre">project_to_irrep</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">representation</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">irrep</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-06</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_num_trials</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/spgrep/representation.html#project_to_irrep"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spgrep.representation.project_to_irrep" title="Permalink to this definition">#</a></dt>
 <dd><p>Construct basis functions for <code class="docutils literal notranslate"><span class="pre">irrep</span></code> by linear combinations of basis functions of <code class="docutils literal notranslate"><span class="pre">representation</span></code>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>representation</strong> (<em>array</em><em>, </em><em>(</em><em>order</em><em>, </em><em>dim</em><em>, </em><em>dim</em><em>)</em>) – </p></li>
 <li><p><strong>irrep</strong> (<em>array</em><em>, </em><em>(</em><em>order</em><em>, </em><em>dim_irrep</em><em>, </em><em>dim_irrep</em><em>)</em>) – Unitary (projective) irrep with factor system s.t. <span class="math notranslate nohighlight">\(\mu(E, E) = 1\)</span>.</p></li>
@@ -455,10 +436,10 @@ If and only if <code class="docutils literal notranslate"><span class="pre">np.d
 <li><p><strong>max_num_trials</strong> (<em>int</em><em>, </em><em>default=10</em>) – Maximum number to retry when failed to select projected basis vectors</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p><strong>basis</strong> – Each basis vectors are orthonormal.</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>list of array with (irrep_dim, dim)</p>
 </dd>
 </dl>
@@ -490,15 +471,15 @@ If and only if <code class="docutils literal notranslate"><span class="pre">np.d
 \[\mathrm{indicator} =
 \frac{1}{|G|} \sum_{ g \in G } \chi(g^{2})\]</div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>irrep</strong> (<em>array</em><em>, </em><em>(</em><em>order</em><em>, </em><em>dim</em><em>, </em><em>dim</em><em>)</em>) – </p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p><strong>indicator</strong> – If <code class="docutils literal notranslate"><span class="pre">indicator==1</span></code>, it is real Reps.
 If <code class="docutils literal notranslate"><span class="pre">indicator==-1</span></code>, it is psedu-real Reps.
 Otherwise, it and adjoint Reps. are not equivalent.</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>int</p>
 </dd>
 </dl>
@@ -519,23 +500,23 @@ Otherwise, it and adjoint Reps. are not equivalent.</p>
 <span class="sig-prename descclassname"><span class="pre">spgrep.representation.</span></span><span class="sig-name descname"><span class="pre">get_direct_product</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rep1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rep2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/spgrep/representation.html#get_direct_product"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spgrep.representation.get_direct_product" title="Permalink to this definition">#</a></dt>
 <dd><p>Return Knocker product of two representations.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>rep1</strong> (<em>array</em><em>, </em><em>(</em><em>order</em><em>, </em><em>dim1</em><em>, </em><em>dim1</em><em>)</em>) – </p></li>
 <li><p><strong>rep2</strong> (<em>array</em><em>, </em><em>(</em><em>order</em><em>, </em><em>dim2</em><em>, </em><em>dim2</em><em>)</em>) – </p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p><strong>direct</strong></p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>(order, dim1 * dim2, dim1 * dim2)</p>
 </dd>
 </dl>
 </dd></dl>
 
 </div></blockquote>
-</section>
+</div>
 
 
                 </article>
@@ -544,7 +525,10 @@ Otherwise, it and adjoint Reps. are not equivalent.</p>
               
               
                 <footer class="bd-footer-article">
-                  <!-- Previous / next buttons -->
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
        href="api_transformation.html"
@@ -564,40 +548,20 @@ Otherwise, it and adjoint Reps. are not equivalent.</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
+</div></div>
+  
 </div>
+
                 </footer>
               
             </div>
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-
-  <div class="sidebar-secondary-item">
-  <div class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> Contents
-  </div>
-  <nav class="bd-toc-nav page-toc">
-    <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spgrep.representation.get_regular_representation"><code class="docutils literal notranslate"><span class="pre">get_regular_representation()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spgrep.representation.get_projective_regular_representation"><code class="docutils literal notranslate"><span class="pre">get_projective_regular_representation()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spgrep.representation.get_intertwiner"><code class="docutils literal notranslate"><span class="pre">get_intertwiner()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spgrep.representation.get_character"><code class="docutils literal notranslate"><span class="pre">get_character()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spgrep.representation.project_to_irrep"><code class="docutils literal notranslate"><span class="pre">project_to_irrep()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spgrep.representation.is_unitary"><code class="docutils literal notranslate"><span class="pre">is_unitary()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spgrep.representation.is_representation"><code class="docutils literal notranslate"><span class="pre">is_representation()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spgrep.representation.frobenius_schur_indicator"><code class="docutils literal notranslate"><span class="pre">frobenius_schur_indicator()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spgrep.representation.check_spacegroup_representation"><code class="docutils literal notranslate"><span class="pre">check_spacegroup_representation()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spgrep.representation.get_direct_product"><code class="docutils literal notranslate"><span class="pre">get_direct_product()</span></code></a></li>
-</ul>
-  </nav></div>
-
-</div></div>
-              
             
           </div>
           <footer class="bd-footer-content">
-            <div class="bd-footer-content__inner">
+            
 <div class="bd-footer-content__inner container">
   
   <div class="footer-item">
@@ -627,7 +591,7 @@ By Kohei Shinohara
     
   </div>
   
-</div></div>
+</div>
           </footer>
         
 
@@ -636,8 +600,8 @@ By Kohei Shinohara
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
 
   <footer class="bd-footer">
   </footer>

@@ -3,12 +3,11 @@
 <!DOCTYPE html>
 
 
-<html lang="en" >
+<html >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>On-the-fly irreps generation from solvable group chain &#8212; spgrep 0.3.4</title>
   
   
@@ -19,12 +18,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
-<link href="../../_static/styles/bootstrap.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+  <link href="../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
 
   
-  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -33,23 +32,24 @@
     <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d" />
-<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d" />
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
 
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/sphinx_highlight.js"></script>
     <script src="../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'formulation/algorithm/irreps_from_chain';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Numerically obtain intertwiner between equivalent representations" href="intertwiner.html" />
     <link rel="prev" title="On-the-fly irreps generation from regular representation" href="irreps_from_regular.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:language" content="None"/>
   </head>
   
   
@@ -348,11 +348,11 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="on-the-fly-irreps-generation-from-solvable-group-chain">
-<h1>On-the-fly irreps generation from solvable group chain<a class="headerlink" href="#on-the-fly-irreps-generation-from-solvable-group-chain" title="Permalink to this heading">#</a></h1>
+  <div class="tex2jax_ignore mathjax_ignore section" id="on-the-fly-irreps-generation-from-solvable-group-chain">
+<h1>On-the-fly irreps generation from solvable group chain<a class="headerlink" href="#on-the-fly-irreps-generation-from-solvable-group-chain" title="Permalink to this headline">#</a></h1>
 <p>This page describes an algorithm to generate irreps for solvable groups <span id="id1">[<a class="reference internal" href="#id12" title="N. Neto. Irreducible representations of space groups. Acta Cryst. A, 29(4):464–472, Jul 1973. URL: https://doi.org/10.1107/S0567739473001129, doi:10.1107/S0567739473001129.">Net73</a>]</span>.</p>
-<section id="subduced-and-induced-representations-for-solvable-group">
-<h2>Subduced and induced representations for solvable group<a class="headerlink" href="#subduced-and-induced-representations-for-solvable-group" title="Permalink to this heading">#</a></h2>
+<div class="section" id="subduced-and-induced-representations-for-solvable-group">
+<h2>Subduced and induced representations for solvable group<a class="headerlink" href="#subduced-and-induced-representations-for-solvable-group" title="Permalink to this headline">#</a></h2>
 <p>Let <span class="math notranslate nohighlight">\(H\)</span> be invariant subgroup of <span class="math notranslate nohighlight">\(G\)</span> such that <span class="math notranslate nohighlight">\(G/H = \mathbb{Z}_{p}\)</span> (<span class="math notranslate nohighlight">\(p\)</span> is prime and <span class="math notranslate nohighlight">\(r^{p}=e\)</span>),</p>
 <div class="math notranslate nohighlight" id="equation-decomp">
 <span class="eqno">(1)<a class="headerlink" href="#equation-decomp" title="Permalink to this equation">#</a></span>\[
@@ -379,9 +379,9 @@ There are two cases for <span class="math notranslate nohighlight">\(\{ \Delta^{
 <li><p>They are mutually inequivalent: <span class="math notranslate nohighlight">\(\Delta \uparrow G \downarrow H \cong \sum_{m=0}^{p-1} \Delta^{(m)}\)</span></p></li>
 <li><p>They are all equivalent: <span class="math notranslate nohighlight">\(\Delta \uparrow G \downarrow H \cong p \Delta\)</span></p></li>
 </ol>
-<section id="case-1-conjugated-irreps-are-mutually-inequivalent">
-<h3>Case-1: conjugated irreps are mutually inequivalent<a class="headerlink" href="#case-1-conjugated-irreps-are-mutually-inequivalent" title="Permalink to this heading">#</a></h3>
-<p>For case-1, the induced representation <span class="math notranslate nohighlight">\(\Delta \uparrow G\)</span> is irrep <a class="footnote-reference brackets" href="#footnote1" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> <a class="footnote-reference brackets" href="#footnote2" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>:
+<div class="section" id="case-1-conjugated-irreps-are-mutually-inequivalent">
+<h3>Case-1: conjugated irreps are mutually inequivalent<a class="headerlink" href="#case-1-conjugated-irreps-are-mutually-inequivalent" title="Permalink to this headline">#</a></h3>
+<p>For case-1, the induced representation <span class="math notranslate nohighlight">\(\Delta \uparrow G\)</span> is irrep <a class="footnote-reference brackets" href="#footnote1" id="id2">1</a> <a class="footnote-reference brackets" href="#footnote2" id="id3">2</a>:
 <div class="math notranslate nohighlight">
 \[\begin{split}
   \Delta \uparrow G (r^{m} S)_{i:, j:}
@@ -405,9 +405,9 @@ There are two cases for <span class="math notranslate nohighlight">\(\{ \Delta^{
     \end{pmatrix}.
 \end{split}\]</div>
 </p>
-</section>
-<section id="case-2-conjugated-irreps-are-equivalent">
-<h3>Case-2: conjugated irreps are equivalent<a class="headerlink" href="#case-2-conjugated-irreps-are-equivalent" title="Permalink to this heading">#</a></h3>
+</div>
+<div class="section" id="case-2-conjugated-irreps-are-equivalent">
+<h3>Case-2: conjugated irreps are equivalent<a class="headerlink" href="#case-2-conjugated-irreps-are-equivalent" title="Permalink to this headline">#</a></h3>
 <p>For case-2, the induced representation <span class="math notranslate nohighlight">\(\Delta \uparrow G\)</span> is reducible.
 Let one of intertwiner between <span class="math notranslate nohighlight">\(\Delta^{(0)}\)</span> and <span class="math notranslate nohighlight">\(\Delta^{(1)}\)</span> be <span class="math notranslate nohighlight">\(\mathbf{U}\)</span>,
 <div class="math notranslate nohighlight">
@@ -439,10 +439,10 @@ We scale <span class="math notranslate nohighlight">\(\mathbf{U}\)</span> such t
         \exp \left( \frac{2 \pi i q}{p} \right).
 \end{split}\]</div>
 </p>
-</section>
-</section>
-<section id="decomposition-of-crystallographic-point-groups">
-<h2>Decomposition of crystallographic point groups<a class="headerlink" href="#decomposition-of-crystallographic-point-groups" title="Permalink to this heading">#</a></h2>
+</div>
+</div>
+<div class="section" id="decomposition-of-crystallographic-point-groups">
+<h2>Decomposition of crystallographic point groups<a class="headerlink" href="#decomposition-of-crystallographic-point-groups" title="Permalink to this headline">#</a></h2>
 <p>A crystallographic point group <span class="math notranslate nohighlight">\(G\)</span> can always be decomposed as Eq. <a class="reference internal" href="#equation-decomp">(1)</a> because it is a solvable group.
 spgrep adapts the following decomposition <span id="id4">[<a class="reference internal" href="#id24" title="M. I. Aroyo, editor. International Tables for Crystallography. Volume A. International Union of Crystallography, December 2016. URL: https://doi.org/10.1107/97809553602060000114, doi:10.1107/97809553602060000114.">Aro16</a>]</span>:</p>
 <!--
@@ -451,34 +451,31 @@ So, we need to use mermaid CLI instead of a raw HTML output.
 https://github.com/mgaitan/sphinxcontrib-mermaid/issues/74
 -->
 <p><img alt="point_group_chain" src="../../_images/point_group_chain.mmd.svg" /></p>
-</section>
-<section id="references">
-<h2>References<a class="headerlink" href="#references" title="Permalink to this heading">#</a></h2>
+</div>
+<div class="section" id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">#</a></h2>
 <div class="docutils container" id="id5">
-<div class="citation" id="id24" role="doc-biblioentry">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id4">Aro16</a><span class="fn-bracket">]</span></span>
-<p>M. I. Aroyo, editor. <em>International Tables for Crystallography</em>. Volume A. International Union of Crystallography, December 2016. URL: <a class="reference external" href="https://doi.org/10.1107/97809553602060000114">https://doi.org/10.1107/97809553602060000114</a>, <a class="reference external" href="https://doi.org/10.1107/97809553602060000114">doi:10.1107/97809553602060000114</a>.</p>
-</div>
-<div class="citation" id="id12" role="doc-biblioentry">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">Net73</a><span class="fn-bracket">]</span></span>
-<p>N. Neto. Irreducible representations of space groups. <em>Acta Cryst. A</em>, 29(4):464–472, Jul 1973. URL: <a class="reference external" href="https://doi.org/10.1107/S0567739473001129">https://doi.org/10.1107/S0567739473001129</a>, <a class="reference external" href="https://doi.org/10.1107/S0567739473001129">doi:10.1107/S0567739473001129</a>.</p>
-</div>
-</div>
+<dl class="citation">
+<dt class="label" id="id24"><span class="brackets"><a class="fn-backref" href="#id4">Aro16</a></span></dt>
+<dd><p>M. I. Aroyo, editor. <em>International Tables for Crystallography</em>. Volume A. International Union of Crystallography, December 2016. URL: <a class="reference external" href="https://doi.org/10.1107/97809553602060000114">https://doi.org/10.1107/97809553602060000114</a>, <a class="reference external" href="https://doi.org/10.1107/97809553602060000114">doi:10.1107/97809553602060000114</a>.</p>
+</dd>
+<dt class="label" id="id12"><span class="brackets"><a class="fn-backref" href="#id1">Net73</a></span></dt>
+<dd><p>N. Neto. Irreducible representations of space groups. <em>Acta Cryst. A</em>, 29(4):464–472, Jul 1973. URL: <a class="reference external" href="https://doi.org/10.1107/S0567739473001129">https://doi.org/10.1107/S0567739473001129</a>, <a class="reference external" href="https://doi.org/10.1107/S0567739473001129">doi:10.1107/S0567739473001129</a>.</p>
+</dd>
+</dl>
 </div>
 <hr class="footnotes docutils" />
-<aside class="footnote-list brackets">
-<aside class="footnote brackets" id="footnote1" role="note">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">1</a><span class="fn-bracket">]</span></span>
-<p>This follows from Frobenius reciprocity theorem. In this case, <span class="math notranslate nohighlight">\(\Delta\)</span> appears only once in <span class="math notranslate nohighlight">\(\Gamma \downarrow H\)</span>.
+<dl class="footnote brackets">
+<dt class="label" id="footnote1"><span class="brackets"><a class="fn-backref" href="#id2">1</a></span></dt>
+<dd><p>This follows from Frobenius reciprocity theorem. In this case, <span class="math notranslate nohighlight">\(\Delta\)</span> appears only once in <span class="math notranslate nohighlight">\(\Gamma \downarrow H\)</span>.
 Thus, <span class="math notranslate nohighlight">\(\Gamma\)</span> appears only once in <span class="math notranslate nohighlight">\(\Delta \uparrow G\)</span>.</p>
-</aside>
-<aside class="footnote brackets" id="footnote2" role="note">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">2</a><span class="fn-bracket">]</span></span>
-<p>We can choose factor system to satisfy <span class="math notranslate nohighlight">\(\mu(E, R) = \mu(R, E) = 1 (\forall R \in G)\)</span>, and then <span class="math notranslate nohighlight">\(\Delta^{(0)} = \Delta\)</span></p>
-</aside>
-</aside>
-</section>
-</section>
+</dd>
+<dt class="label" id="footnote2"><span class="brackets"><a class="fn-backref" href="#id3">2</a></span></dt>
+<dd><p>We can choose factor system to satisfy <span class="math notranslate nohighlight">\(\mu(E, R) = \mu(R, E) = 1 (\forall R \in G)\)</span>, and then <span class="math notranslate nohighlight">\(\Delta^{(0)} = \Delta\)</span></p>
+</dd>
+</dl>
+</div>
+</div>
 
 
                 </article>
@@ -487,7 +484,10 @@ Thus, <span class="math notranslate nohighlight">\(\Gamma\)</span> appears only 
               
               
                 <footer class="bd-footer-article">
-                  <!-- Previous / next buttons -->
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
        href="irreps_from_regular.html"
@@ -507,7 +507,10 @@ Thus, <span class="math notranslate nohighlight">\(\Gamma\)</span> appears only 
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
+</div></div>
+  
 </div>
+
                 </footer>
               
             </div>
@@ -537,7 +540,7 @@ Thus, <span class="math notranslate nohighlight">\(\Gamma\)</span> appears only 
             
           </div>
           <footer class="bd-footer-content">
-            <div class="bd-footer-content__inner">
+            
 <div class="bd-footer-content__inner container">
   
   <div class="footer-item">
@@ -567,7 +570,7 @@ By Kohei Shinohara
     
   </div>
   
-</div></div>
+</div>
           </footer>
         
 
@@ -576,8 +579,8 @@ By Kohei Shinohara
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d"></script>
-<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d"></script>
+  <script src="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
 
   <footer class="bd-footer">
   </footer>

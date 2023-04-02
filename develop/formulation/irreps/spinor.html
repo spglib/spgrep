@@ -3,12 +3,11 @@
 <!DOCTYPE html>
 
 
-<html lang="en" >
+<html >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Spin representation &#8212; spgrep 0.3.4</title>
   
   
@@ -19,12 +18,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
-<link href="../../_static/styles/bootstrap.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+  <link href="../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
 
   
-  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -33,23 +32,24 @@
     <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d" />
-<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d" />
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
 
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/sphinx_highlight.js"></script>
     <script src="../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'formulation/irreps/spinor';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Co-representation of magnetic point and space group" href="corep.html" />
     <link rel="prev" title="Physically irreducible representation (PIR)" href="reality.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:language" content="None"/>
   </head>
   
   
@@ -348,14 +348,14 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="spin-representation">
-<span id="id1"></span><h1>Spin representation<a class="headerlink" href="#spin-representation" title="Permalink to this heading">#</a></h1>
+  <div class="tex2jax_ignore mathjax_ignore section" id="spin-representation">
+<span id="id1"></span><h1>Spin representation<a class="headerlink" href="#spin-representation" title="Permalink to this headline">#</a></h1>
 <p>A spin representation is a projective representation with a factor system for spinor wave functions.
 Here, we give the convention to choose the factor system for spinor in spgrep.</p>
-<section id="factor-system-for-spinor">
-<h2>Factor system for spinor<a class="headerlink" href="#factor-system-for-spinor" title="Permalink to this heading">#</a></h2>
-<section id="symmetry-operation-of-the-first-kind">
-<h3>Symmetry operation of the first kind<a class="headerlink" href="#symmetry-operation-of-the-first-kind" title="Permalink to this heading">#</a></h3>
+<div class="section" id="factor-system-for-spinor">
+<h2>Factor system for spinor<a class="headerlink" href="#factor-system-for-spinor" title="Permalink to this headline">#</a></h2>
+<div class="section" id="symmetry-operation-of-the-first-kind">
+<h3>Symmetry operation of the first kind<a class="headerlink" href="#symmetry-operation-of-the-first-kind" title="Permalink to this headline">#</a></h3>
 <p>The map <span class="math notranslate nohighlight">\(\mathrm{SO}(3) \ni \mathbf{R}_{ \theta\hat{\mathbf{n}} } \mapsto \mathbf{U} ( \mathbf{R}_{ \theta\hat{\mathbf{n}} } ) := \exp \left( -\frac{i}{2}\theta \hat{\mathbf{n}} \cdot \mathbf{\sigma} \right) \in \mathrm{SU}(2)\)</span> is not surjective, where <span class="math notranslate nohighlight">\(\mathbf{\sigma}_{i} \, (i=x,y,z)\)</span> are Pauli matrices
 <div class="math notranslate nohighlight">
 \[\begin{split}
@@ -457,9 +457,9 @@ For <span class="math notranslate nohighlight">\(\mathbf{S}_{i} \mathbf{S}_{j} =
 
 where <span class="math notranslate nohighlight">\(\mathbf{g}_{i} = \mathbf{S}_{i}^{-1} \mathbf{k} - \mathbf{k}\)</span>.
 We can enumerate projective irreps for spinor from the factor system <span class="math notranslate nohighlight">\(\mu_{\mathbf{k}}(S_{i}, S_{j}) := z(\mathbf{S}_{i}, \mathbf{S}_{j}) \exp \left( -i \mathbf{g}_{i} \cdot \mathbf{w}_{j} \right)\)</span>.</p>
-</section>
-<section id="symmetry-operation-of-the-second-kind">
-<h3>Symmetry operation of the second kind<a class="headerlink" href="#symmetry-operation-of-the-second-kind" title="Permalink to this heading">#</a></h3>
+</div>
+<div class="section" id="symmetry-operation-of-the-second-kind">
+<h3>Symmetry operation of the second kind<a class="headerlink" href="#symmetry-operation-of-the-second-kind" title="Permalink to this headline">#</a></h3>
 <p>We <strong>assume</strong> the inversion <span class="math notranslate nohighlight">\(\mathbf{I}\)</span> acts on spin functions as
 <div class="math notranslate nohighlight">
 \[\begin{split}
@@ -476,10 +476,10 @@ z(\mathbf{R}, \mathbf{I}\mathbf{R}') &amp;= z(\mathbf{IR}, \mathbf{R}') = z(\mat
     \quad (\mathbf{R}, \mathbf{R}' \in \mathrm{SO}(3)).
 \end{split}\]</div>
 </p>
-</section>
-</section>
-<section id="convention-of-rotations-for-spinor">
-<h2>Convention of rotations for spinor<a class="headerlink" href="#convention-of-rotations-for-spinor" title="Permalink to this heading">#</a></h2>
+</div>
+</div>
+<div class="section" id="convention-of-rotations-for-spinor">
+<h2>Convention of rotations for spinor<a class="headerlink" href="#convention-of-rotations-for-spinor" title="Permalink to this headline">#</a></h2>
 <p>A rotation <span class="math notranslate nohighlight">\(\mathbf{R}_{ \theta\hat{\mathbf{n}} } \in \mathrm{SO}(3)\)</span> can be written with angular momentum operators:
 <div class="math notranslate nohighlight">
 \[\begin{split}
@@ -542,18 +542,18 @@ z(\mathbf{R}, \mathbf{I}\mathbf{R}') &amp;= z(\mathbf{IR}, \mathbf{R}') = z(\mat
         \end{pmatrix}.
 \end{split}\]</div>
 </p>
-</section>
-<section id="references">
-<h2>References<a class="headerlink" href="#references" title="Permalink to this heading">#</a></h2>
+</div>
+<div class="section" id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">#</a></h2>
 <div class="docutils container" id="id3">
-<div class="citation" id="id19" role="doc-biblioentry">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">Alt05</a><span class="fn-bracket">]</span></span>
-<p>Simon L Altmann. <em>Rotations, quaternions, and double groups</em>. Courier Corporation, 2005.</p>
+<dl class="citation">
+<dt class="label" id="id19"><span class="brackets"><a class="fn-backref" href="#id2">Alt05</a></span></dt>
+<dd><p>Simon L Altmann. <em>Rotations, quaternions, and double groups</em>. Courier Corporation, 2005.</p>
+</dd>
+</dl>
 </div>
 </div>
 </div>
-</section>
-</section>
 
 
                 </article>
@@ -562,7 +562,10 @@ z(\mathbf{R}, \mathbf{I}\mathbf{R}') &amp;= z(\mathbf{IR}, \mathbf{R}') = z(\mat
               
               
                 <footer class="bd-footer-article">
-                  <!-- Previous / next buttons -->
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
        href="reality.html"
@@ -582,7 +585,10 @@ z(\mathbf{R}, \mathbf{I}\mathbf{R}') &amp;= z(\mathbf{IR}, \mathbf{R}') = z(\mat
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
+</div></div>
+  
 </div>
+
                 </footer>
               
             </div>
@@ -612,7 +618,7 @@ z(\mathbf{R}, \mathbf{I}\mathbf{R}') &amp;= z(\mathbf{IR}, \mathbf{R}') = z(\mat
             
           </div>
           <footer class="bd-footer-content">
-            <div class="bd-footer-content__inner">
+            
 <div class="bd-footer-content__inner container">
   
   <div class="footer-item">
@@ -642,7 +648,7 @@ By Kohei Shinohara
     
   </div>
   
-</div></div>
+</div>
           </footer>
         
 
@@ -651,8 +657,8 @@ By Kohei Shinohara
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d"></script>
-<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d"></script>
+  <script src="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
 
   <footer class="bd-footer">
   </footer>

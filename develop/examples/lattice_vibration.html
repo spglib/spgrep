@@ -3,12 +3,11 @@
 <!DOCTYPE html>
 
 
-<html lang="en" >
+<html >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Application of space-group irreps to lattice vibration &#8212; spgrep 0.3.4</title>
   
   
@@ -19,12 +18,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
 
   
-  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -34,23 +33,24 @@
     <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d" />
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'examples/lattice_vibration';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Spin representation for \(C_{3v}\)" href="spin_representation.html" />
     <link rel="prev" title="Symmetry-adapted tensor" href="symmetry_adapted_tensor.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:language" content="None"/>
   </head>
   
   
@@ -346,11 +346,11 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section id="Application-of-space-group-irreps-to-lattice-vibration">
-<h1>Application of space-group irreps to lattice vibration<a class="headerlink" href="#Application-of-space-group-irreps-to-lattice-vibration" title="Permalink to this heading">#</a></h1>
+  <div class="section" id="Application-of-space-group-irreps-to-lattice-vibration">
+<h1>Application of space-group irreps to lattice vibration<a class="headerlink" href="#Application-of-space-group-irreps-to-lattice-vibration" title="Permalink to this headline">#</a></h1>
 <p>This example shows how to prepare representation matrix of atomic displacements by space group, and block-diagonalize dynamical matrix for harmonic lattice vibration only from symmetry.</p>
-<section id="Import-modules">
-<h2>Import modules<a class="headerlink" href="#Import-modules" title="Permalink to this heading">#</a></h2>
+<div class="section" id="Import-modules">
+<h2>Import modules<a class="headerlink" href="#Import-modules" title="Permalink to this headline">#</a></h2>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
@@ -386,9 +386,9 @@ spgrep==0.3.2.dev5+ga44d231
 </pre></div>
 </div>
 </div>
-</section>
-<section id="Prepare-space-group-operations-and-representation">
-<h2>Prepare space-group operations and representation<a class="headerlink" href="#Prepare-space-group-operations-and-representation" title="Permalink to this heading">#</a></h2>
+</div>
+<div class="section" id="Prepare-space-group-operations-and-representation">
+<h2>Prepare space-group operations and representation<a class="headerlink" href="#Prepare-space-group-operations-and-representation" title="Permalink to this headline">#</a></h2>
 <p>We consider lattice vibration of Perovskite structure (<span class="math notranslate nohighlight">\(Pm\overline{3}m\)</span>) at X point.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
@@ -439,7 +439,7 @@ spgrep==0.3.2.dev5+ga44d231
 <div class="math notranslate nohighlight">
 \[\mathbf{u}(\kappa; \mathbf{q})
   := \sqrt{\frac{M_{\kappa}}{N}} \sum_{l} \mathbf{u}(\mathbf{r}(l\kappa)) e^{ i \mathbf{q} \cdot \mathbf{r}(l) },\]</div>
-<p>where <span class="math notranslate nohighlight">\(N\)</span> is number of lattice points in a supercell, and <span class="math notranslate nohighlight">\(M_{\kappa}\)</span> is mass of the <span class="math notranslate nohighlight">\(\kappa\)</span>-th atom. Let <span class="math notranslate nohighlight">\(\mathbf{r}(l\kappa)\)</span> be equilibrium position of the <span class="math notranslate nohighlight">\(\kappa\)</span>-th atom in the <span class="math notranslate nohighlight">\(l\)</span>-th unit cell. The fourier transformation of <span class="math notranslate nohighlight">\(u_{\mu}(l \kappa)\)</span> forms representation of space group <span class="math notranslate nohighlight">\(\mathcal{G}\)</span>  <a class="footnote-reference brackets" href="#id2" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> as</p>
+<p>where <span class="math notranslate nohighlight">\(N\)</span> is number of lattice points in a supercell, and <span class="math notranslate nohighlight">\(M_{\kappa}\)</span> is mass of the <span class="math notranslate nohighlight">\(\kappa\)</span>-th atom. Let <span class="math notranslate nohighlight">\(\mathbf{r}(l\kappa)\)</span> be equilibrium position of the <span class="math notranslate nohighlight">\(\kappa\)</span>-th atom in the <span class="math notranslate nohighlight">\(l\)</span>-th unit cell. The fourier transformation of <span class="math notranslate nohighlight">\(u_{\mu}(l \kappa)\)</span> forms representation of space group <span class="math notranslate nohighlight">\(\mathcal{G}\)</span>  <a class="footnote-reference brackets" href="#id2" id="id1">1</a> as</p>
 <div class="math notranslate nohighlight">
 \[g u_{\mu}(\kappa; \mathbf{q})
   = \sum_{\kappa'\mu'} u_{\mu'}(\kappa'; \mathbf{R}_{g} \mathbf{q} ) \Gamma_{\kappa'\mu'; \kappa\mu}^{\mathbf{q}}(g)
@@ -448,17 +448,16 @@ spgrep==0.3.2.dev5+ga44d231
 <div class="math notranslate nohighlight">
 \[\Gamma_{\kappa'\mu'; \kappa\mu}^{\mathbf{q}}(g)
   := \exp \left( -i \mathbf{R}_{g} \mathbf{q} \cdot (g \mathbf{r}(0\kappa)) - \mathbf{r}(\mathbf{0}\,g\kappa) \right) [\mathbf{R}_{g}]_{\mu'\mu} \delta_{ g\kappa, \kappa' }.\]</div>
-<aside class="footnote-list brackets">
-<aside class="footnote brackets" id="id2" role="note">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
-<ol class="upperalpha simple">
+<dl class="footnote brackets">
+<dt class="label" id="id2"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><ol class="upperalpha simple">
 <li><ol class="upperalpha simple">
 <li><p>Maradudin and S. H. Vosko, Rev. Mod. Phys. 40, 1–37 (1968).</p></li>
 </ol>
 </li>
 </ol>
-</aside>
-</aside>
+</dd>
+</dl>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
@@ -559,9 +558,9 @@ spgrep==0.3.2.dev5+ga44d231
 <img alt="../_images/examples_lattice_vibration_13_0.png" src="../_images/examples_lattice_vibration_13_0.png" />
 </div>
 </div>
-</section>
-<section id="Load-dynamical-matrix-from-PhononDB">
-<h2>Load dynamical matrix from PhononDB<a class="headerlink" href="#Load-dynamical-matrix-from-PhononDB" title="Permalink to this heading">#</a></h2>
+</div>
+<div class="section" id="Load-dynamical-matrix-from-PhononDB">
+<h2>Load dynamical matrix from PhononDB<a class="headerlink" href="#Load-dynamical-matrix-from-PhononDB" title="Permalink to this headline">#</a></h2>
 <p>Next, we consider to construct a projection operator, and block-diagonalize dynamical matrix at X point. We use a phonon calculation of Perovskite-BaTiO3 in <a class="reference external" href="http://phonondb.mtl.kyoto-u.ac.jp/ph20180417/d002/mp-2998.html">PhononDB</a>.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
@@ -593,9 +592,9 @@ spgrep==0.3.2.dev5+ga44d231
 <img alt="../_images/examples_lattice_vibration_16_0.png" src="../_images/examples_lattice_vibration_16_0.png" />
 </div>
 </div>
-</section>
-<section id="Apply-projection-operator-and-block-diagonalize-dynamical-matrix">
-<h2>Apply projection operator and block-diagonalize dynamical matrix<a class="headerlink" href="#Apply-projection-operator-and-block-diagonalize-dynamical-matrix" title="Permalink to this heading">#</a></h2>
+</div>
+<div class="section" id="Apply-projection-operator-and-block-diagonalize-dynamical-matrix">
+<h2>Apply projection operator and block-diagonalize dynamical matrix<a class="headerlink" href="#Apply-projection-operator-and-block-diagonalize-dynamical-matrix" title="Permalink to this headline">#</a></h2>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
@@ -653,8 +652,8 @@ spgrep==0.3.2.dev5+ga44d231
 </pre></div>
 </div>
 </div>
-</section>
-</section>
+</div>
+</div>
 
 
                 </article>
@@ -663,7 +662,10 @@ spgrep==0.3.2.dev5+ga44d231
               
               
                 <footer class="bd-footer-article">
-                  <!-- Previous / next buttons -->
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
        href="symmetry_adapted_tensor.html"
@@ -683,7 +685,10 @@ spgrep==0.3.2.dev5+ga44d231
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
+</div></div>
+  
 </div>
+
                 </footer>
               
             </div>
@@ -710,7 +715,7 @@ spgrep==0.3.2.dev5+ga44d231
             
           </div>
           <footer class="bd-footer-content">
-            <div class="bd-footer-content__inner">
+            
 <div class="bd-footer-content__inner container">
   
   <div class="footer-item">
@@ -740,7 +745,7 @@ By Kohei Shinohara
     
   </div>
   
-</div></div>
+</div>
           </footer>
         
 
@@ -749,8 +754,8 @@ By Kohei Shinohara
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
 
   <footer class="bd-footer">
   </footer>

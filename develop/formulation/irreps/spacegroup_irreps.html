@@ -3,12 +3,11 @@
 <!DOCTYPE html>
 
 
-<html lang="en" >
+<html >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Irreps of space group &#8212; spgrep 0.3.4</title>
   
   
@@ -19,12 +18,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
-<link href="../../_static/styles/bootstrap.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+  <link href="../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
 
   
-  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -33,23 +32,24 @@
     <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d" />
-<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d" />
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
 
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/sphinx_highlight.js"></script>
     <script src="../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'formulation/irreps/spacegroup_irreps';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Physically irreducible representation (PIR)" href="reality.html" />
     <link rel="prev" title="Formulation of irreducible representations" href="irreps.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:language" content="None"/>
   </head>
   
   
@@ -346,11 +346,11 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="irreps-of-space-group">
-<span id="space-group-irreps"></span><h1>Irreps of space group<a class="headerlink" href="#irreps-of-space-group" title="Permalink to this heading">#</a></h1>
+  <div class="tex2jax_ignore mathjax_ignore section" id="irreps-of-space-group">
+<span id="space-group-irreps"></span><h1>Irreps of space group<a class="headerlink" href="#irreps-of-space-group" title="Permalink to this headline">#</a></h1>
 <p>This page formulates little group, small representation, and irreducible representations (irreps) of space groups.</p>
-<section id="reciprocal-lattice-and-transformation">
-<h2>Reciprocal lattice and transformation<a class="headerlink" href="#reciprocal-lattice-and-transformation" title="Permalink to this heading">#</a></h2>
+<div class="section" id="reciprocal-lattice-and-transformation">
+<h2>Reciprocal lattice and transformation<a class="headerlink" href="#reciprocal-lattice-and-transformation" title="Permalink to this headline">#</a></h2>
 <p>Let <span class="math notranslate nohighlight">\(\mathbf{A} = (\mathbf{a}_{1}, \mathbf{a}_{2}, \mathbf{a}_{3})\)</span> be basis of <span class="math notranslate nohighlight">\(L_{\mathcal{T}}\)</span>, which is lattice of translational group <span class="math notranslate nohighlight">\({\mathcal{T}}\)</span>.
 We choose basis of the (crystallographic) reciprocal vectors as
 <div class="math notranslate nohighlight">
@@ -369,9 +369,9 @@ We choose basis of the (crystallographic) reciprocal vectors as
 </li>
 <li><p>Coefficients of reciprocal vector <span class="math notranslate nohighlight">\(\mathbf{k} = 2 \pi \mathbf{B} \mathbf{k}_{f}\)</span> is transformed to <span class="math notranslate nohighlight">\(\mathbf{k}_{f}' := \mathbf{P}^{\top} \mathbf{k}_{f}\)</span>.</p></li>
 </ul>
-</section>
-<section id="irreps-of-translation-subgroup">
-<h2>Irreps of translation subgroup<a class="headerlink" href="#irreps-of-translation-subgroup" title="Permalink to this heading">#</a></h2>
+</div>
+<div class="section" id="irreps-of-translation-subgroup">
+<h2>Irreps of translation subgroup<a class="headerlink" href="#irreps-of-translation-subgroup" title="Permalink to this headline">#</a></h2>
 <p>Consider the following irreps of translation subgroup <span class="math notranslate nohighlight">\(\mathcal{T}\)</span> of space group <span class="math notranslate nohighlight">\(\mathcal{G}\)</span>,
 <div class="math notranslate nohighlight">
 \[
@@ -406,7 +406,7 @@ For <span class="math notranslate nohighlight">\((\mathbf{R}, \mathbf{v}) \in \m
   &amp;= \exp \left( -i \mathbf{k} \cdot \mathbf{R}^{-1} \mathbf{t} \right) (\mathbf{R}, \mathbf{v}) \Psi_{\mathbf{k}}(\mathbf{r}) \nonumber \\
   &amp;= \exp \left( -i \mathbf{Rk} \cdot \mathbf{t} \right) (\mathbf{R}, \mathbf{v}) \Psi_{\mathbf{k}}(\mathbf{r}) \quad (\because \mathbf{R} \in O(3) ).
 \end{split}\]</div>
-<p>Be careful the basis for calculating inner product in Eq. <a class="reference internal" href="#equation-eqn-point-group-in-bloch-function">(1)</a>, when you use crystallographic coordinates <a class="footnote-reference brackets" href="#footnote1" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>:
+<p>Be careful the basis for calculating inner product in Eq. <a class="reference internal" href="#equation-eqn-point-group-in-bloch-function">(1)</a>, when you use crystallographic coordinates <a class="footnote-reference brackets" href="#footnote1" id="id1">1</a>:
 <div class="math notranslate nohighlight">
 \[\begin{split}
   \mathbf{v} &amp;=: \mathbf{A} \mathbf{v}_{f} \\
@@ -418,9 +418,9 @@ For <span class="math notranslate nohighlight">\((\mathbf{R}, \mathbf{v}) \in \m
     \quad (\because \mathbf{R}_{f}^{\top} = \mathbf{A}^{\top} \mathbf{R}^{-1} \mathbf{A}^{-\top} ).
 \end{split}\]</div>
 </p>
-</section>
-<section id="little-group">
-<h2>Little group<a class="headerlink" href="#little-group" title="Permalink to this heading">#</a></h2>
+</div>
+<div class="section" id="little-group">
+<h2>Little group<a class="headerlink" href="#little-group" title="Permalink to this headline">#</a></h2>
 <p>Let <span class="math notranslate nohighlight">\(\mathcal{P}\)</span> be point group of space group <span class="math notranslate nohighlight">\(\mathcal{G}\)</span>.
 We define little co-group of <span class="math notranslate nohighlight">\(\mathbf{k}\)</span>,
 <div class="math notranslate nohighlight">
@@ -467,9 +467,9 @@ We can decompose space group <span class="math notranslate nohighlight">\(\mathc
 
 Then, for Bloch function <span class="math notranslate nohighlight">\(\Psi_{\mathbf{k}_{1}}(\mathbf{r})\)</span>, <span class="math notranslate nohighlight">\((\mathbf{P}_{i}, \mathbf{x}_{i}) \mathcal{G}^{\mathbf{k}_{1}} \Psi_{\mathbf{k}_{1}}(\mathbf{r})\)</span> is Bloch function for <span class="math notranslate nohighlight">\(\mathbf{k}_{i}\)</span>.
 Thus, our task to calculate irreps of <span class="math notranslate nohighlight">\(\mathcal{G}\)</span> is boiled down to calculating irreps of little group <span class="math notranslate nohighlight">\(\mathcal{G}^{\mathbf{k}}\)</span>, which is called small representation.</p>
-</section>
-<section id="projective-representation">
-<h2>Projective representation<a class="headerlink" href="#projective-representation" title="Permalink to this heading">#</a></h2>
+</div>
+<div class="section" id="projective-representation">
+<h2>Projective representation<a class="headerlink" href="#projective-representation" title="Permalink to this headline">#</a></h2>
 <p>A projective representation of group <span class="math notranslate nohighlight">\(G\)</span> is a non-singular matrix function <span class="math notranslate nohighlight">\(\Delta\)</span> on <span class="math notranslate nohighlight">\(G\)</span> if it satisfied the following conditions:
 For each group product <span class="math notranslate nohighlight">\(G_{k} = G_{i}G_{j}\)</span>, there exists scalar function <span class="math notranslate nohighlight">\(\mu\)</span> (factor system) such that
 <div class="math notranslate nohighlight">
@@ -484,9 +484,9 @@ and
   \quad \mbox{(cocycle condition)}.
 \]</div>
 </p>
-</section>
-<section id="small-representation">
-<h2>Small representation<a class="headerlink" href="#small-representation" title="Permalink to this heading">#</a></h2>
+</div>
+<div class="section" id="small-representation">
+<h2>Small representation<a class="headerlink" href="#small-representation" title="Permalink to this headline">#</a></h2>
 <p>Let <span class="math notranslate nohighlight">\(\Gamma^{\mathbf{k}}_{p}\)</span> be irrep of <span class="math notranslate nohighlight">\(\mathcal{G}^{\mathbf{k}}\)</span>, for <span class="math notranslate nohighlight">\(\mathbf{S}_{i} \mathbf{S}_{j} = \mathbf{S}_{k}\)</span>,
 <div class="math notranslate nohighlight">
 \[
@@ -531,14 +531,13 @@ Now, our task is to enumerate projective irreps of little co-group <span class="
 \end{split}\]</div>
 </p>
 <hr class="footnotes docutils" />
-<aside class="footnote-list brackets">
-<aside class="footnote brackets" id="footnote1" role="note">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
-<p>We interchangeably denote an inner product of two vectors as <span class="math notranslate nohighlight">\(\mathbf{a} \cdot \mathbf{b}\)</span> or <span class="math notranslate nohighlight">\((\mathbf{a}, \mathbf{b})\)</span>.</p>
-</aside>
-</aside>
-</section>
-</section>
+<dl class="footnote brackets">
+<dt class="label" id="footnote1"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>We interchangeably denote an inner product of two vectors as <span class="math notranslate nohighlight">\(\mathbf{a} \cdot \mathbf{b}\)</span> or <span class="math notranslate nohighlight">\((\mathbf{a}, \mathbf{b})\)</span>.</p>
+</dd>
+</dl>
+</div>
+</div>
 
 
                 </article>
@@ -547,7 +546,10 @@ Now, our task is to enumerate projective irreps of little co-group <span class="
               
               
                 <footer class="bd-footer-article">
-                  <!-- Previous / next buttons -->
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
        href="irreps.html"
@@ -567,7 +569,10 @@ Now, our task is to enumerate projective irreps of little co-group <span class="
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
+</div></div>
+  
 </div>
+
                 </footer>
               
             </div>
@@ -595,7 +600,7 @@ Now, our task is to enumerate projective irreps of little co-group <span class="
             
           </div>
           <footer class="bd-footer-content">
-            <div class="bd-footer-content__inner">
+            
 <div class="bd-footer-content__inner container">
   
   <div class="footer-item">
@@ -625,7 +630,7 @@ By Kohei Shinohara
     
   </div>
   
-</div></div>
+</div>
           </footer>
         
 
@@ -634,8 +639,8 @@ By Kohei Shinohara
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d"></script>
-<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d"></script>
+  <script src="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
 
   <footer class="bd-footer">
   </footer>

@@ -3,12 +3,11 @@
 <!DOCTYPE html>
 
 
-<html lang="en" >
+<html >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Spgrep &#8212; spgrep 0.3.4</title>
   
   
@@ -19,12 +18,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
 
   
-  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -33,12 +32,13 @@
     <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d" />
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
-    <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'index';</script>
@@ -46,7 +46,7 @@
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Examples" href="examples/examples.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:language" content="None"/>
   </head>
   
   
@@ -346,8 +346,8 @@ document.write(`
                   
   <div class="toctree-wrapper compound">
 </div>
-<section class="tex2jax_ignore mathjax_ignore" id="spgrep">
-<h1>Spgrep<a class="headerlink" href="#spgrep" title="Permalink to this heading">#</a></h1>
+<div class="tex2jax_ignore mathjax_ignore section" id="spgrep">
+<h1>Spgrep<a class="headerlink" href="#spgrep" title="Permalink to this headline">#</a></h1>
 <p><a class="reference external" href="https://github.com/spglib/spgrep/actions/workflows/testing.yml"><img alt="testing" src="https://github.com/spglib/spgrep/actions/workflows/testing.yml/badge.svg" /></a>
 <a class="reference external" href="https://results.pre-commit.ci/latest/github/spglib/spgrep/main"><img alt="pre-commit.ci status" src="https://results.pre-commit.ci/badge/github/spglib/spgrep/main.svg" /></a>
 <a class="reference external" href="https://codecov.io/gh/spglib/spgrep"><img alt="codecov" src="https://codecov.io/gh/spglib/spgrep/branch/main/graph/badge.svg?token=DQGVFCTB1P" /></a>
@@ -363,8 +363,8 @@ document.write(`
 <li><p>Document(develop): <a class="reference external" href="https://spglib.github.io/spgrep/develop/">https://spglib.github.io/spgrep/develop/</a></p></li>
 <li><p>PyPI: <a class="reference external" href="https://pypi.org/project/spgrep">https://pypi.org/project/spgrep</a></p></li>
 </ul>
-<section id="features">
-<h2>Features<a class="headerlink" href="#features" title="Permalink to this heading">#</a></h2>
+<div class="section" id="features">
+<h2>Features<a class="headerlink" href="#features" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Enumerate the following irreducible representations (irreps) of space groups from <a class="reference external" href="https://spglib.github.io/spglib/">spglib</a>’s cell and kpoints:</p>
 <ul>
@@ -378,9 +378,9 @@ document.write(`
 <li><p>Find symmetry-adapted basis forming given irreps</p></li>
 <li><p>Minimal dependencies (numpy and <a class="reference external" href="https://spglib.github.io/spglib/">spglib</a>)</p></li>
 </ul>
-</section>
-<section id="usage">
-<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this heading">#</a></h2>
+</div>
+<div class="section" id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">#</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">spgrep</span> <span class="kn">import</span> <span class="n">get_spacegroup_irreps</span>
 <span class="kn">from</span> <span class="nn">spgrep.representation</span> <span class="kn">import</span> <span class="n">get_character</span>
 
@@ -424,10 +424,10 @@ document.write(`
 <span class="c1"># [2.+0.j 0.+0.j 0.+0.j -2.+0.j 0.+0.j 0.+0.j 0.+0.j 0.+0.j]</span>
 </pre></div>
 </div>
-<p>See <a class="reference internal" href="examples/examples.html"><span class="std std-doc">example pages</span></a> for more detailed use cases and <a class="reference internal" href="api/api_core.html"><span class="std std-doc">API summary</span></a> for summary of functionalities.</p>
-</section>
-<section id="installation">
-<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this heading">#</a></h2>
+<p>See <a class="reference internal" href="examples/examples.html"><span class="doc std std-doc">example pages</span></a> for more detailed use cases and <a class="reference internal" href="api/api_core.html"><span class="doc std std-doc">API summary</span></a> for summary of functionalities.</p>
+</div>
+<div class="section" id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">#</a></h2>
 <p>Spgrep works with Python3.8+ and can be installed via PyPI:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>spgrep
 </pre></div>
@@ -440,22 +440,22 @@ git<span class="w"> </span>clone<span class="w"> </span>git@github.com:spglib/sp
 pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
 </pre></div>
 </div>
-</section>
-<section id="change-log">
-<h2>Change log<a class="headerlink" href="#change-log" title="Permalink to this heading">#</a></h2>
-<p>See the <a class="reference internal" href="changelog.html"><span class="std std-doc">change log</span></a> for recent changes.</p>
-</section>
-<section id="how-to-contribute">
-<h2>How to contribute<a class="headerlink" href="#how-to-contribute" title="Permalink to this heading">#</a></h2>
+</div>
+<div class="section" id="change-log">
+<h2>Change log<a class="headerlink" href="#change-log" title="Permalink to this headline">#</a></h2>
+<p>See the <a class="reference internal" href="changelog.html"><span class="doc std std-doc">change log</span></a> for recent changes.</p>
+</div>
+<div class="section" id="how-to-contribute">
+<h2>How to contribute<a class="headerlink" href="#how-to-contribute" title="Permalink to this headline">#</a></h2>
 <p>We welcome any contributions to improve functionalities.
 Please open <a class="reference external" href="https://github.com/spglib/spgrep/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc">issues</a> or create <a class="reference external" href="https://github.com/spglib/spgrep/pulls?q=is%3Apr+is%3Aopen+sort%3Aupdated-desc">pull requests</a>.
-See the <a class="reference internal" href="development/development.html"><span class="std std-doc">development page</span></a> for preparing an environment.</p>
-</section>
-<section id="license">
-<h2>License<a class="headerlink" href="#license" title="Permalink to this heading">#</a></h2>
+See the <a class="reference internal" href="development/development.html"><span class="doc std std-doc">development page</span></a> for preparing an environment.</p>
+</div>
+<div class="section" id="license">
+<h2>License<a class="headerlink" href="#license" title="Permalink to this headline">#</a></h2>
 <p>Spgrep is released under a BSD 3-clause license.</p>
-</section>
-</section>
+</div>
+</div>
 
 
                 </article>
@@ -464,7 +464,10 @@ See the <a class="reference internal" href="development/development.html"><span 
               
               
                 <footer class="bd-footer-article">
-                  <!-- Previous / next buttons -->
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="right-next"
        href="examples/examples.html"
@@ -475,7 +478,10 @@ See the <a class="reference internal" href="development/development.html"><span 
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
+</div></div>
+  
 </div>
+
                 </footer>
               
             </div>
@@ -504,7 +510,7 @@ See the <a class="reference internal" href="development/development.html"><span 
             
           </div>
           <footer class="bd-footer-content">
-            <div class="bd-footer-content__inner">
+            
 <div class="bd-footer-content__inner container">
   
   <div class="footer-item">
@@ -534,7 +540,7 @@ By Kohei Shinohara
     
   </div>
   
-</div></div>
+</div>
           </footer>
         
 
@@ -543,8 +549,8 @@ By Kohei Shinohara
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d"></script>
+  <script src="_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
 
   <footer class="bd-footer">
   </footer>

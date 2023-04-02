@@ -3,12 +3,11 @@
 <!DOCTYPE html>
 
 
-<html lang="en" >
+<html >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Development &#8212; spgrep 0.3.4</title>
   
   
@@ -19,12 +18,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
 
   
-  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -33,12 +32,13 @@
     <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d" />
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'development/development';</script>
@@ -47,7 +47,7 @@
     <link rel="next" title="Memo" href="memo.html" />
     <link rel="prev" title="Change Log" href="../changelog.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:language" content="None"/>
   </head>
   
   
@@ -347,10 +347,10 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="development">
-<h1>Development<a class="headerlink" href="#development" title="Permalink to this heading">#</a></h1>
-<section id="installation">
-<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this heading">#</a></h2>
+  <div class="tex2jax_ignore mathjax_ignore section" id="development">
+<h1>Development<a class="headerlink" href="#development" title="Permalink to this headline">#</a></h1>
+<div class="section" id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">#</a></h2>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>spgrep<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.10<span class="w"> </span>pip
 conda<span class="w"> </span>activate<span class="w"> </span>spgrep
 git<span class="w"> </span>clone<span class="w"> </span>git@github.com:spglib/spgrep.git
@@ -362,31 +362,31 @@ pre-commit<span class="w"> </span>install
 pre-commit<span class="w"> </span>run<span class="w"> </span>--all-file<span class="w"> </span>
 </pre></div>
 </div>
-</section>
-<section id="how-to-compile-documents">
-<h2>How to compile documents<a class="headerlink" href="#how-to-compile-documents" title="Permalink to this heading">#</a></h2>
+</div>
+<div class="section" id="how-to-compile-documents">
+<h2>How to compile documents<a class="headerlink" href="#how-to-compile-documents" title="Permalink to this headline">#</a></h2>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sphinx-autobuild<span class="w"> </span>docs<span class="w"> </span>docs_build
 <span class="c1"># open localhost:8000 in your browser</span>
 </pre></div>
 </div>
-<section id="how-to-generate-diagram-from-mermaid-file">
-<h3>How to generate diagram from Mermaid file<a class="headerlink" href="#how-to-generate-diagram-from-mermaid-file" title="Permalink to this heading">#</a></h3>
+<div class="section" id="how-to-generate-diagram-from-mermaid-file">
+<h3>How to generate diagram from Mermaid file<a class="headerlink" href="#how-to-generate-diagram-from-mermaid-file" title="Permalink to this headline">#</a></h3>
 <p><a class="reference external" href="https://www.npmjs.com/package/&#64;mermaid-js/mermaid-cli/v/8.9.2">https://www.npmjs.com/package/&#64;mermaid-js/mermaid-cli/v/8.9.2</a></p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>npm<span class="w"> </span>install<span class="w"> </span>@mermaid-js/mermaid-cli
 ./node_modules/.bin/mmdc<span class="w"> </span>--input<span class="w"> </span>docs/point_group_chain.mmd
 </pre></div>
 </div>
-</section>
-<section id="how-to-compile-joss-draft">
-<h3>How to compile JOSS draft<a class="headerlink" href="#how-to-compile-joss-draft" title="Permalink to this heading">#</a></h3>
+</div>
+<div class="section" id="how-to-compile-joss-draft">
+<h3>How to compile JOSS draft<a class="headerlink" href="#how-to-compile-joss-draft" title="Permalink to this headline">#</a></h3>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># At root directory</span>
 docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>--volume<span class="w"> </span><span class="nv">$PWD</span>/docs/paper:/data<span class="w"> </span>--user<span class="w"> </span><span class="k">$(</span>id<span class="w"> </span>-u<span class="k">)</span>:<span class="k">$(</span>id<span class="w"> </span>-g<span class="k">)</span><span class="w"> </span>--env<span class="w"> </span><span class="nv">JOURNAL</span><span class="o">=</span>joss<span class="w"> </span>openjournals/inara
 </pre></div>
 </div>
-</section>
-</section>
-<section id="release">
-<h2>Release<a class="headerlink" href="#release" title="Permalink to this heading">#</a></h2>
+</div>
+</div>
+<div class="section" id="release">
+<h2>Release<a class="headerlink" href="#release" title="Permalink to this headline">#</a></h2>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Confirm the version number via `setuptools-scm`</span>
 python<span class="w"> </span>-m<span class="w"> </span>setuptools_scm
 
@@ -399,16 +399,16 @@ git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </
 git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>--tags
 </pre></div>
 </div>
-</section>
-<section id="subpages">
-<h2>Subpages<a class="headerlink" href="#subpages" title="Permalink to this heading">#</a></h2>
+</div>
+<div class="section" id="subpages">
+<h2>Subpages<a class="headerlink" href="#subpages" title="Permalink to this headline">#</a></h2>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="memo.html">  Memo</a></li>
 </ul>
 </div>
-</section>
-</section>
+</div>
+</div>
 
 
                 </article>
@@ -417,7 +417,10 @@ git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </
               
               
                 <footer class="bd-footer-article">
-                  <!-- Previous / next buttons -->
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
        href="../changelog.html"
@@ -437,7 +440,10 @@ git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
+</div></div>
+  
 </div>
+
                 </footer>
               
             </div>
@@ -468,7 +474,7 @@ git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </
             
           </div>
           <footer class="bd-footer-content">
-            <div class="bd-footer-content__inner">
+            
 <div class="bd-footer-content__inner container">
   
   <div class="footer-item">
@@ -498,7 +504,7 @@ By Kohei Shinohara
     
   </div>
   
-</div></div>
+</div>
           </footer>
         
 
@@ -507,8 +513,8 @@ By Kohei Shinohara
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
 
   <footer class="bd-footer">
   </footer>
