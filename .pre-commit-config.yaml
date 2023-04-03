@@ -12,7 +12,7 @@ repos:
       - id: end-of-file-fixer
   # formatter
   - repo: https://github.com/psf/black
-    rev: 23.1.0
+    rev: 23.3.0
     hooks:
     - id: black
   # linter
@@ -54,6 +54,6 @@ repos:
       files: ^src/spgrep/
   # Notebook
   - repo: https://github.com/nbQA-dev/nbQA
-    rev: 1.6.4
+    rev: 1.7.0
     hooks:
       - id: nbqa-black
