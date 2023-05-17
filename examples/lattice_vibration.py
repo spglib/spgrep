@@ -97,6 +97,7 @@ if __name__ == "__main__":
     for irrep in irreps:
         all_basis.extend(project_to_irrep(rep, irrep))
 
+    # http://phonondb.mtl.kyoto-u.ac.jp/xz-files/phonopy_mp-2998.yaml.xz
     path = Path(__file__).resolve().parent / "phonopy_mp-2998.yaml.xz"
     ph = phonopy.load(path)
 

@@ -23,7 +23,7 @@ REQUIRED = [
 # What packages are optional?
 EXTRAS = {
     "dev": [
-        "pytest==7.2.1",
+        "pytest==7.3.1",
         "pytest-cov==4.0.0",
         "pre-commit",
         "black",
@@ -32,7 +32,7 @@ EXTRAS = {
         "pyupgrade",
         "pydocstyle",
         "nbqa",
-        "phonopy==2.17.1",
+        "phonopy==2.19.0",
         # Jupyter notebook
         "notebook",
         "matplotlib",
@@ -41,7 +41,10 @@ EXTRAS = {
         "ipykernel",
     ],
     "docs": [
-        "sphinx",
+        # We cannot update sphinx to >6 until docutils==0.20 is released: https://github.com/mcmtroffaes/sphinxcontrib-bibtex/issues/322
+        # Another issue requires sphinx<4.3 (fixed in pydata-sphinx-theme>=0.8.0): https://github.com/pydata/pydata-sphinx-theme/pull/509
+        "docutils<=0.17",
+        "sphinx<4.3",
         "sphinx-autobuild",
         "nbsphinx",
         "sphinxcontrib-bibtex",
