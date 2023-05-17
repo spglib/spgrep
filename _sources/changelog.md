@@ -1,5 +1,11 @@
 # Change Log
 
+## v0.3.4 (18 May 2023)
+
+- Fix comments for symmetry operations in `src/spgrep/pointgroup.py`
+- Fix docutils and sphinx versions not to collapse documents [[#66]](https://github.com/spglib/spgrep/pull/66)
+- Fix data path for phonon example [[#78]](https://github.com/spglib/spgrep/pull/78)
+
 ## v0.3.3 (11 Jan. 2023)
 - Improve comparison between linear subspaces [[#53]](https://github.com/spglib/spgrep/pull/53)
     - Use Grassmann distance to measure linear subspaces: {func}`spgrep.utils.grassmann_distance`
