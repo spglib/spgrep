@@ -1,0 +1,572 @@
+
+
+<!DOCTYPE html>
+
+
+<html >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>spgrep.spinor &#8212; spgrep 0.3.4</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/spgrep/spinor';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="None"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    <p class="title logo__title">spgrep 0.3.4</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">   Introduction</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../examples/examples.html">   Examples</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../examples/symmetry_adapted_tensor.html">  Symmetry-adapted tensors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples/lattice_vibration.html">  Application of space-group irreps to lattice vibration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples/spin_representation.html">  Spin representation</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../formulation/formulation.html">   Formulation</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../formulation/irreps/irreps.html">  Irreducible representation</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../formulation/irreps/spacegroup_irreps.html">  Irreps of space group</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../formulation/irreps/reality.html">  Physically irreps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../formulation/irreps/spinor.html">  Spin representation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../formulation/irreps/corep.html">  Co-representation</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../formulation/algorithm/algorithm.html">  Algorithm for enumerating irreps</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../formulation/algorithm/irreps_from_regular.html">  On-the-fly irreps generation from regular representation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../formulation/algorithm/irreps_from_chain.html">  On-the-fly irreps generation from solvable group chain</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../formulation/algorithm/intertwiner.html">  Intertwiner</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../formulation/projection.html">  Symmetry-adapted basis</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../api/api.html">   API Reference</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../api/api_core.html">    Core functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/api_group.html">    Group</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/api_pointgroup.html">    Point group</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/api_transformation.html">    Transformation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/api_representation.html">    Representation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/api_irreps.html">    Irreps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/api_spinor.html">    Spinor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/api_corep.html">    Co-representation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/api_tensor.html">    Tensor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/api_utils.html">    Utility functions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">   Change Log</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../development/development.html">   Development</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../development/memo.html">  Memo</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../genindex.html">   Index</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/spglib/spgrep" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <h1>Source code for spgrep.spinor</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Spin representation.&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">product</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Literal</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">spgrep.group</span> <span class="kn">import</span> <span class="n">get_cayley_table</span><span class="p">,</span> <span class="n">get_factor_system_from_little_group</span>
+<span class="kn">from</span> <span class="nn">spgrep.irreps</span> <span class="kn">import</span> <span class="n">enumerate_unitary_irreps</span>
+<span class="kn">from</span> <span class="nn">spgrep.utils</span> <span class="kn">import</span> <span class="n">NDArrayComplex</span><span class="p">,</span> <span class="n">NDArrayFloat</span><span class="p">,</span> <span class="n">NDArrayInt</span>
+
+
+<div class="viewcode-block" id="enumerate_spinor_small_representations"><a class="viewcode-back" href="../../api/api_spinor.html#spgrep.spinor.enumerate_spinor_small_representations">[docs]</a><span class="k">def</span> <span class="nf">enumerate_spinor_small_representations</span><span class="p">(</span>
+    <span class="n">lattice</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">,</span>
+    <span class="n">little_rotations</span><span class="p">:</span> <span class="n">NDArrayInt</span><span class="p">,</span>
+    <span class="n">little_translations</span><span class="p">:</span> <span class="n">NDArrayFloat</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">kpoint</span><span class="p">:</span> <span class="n">NDArrayFloat</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">method</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;Neto&quot;</span><span class="p">,</span> <span class="s2">&quot;random&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Neto&quot;</span><span class="p">,</span>
+    <span class="n">rtol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-5</span><span class="p">,</span>
+    <span class="n">atol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-8</span><span class="p">,</span>
+    <span class="n">max_num_random_generations</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="n">NDArrayComplex</span><span class="p">],</span> <span class="n">NDArrayComplex</span><span class="p">,</span> <span class="n">NDArrayComplex</span><span class="p">]:</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Enumerate all unitary irreps :math:`\mathbf{D}^{\mathbf{k}\alpha}` of little group for spinor.</span>
+
+<span class="sd">    .. math::</span>
+<span class="sd">       \mathbf{D}^{\mathbf{k}\alpha}(\mathbf{S}_{i}) \mathbf{D}^{\mathbf{k}\alpha}(\mathbf{S}_{j})</span>
+<span class="sd">       = z(\mathbf{S}_{i}, \mathbf{S}_{j}) e^{ -i \mathbf{g}_{i} \cdot \mathbf{w}_{j} } \mathbf{D}^{\mathbf{k}\alpha}(\mathbf{S}_{k}),</span>
+
+<span class="sd">    where :math:`\mathbf{g}_{i} = \mathbf{S}_{i}^{-1} \mathbf{k} - \mathbf{k}`.</span>
+
+<span class="sd">    See :ref:`spin_representation` for Spgrep&#39;s convention of spinor-derived factor system.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    lattice: array, (3, 3)</span>
+<span class="sd">        Row-wise basis vectors. ``lattice[i, :]`` is the i-th lattice vector.</span>
+<span class="sd">    little_rotations: array[int], (order, 3, 3)</span>
+<span class="sd">    little_translations: array, (order, 3)</span>
+<span class="sd">    kpoint: array, (3, )</span>
+<span class="sd">    method: str, &#39;Neto&#39; or &#39;random&#39;</span>
+<span class="sd">        &#39;Neto&#39;: construct irreps from a fixed chain of subgroups of little co-group</span>
+<span class="sd">        &#39;random&#39;: construct irreps by numerically diagonalizing a random matrix commute with regular representation</span>
+<span class="sd">    rtol: float</span>
+<span class="sd">        Relative tolerance to distinguish difference eigenvalues</span>
+<span class="sd">    atol: float</span>
+<span class="sd">        Relative tolerance to compare</span>
+<span class="sd">    max_num_random_generations: int</span>
+<span class="sd">        Maximum number of trials to generate random matrix</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    irreps: list of unitary small representations (irreps of little group) with (order, dim, dim)</span>
+<span class="sd">    spinor_factor_system: array, (order, order)</span>
+<span class="sd">        ``spinor_factor_system[i, j]`` stands for factor system :math:`z(\mathbf{S}_{i}, \mathbf{S}_{j})`</span>
+<span class="sd">    unitary_rotations: array, (order, 2, 2)</span>
+<span class="sd">        SU(2) rotations on spinor.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">little_translations</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">little_translations</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">little_rotations</span><span class="p">),</span> <span class="mi">3</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">kpoint</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">kpoint</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+
+    <span class="c1"># Factor system from spinor</span>
+    <span class="n">spinor_factor_system</span><span class="p">,</span> <span class="n">unitary_rotations</span> <span class="o">=</span> <span class="n">get_spinor_factor_system</span><span class="p">(</span><span class="n">lattice</span><span class="p">,</span> <span class="n">little_rotations</span><span class="p">)</span>
+    <span class="c1"># Factor system from nonsymmorphic</span>
+    <span class="n">nonsymmorphic_factor_system</span> <span class="o">=</span> <span class="n">get_factor_system_from_little_group</span><span class="p">(</span>
+        <span class="n">little_rotations</span><span class="p">,</span>
+        <span class="n">little_translations</span><span class="p">,</span>
+        <span class="n">kpoint</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">factor_system</span> <span class="o">=</span> <span class="n">spinor_factor_system</span> <span class="o">*</span> <span class="n">nonsymmorphic_factor_system</span>
+
+    <span class="c1"># Compute irreps of little co-group</span>
+    <span class="n">little_cogroup_irreps</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">enumerate_unitary_irreps</span><span class="p">(</span>
+        <span class="n">little_rotations</span><span class="p">,</span>
+        <span class="n">factor_system</span><span class="p">,</span>
+        <span class="n">real</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>  <span class="c1"># Nonsense to consider real-value irreps</span>
+        <span class="n">method</span><span class="o">=</span><span class="n">method</span><span class="p">,</span>
+        <span class="n">rtol</span><span class="o">=</span><span class="n">rtol</span><span class="p">,</span>
+        <span class="n">atol</span><span class="o">=</span><span class="n">atol</span><span class="p">,</span>
+        <span class="n">max_num_random_generations</span><span class="o">=</span><span class="n">max_num_random_generations</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Small representations of little group</span>
+    <span class="n">phases</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+        <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="n">j</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">kpoint</span><span class="p">,</span> <span class="n">translation</span><span class="p">))</span> <span class="k">for</span> <span class="n">translation</span> <span class="ow">in</span> <span class="n">little_translations</span><span class="p">]</span>
+    <span class="p">)</span>
+    <span class="n">irreps</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">rep</span> <span class="ow">in</span> <span class="n">little_cogroup_irreps</span><span class="p">:</span>
+        <span class="n">irreps</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rep</span> <span class="o">*</span> <span class="n">phases</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">])</span>
+
+    <span class="k">return</span> <span class="n">irreps</span><span class="p">,</span> <span class="n">spinor_factor_system</span><span class="p">,</span> <span class="n">unitary_rotations</span></div>
+
+
+<div class="viewcode-block" id="get_spinor_factor_system"><a class="viewcode-back" href="../../api/api_spinor.html#spgrep.spinor.get_spinor_factor_system">[docs]</a><span class="k">def</span> <span class="nf">get_spinor_factor_system</span><span class="p">(</span>
+    <span class="n">lattice</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">,</span>
+    <span class="n">rotations</span><span class="p">:</span> <span class="n">NDArrayInt</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">NDArrayComplex</span><span class="p">,</span> <span class="n">NDArrayComplex</span><span class="p">]:</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Calculate spin-derived factor system of spin representation.</span>
+
+<span class="sd">    .. math::</span>
+<span class="sd">       \mathbf{U}(\mathbf{S}_{i}) \mathbf{U}(\mathbf{S}_{j})</span>
+<span class="sd">       = z(\mathbf{S}_{i}, \mathbf{S}_{j}) \mathbf{U}(\mathbf{S}_{k})</span>
+
+<span class="sd">    where :math:`\mathbf{S}_{i} \mathbf{S}_{j} = \mathbf{S}_{k}`.</span>
+<span class="sd">    See :ref:`spin_representation` for Spgrep&#39;s convention of spinor-derived factor system :math:`z(S_{i}, S_{j})` and a map from orthogonal matrix :math:`\mathbf{S}_{i} \in O(3)` to unitary matrix :math:`\mathbf{U}(\mathbf{S}_{i}) \in SU(2)`.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    lattice: array, (3, 3)</span>
+<span class="sd">        Row-wise basis vectors. ``lattice[i, :]`` is the i-th lattice vector.</span>
+<span class="sd">    rotations: array, (order, 3, 3)</span>
+<span class="sd">        Matrix group of :math:`\{ \mathbf{S}_{i} \}_{i}`</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    spinor_factor_system: array, (order, order)</span>
+<span class="sd">        ``factor_system[i, j]`` stands for :math:`z(\mathbf{S}_{i}, \mathbf{S}_{j})`</span>
+<span class="sd">    unitary_rotations: array, (order, 2, 2)</span>
+<span class="sd">        ``unitary_rotations[i]`` stands for :math:`\mathbf{U}(\mathbf{S}_{i}) \in SU(2)`.</span>
+<span class="sd">        SU(2) rotations on spinor.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">order</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">rotations</span><span class="p">)</span>
+
+    <span class="c1"># Assign a SU(2) rotation for each O(3) operation</span>
+    <span class="n">unitary_rotations</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">order</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex_</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">rotation</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">rotations</span><span class="p">):</span>
+        <span class="n">unitary_rotations</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">get_spinor_unitary_rotation</span><span class="p">(</span><span class="n">lattice</span><span class="p">,</span> <span class="n">rotation</span><span class="p">)</span>
+
+    <span class="c1"># Factor system from spin</span>
+    <span class="n">table</span> <span class="o">=</span> <span class="n">get_cayley_table</span><span class="p">(</span><span class="n">rotations</span><span class="p">)</span>
+    <span class="n">spinor_factor_system</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">order</span><span class="p">,</span> <span class="n">order</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex_</span><span class="p">)</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">ui</span><span class="p">),</span> <span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">uj</span><span class="p">)</span> <span class="ow">in</span> <span class="n">product</span><span class="p">(</span><span class="nb">enumerate</span><span class="p">(</span><span class="n">unitary_rotations</span><span class="p">),</span> <span class="n">repeat</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+        <span class="c1"># si @ sj = sk in O(3)</span>
+        <span class="n">k</span> <span class="o">=</span> <span class="n">table</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span>
+        <span class="n">uiuj</span> <span class="o">=</span> <span class="n">ui</span> <span class="o">@</span> <span class="n">uj</span>
+        <span class="c1"># Multiplier should be -1 or 1</span>
+        <span class="k">for</span> <span class="n">multiplier</span> <span class="ow">in</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">uiuj</span><span class="p">,</span> <span class="n">multiplier</span> <span class="o">*</span> <span class="n">unitary_rotations</span><span class="p">[</span><span class="n">k</span><span class="p">]):</span>
+                <span class="n">spinor_factor_system</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">multiplier</span>
+                <span class="k">break</span>
+
+    <span class="k">return</span> <span class="n">spinor_factor_system</span><span class="p">,</span> <span class="n">unitary_rotations</span></div>
+
+
+<div class="viewcode-block" id="get_spinor_unitary_rotation"><a class="viewcode-back" href="../../api/api_spinor.html#spgrep.spinor.get_spinor_unitary_rotation">[docs]</a><span class="k">def</span> <span class="nf">get_spinor_unitary_rotation</span><span class="p">(</span><span class="n">lattice</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">,</span> <span class="n">rotation</span><span class="p">:</span> <span class="n">NDArrayInt</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NDArrayComplex</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return unitary matrix for given orthogonal matrix.&quot;&quot;&quot;</span>
+    <span class="c1"># Ignore inversion parts</span>
+    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">det</span><span class="p">(</span><span class="n">rotation</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">sign</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">sign</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+    <span class="n">proper_rotation</span> <span class="o">=</span> <span class="n">rotation</span> <span class="o">*</span> <span class="n">sign</span>
+
+    <span class="n">cart_rotation</span> <span class="o">=</span> <span class="n">lattice</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">proper_rotation</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">lattice</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+    <span class="n">theta</span><span class="p">,</span> <span class="n">cart_axis</span> <span class="o">=</span> <span class="n">get_rotation_angle_and_axis</span><span class="p">(</span><span class="n">cart_rotation</span><span class="p">)</span>
+    <span class="n">cos_half</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">theta</span><span class="p">)</span>
+    <span class="n">sin_half</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">theta</span><span class="p">)</span>
+    <span class="n">unitary_rotation</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+        <span class="p">[</span>
+            <span class="p">[</span>
+                <span class="n">cos_half</span> <span class="o">-</span> <span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="n">cart_axis</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="n">sin_half</span><span class="p">,</span>
+                <span class="n">sin_half</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="n">cart_axis</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">cart_axis</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span>
+            <span class="p">],</span>
+            <span class="p">[</span>
+                <span class="n">sin_half</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="n">cart_axis</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">cart_axis</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span>
+                <span class="n">cos_half</span> <span class="o">+</span> <span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="n">cart_axis</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="n">sin_half</span><span class="p">,</span>
+            <span class="p">],</span>
+        <span class="p">]</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">unitary_rotation</span></div>
+
+
+<span class="k">def</span> <span class="nf">get_rotation_angle_and_axis</span><span class="p">(</span><span class="n">cart_rotation</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">NDArrayFloat</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return angle and axis of a rotation.</span>
+
+<span class="sd">    Angle is chosen between 0 and pi.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">identity</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">cart_rotation</span><span class="p">,</span> <span class="n">identity</span><span class="p">):</span>
+        <span class="c1"># We choose theta=0 for identity operation as convention</span>
+        <span class="k">return</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+
+    <span class="c1"># Here, 0 &lt; theta &lt;= pi</span>
+    <span class="n">cos_theta</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="n">cart_rotation</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="n">cos_theta</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+        <span class="n">theta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span>
+        <span class="n">eigvals</span><span class="p">,</span> <span class="n">eigvecs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eig</span><span class="p">(</span><span class="n">cart_rotation</span><span class="p">)</span>
+        <span class="n">cart_axis</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="n">eigvals</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="mi">1</span><span class="p">):</span>
+                <span class="k">continue</span>
+            <span class="n">cart_axis</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">eigvecs</span><span class="p">[:,</span> <span class="n">i</span><span class="p">])</span>
+            <span class="n">cart_axis</span> <span class="o">/=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">cart_axis</span><span class="p">)</span>
+
+            <span class="c1"># Fix direction by lexicographic order</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="n">cart_axis</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="mi">0</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="n">cart_axis</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+                        <span class="n">cart_axis</span> <span class="o">*=</span> <span class="o">-</span><span class="mi">1</span>
+                    <span class="k">break</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">nondiag</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+            <span class="p">[</span>
+                <span class="n">cart_rotation</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">cart_rotation</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+                <span class="n">cart_rotation</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">cart_rotation</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+                <span class="n">cart_rotation</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">cart_rotation</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+            <span class="p">]</span>
+        <span class="p">)</span>
+        <span class="n">sin_theta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">nondiag</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+        <span class="c1"># Since sin_theta &gt;= 0, theta in (0, pi)</span>
+        <span class="n">theta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arctan2</span><span class="p">(</span><span class="n">sin_theta</span><span class="p">,</span> <span class="n">cos_theta</span><span class="p">)</span>
+
+        <span class="n">cart_axis</span> <span class="o">=</span> <span class="n">nondiag</span> <span class="o">/</span> <span class="p">(</span><span class="o">-</span><span class="mi">2</span> <span class="o">*</span> <span class="n">sin_theta</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">theta</span><span class="p">,</span> <span class="n">cart_axis</span>
+</pre></div>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Kohei Shinohara
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022, Kohei Shinohara.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
