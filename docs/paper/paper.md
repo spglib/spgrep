@@ -34,7 +34,7 @@ bibliography: paper.bib
 # Summary
 <!-- A summary describing the high-level functionality and purpose of the software for a diverse, non-specialist audience. -->
 
-The group theory and representation theory provide a formal and helpful way to exploit the symmetry of systems in condensed-matter physics and materials science [@Inui1996-et; @el2008symmetry; @Bradley2009-ze; @dresselhaus2010group].
+Group theory and representation theory provide a formal and helpful way to exploit the symmetry of systems in condensed-matter physics and materials science [@Inui1996-et; @el2008symmetry; @Bradley2009-ze; @dresselhaus2010group].
 When we consider the microscopic structure of a crystal, its symmetry is classified by space groups [@ITA2016].
 Irreducible representations (irreps) of space groups serve as fundamental building blocks for classifying physical states and simplifying numerical calculations for crystals.
 Although irreps of space groups were tabulated in seminal works [@faddeyev1964; @kovalev1965irreducible; @miller1967tables; @Zak1969; @Bradley2009-ze; @cracknell1979kronecker; @altmann1994point], it is tedious and error-prone to look up these tables.
