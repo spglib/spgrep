@@ -1,0 +1,44 @@
+cff-version: "1.2.0"
+authors:
+- family-names: Shinohara
+  given-names: Kohei
+  orcid: "https://orcid.org/0000-0002-5907-2549"
+- family-names: Togo
+  given-names: Atsushi
+  orcid: "https://orcid.org/0000-0001-8393-9766"
+- family-names: Tanaka
+  given-names: Isao
+  orcid: "https://orcid.org/0000-0002-4616-118X"
+contact:
+- family-names: Shinohara
+  given-names: Kohei
+  orcid: "https://orcid.org/0000-0002-5907-2549"
+doi: 10.5281/zenodo.7946899
+message: If you use this software, please cite our article in the
+  Journal of Open Source Software.
+preferred-citation:
+  authors:
+  - family-names: Shinohara
+    given-names: Kohei
+    orcid: "https://orcid.org/0000-0002-5907-2549"
+  - family-names: Togo
+    given-names: Atsushi
+    orcid: "https://orcid.org/0000-0001-8393-9766"
+  - family-names: Tanaka
+    given-names: Isao
+    orcid: "https://orcid.org/0000-0002-4616-118X"
+  date-published: 2023-05-23
+  doi: 10.21105/joss.05269
+  issn: 2475-9066
+  issue: 85
+  journal: Journal of Open Source Software
+  publisher:
+    name: Open Journals
+  start: 5269
+  title: "spgrep: On-the-fly generator of space-group irreducible
+    representations"
+  type: article
+  url: "https://joss.theoj.org/papers/10.21105/joss.05269"
+  volume: 8
+title: "spgrep: On-the-fly generator of space-group irreducible
+  representations"
