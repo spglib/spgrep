@@ -24,7 +24,7 @@ jobs:
         python-version: ${{ matrix.python-version }}
 
     # https://github.com/actions/cache/blob/main/examples.md#python---pip
-    - uses: actions/cache@v3
+    - uses: actions/cache@v4
       with:
         path: ~/.cache/pip
         key: ${{ runner.os }}-${{ matrix.python-version }}-pip-${{ hashFiles('**/setup.py') }}
