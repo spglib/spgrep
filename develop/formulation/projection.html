@@ -1,13 +1,13 @@
 
-
 <!DOCTYPE html>
 
 
-<html >
+<html lang="en" data-content_root="../" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <title>Constructing symmetry-adapted basis &#8212; spgrep 0.3.4</title>
   
   
@@ -18,38 +18,38 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
 
   
-  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+  <link href="../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=384b581d" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
 
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../_static/documentation_options.js?v=e95e44fe"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'formulation/projection';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="API Reference" href="../api/api.html" />
     <link rel="prev" title="Numerically obtain intertwiner between equivalent representations" href="algorithm/intertwiner.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <meta name="docsearch:language" content="None"/>
+  <meta name="docsearch:language" content="en"/>
   </head>
   
   
@@ -57,7 +57,15 @@
 
   
   
-  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
   
   <input type="checkbox"
           class="sidebar-toggle"
@@ -92,11 +100,14 @@
 </form></div>
   </div>
   
-    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
-    </nav>
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
   
+
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
+      
+      
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -111,6 +122,7 @@
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
+
   
 
 <a class="navbar-brand logo" href="../index.html">
@@ -119,10 +131,22 @@
   
   
   
+  
     <p class="title logo__title">spgrep 0.3.4</p>
   
 </a></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Contents</span></p>
 <ul class="current nav bd-sidenav">
@@ -290,20 +314,22 @@
 </button>
 
 
+
 <script>
 document.write(`
-  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
-    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
-    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
   </button>
 `);
 </script>
 
+
 <script>
 document.write(`
   <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
   </button>
 `);
 </script>
@@ -341,10 +367,10 @@ document.write(`
               
                 
 <div id="searchbox"></div>
-                <article class="bd-article" role="main">
+                <article class="bd-article">
                   
-  <div class="tex2jax_ignore mathjax_ignore section" id="constructing-symmetry-adapted-basis">
-<h1>Constructing symmetry-adapted basis<a class="headerlink" href="#constructing-symmetry-adapted-basis" title="Permalink to this headline">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="constructing-symmetry-adapted-basis">
+<h1>Constructing symmetry-adapted basis<a class="headerlink" href="#constructing-symmetry-adapted-basis" title="Link to this heading">#</a></h1>
 <p>A typical procedure to use irreps is as follows:</p>
 <ol class="arabic">
 <li><p>Define an action of symmetry operations of a space group <span class="math notranslate nohighlight">\(\mathcal{G}\)</span> on your interested objects</p></li>
@@ -358,10 +384,10 @@ document.write(`
 <li><p>Compute unitary small representations <span class="math notranslate nohighlight">\(\Gamma^{ (\mathbf{k}, \alpha) }\)</span> of little group <span class="math notranslate nohighlight">\(\mathcal{G}^{\mathbf{k}}\)</span> by <a class="reference internal" href="../api/api_core.html#spgrep.get_spacegroup_irreps_from_primitive_symmetry" title="spgrep.get_spacegroup_irreps_from_primitive_symmetry"><code class="xref py py-func docutils literal notranslate"><span class="pre">spgrep.get_spacegroup_irreps_from_primitive_symmetry()</span></code></a> in primitive cell</p></li>
 <li><p>Apply projection operator by <a class="reference internal" href="../api/api_representation.html#spgrep.representation.project_to_irrep" title="spgrep.representation.project_to_irrep"><code class="xref py py-func docutils literal notranslate"><span class="pre">spgrep.representation.project_to_irrep()</span></code></a></p></li>
 </ol>
-<div class="section" id="projection-operator">
-<h2>Projection operator<a class="headerlink" href="#projection-operator" title="Permalink to this headline">#</a></h2>
+<section id="projection-operator">
+<h2>Projection operator<a class="headerlink" href="#projection-operator" title="Link to this heading">#</a></h2>
 <p>Let <span class="math notranslate nohighlight">\(\Delta^{(\alpha)}\)</span> be <strong>unitary</strong> projective irrep of group <span class="math notranslate nohighlight">\(G\)</span> with <span class="math notranslate nohighlight">\(\mu(E, E)=1\)</span>.
-The projection operator can be defined as the same form with the ordinary representation <span id="id1">[<a class="reference internal" href="#id21" title="S. L. Altmann. Projection operators and clebsch–gordan coefficients for projective representations. Int. J. Quantum Chem., 35(3):441–456, 1989. URL: https://onlinelibrary.wiley.com/doi/abs/10.1002/qua.560350309, doi:https://doi.org/10.1002/qua.560350309.">Alt89</a>]</span> <a class="footnote-reference brackets" href="#proj-derivation" id="id2">1</a>,
+The projection operator can be defined as the same form with the ordinary representation <span id="id1">[<a class="reference internal" href="#id21" title="S. L. Altmann. Projection operators and clebsch–gordan coefficients for projective representations. Int. J. Quantum Chem., 35(3):441–456, 1989. URL: https://onlinelibrary.wiley.com/doi/abs/10.1002/qua.560350309, doi:https://doi.org/10.1002/qua.560350309.">Alt89</a>]</span> <a class="footnote-reference brackets" href="#proj-derivation" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>,
 <div class="math notranslate nohighlight">
 \[
     P^{(\alpha)}_{ij}
@@ -396,20 +422,22 @@ Basis vectors <span class="math notranslate nohighlight">\(\{ \phi^{(\alpha,j)}_
         &amp;= \delta_{ii'}(\phi, \phi^{(\alpha, j)}_{j}).
 \end{split}\]</div>
 </p>
-</div>
-<div class="section" id="references">
-<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">#</a></h2>
+</section>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h2>
 <div class="docutils container" id="id3">
-<dl class="citation">
-<dt class="label" id="id21"><span class="brackets"><a class="fn-backref" href="#id1">Alt89</a></span></dt>
-<dd><p>S. L. Altmann. Projection operators and clebsch–gordan coefficients for projective representations. <em>Int. J. Quantum Chem.</em>, 35(3):441–456, 1989. URL: <a class="reference external" href="https://onlinelibrary.wiley.com/doi/abs/10.1002/qua.560350309">https://onlinelibrary.wiley.com/doi/abs/10.1002/qua.560350309</a>, <a class="reference external" href="https://doi.org/https://doi.org/10.1002/qua.560350309">doi:https://doi.org/10.1002/qua.560350309</a>.</p>
-</dd>
-</dl>
+<div role="list" class="citation-list">
+<div class="citation" id="id21" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">Alt89</a><span class="fn-bracket">]</span></span>
+<p>S. L. Altmann. Projection operators and clebsch–gordan coefficients for projective representations. <em>Int. J. Quantum Chem.</em>, 35(3):441–456, 1989. URL: <a class="reference external" href="https://onlinelibrary.wiley.com/doi/abs/10.1002/qua.560350309">https://onlinelibrary.wiley.com/doi/abs/10.1002/qua.560350309</a>, <a class="reference external" href="https://doi.org/https://doi.org/10.1002/qua.560350309">doi:https://doi.org/10.1002/qua.560350309</a>.</p>
+</div>
+</div>
 </div>
 <hr class="footnotes docutils" />
-<dl class="footnote brackets">
-<dt class="label" id="proj-derivation"><span class="brackets"><a class="fn-backref" href="#id2">1</a></span></dt>
-<dd><p><span class="math notranslate nohighlight">\(\{ \phi^{ (\alpha,j,n) }_{i} \}_{i=1}^{d_{\alpha}}\)</span> forms basis for <span class="math notranslate nohighlight">\(\Delta^{ (\alpha) }\)</span> if <span class="math notranslate nohighlight">\(\phi^{ (\alpha,j,n) }_{i} \neq 0\)</span>.
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="proj-derivation" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">1</a><span class="fn-bracket">]</span></span>
+<p><span class="math notranslate nohighlight">\(\{ \phi^{ (\alpha,j,n) }_{i} \}_{i=1}^{d_{\alpha}}\)</span> forms basis for <span class="math notranslate nohighlight">\(\Delta^{ (\alpha) }\)</span> if <span class="math notranslate nohighlight">\(\phi^{ (\alpha,j,n) }_{i} \neq 0\)</span>.
 The derivation is as follows:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}    S \phi^{ (\alpha,j,n) }_{i}
@@ -419,10 +447,10 @@ The derivation is as follows:</p>
         &amp;= \sum_{l} \phi^{ (\alpha,j,n) }_{l} \Delta^{ (\alpha) }(S)_{li}.\end{split}\]</div>
 <p>Here we assume the factor system is chosen as <span class="math notranslate nohighlight">\(\mu(E, E) = 1\)</span>.
 Then, we use <span class="math notranslate nohighlight">\(\mu(S, S^{-1}) = \mu(S^{-1}, S)\)</span>.</p>
-</dd>
-</dl>
-</div>
-</div>
+</aside>
+</aside>
+</section>
+</section>
 
 
                 </article>
@@ -430,11 +458,10 @@ Then, we use <span class="math notranslate nohighlight">\(\mu(S, S^{-1}) = \mu(S
 
               
               
-                <footer class="bd-footer-article">
+              
+              
+                <footer class="prev-next-footer">
                   
-<div class="footer-article-items footer-article__inner">
-  
-    <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
        href="algorithm/intertwiner.html"
@@ -454,10 +481,7 @@ Then, we use <span class="math notranslate nohighlight">\(\mu(S, S^{-1}) = \mu(S
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
-</div></div>
-  
 </div>
-
                 </footer>
               
             </div>
@@ -465,6 +489,7 @@ Then, we use <span class="math notranslate nohighlight">\(\mu(S, S^{-1}) = \mu(S
             
               
                 <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
 
   <div class="sidebar-secondary-item">
   <div class="page-toc tocsection onthispage">
@@ -495,6 +520,7 @@ By Kohei Shinohara
   
   <div class="footer-item">
     
+
   <p class="copyright">
     
       © Copyright 2022, Kohei Shinohara.
@@ -521,8 +547,8 @@ By Kohei Shinohara
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
 
   <footer class="bd-footer">
   </footer>

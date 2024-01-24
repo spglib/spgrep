@@ -1,13 +1,13 @@
 
-
 <!DOCTYPE html>
 
 
-<html >
+<html lang="en" data-content_root="../../" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <title>Numerically obtain intertwiner between equivalent representations &#8212; spgrep 0.3.4</title>
   
   
@@ -18,38 +18,38 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="../../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
 
   
-  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+  <link href="../../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=384b581d" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
-<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
 
-    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
-    <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../../_static/documentation_options.js?v=e95e44fe"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'formulation/algorithm/intertwiner';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Constructing symmetry-adapted basis" href="../projection.html" />
     <link rel="prev" title="On-the-fly irreps generation from solvable group chain" href="irreps_from_chain.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <meta name="docsearch:language" content="None"/>
+  <meta name="docsearch:language" content="en"/>
   </head>
   
   
@@ -57,7 +57,15 @@
 
   
   
-  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
   
   <input type="checkbox"
           class="sidebar-toggle"
@@ -92,11 +100,14 @@
 </form></div>
   </div>
   
-    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
-    </nav>
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
   
+
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
+      
+      
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -111,6 +122,7 @@
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
+
   
 
 <a class="navbar-brand logo" href="../../index.html">
@@ -119,10 +131,22 @@
   
   
   
+  
     <p class="title logo__title">spgrep 0.3.4</p>
   
 </a></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Contents</span></p>
 <ul class="current nav bd-sidenav">
@@ -290,20 +314,22 @@
 </button>
 
 
+
 <script>
 document.write(`
-  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
-    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
-    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
   </button>
 `);
 </script>
 
+
 <script>
 document.write(`
   <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
   </button>
 `);
 </script>
@@ -341,12 +367,12 @@ document.write(`
               
                 
 <div id="searchbox"></div>
-                <article class="bd-article" role="main">
+                <article class="bd-article">
                   
-  <div class="tex2jax_ignore mathjax_ignore section" id="numerically-obtain-intertwiner-between-equivalent-representations">
-<span id="intertwiner"></span><h1>Numerically obtain intertwiner between equivalent representations<a class="headerlink" href="#numerically-obtain-intertwiner-between-equivalent-representations" title="Permalink to this headline">#</a></h1>
-<div class="section" id="intertwiner-between-two-projective-representations-of-finite-group">
-<h2>Intertwiner between two projective representations of finite group<a class="headerlink" href="#intertwiner-between-two-projective-representations-of-finite-group" title="Permalink to this headline">#</a></h2>
+  <section class="tex2jax_ignore mathjax_ignore" id="numerically-obtain-intertwiner-between-equivalent-representations">
+<span id="intertwiner"></span><h1>Numerically obtain intertwiner between equivalent representations<a class="headerlink" href="#numerically-obtain-intertwiner-between-equivalent-representations" title="Link to this heading">#</a></h1>
+<section id="intertwiner-between-two-projective-representations-of-finite-group">
+<h2>Intertwiner between two projective representations of finite group<a class="headerlink" href="#intertwiner-between-two-projective-representations-of-finite-group" title="Link to this heading">#</a></h2>
 <p>Let <span class="math notranslate nohighlight">\(\Delta^{(0)}\)</span> and <span class="math notranslate nohighlight">\(\Delta^{(1)}\)</span> be projective representations of a finite group <span class="math notranslate nohighlight">\(H\)</span>.
 An intertwiner of <span class="math notranslate nohighlight">\(\Delta^{(0)}\)</span> and <span class="math notranslate nohighlight">\(\Delta^{(1)}\)</span> is a matrix <span class="math notranslate nohighlight">\(\mathbf{U}\)</span> satisfying
 <div class="math notranslate nohighlight">
@@ -356,7 +382,7 @@ An intertwiner of <span class="math notranslate nohighlight">\(\Delta^{(0)}\)</s
 \]</div>
 
 The intertwiner is unique up to scalar multiplication: if <span class="math notranslate nohighlight">\(\mathbf{U}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{U}'\)</span> are intertwiner between <span class="math notranslate nohighlight">\(\Delta^{(0)}\)</span> and <span class="math notranslate nohighlight">\(\Delta^{(1)}\)</span>, <span class="math notranslate nohighlight">\(\mathbf{U}^{-1}\mathbf{U}'\)</span> should be written as <span class="math notranslate nohighlight">\(c\mathbf{I}\)</span> with some complex number <span class="math notranslate nohighlight">\(c\)</span> from Schur’s lemma.
-In particular, when <span class="math notranslate nohighlight">\(\Delta^{(0)}\)</span> and <span class="math notranslate nohighlight">\(\Delta^{(1)}\)</span> are unitary irreps, we can choose <span class="math notranslate nohighlight">\(\mathbf{U}\)</span> as a unitary matrix <a class="footnote-reference brackets" href="#footnote-unitary" id="id1">1</a>.</p>
+In particular, when <span class="math notranslate nohighlight">\(\Delta^{(0)}\)</span> and <span class="math notranslate nohighlight">\(\Delta^{(1)}\)</span> are unitary irreps, we can choose <span class="math notranslate nohighlight">\(\mathbf{U}\)</span> as a unitary matrix <a class="footnote-reference brackets" href="#footnote-unitary" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>.</p>
 <p>The following matrix is an intertwiner for these projective representations:
 <div class="math notranslate nohighlight">
 \[
@@ -364,9 +390,9 @@ In particular, when <span class="math notranslate nohighlight">\(\Delta^{(0)}\)<
 \]</div>
 
 where <span class="math notranslate nohighlight">\(\mathbf{B}\)</span> is any matrix.</p>
-</div>
-<div class="section" id="intertwiner-between-two-space-group-representations-of-space-group-mathcal-g">
-<h2>Intertwiner between two space-group representations of space group <span class="math notranslate nohighlight">\(\mathcal{G}\)</span><a class="headerlink" href="#intertwiner-between-two-space-group-representations-of-space-group-mathcal-g" title="Permalink to this headline">#</a></h2>
+</section>
+<section id="intertwiner-between-two-space-group-representations-of-space-group-mathcal-g">
+<h2>Intertwiner between two space-group representations of space group <span class="math notranslate nohighlight">\(\mathcal{G}\)</span><a class="headerlink" href="#intertwiner-between-two-space-group-representations-of-space-group-mathcal-g" title="Link to this heading">#</a></h2>
 <p>Let <span class="math notranslate nohighlight">\(\Gamma^{(\mathbf{k}, 0)}\)</span> and <span class="math notranslate nohighlight">\(\Gamma^{(\mathbf{k}, 1)}\)</span> be representations of space group <span class="math notranslate nohighlight">\(\mathcal{G}\)</span> with <span class="math notranslate nohighlight">\(\mathbf{k}\)</span> vector.
 Let <span class="math notranslate nohighlight">\(\mathcal{T}\)</span> be a translational subgroup of <span class="math notranslate nohighlight">\(\mathcal{G}\)</span>.
 Consider coset representatives of little group of <span class="math notranslate nohighlight">\(\mathbf{k}\)</span> over <span class="math notranslate nohighlight">\(\mathcal{T}\)</span>:
@@ -397,13 +423,14 @@ Consider coset representatives of little group of <span class="math notranslate 
 \end{split}\]</div>
 </p>
 <hr class="footnotes docutils" />
-<dl class="footnote brackets">
-<dt class="label" id="footnote-unitary"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
-<dd><p><a class="reference external" href="http://www.nathankarst.com/blog/equivalent-unitary-representations-are-unitarily-equivalent">Equivalent unitary representations are unitarily equivalent</a></p>
-</dd>
-</dl>
-</div>
-</div>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="footnote-unitary" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="http://www.nathankarst.com/blog/equivalent-unitary-representations-are-unitarily-equivalent">Equivalent unitary representations are unitarily equivalent</a></p>
+</aside>
+</aside>
+</section>
+</section>
 
 
                 </article>
@@ -411,11 +438,10 @@ Consider coset representatives of little group of <span class="math notranslate 
 
               
               
-                <footer class="bd-footer-article">
+              
+              
+                <footer class="prev-next-footer">
                   
-<div class="footer-article-items footer-article__inner">
-  
-    <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
        href="irreps_from_chain.html"
@@ -435,10 +461,7 @@ Consider coset representatives of little group of <span class="math notranslate 
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
-</div></div>
-  
 </div>
-
                 </footer>
               
             </div>
@@ -446,6 +469,7 @@ Consider coset representatives of little group of <span class="math notranslate 
             
               
                 <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
 
   <div class="sidebar-secondary-item">
   <div class="page-toc tocsection onthispage">
@@ -476,6 +500,7 @@ By Kohei Shinohara
   
   <div class="footer-item">
     
+
   <p class="copyright">
     
       © Copyright 2022, Kohei Shinohara.
@@ -502,8 +527,8 @@ By Kohei Shinohara
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
-<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+  <script src="../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
 
   <footer class="bd-footer">
   </footer>

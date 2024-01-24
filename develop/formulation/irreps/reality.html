@@ -1,13 +1,13 @@
 
-
 <!DOCTYPE html>
 
 
-<html >
+<html lang="en" data-content_root="../../" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <title>Physically irreducible representation (PIR) &#8212; spgrep 0.3.4</title>
   
   
@@ -18,38 +18,38 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="../../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
 
   
-  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+  <link href="../../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=384b581d" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
-<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
 
-    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
-    <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../../_static/documentation_options.js?v=e95e44fe"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'formulation/irreps/reality';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Spin representation" href="spinor.html" />
     <link rel="prev" title="Irreps of space group" href="spacegroup_irreps.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <meta name="docsearch:language" content="None"/>
+  <meta name="docsearch:language" content="en"/>
   </head>
   
   
@@ -57,7 +57,15 @@
 
   
   
-  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
   
   <input type="checkbox"
           class="sidebar-toggle"
@@ -92,11 +100,14 @@
 </form></div>
   </div>
   
-    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
-    </nav>
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
   
+
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
+      
+      
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -111,6 +122,7 @@
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
+
   
 
 <a class="navbar-brand logo" href="../../index.html">
@@ -119,10 +131,22 @@
   
   
   
+  
     <p class="title logo__title">spgrep 0.3.4</p>
   
 </a></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Contents</span></p>
 <ul class="current nav bd-sidenav">
@@ -290,20 +314,22 @@
 </button>
 
 
+
 <script>
 document.write(`
-  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
-    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
-    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
   </button>
 `);
 </script>
 
+
 <script>
 document.write(`
   <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
   </button>
 `);
 </script>
@@ -351,10 +377,10 @@ document.write(`
               
                 
 <div id="searchbox"></div>
-                <article class="bd-article" role="main">
+                <article class="bd-article">
                   
-  <div class="tex2jax_ignore mathjax_ignore section" id="physically-irreducible-representation-pir">
-<span id="physically-irreps"></span><h1>Physically irreducible representation (PIR)<a class="headerlink" href="#physically-irreducible-representation-pir" title="Permalink to this headline">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="physically-irreducible-representation-pir">
+<span id="physically-irreps"></span><h1>Physically irreducible representation (PIR)<a class="headerlink" href="#physically-irreducible-representation-pir" title="Link to this heading">#</a></h1>
 <p>Let <span class="math notranslate nohighlight">\((\Gamma, \mathrm{Span}_{\mathbb{C}} \{ \mathbf{v}_{i} \}_{i=1}^{d} )\)</span> be a unitary (projective) irrep of group <span class="math notranslate nohighlight">\(G\)</span>.
 Then, its conjugate (projective) representation is <span class="math notranslate nohighlight">\((\Gamma^{\ast}, \mathrm{Span}_{\mathbb{C}} \{ \mathbf{v}_{i}^{\ast} \}_{i=1}^{d} )\)</span>.
 There are three cases for <span class="math notranslate nohighlight">\(\Gamma\)</span> and <span class="math notranslate nohighlight">\(\Gamma^{\ast}\)</span>:</p>
@@ -375,10 +401,10 @@ There are three cases for <span class="math notranslate nohighlight">\(\Gamma\)<
 \end{split}\]</div>
 </p>
 <p>We sometimes need to restrict irrep under a vector space over <span class="math notranslate nohighlight">\(\mathbb{R}\)</span> (instead of <span class="math notranslate nohighlight">\(\mathbb{C}\)</span>), which is called physically irreducible representation (PIR) <span id="id1">[<a class="reference internal" href="#id18" title="Harold T. Stokes, Dorian M. Hatch, and James D. Wells. Group-theoretical methods for obtaining distortions in crystals: applications to vibrational modes and phase transitions. Phys. Rev. B, 43:11010–11018, May 1991. URL: https://link.aps.org/doi/10.1103/PhysRevB.43.11010, doi:10.1103/PhysRevB.43.11010.">SHW91</a>]</span>.</p>
-<div class="section" id="pir-of-finite-group">
-<h2>PIR of finite group<a class="headerlink" href="#pir-of-finite-group" title="Permalink to this headline">#</a></h2>
-<div class="section" id="gamma-is-real">
-<h3>(1) <span class="math notranslate nohighlight">\(\Gamma\)</span> is real<a class="headerlink" href="#gamma-is-real" title="Permalink to this headline">#</a></h3>
+<section id="pir-of-finite-group">
+<h2>PIR of finite group<a class="headerlink" href="#pir-of-finite-group" title="Link to this heading">#</a></h2>
+<section id="gamma-is-real">
+<h3>(1) <span class="math notranslate nohighlight">\(\Gamma\)</span> is real<a class="headerlink" href="#gamma-is-real" title="Link to this heading">#</a></h3>
 <p>The following construction is based on Ref. <span id="id2">[<a class="reference internal" href="#id7" title="Teturo Inui, Yukito Tanabe, and Yositaka Onodera. Group theory and its applications in physics. Springer Series in Solid-State Sciences. Springer, Berlin, Germany, March 1996.">ITO96</a>]</span>.</p>
 <p>In this case, since <span class="math notranslate nohighlight">\(\Gamma\)</span> and <span class="math notranslate nohighlight">\(\Gamma^{\ast}\)</span> are equivalent, there exists a symmetric unitary matrix with
 <div class="math notranslate nohighlight">
@@ -390,7 +416,7 @@ There are three cases for <span class="math notranslate nohighlight">\(\Gamma\)<
 
 We impose <span class="math notranslate nohighlight">\(\det \mathbf{U} = 1\)</span> additionally to specify the intertwiner uniquely.
 The intertwiner can be numerically computed as shown in <a class="reference internal" href="../algorithm/intertwiner.html#intertwiner"><span class="std std-ref">here</span></a>.</p>
-<p>The symmetric unitary matrix <span class="math notranslate nohighlight">\(\mathbf{U}\)</span> can be diagonalized with real orthogonal matrix <span class="math notranslate nohighlight">\(\mathbf{S}\)</span> as <span class="math notranslate nohighlight">\(\mathbf{U} = \mathbf{S}^{-1} \mathbf{\Omega} \mathbf{S}\)</span> <a class="footnote-reference brackets" href="#sym-unitary" id="id3">1</a>.
+<p>The symmetric unitary matrix <span class="math notranslate nohighlight">\(\mathbf{U}\)</span> can be diagonalized with real orthogonal matrix <span class="math notranslate nohighlight">\(\mathbf{S}\)</span> as <span class="math notranslate nohighlight">\(\mathbf{U} = \mathbf{S}^{-1} \mathbf{\Omega} \mathbf{S}\)</span> <a class="footnote-reference brackets" href="#sym-unitary" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>.
 For this symmetric unitary matrix <span class="math notranslate nohighlight">\(\mathbf{U}\)</span>, we can choose its square root with
 <div class="math notranslate nohighlight">
 \[\begin{split}
@@ -409,9 +435,9 @@ For this symmetric unitary matrix <span class="math notranslate nohighlight">\(\
   &amp;= \mathbf{\Gamma}'(g)^{\ast}.
 \end{split}\]</div>
 </p>
-</div>
-<div class="section" id="gamma-is-pseudo-real-or-not-equivalent-to-gamma-ast">
-<h3>(2, 3) <span class="math notranslate nohighlight">\(\Gamma\)</span> is pseudo-real or not equivalent to <span class="math notranslate nohighlight">\(\Gamma^{\ast}\)</span><a class="headerlink" href="#gamma-is-pseudo-real-or-not-equivalent-to-gamma-ast" title="Permalink to this headline">#</a></h3>
+</section>
+<section id="gamma-is-pseudo-real-or-not-equivalent-to-gamma-ast">
+<h3>(2, 3) <span class="math notranslate nohighlight">\(\Gamma\)</span> is pseudo-real or not equivalent to <span class="math notranslate nohighlight">\(\Gamma^{\ast}\)</span><a class="headerlink" href="#gamma-is-pseudo-real-or-not-equivalent-to-gamma-ast" title="Link to this heading">#</a></h3>
 <p>In these cases, we can transform conjugated basis pair to real vectors by unitary matrix:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
@@ -433,13 +459,13 @@ For this symmetric unitary matrix <span class="math notranslate nohighlight">\(\
   \end{pmatrix}
   \quad (g \in G)
 \end{split}\]</div>
-</div>
-</div>
-<div class="section" id="pir-of-space-group-mathcal-g">
-<h2>PIR of space group <span class="math notranslate nohighlight">\(\mathcal{G}\)</span><a class="headerlink" href="#pir-of-space-group-mathcal-g" title="Permalink to this headline">#</a></h2>
+</section>
+</section>
+<section id="pir-of-space-group-mathcal-g">
+<h2>PIR of space group <span class="math notranslate nohighlight">\(\mathcal{G}\)</span><a class="headerlink" href="#pir-of-space-group-mathcal-g" title="Link to this heading">#</a></h2>
 <p>Next, we consider to construct PIR of space group from small representation <span class="math notranslate nohighlight">\(\Gamma^{\mathbf{k}\alpha}\)</span> at <span class="math notranslate nohighlight">\(\mathbf{k}\)</span> <span id="id4">[<a class="reference internal" href="#id14" title="Harold T. Stokes, Branton J. Campbell, and Ryan Cordes. Tabulation of irreducible representations of the crystallographic space groups and their superspace extensions. Acta Cryst. A, 69(4):388–395, Jul 2013. URL: https://doi.org/10.1107/S0108767313007538, doi:10.1107/S0108767313007538.">SCC13</a>]</span>.</p>
-<div class="section" id="frobenius-schur-indicator-for-space-group-representations">
-<h3>Frobenius-Schur indicator for space-group representations<a class="headerlink" href="#frobenius-schur-indicator-for-space-group-representations" title="Permalink to this headline">#</a></h3>
+<section id="frobenius-schur-indicator-for-space-group-representations">
+<h3>Frobenius-Schur indicator for space-group representations<a class="headerlink" href="#frobenius-schur-indicator-for-space-group-representations" title="Link to this heading">#</a></h3>
 <p>Let <span class="math notranslate nohighlight">\(\Gamma^{(\mathbf{k}, 0)}\)</span> and <span class="math notranslate nohighlight">\(\Gamma^{(\mathbf{k}, 1)}\)</span> be representations of space group <span class="math notranslate nohighlight">\(\mathcal{G}\)</span> with <span class="math notranslate nohighlight">\(\mathbf{k}\)</span> vector.
 Let <span class="math notranslate nohighlight">\(\mathcal{T}\)</span> be a translational subgroup of <span class="math notranslate nohighlight">\(\mathcal{G}\)</span>.
 Consider coset representatives of little group of <span class="math notranslate nohighlight">\(\mathbf{k}\)</span> over <span class="math notranslate nohighlight">\(\mathcal{T}\)</span>:
@@ -477,9 +503,9 @@ Here we use <span class="math notranslate nohighlight">\(\mathbf{S}_{i}^{\top} \
     &amp;= \mathbb{I} \left[ 2\mathbf{k} \equiv \mathbf{0} \right].
 \end{split}\]</div>
 </p>
-</div>
-<div class="section" id="gamma-mathbf-k-alpha-is-real">
-<h3>(1) <span class="math notranslate nohighlight">\(\Gamma^{\mathbf{k}\alpha}\)</span> is real<a class="headerlink" href="#gamma-mathbf-k-alpha-is-real" title="Permalink to this headline">#</a></h3>
+</section>
+<section id="gamma-mathbf-k-alpha-is-real">
+<h3>(1) <span class="math notranslate nohighlight">\(\Gamma^{\mathbf{k}\alpha}\)</span> is real<a class="headerlink" href="#gamma-mathbf-k-alpha-is-real" title="Link to this heading">#</a></h3>
 <p>At first, we need to find an intertwiner
 <div class="math notranslate nohighlight">
 \[
@@ -508,9 +534,9 @@ Because we can assume <span class="math notranslate nohighlight">\(2\mathbf{k} \
        \quad (\because 2\mathbf{k} \cdot \mathbf{t} \in \mathbb{Z}) \\
 \end{split}\]</div>
 </p>
-</div>
-<div class="section" id="gamma-mathbf-k-alpha-is-pseudo-real-or-not-equivalent-to-gamma-mathbf-k-alpha-ast">
-<h3>(2, 3) <span class="math notranslate nohighlight">\(\Gamma^{\mathbf{k}\alpha}\)</span> is pseudo-real or not equivalent to <span class="math notranslate nohighlight">\(\Gamma^{\mathbf{k}\alpha \ast}\)</span><a class="headerlink" href="#gamma-mathbf-k-alpha-is-pseudo-real-or-not-equivalent-to-gamma-mathbf-k-alpha-ast" title="Permalink to this headline">#</a></h3>
+</section>
+<section id="gamma-mathbf-k-alpha-is-pseudo-real-or-not-equivalent-to-gamma-mathbf-k-alpha-ast">
+<h3>(2, 3) <span class="math notranslate nohighlight">\(\Gamma^{\mathbf{k}\alpha}\)</span> is pseudo-real or not equivalent to <span class="math notranslate nohighlight">\(\Gamma^{\mathbf{k}\alpha \ast}\)</span><a class="headerlink" href="#gamma-mathbf-k-alpha-is-pseudo-real-or-not-equivalent-to-gamma-mathbf-k-alpha-ast" title="Link to this heading">#</a></h3>
 <p>In these cases, we can transform conjugated basis pair to real vectors by unitary matrix:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
@@ -544,32 +570,36 @@ Because we can assume <span class="math notranslate nohighlight">\(2\mathbf{k} \
     \end{pmatrix}
 \end{split}\]</div>
 </p>
-</div>
-</div>
-<div class="section" id="references">
-<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">#</a></h2>
+</section>
+</section>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h2>
 <div class="docutils container" id="id5">
-<dl class="citation">
-<dt class="label" id="id7"><span class="brackets"><a class="fn-backref" href="#id2">ITO96</a></span></dt>
-<dd><p>Teturo Inui, Yukito Tanabe, and Yositaka Onodera. <em>Group theory and its applications in physics</em>. Springer Series in Solid-State Sciences. Springer, Berlin, Germany, March 1996.</p>
-</dd>
-<dt class="label" id="id14"><span class="brackets"><a class="fn-backref" href="#id4">SCC13</a></span></dt>
-<dd><p>Harold T. Stokes, Branton J. Campbell, and Ryan Cordes. Tabulation of irreducible representations of the crystallographic space groups and their superspace extensions. <em>Acta Cryst. A</em>, 69(4):388–395, Jul 2013. URL: <a class="reference external" href="https://doi.org/10.1107/S0108767313007538">https://doi.org/10.1107/S0108767313007538</a>, <a class="reference external" href="https://doi.org/10.1107/S0108767313007538">doi:10.1107/S0108767313007538</a>.</p>
-</dd>
-<dt class="label" id="id18"><span class="brackets"><a class="fn-backref" href="#id1">SHW91</a></span></dt>
-<dd><p>Harold T. Stokes, Dorian M. Hatch, and James D. Wells. Group-theoretical methods for obtaining distortions in crystals: applications to vibrational modes and phase transitions. <em>Phys. Rev. B</em>, 43:11010–11018, May 1991. URL: <a class="reference external" href="https://link.aps.org/doi/10.1103/PhysRevB.43.11010">https://link.aps.org/doi/10.1103/PhysRevB.43.11010</a>, <a class="reference external" href="https://doi.org/10.1103/PhysRevB.43.11010">doi:10.1103/PhysRevB.43.11010</a>.</p>
-</dd>
-</dl>
+<div role="list" class="citation-list">
+<div class="citation" id="id7" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">ITO96</a><span class="fn-bracket">]</span></span>
+<p>Teturo Inui, Yukito Tanabe, and Yositaka Onodera. <em>Group theory and its applications in physics</em>. Springer Series in Solid-State Sciences. Springer, Berlin, Germany, March 1996.</p>
+</div>
+<div class="citation" id="id14" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id4">SCC13</a><span class="fn-bracket">]</span></span>
+<p>Harold T. Stokes, Branton J. Campbell, and Ryan Cordes. Tabulation of irreducible representations of the crystallographic space groups and their superspace extensions. <em>Acta Cryst. A</em>, 69(4):388–395, Jul 2013. URL: <a class="reference external" href="https://doi.org/10.1107/S0108767313007538">https://doi.org/10.1107/S0108767313007538</a>, <a class="reference external" href="https://doi.org/10.1107/S0108767313007538">doi:10.1107/S0108767313007538</a>.</p>
+</div>
+<div class="citation" id="id18" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">SHW91</a><span class="fn-bracket">]</span></span>
+<p>Harold T. Stokes, Dorian M. Hatch, and James D. Wells. Group-theoretical methods for obtaining distortions in crystals: applications to vibrational modes and phase transitions. <em>Phys. Rev. B</em>, 43:11010–11018, May 1991. URL: <a class="reference external" href="https://link.aps.org/doi/10.1103/PhysRevB.43.11010">https://link.aps.org/doi/10.1103/PhysRevB.43.11010</a>, <a class="reference external" href="https://doi.org/10.1103/PhysRevB.43.11010">doi:10.1103/PhysRevB.43.11010</a>.</p>
+</div>
+</div>
 </div>
 <hr class="footnotes docutils" />
-<dl class="footnote brackets">
-<dt class="label" id="sym-unitary"><span class="brackets"><a class="fn-backref" href="#id3">1</a></span></dt>
-<dd><p>For symmetric unitary matrix <span class="math notranslate nohighlight">\(\mathbf{U}\)</span>, if <span class="math notranslate nohighlight">\(\mathbf{v}\)</span> is eigenvector of <span class="math notranslate nohighlight">\(\mathbf{U}\)</span>, its conjugacy <span class="math notranslate nohighlight">\(\mathbf{v}'\)</span> is also eigenvector.
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="sym-unitary" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">1</a><span class="fn-bracket">]</span></span>
+<p>For symmetric unitary matrix <span class="math notranslate nohighlight">\(\mathbf{U}\)</span>, if <span class="math notranslate nohighlight">\(\mathbf{v}\)</span> is eigenvector of <span class="math notranslate nohighlight">\(\mathbf{U}\)</span>, its conjugacy <span class="math notranslate nohighlight">\(\mathbf{v}'\)</span> is also eigenvector.
 Thus, we can take real part or imaginary part of <span class="math notranslate nohighlight">\(\mathbf{v}\)</span> as a new basis vector.</p>
-</dd>
-</dl>
-</div>
-</div>
+</aside>
+</aside>
+</section>
+</section>
 
 
                 </article>
@@ -577,11 +607,10 @@ Thus, we can take real part or imaginary part of <span class="math notranslate n
 
               
               
-                <footer class="bd-footer-article">
+              
+              
+                <footer class="prev-next-footer">
                   
-<div class="footer-article-items footer-article__inner">
-  
-    <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
        href="spacegroup_irreps.html"
@@ -601,10 +630,7 @@ Thus, we can take real part or imaginary part of <span class="math notranslate n
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
-</div></div>
-  
 </div>
-
                 </footer>
               
             </div>
@@ -612,6 +638,7 @@ Thus, we can take real part or imaginary part of <span class="math notranslate n
             
               
                 <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
 
   <div class="sidebar-secondary-item">
   <div class="page-toc tocsection onthispage">
@@ -652,6 +679,7 @@ By Kohei Shinohara
   
   <div class="footer-item">
     
+
   <p class="copyright">
     
       © Copyright 2022, Kohei Shinohara.
@@ -678,8 +706,8 @@ By Kohei Shinohara
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
-<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+  <script src="../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
 
   <footer class="bd-footer">
   </footer>

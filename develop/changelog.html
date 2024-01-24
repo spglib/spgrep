@@ -1,13 +1,13 @@
 
-
 <!DOCTYPE html>
 
 
-<html >
+<html lang="en" data-content_root="./" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <title>Change Log &#8212; spgrep 0.3.4</title>
   
   
@@ -18,28 +18,28 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
 
   
-  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+  <link href="_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=384b581d" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
 
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="_static/documentation_options.js?v=e95e44fe"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'changelog';</script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -47,7 +47,7 @@
     <link rel="next" title="Development" href="development/development.html" />
     <link rel="prev" title="Utility functions" href="api/api_utils.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <meta name="docsearch:language" content="None"/>
+  <meta name="docsearch:language" content="en"/>
   </head>
   
   
@@ -55,7 +55,15 @@
 
   
   
-  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
   
   <input type="checkbox"
           class="sidebar-toggle"
@@ -90,11 +98,14 @@
 </form></div>
   </div>
   
-    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
-    </nav>
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
   
+
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
+      
+      
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -109,6 +120,7 @@
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
+
   
 
 <a class="navbar-brand logo" href="index.html">
@@ -117,10 +129,22 @@
   
   
   
+  
     <p class="title logo__title">spgrep 0.3.4</p>
   
 </a></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Contents</span></p>
 <ul class="current nav bd-sidenav">
@@ -288,20 +312,22 @@
 </button>
 
 
+
 <script>
 document.write(`
-  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
-    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
-    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
   </button>
 `);
 </script>
 
+
 <script>
 document.write(`
   <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
   </button>
 `);
 </script>
@@ -345,12 +371,12 @@ document.write(`
               
                 
 <div id="searchbox"></div>
-                <article class="bd-article" role="main">
+                <article class="bd-article">
                   
-  <div class="tex2jax_ignore mathjax_ignore section" id="change-log">
-<h1>Change Log<a class="headerlink" href="#change-log" title="Permalink to this headline">#</a></h1>
-<div class="section" id="v0-3-3-11-jan-2023">
-<h2>v0.3.3 (11 Jan. 2023)<a class="headerlink" href="#v0-3-3-11-jan-2023" title="Permalink to this headline">#</a></h2>
+  <section class="tex2jax_ignore mathjax_ignore" id="change-log">
+<h1>Change Log<a class="headerlink" href="#change-log" title="Link to this heading">#</a></h1>
+<section id="v0-3-3-11-jan-2023">
+<h2>v0.3.3 (11 Jan. 2023)<a class="headerlink" href="#v0-3-3-11-jan-2023" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Improve comparison between linear subspaces <a class="reference external" href="https://github.com/spglib/spgrep/pull/53">[#53]</a></p>
 <ul>
@@ -359,15 +385,15 @@ document.write(`
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="v0-3-2-28-dec-2022">
-<h2>v0.3.2 (28 Dec. 2022)<a class="headerlink" href="#v0-3-2-28-dec-2022" title="Permalink to this headline">#</a></h2>
+</section>
+<section id="v0-3-2-28-dec-2022">
+<h2>v0.3.2 (28 Dec. 2022)<a class="headerlink" href="#v0-3-2-28-dec-2022" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Clean documents and add JOSS draft <a class="reference external" href="https://github.com/spglib/spgrep/pull/50">[#50]</a></p></li>
 </ul>
-</div>
-<div class="section" id="v0-3-1-15-dec-2022">
-<h2>v0.3.1 (15 Dec. 2022)<a class="headerlink" href="#v0-3-1-15-dec-2022" title="Permalink to this headline">#</a></h2>
+</section>
+<section id="v0-3-1-15-dec-2022">
+<h2>v0.3.1 (15 Dec. 2022)<a class="headerlink" href="#v0-3-1-15-dec-2022" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Add co-representation <a class="reference external" href="https://github.com/spglib/spgrep/pull/47">[#47]</a></p>
 <ul>
@@ -382,35 +408,35 @@ document.write(`
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="v0-3-0-17-nov-2022">
-<h2>v0.3.0 (17 Nov. 2022)<a class="headerlink" href="#v0-3-0-17-nov-2022" title="Permalink to this headline">#</a></h2>
+</section>
+<section id="v0-3-0-17-nov-2022">
+<h2>v0.3.0 (17 Nov. 2022)<a class="headerlink" href="#v0-3-0-17-nov-2022" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Add spinor representation <a class="reference external" href="https://github.com/spglib/spgrep/pull/41">[#41]</a></p></li>
 </ul>
-</div>
-<div class="section" id="v0-2-12">
-<h2>v0.2.12<a class="headerlink" href="#v0-2-12" title="Permalink to this headline">#</a></h2>
+</section>
+<section id="v0-2-12">
+<h2>v0.2.12<a class="headerlink" href="#v0-2-12" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Generate symmetric tensor by Erdös method <code class="xref py py-func docutils literal notranslate"><span class="pre">spgrep.tensors.get_symmetry_adapted_tensors()</span></code> and <code class="xref py py-func docutils literal notranslate"><span class="pre">spgrep.tensors.apply_intrinsic_symmetry()</span></code></p></li>
 <li><p>Fix induced representation</p></li>
 </ul>
-</div>
-<div class="section" id="v0-2-11">
-<h2>v0.2.11<a class="headerlink" href="#v0-2-11" title="Permalink to this headline">#</a></h2>
+</section>
+<section id="v0-2-11">
+<h2>v0.2.11<a class="headerlink" href="#v0-2-11" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Add physically irreducible representation of space group</p></li>
 <li><p>Newly return Frobenius-Schur indicator from <code class="docutils literal notranslate"><span class="pre">enumerate_small_representations</span></code> and <code class="docutils literal notranslate"><span class="pre">enumerate_unitary_irreps</span></code></p></li>
 </ul>
-</div>
-<div class="section" id="v0-2-9">
-<h2>v0.2.9<a class="headerlink" href="#v0-2-9" title="Permalink to this headline">#</a></h2>
+</section>
+<section id="v0-2-9">
+<h2>v0.2.9<a class="headerlink" href="#v0-2-9" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Add example notebooks</p></li>
 </ul>
-</div>
-<div class="section" id="v0-2-8">
-<h2>v0.2.8<a class="headerlink" href="#v0-2-8" title="Permalink to this headline">#</a></h2>
+</section>
+<section id="v0-2-8">
+<h2>v0.2.8<a class="headerlink" href="#v0-2-8" title="Link to this heading">#</a></h2>
 <p>Initial release to PyPI</p>
 <ul class="simple">
 <li><p>Calculate irreducible representations (irreps) of space groups: <a class="reference internal" href="api/api_core.html#spgrep.get_spacegroup_irreps" title="spgrep.get_spacegroup_irreps"><code class="xref py py-func docutils literal notranslate"><span class="pre">spgrep.get_spacegroup_irreps()</span></code></a> and <a class="reference internal" href="api/api_core.html#spgrep.get_spacegroup_irreps_from_primitive_symmetry" title="spgrep.get_spacegroup_irreps_from_primitive_symmetry"><code class="xref py py-func docutils literal notranslate"><span class="pre">spgrep.get_spacegroup_irreps_from_primitive_symmetry()</span></code></a></p></li>
@@ -419,8 +445,8 @@ document.write(`
 <li><p>Apply projection operator: <a class="reference internal" href="api/api_representation.html#spgrep.representation.project_to_irrep" title="spgrep.representation.project_to_irrep"><code class="xref py py-func docutils literal notranslate"><span class="pre">spgrep.representation.project_to_irrep()</span></code></a></p></li>
 <li><p>Unique decomposition of crystallographic point group: <a class="reference internal" href="api/api_pointgroup.html#spgrep.pointgroup.get_pointgroup_chain_generators" title="spgrep.pointgroup.get_pointgroup_chain_generators"><code class="xref py py-func docutils literal notranslate"><span class="pre">spgrep.pointgroup.get_pointgroup_chain_generators()</span></code></a></p></li>
 </ul>
-</div>
-</div>
+</section>
+</section>
 
 
                 </article>
@@ -428,11 +454,10 @@ document.write(`
 
               
               
-                <footer class="bd-footer-article">
+              
+              
+                <footer class="prev-next-footer">
                   
-<div class="footer-article-items footer-article__inner">
-  
-    <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
        href="api/api_utils.html"
@@ -452,10 +477,7 @@ document.write(`
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
-</div></div>
-  
 </div>
-
                 </footer>
               
             </div>
@@ -463,6 +485,7 @@ document.write(`
             
               
                 <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
 
   <div class="sidebar-secondary-item">
   <div class="page-toc tocsection onthispage">
@@ -499,6 +522,7 @@ By Kohei Shinohara
   
   <div class="footer-item">
     
+
   <p class="copyright">
     
       © Copyright 2022, Kohei Shinohara.
@@ -525,8 +549,8 @@ By Kohei Shinohara
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+  <script src="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
 
   <footer class="bd-footer">
   </footer>

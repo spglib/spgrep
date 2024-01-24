@@ -1,13 +1,13 @@
 
-
 <!DOCTYPE html>
 
 
-<html >
+<html lang="en" data-content_root="../" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <title>Application of space-group irreps to lattice vibration &#8212; spgrep 0.3.4</title>
   
   
@@ -18,39 +18,39 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
 
   
-  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+  <link href="../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=384b581d" />
     <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
 
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../_static/documentation_options.js?v=e95e44fe"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'examples/lattice_vibration';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Spin representation for \(C_{3v}\)" href="spin_representation.html" />
     <link rel="prev" title="Symmetry-adapted tensor" href="symmetry_adapted_tensor.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <meta name="docsearch:language" content="None"/>
+  <meta name="docsearch:language" content="en"/>
   </head>
   
   
@@ -58,7 +58,15 @@
 
   
   
-  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
   
   <input type="checkbox"
           class="sidebar-toggle"
@@ -93,11 +101,14 @@
 </form></div>
   </div>
   
-    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
-    </nav>
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
   
+
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
+      
+      
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -112,6 +123,7 @@
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
+
   
 
 <a class="navbar-brand logo" href="../index.html">
@@ -120,10 +132,22 @@
   
   
   
+  
     <p class="title logo__title">spgrep 0.3.4</p>
   
 </a></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Contents</span></p>
 <ul class="current nav bd-sidenav">
@@ -291,20 +315,22 @@
 </button>
 
 
+
 <script>
 document.write(`
-  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
-    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
-    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
   </button>
 `);
 </script>
 
+
 <script>
 document.write(`
   <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
   </button>
 `);
 </script>
@@ -344,13 +370,13 @@ document.write(`
               
                 
 <div id="searchbox"></div>
-                <article class="bd-article" role="main">
+                <article class="bd-article">
                   
-  <div class="section" id="Application-of-space-group-irreps-to-lattice-vibration">
-<h1>Application of space-group irreps to lattice vibration<a class="headerlink" href="#Application-of-space-group-irreps-to-lattice-vibration" title="Permalink to this headline">#</a></h1>
+  <section id="Application-of-space-group-irreps-to-lattice-vibration">
+<h1>Application of space-group irreps to lattice vibration<a class="headerlink" href="#Application-of-space-group-irreps-to-lattice-vibration" title="Link to this heading">#</a></h1>
 <p>This example shows how to prepare representation matrix of atomic displacements by space group, and block-diagonalize dynamical matrix for harmonic lattice vibration only from symmetry.</p>
-<div class="section" id="Import-modules">
-<h2>Import modules<a class="headerlink" href="#Import-modules" title="Permalink to this headline">#</a></h2>
+<section id="Import-modules">
+<h2>Import modules<a class="headerlink" href="#Import-modules" title="Link to this heading">#</a></h2>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
@@ -386,9 +412,9 @@ spgrep==0.3.4.dev12+g7a90fec.d20230402
 </pre></div>
 </div>
 </div>
-</div>
-<div class="section" id="Prepare-space-group-operations-and-representation">
-<h2>Prepare space-group operations and representation<a class="headerlink" href="#Prepare-space-group-operations-and-representation" title="Permalink to this headline">#</a></h2>
+</section>
+<section id="Prepare-space-group-operations-and-representation">
+<h2>Prepare space-group operations and representation<a class="headerlink" href="#Prepare-space-group-operations-and-representation" title="Link to this heading">#</a></h2>
 <p>We consider lattice vibration of Perovskite structure (<span class="math notranslate nohighlight">\(Pm\overline{3}m\)</span>) at X point.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
@@ -439,7 +465,7 @@ spgrep==0.3.4.dev12+g7a90fec.d20230402
 <div class="math notranslate nohighlight">
 \[\mathbf{u}(\kappa; \mathbf{q})
   := \sqrt{\frac{M_{\kappa}}{N}} \sum_{l} \mathbf{u}(\mathbf{r}(l\kappa)) e^{ i \mathbf{q} \cdot \mathbf{r}(l) },\]</div>
-<p>where <span class="math notranslate nohighlight">\(N\)</span> is number of lattice points in a supercell, and <span class="math notranslate nohighlight">\(M_{\kappa}\)</span> is mass of the <span class="math notranslate nohighlight">\(\kappa\)</span>-th atom. Let <span class="math notranslate nohighlight">\(\mathbf{r}(l\kappa)\)</span> be equilibrium position of the <span class="math notranslate nohighlight">\(\kappa\)</span>-th atom in the <span class="math notranslate nohighlight">\(l\)</span>-th unit cell. The fourier transformation of <span class="math notranslate nohighlight">\(u_{\mu}(l \kappa)\)</span> forms representation of space group <span class="math notranslate nohighlight">\(\mathcal{G}\)</span>  <a class="footnote-reference brackets" href="#id2" id="id1">1</a> as</p>
+<p>where <span class="math notranslate nohighlight">\(N\)</span> is number of lattice points in a supercell, and <span class="math notranslate nohighlight">\(M_{\kappa}\)</span> is mass of the <span class="math notranslate nohighlight">\(\kappa\)</span>-th atom. Let <span class="math notranslate nohighlight">\(\mathbf{r}(l\kappa)\)</span> be equilibrium position of the <span class="math notranslate nohighlight">\(\kappa\)</span>-th atom in the <span class="math notranslate nohighlight">\(l\)</span>-th unit cell. The fourier transformation of <span class="math notranslate nohighlight">\(u_{\mu}(l \kappa)\)</span> forms representation of space group <span class="math notranslate nohighlight">\(\mathcal{G}\)</span>  <a class="footnote-reference brackets" href="#id2" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> as</p>
 <div class="math notranslate nohighlight">
 \[g u_{\mu}(\kappa; \mathbf{q})
   = \sum_{\kappa'\mu'} u_{\mu'}(\kappa'; \mathbf{R}_{g} \mathbf{q} ) \Gamma_{\kappa'\mu'; \kappa\mu}^{\mathbf{q}}(g)
@@ -448,16 +474,17 @@ spgrep==0.3.4.dev12+g7a90fec.d20230402
 <div class="math notranslate nohighlight">
 \[\Gamma_{\kappa'\mu'; \kappa\mu}^{\mathbf{q}}(g)
   := \exp \left( -i \mathbf{R}_{g} \mathbf{q} \cdot (g \mathbf{r}(0\kappa)) - \mathbf{r}(\mathbf{0}\,g\kappa) \right) [\mathbf{R}_{g}]_{\mu'\mu} \delta_{ g\kappa, \kappa' }.\]</div>
-<dl class="footnote brackets">
-<dt class="label" id="id2"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
-<dd><ol class="upperalpha simple">
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="id2" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<ol class="upperalpha simple">
 <li><ol class="upperalpha simple">
 <li><p>Maradudin and S. H. Vosko, Rev. Mod. Phys. 40, 1–37 (1968).</p></li>
 </ol>
 </li>
 </ol>
-</dd>
-</dl>
+</aside>
+</aside>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
@@ -558,9 +585,9 @@ spgrep==0.3.4.dev12+g7a90fec.d20230402
 <img alt="../_images/examples_lattice_vibration_13_0.png" src="../_images/examples_lattice_vibration_13_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="Load-dynamical-matrix-from-PhononDB">
-<h2>Load dynamical matrix from PhononDB<a class="headerlink" href="#Load-dynamical-matrix-from-PhononDB" title="Permalink to this headline">#</a></h2>
+</section>
+<section id="Load-dynamical-matrix-from-PhononDB">
+<h2>Load dynamical matrix from PhononDB<a class="headerlink" href="#Load-dynamical-matrix-from-PhononDB" title="Link to this heading">#</a></h2>
 <p>Next, we consider to construct a projection operator, and block-diagonalize dynamical matrix at X point. We use a phonon calculation of Perovskite-BaTiO3 in <a class="reference external" href="http://phonondb.mtl.kyoto-u.ac.jp/ph20180417/d002/mp-2998.html">PhononDB</a>.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
@@ -593,9 +620,9 @@ spgrep==0.3.4.dev12+g7a90fec.d20230402
 <img alt="../_images/examples_lattice_vibration_16_0.png" src="../_images/examples_lattice_vibration_16_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="Apply-projection-operator-and-block-diagonalize-dynamical-matrix">
-<h2>Apply projection operator and block-diagonalize dynamical matrix<a class="headerlink" href="#Apply-projection-operator-and-block-diagonalize-dynamical-matrix" title="Permalink to this headline">#</a></h2>
+</section>
+<section id="Apply-projection-operator-and-block-diagonalize-dynamical-matrix">
+<h2>Apply projection operator and block-diagonalize dynamical matrix<a class="headerlink" href="#Apply-projection-operator-and-block-diagonalize-dynamical-matrix" title="Link to this heading">#</a></h2>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
@@ -653,8 +680,8 @@ spgrep==0.3.4.dev12+g7a90fec.d20230402
 </pre></div>
 </div>
 </div>
-</div>
-</div>
+</section>
+</section>
 
 
                 </article>
@@ -662,11 +689,10 @@ spgrep==0.3.4.dev12+g7a90fec.d20230402
 
               
               
-                <footer class="bd-footer-article">
+              
+              
+                <footer class="prev-next-footer">
                   
-<div class="footer-article-items footer-article__inner">
-  
-    <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
        href="symmetry_adapted_tensor.html"
@@ -686,10 +712,7 @@ spgrep==0.3.4.dev12+g7a90fec.d20230402
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
-</div></div>
-  
 </div>
-
                 </footer>
               
             </div>
@@ -697,6 +720,7 @@ spgrep==0.3.4.dev12+g7a90fec.d20230402
             
               
                 <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
 
   <div class="sidebar-secondary-item">
   <div class="page-toc tocsection onthispage">
@@ -729,6 +753,7 @@ By Kohei Shinohara
   
   <div class="footer-item">
     
+
   <p class="copyright">
     
       © Copyright 2022, Kohei Shinohara.
@@ -755,8 +780,8 @@ By Kohei Shinohara
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
 
   <footer class="bd-footer">
   </footer>

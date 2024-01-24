@@ -1,13 +1,13 @@
 
-
 <!DOCTYPE html>
 
 
-<html >
+<html lang="en" data-content_root="../../" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <title>Spin representation &#8212; spgrep 0.3.4</title>
   
   
@@ -18,38 +18,38 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="../../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
 
   
-  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+  <link href="../../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=384b581d" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
-<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
 
-    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
-    <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../../_static/documentation_options.js?v=e95e44fe"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'formulation/irreps/spinor';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Co-representation of magnetic point and space group" href="corep.html" />
     <link rel="prev" title="Physically irreducible representation (PIR)" href="reality.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <meta name="docsearch:language" content="None"/>
+  <meta name="docsearch:language" content="en"/>
   </head>
   
   
@@ -57,7 +57,15 @@
 
   
   
-  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
   
   <input type="checkbox"
           class="sidebar-toggle"
@@ -92,11 +100,14 @@
 </form></div>
   </div>
   
-    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
-    </nav>
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
   
+
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
+      
+      
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -111,6 +122,7 @@
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
+
   
 
 <a class="navbar-brand logo" href="../../index.html">
@@ -119,10 +131,22 @@
   
   
   
+  
     <p class="title logo__title">spgrep 0.3.4</p>
   
 </a></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Contents</span></p>
 <ul class="current nav bd-sidenav">
@@ -290,20 +314,22 @@
 </button>
 
 
+
 <script>
 document.write(`
-  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
-    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
-    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
   </button>
 `);
 </script>
 
+
 <script>
 document.write(`
   <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
   </button>
 `);
 </script>
@@ -346,16 +372,16 @@ document.write(`
               
                 
 <div id="searchbox"></div>
-                <article class="bd-article" role="main">
+                <article class="bd-article">
                   
-  <div class="tex2jax_ignore mathjax_ignore section" id="spin-representation">
-<span id="id1"></span><h1>Spin representation<a class="headerlink" href="#spin-representation" title="Permalink to this headline">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="spin-representation">
+<span id="id1"></span><h1>Spin representation<a class="headerlink" href="#spin-representation" title="Link to this heading">#</a></h1>
 <p>A spin representation is a projective representation with a factor system for spinor wave functions.
 Here, we give the convention to choose the factor system for spinor in spgrep.</p>
-<div class="section" id="factor-system-for-spinor">
-<h2>Factor system for spinor<a class="headerlink" href="#factor-system-for-spinor" title="Permalink to this headline">#</a></h2>
-<div class="section" id="symmetry-operation-of-the-first-kind">
-<h3>Symmetry operation of the first kind<a class="headerlink" href="#symmetry-operation-of-the-first-kind" title="Permalink to this headline">#</a></h3>
+<section id="factor-system-for-spinor">
+<h2>Factor system for spinor<a class="headerlink" href="#factor-system-for-spinor" title="Link to this heading">#</a></h2>
+<section id="symmetry-operation-of-the-first-kind">
+<h3>Symmetry operation of the first kind<a class="headerlink" href="#symmetry-operation-of-the-first-kind" title="Link to this heading">#</a></h3>
 <p>The map <span class="math notranslate nohighlight">\(\mathrm{SO}(3) \ni \mathbf{R}_{ \theta\hat{\mathbf{n}} } \mapsto \mathbf{U} ( \mathbf{R}_{ \theta\hat{\mathbf{n}} } ) := \exp \left( -\frac{i}{2}\theta \hat{\mathbf{n}} \cdot \mathbf{\sigma} \right) \in \mathrm{SU}(2)\)</span> is not surjective, where <span class="math notranslate nohighlight">\(\mathbf{\sigma}_{i} \, (i=x,y,z)\)</span> are Pauli matrices
 <div class="math notranslate nohighlight">
 \[\begin{split}
@@ -457,9 +483,9 @@ For <span class="math notranslate nohighlight">\(\mathbf{S}_{i} \mathbf{S}_{j} =
 
 where <span class="math notranslate nohighlight">\(\mathbf{g}_{i} = \mathbf{S}_{i}^{-1} \mathbf{k} - \mathbf{k}\)</span>.
 We can enumerate projective irreps for spinor from the factor system <span class="math notranslate nohighlight">\(\mu_{\mathbf{k}}(S_{i}, S_{j}) := z(\mathbf{S}_{i}, \mathbf{S}_{j}) \exp \left( -i \mathbf{g}_{i} \cdot \mathbf{w}_{j} \right)\)</span>.</p>
-</div>
-<div class="section" id="symmetry-operation-of-the-second-kind">
-<h3>Symmetry operation of the second kind<a class="headerlink" href="#symmetry-operation-of-the-second-kind" title="Permalink to this headline">#</a></h3>
+</section>
+<section id="symmetry-operation-of-the-second-kind">
+<h3>Symmetry operation of the second kind<a class="headerlink" href="#symmetry-operation-of-the-second-kind" title="Link to this heading">#</a></h3>
 <p>We <strong>assume</strong> the inversion <span class="math notranslate nohighlight">\(\mathbf{I}\)</span> acts on spin functions as
 <div class="math notranslate nohighlight">
 \[\begin{split}
@@ -476,10 +502,10 @@ z(\mathbf{R}, \mathbf{I}\mathbf{R}') &amp;= z(\mathbf{IR}, \mathbf{R}') = z(\mat
     \quad (\mathbf{R}, \mathbf{R}' \in \mathrm{SO}(3)).
 \end{split}\]</div>
 </p>
-</div>
-</div>
-<div class="section" id="convention-of-rotations-for-spinor">
-<h2>Convention of rotations for spinor<a class="headerlink" href="#convention-of-rotations-for-spinor" title="Permalink to this headline">#</a></h2>
+</section>
+</section>
+<section id="convention-of-rotations-for-spinor">
+<h2>Convention of rotations for spinor<a class="headerlink" href="#convention-of-rotations-for-spinor" title="Link to this heading">#</a></h2>
 <p>A rotation <span class="math notranslate nohighlight">\(\mathbf{R}_{ \theta\hat{\mathbf{n}} } \in \mathrm{SO}(3)\)</span> can be written with angular momentum operators:
 <div class="math notranslate nohighlight">
 \[\begin{split}
@@ -542,18 +568,19 @@ z(\mathbf{R}, \mathbf{I}\mathbf{R}') &amp;= z(\mathbf{IR}, \mathbf{R}') = z(\mat
         \end{pmatrix}.
 \end{split}\]</div>
 </p>
-</div>
-<div class="section" id="references">
-<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">#</a></h2>
+</section>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h2>
 <div class="docutils container" id="id3">
-<dl class="citation">
-<dt class="label" id="id19"><span class="brackets"><a class="fn-backref" href="#id2">Alt05</a></span></dt>
-<dd><p>Simon L Altmann. <em>Rotations, quaternions, and double groups</em>. Courier Corporation, 2005.</p>
-</dd>
-</dl>
+<div role="list" class="citation-list">
+<div class="citation" id="id19" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">Alt05</a><span class="fn-bracket">]</span></span>
+<p>Simon L Altmann. <em>Rotations, quaternions, and double groups</em>. Courier Corporation, 2005.</p>
 </div>
 </div>
 </div>
+</section>
+</section>
 
 
                 </article>
@@ -561,11 +588,10 @@ z(\mathbf{R}, \mathbf{I}\mathbf{R}') &amp;= z(\mathbf{IR}, \mathbf{R}') = z(\mat
 
               
               
-                <footer class="bd-footer-article">
+              
+              
+                <footer class="prev-next-footer">
                   
-<div class="footer-article-items footer-article__inner">
-  
-    <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
        href="reality.html"
@@ -585,10 +611,7 @@ z(\mathbf{R}, \mathbf{I}\mathbf{R}') &amp;= z(\mathbf{IR}, \mathbf{R}') = z(\mat
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
-</div></div>
-  
 </div>
-
                 </footer>
               
             </div>
@@ -596,6 +619,7 @@ z(\mathbf{R}, \mathbf{I}\mathbf{R}') &amp;= z(\mathbf{IR}, \mathbf{R}') = z(\mat
             
               
                 <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
 
   <div class="sidebar-secondary-item">
   <div class="page-toc tocsection onthispage">
@@ -631,6 +655,7 @@ By Kohei Shinohara
   
   <div class="footer-item">
     
+
   <p class="copyright">
     
       © Copyright 2022, Kohei Shinohara.
@@ -657,8 +682,8 @@ By Kohei Shinohara
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
-<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+  <script src="../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
 
   <footer class="bd-footer">
   </footer>
