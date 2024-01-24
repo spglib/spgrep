@@ -41,15 +41,13 @@ EXTRAS = {
         "ipykernel",
     ],
     "docs": [
-        # We cannot update sphinx to >6 until docutils==0.20 is released: https://github.com/mcmtroffaes/sphinxcontrib-bibtex/issues/322
-        # Another issue requires sphinx<4.3 (fixed in pydata-sphinx-theme>=0.8.0): https://github.com/pydata/pydata-sphinx-theme/pull/509
-        "docutils<=0.17",
-        "sphinx<4.3",
+        "docutils",
+        "sphinx",
         "sphinx-autobuild",
         "nbsphinx",
-        "sphinxcontrib-bibtex",
+        "sphinxcontrib-bibtex>=2.6.2",
         "myst-parser",
-        "sphinx-book-theme",
+        "sphinx-book-theme>=0.8.0",
         "linkify-it-py",
     ],
 }
