@@ -1,4 +1,5 @@
 """On-the-fly irreps generations."""
+
 from __future__ import annotations
 
 from itertools import product

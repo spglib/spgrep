@@ -1,4 +1,5 @@
 """Enumerate unitary irreps from crystal structure or symmetry operations."""
+
 from __future__ import annotations
 
 from typing import Literal
