@@ -1,4 +1,5 @@
 """Symmetric tensor."""
+
 from __future__ import annotations
 
 from itertools import permutations, product

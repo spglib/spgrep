@@ -1,4 +1,5 @@
 """Decomposition of crystallographic point groups as solvable groups."""
+
 from __future__ import annotations
 
 import numpy as np

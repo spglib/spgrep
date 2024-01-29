@@ -1,4 +1,5 @@
 """Representation-matrix related implementations."""
+
 from __future__ import annotations
 
 from itertools import product
