@@ -38,7 +38,7 @@ jobs:
       # Generated documents are push to `gh-pages` branch
       # `ACTIONS_DEPLOY_KEY` is set by following: https://github.com/peaceiris/actions-gh-pages#%EF%B8%8F-create-ssh-deploy-key
       - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
+        uses: peaceiris/actions-gh-pages@v4
         with:
           deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
           publish_dir: ./docs_build
