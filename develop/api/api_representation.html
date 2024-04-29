@@ -36,8 +36,8 @@
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
   <script src="../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
 
-    <script src="../_static/documentation_options.js?v=f074ae85"></script>
-    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/documentation_options.js?v=db4b0045"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
@@ -386,7 +386,7 @@ document.write(`
 <dd><p>Calculate regular representation of point group.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>rotations</strong> (<em>array</em><em>, </em><em>(</em><em>order</em><em>, </em><em>3</em><em>, </em><em>3</em><em>)</em>) – </p>
+<dd class="field-odd"><p><strong>rotations</strong> (<em>array</em><em>, </em><em>(</em><em>order</em><em>, </em><em>3</em><em>, </em><em>3</em><em>)</em>)</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>reg</strong> – <code class="docutils literal notranslate"><span class="pre">reg[k]</span></code> is a representation matrix for <code class="docutils literal notranslate"><span class="pre">rotations[k]</span></code>.
@@ -407,8 +407,8 @@ If and only if <code class="docutils literal notranslate"><span class="pre">np.d
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>rotations</strong> (<em>array</em><em>, </em><em>(</em><em>order</em><em>, </em><em>3</em><em>, </em><em>3</em><em>)</em>) – </p></li>
-<li><p><strong>factor_system</strong> (<em>array</em><em>, </em><em>(</em><em>order</em><em>, </em><em>order</em><em>)</em>) – </p></li>
+<li><p><strong>rotations</strong> (<em>array</em><em>, </em><em>(</em><em>order</em><em>, </em><em>3</em><em>, </em><em>3</em><em>)</em>)</p></li>
+<li><p><strong>factor_system</strong> (<em>array</em><em>, </em><em>(</em><em>order</em><em>, </em><em>order</em><em>)</em>)</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -455,7 +455,7 @@ If and only if <code class="docutils literal notranslate"><span class="pre">np.d
 <dd><p>Calculate character of representation.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>representation</strong> (<em>array</em><em>, </em><em>(</em><em>order</em><em>, </em><em>dim</em><em>, </em><em>dim</em><em>)</em>) – </p>
+<dd class="field-odd"><p><strong>representation</strong> (<em>array</em><em>, </em><em>(</em><em>order</em><em>, </em><em>dim</em><em>, </em><em>dim</em><em>)</em>)</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>character</strong></p>
@@ -475,7 +475,7 @@ If and only if <code class="docutils literal notranslate"><span class="pre">np.d
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>representation</strong> (<em>array</em><em>, </em><em>(</em><em>order</em><em>, </em><em>dim</em><em>, </em><em>dim</em><em>)</em>) – </p></li>
+<li><p><strong>representation</strong> (<em>array</em><em>, </em><em>(</em><em>order</em><em>, </em><em>dim</em><em>, </em><em>dim</em><em>)</em>)</p></li>
 <li><p><strong>irrep</strong> (<em>array</em><em>, </em><em>(</em><em>order</em><em>, </em><em>dim_irrep</em><em>, </em><em>dim_irrep</em><em>)</em>) – Unitary (projective) irrep with factor system s.t. <span class="math notranslate nohighlight">\(\mu(E, E) = 1\)</span>.</p></li>
 <li><p><strong>atol</strong> (<em>float</em><em>, </em><em>default=1e-5</em>) – Absolute tolerance to compare basis vectors</p></li>
 <li><p><strong>max_num_trials</strong> (<em>int</em><em>, </em><em>default=10</em>) – Maximum number to retry when failed to select projected basis vectors</p></li>
@@ -517,7 +517,7 @@ If and only if <code class="docutils literal notranslate"><span class="pre">np.d
 \frac{1}{|G|} \sum_{ g \in G } \chi(g^{2})\]</div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>irrep</strong> (<em>array</em><em>, </em><em>(</em><em>order</em><em>, </em><em>dim</em><em>, </em><em>dim</em><em>)</em>) – </p>
+<dd class="field-odd"><p><strong>irrep</strong> (<em>array</em><em>, </em><em>(</em><em>order</em><em>, </em><em>dim</em><em>, </em><em>dim</em><em>)</em>)</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>indicator</strong> – If <code class="docutils literal notranslate"><span class="pre">indicator==1</span></code>, it is real Reps.
@@ -547,8 +547,8 @@ Otherwise, it and adjoint Reps. are not equivalent.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>rep1</strong> (<em>array</em><em>, </em><em>(</em><em>order</em><em>, </em><em>dim1</em><em>, </em><em>dim1</em><em>)</em>) – </p></li>
-<li><p><strong>rep2</strong> (<em>array</em><em>, </em><em>(</em><em>order</em><em>, </em><em>dim2</em><em>, </em><em>dim2</em><em>)</em>) – </p></li>
+<li><p><strong>rep1</strong> (<em>array</em><em>, </em><em>(</em><em>order</em><em>, </em><em>dim1</em><em>, </em><em>dim1</em><em>)</em>)</p></li>
+<li><p><strong>rep2</strong> (<em>array</em><em>, </em><em>(</em><em>order</em><em>, </em><em>dim2</em><em>, </em><em>dim2</em><em>)</em>)</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>

@@ -36,8 +36,8 @@
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
   <script src="../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
 
-    <script src="../_static/documentation_options.js?v=f074ae85"></script>
-    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/documentation_options.js?v=db4b0045"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
@@ -384,9 +384,9 @@ document.write(`
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>little_rotations</strong> (<em>array</em><em>, </em><em>(</em><em>order</em><em>, </em><em>3</em><em>, </em><em>3</em><em>)</em>) – </p></li>
-<li><p><strong>little_translations</strong> (<em>array</em><em>, </em><em>(</em><em>order</em><em>, </em><em>3</em><em>)</em>) – </p></li>
-<li><p><strong>kpoint</strong> (<em>array</em><em>, </em><em>(</em><em>3</em><em>, </em><em>)</em>) – </p></li>
+<li><p><strong>little_rotations</strong> (<em>array</em><em>, </em><em>(</em><em>order</em><em>, </em><em>3</em><em>, </em><em>3</em><em>)</em>)</p></li>
+<li><p><strong>little_translations</strong> (<em>array</em><em>, </em><em>(</em><em>order</em><em>, </em><em>3</em><em>)</em>)</p></li>
+<li><p><strong>kpoint</strong> (<em>array</em><em>, </em><em>(</em><em>3</em><em>, </em><em>)</em>)</p></li>
 <li><p><strong>real</strong> (<em>bool</em><em>, </em><em>default=False</em>) – <p>If True, return irreps over real vector space (so called physically irreducible representations).
 For type-II and type-III cases, representation matrix for translation <span class="math notranslate nohighlight">\((\mathbf{E}, \mathbf{t})\)</span> is chosen as</p>
 <div class="math notranslate nohighlight">
@@ -422,7 +422,7 @@ For type-II and type-III cases, representation matrix for translation <span clas
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>rotations</strong> (<em>array</em><em>, </em><em>(</em><em>order</em><em>, </em><em>3</em><em>, </em><em>3</em><em>)</em>) – </p></li>
+<li><p><strong>rotations</strong> (<em>array</em><em>, </em><em>(</em><em>order</em><em>, </em><em>3</em><em>, </em><em>3</em><em>)</em>)</p></li>
 <li><p><strong>factor_system</strong> (<em>array</em><em>, </em><em>(</em><em>order</em><em>, </em><em>order</em><em>)</em>) – If not specified, treat as ordinary representation.</p></li>
 <li><p><strong>real</strong> (<em>bool</em><em>, </em><em>default=False</em>) – If True, return irreps over real vector space (so called physically irreducible representations)</p></li>
 <li><p><strong>method</strong> (<em>str</em><em>, </em><em>'Neto'</em><em> or </em><em>'random'</em>) – ‘Neto’: construct irreps from a fixed chain of subgroups of little co-group
@@ -498,7 +498,7 @@ For type-II and type-III cases, representation matrix for translation <span clas
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>table</strong> (<em>array</em><em>, </em><em>(</em><em>order</em><em>, </em><em>order</em><em>)</em>) – Cayley table</p></li>
-<li><p><strong>factor_system</strong> (<em>array</em><em>, </em><em>(</em><em>order</em><em>, </em><em>order</em><em>)</em>) – </p></li>
+<li><p><strong>factor_system</strong> (<em>array</em><em>, </em><em>(</em><em>order</em><em>, </em><em>order</em><em>)</em>)</p></li>
 <li><p><strong>solvable_group_chain</strong> (<em>list</em><em> of </em><em>single generator</em><em> of </em><em>coset</em>) – Let <span class="math notranslate nohighlight">\(G_{0} := G\)</span> and <span class="math notranslate nohighlight">\(G_{i} := G_{i-1} / \langle\)</span> <code class="docutils literal notranslate"><span class="pre">solvable_chain_generators[i]</span></code> <span class="math notranslate nohighlight">\(\rangle\)</span> (i = 0, 1, …).
 Then, <span class="math notranslate nohighlight">\(G_{i}\)</span> is normal subgroup of <span class="math notranslate nohighlight">\(G_{i-1}\)</span> and factor group <span class="math notranslate nohighlight">\(G_{i-1}/G_{i}\)</span> is Abelian.</p></li>
 <li><p><strong>atol</strong> (<em>float</em>) – Absolute tolerance to distinguish difference eigenvalues</p></li>
