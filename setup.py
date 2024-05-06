@@ -32,7 +32,7 @@ EXTRAS = {
         "pyupgrade",
         "pydocstyle",
         "nbqa",
-        "phonopy==2.22.1",
+        "phonopy==2.23.1",
         # Jupyter notebook
         "notebook",
         "matplotlib",
