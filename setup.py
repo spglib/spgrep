@@ -23,7 +23,7 @@ REQUIRED = [
 # What packages are optional?
 EXTRAS = {
     "dev": [
-        "pytest==8.2.0",
+        "pytest==8.2.1",
         "pytest-cov==5.0.0",
         "pre-commit",
         "black",
