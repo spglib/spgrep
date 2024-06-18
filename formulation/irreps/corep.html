@@ -1,55 +1,55 @@
 
-
 <!DOCTYPE html>
 
 
-<html >
+<html lang="en" data-content_root="../../" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Co-representation of magnetic point and space group &#8212; spgrep 0.3.4</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Co-representation of magnetic point and space group &#8212; spgrep 0.3.5</title>
   
   
   
   <script data-cfasync="false">
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="../../_static/styles/theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
 
   
-  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
-<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
 
-    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
-    <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../../_static/documentation_options.js?v=fb2171cd"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'formulation/irreps/corep';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Algorithm for enumerating irreps" href="../algorithm/algorithm.html" />
     <link rel="prev" title="Spin representation" href="spinor.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <meta name="docsearch:language" content="None"/>
+  <meta name="docsearch:language" content="en"/>
   </head>
   
   
@@ -57,19 +57,23 @@
 
   
   
-  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__primary"
-          id="__primary"/>
-  <label class="overlay overlay-primary" for="__primary"></label>
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__secondary"
-          id="__secondary"/>
-  <label class="overlay overlay-secondary" for="__secondary"></label>
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
   
   <div class="search-button__wrapper">
     <div class="search-button__overlay"></div>
@@ -91,12 +95,20 @@
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
 </form></div>
   </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
   
-    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
-    </nav>
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
   
+
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
+      
+      
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -111,6 +123,7 @@
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
+
   
 
 <a class="navbar-brand logo" href="../../index.html">
@@ -119,38 +132,50 @@
   
   
   
-    <p class="title logo__title">spgrep 0.3.4</p>
+  
+    <p class="title logo__title">spgrep 0.3.5</p>
   
 </a></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Contents</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../../index.html">   Introduction</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../examples/examples.html">   Examples</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../examples/examples.html">   Examples</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../examples/symmetry_adapted_tensor.html">  Symmetry-adapted tensors</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../examples/lattice_vibration.html">  Application of space-group irreps to lattice vibration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../examples/spin_representation.html">  Spin representation</a></li>
 </ul>
-</li>
-<li class="toctree-l1 current active has-children"><a class="reference internal" href="../formulation.html">   Formulation</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
-<li class="toctree-l2 current active has-children"><a class="reference internal" href="irreps.html">  Irreducible representation</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../formulation.html">   Formulation</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="irreps.html">  Irreducible representation</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="spacegroup_irreps.html">  Irreps of space group</a></li>
 <li class="toctree-l3"><a class="reference internal" href="reality.html">  Physically irreps</a></li>
 <li class="toctree-l3"><a class="reference internal" href="spinor.html">  Spin representation</a></li>
 <li class="toctree-l3 current active"><a class="current reference internal" href="#">  Co-representation</a></li>
 </ul>
-</li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../algorithm/algorithm.html">  Algorithm for enumerating irreps</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../algorithm/algorithm.html">  Algorithm for enumerating irreps</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../algorithm/irreps_from_regular.html">  On-the-fly irreps generation from regular representation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../algorithm/irreps_from_chain.html">  On-the-fly irreps generation from solvable group chain</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../algorithm/intertwiner.html">  Intertwiner</a></li>
 </ul>
-</li>
+</details></li>
 <li class="toctree-l2"><a class="reference internal" href="../projection.html">  Symmetry-adapted basis</a></li>
 </ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../api/api.html">   API Reference</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../api/api.html">   API Reference</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../api/api_core.html">    Core functions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/api_group.html">    Group</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/api_pointgroup.html">    Point group</a></li>
@@ -162,12 +187,12 @@
 <li class="toctree-l2"><a class="reference internal" href="../../api/api_tensor.html">    Tensor</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/api_utils.html">    Utility functions</a></li>
 </ul>
-</li>
+</details></li>
 <li class="toctree-l1"><a class="reference internal" href="../../changelog.html">   Change Log</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../development/development.html">   Development</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../development/development.html">   Development</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../development/memo.html">  Memo</a></li>
 </ul>
-</li>
+</details></li>
 <li class="toctree-l1"><a class="reference internal" href="../../genindex.html">   Index</a></li>
 </ul>
 
@@ -184,7 +209,7 @@
 
       </div>
       
-      <main id="main-content" class="bd-main">
+      <main id="main-content" class="bd-main" role="main">
         
         
 
@@ -193,14 +218,14 @@
           <div class="bd-content">
             <div class="bd-article-container">
               
-              <div class="bd-header-article">
+              <div class="bd-header-article d-print-none">
 <div class="header-article-items header-article__inner">
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</label></div>
+</button></div>
       
     </div>
   
@@ -290,26 +315,28 @@
 </button>
 
 
+
 <script>
 document.write(`
-  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
-    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
-    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
   </button>
 `);
 </script>
 
+
 <script>
 document.write(`
   <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
   </button>
 `);
 </script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
-</label>
+</button>
 </div></div>
       
     </div>
@@ -349,13 +376,13 @@ document.write(`
               
                 
 <div id="searchbox"></div>
-                <article class="bd-article" role="main">
+                <article class="bd-article">
                   
-  <div class="tex2jax_ignore mathjax_ignore section" id="co-representation-of-magnetic-point-and-space-group">
-<span id="corep"></span><h1>Co-representation of magnetic point and space group<a class="headerlink" href="#co-representation-of-magnetic-point-and-space-group" title="Permalink to this headline">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="co-representation-of-magnetic-point-and-space-group">
+<span id="corep"></span><h1>Co-representation of magnetic point and space group<a class="headerlink" href="#co-representation-of-magnetic-point-and-space-group" title="Link to this heading">#</a></h1>
 <p>Refs: <span id="id1">[<a class="reference internal" href="#id16" title="Haruki Watanabe, Hoi Chun Po, and Ashvin Vishwanath. Structure and topology of band structures in the 1651 magnetic space groups. Sci. Adv., 4(8):eaat8685, 2018. URL: https://www.science.org/doi/abs/10.1126/sciadv.aat8685, doi:10.1126/sciadv.aat8685.">WPV18</a>, <a class="reference internal" href="#id10" title="Eugene Wigner. Group theory: and its application to the quantum mechanics of atomic spectra. Elsevier, 1959.">Wig59</a>]</span></p>
-<div class="section" id="anti-linear-operator">
-<h2>Anti-linear operator<a class="headerlink" href="#anti-linear-operator" title="Permalink to this headline">#</a></h2>
+<section id="anti-linear-operator">
+<h2>Anti-linear operator<a class="headerlink" href="#anti-linear-operator" title="Link to this heading">#</a></h2>
 <p>Let <span class="math notranslate nohighlight">\(V\)</span> be a vector space over <span class="math notranslate nohighlight">\(\mathbb{C}\)</span> that operators in <span class="math notranslate nohighlight">\(M\)</span> act.
 An anti-unitary operator <span class="math notranslate nohighlight">\(a \in M\)</span> satisfies
 <div class="math notranslate nohighlight">
@@ -364,9 +391,9 @@ An anti-unitary operator <span class="math notranslate nohighlight">\(a \in M\)<
 \]</div>
 
 for <span class="math notranslate nohighlight">\(c_{1}, c_{2} \in \mathbb{C}\)</span> and <span class="math notranslate nohighlight">\(\psi_{1}, \psi_{2} \in V\)</span>.</p>
-</div>
-<div class="section" id="definition">
-<h2>Definition<a class="headerlink" href="#definition" title="Permalink to this headline">#</a></h2>
+</section>
+<section id="definition">
+<h2>Definition<a class="headerlink" href="#definition" title="Link to this heading">#</a></h2>
 <p>Let <span class="math notranslate nohighlight">\(M\)</span> be magnetic point group other than type I.
 Let <span class="math notranslate nohighlight">\(D\)</span> be a maximal point subgroup of <span class="math notranslate nohighlight">\(M\)</span>.
 Then, <span class="math notranslate nohighlight">\(M\)</span> can be decomposed as <span class="math notranslate nohighlight">\(M = D \sqcup a_{0} D\)</span>, where <span class="math notranslate nohighlight">\(a_{0}\)</span> is an antisymmetry operation.</p>
@@ -387,7 +414,7 @@ The factor system <span class="math notranslate nohighlight">\(\omega\)</span> s
     \omega(a, m) \omega(am, m') &amp;= \omega(a, mm') \omega(m, m')^{\ast} \\
 \end{split}\]</div>
 
-for <span class="math notranslate nohighlight">\(u \in D\)</span>, <span class="math notranslate nohighlight">\(a \in a_{0}D\)</span>, and <span class="math notranslate nohighlight">\(m, m \in M\)</span> <a class="footnote-reference brackets" href="#footnote1" id="id2">1</a>.</p>
+for <span class="math notranslate nohighlight">\(u \in D\)</span>, <span class="math notranslate nohighlight">\(a \in a_{0}D\)</span>, and <span class="math notranslate nohighlight">\(m, m \in M\)</span> <a class="footnote-reference brackets" href="#footnote1" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>.</p>
 <p>Co-representations <span class="math notranslate nohighlight">\(\Gamma\)</span> and <span class="math notranslate nohighlight">\(\Gamma'\)</span> are equivalent if an invertible matrix <span class="math notranslate nohighlight">\(\mathbf{T}\)</span> exists such that
 <div class="math notranslate nohighlight">
 \[\begin{split}
@@ -395,9 +422,9 @@ for <span class="math notranslate nohighlight">\(u \in D\)</span>, <span class="
     \mathbf{\Gamma}'(a) &amp;= \mathbf{T}^{-1} \mathbf{\Gamma}(a) \mathbf{T}^{\ast} \quad (a \in a_{0}D) \\
 \end{split}\]</div>
 </p>
-</div>
-<div class="section" id="frobenius-schur-indicator-for-co-representation">
-<h2>Frobenius-Schur indicator for co-representation<a class="headerlink" href="#frobenius-schur-indicator-for-co-representation" title="Permalink to this headline">#</a></h2>
+</section>
+<section id="frobenius-schur-indicator-for-co-representation">
+<h2>Frobenius-Schur indicator for co-representation<a class="headerlink" href="#frobenius-schur-indicator-for-co-representation" title="Link to this heading">#</a></h2>
 <p>Let <span class="math notranslate nohighlight">\((\Gamma, \mathrm{Span}_{\mathbb{C}} \{ \mathbf{\phi}_{i} \}_{i=1}^{d} )\)</span> be one of <strong>unitary</strong> irreps for <span class="math notranslate nohighlight">\(D\)</span> with factor system <span class="math notranslate nohighlight">\(\omega\)</span>.
 Then, <span class="math notranslate nohighlight">\(\{ a_{0} \mathbf{v}_{i} \}_{i}\)</span> also form irrep as
 <div class="math notranslate nohighlight">
@@ -415,8 +442,8 @@ Then, <span class="math notranslate nohighlight">\(\{ a_{0} \mathbf{v}_{i} \}_{i
 \end{split}\]</div>
 
 This indicator can check if <span class="math notranslate nohighlight">\(\Gamma\)</span> and <span class="math notranslate nohighlight">\(\overline{\Gamma}\)</span> are equivalent.</p>
-<div class="section" id="case-xi-alpha-1">
-<h3>Case: <span class="math notranslate nohighlight">\(\xi^{\alpha} = 1\)</span><a class="headerlink" href="#case-xi-alpha-1" title="Permalink to this headline">#</a></h3>
+<section id="case-xi-alpha-1">
+<h3>Case: <span class="math notranslate nohighlight">\(\xi^{\alpha} = 1\)</span><a class="headerlink" href="#case-xi-alpha-1" title="Link to this heading">#</a></h3>
 <p>In this case, <span class="math notranslate nohighlight">\(\Gamma\)</span> and <span class="math notranslate nohighlight">\(\overline{\Gamma}\)</span> are equivalent.
 Let <span class="math notranslate nohighlight">\(\mathbf{U}\)</span> be a <strong>unitary</strong> intertwiner between <span class="math notranslate nohighlight">\(\Gamma\)</span> and <span class="math notranslate nohighlight">\(\overline{\Gamma}\)</span>:
 <div class="math notranslate nohighlight">
@@ -425,7 +452,7 @@ Let <span class="math notranslate nohighlight">\(\mathbf{U}\)</span> be a <stron
 \]</div>
 
 Then, a transformed basis <span class="math notranslate nohighlight">\(\{ \mathbf{\psi}_{i} := \sum_{j} a_{0} \mathbf{\phi}_{j} [\mathbf{U}^{\dagger}]_{ji} \}_{i}\)</span> also forms <span class="math notranslate nohighlight">\(\Gamma\)</span>.</p>
-<p>A new basis <span class="math notranslate nohighlight">\(\{ \frac{1}{\sqrt{2}}(\phi_{i} + \psi_{i}) \}_{i}\)</span> gives the following irrep <a class="footnote-reference brackets" href="#derivation" id="id3">2</a>:
+<p>A new basis <span class="math notranslate nohighlight">\(\{ \frac{1}{\sqrt{2}}(\phi_{i} + \psi_{i}) \}_{i}\)</span> gives the following irrep <a class="footnote-reference brackets" href="#derivation" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>:
 <div class="math notranslate nohighlight">
 \[\begin{split}
     \tilde{\mathbf{\Gamma}}(u) &amp;= \mathbf{\Gamma}(u) \\
@@ -434,9 +461,9 @@ Then, a transformed basis <span class="math notranslate nohighlight">\(\{ \mathb
     \mathbf{U}\mathbf{U}^{\ast} &amp;= \omega(a_{0}, a_{0})\Gamma(a_{0}^{2}).
 \end{split}\]</div>
 </p>
-</div>
-<div class="section" id="id4">
-<h3>Case: <span class="math notranslate nohighlight">\(\xi^{\alpha} = -1\)</span><a class="headerlink" href="#id4" title="Permalink to this headline">#</a></h3>
+</section>
+<section id="id4">
+<h3>Case: <span class="math notranslate nohighlight">\(\xi^{\alpha} = -1\)</span><a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
 <p>In this case, <span class="math notranslate nohighlight">\(\Gamma\)</span> and <span class="math notranslate nohighlight">\(\overline{\Gamma}\)</span> are equivalent.
 Let <span class="math notranslate nohighlight">\(\mathbf{U}\)</span> be a <strong>unitary</strong> intertwiner between <span class="math notranslate nohighlight">\(\Gamma\)</span> and <span class="math notranslate nohighlight">\(\overline{\Gamma}\)</span>:
 <div class="math notranslate nohighlight">
@@ -461,9 +488,9 @@ Let <span class="math notranslate nohighlight">\(\mathbf{U}\)</span> be a <stron
     \tilde{\mathbf{\Gamma}}(a_{0}u) &amp;= \omega(a_{0}, u)^{\ast} \tilde{\mathbf{\Gamma}}(a_{0}) \tilde{\mathbf{\Gamma}}(u)
 \end{split}\]</div>
 </p>
-</div>
-<div class="section" id="case-xi-alpha-0">
-<h3>Case: <span class="math notranslate nohighlight">\(\xi^{\alpha} = 0\)</span><a class="headerlink" href="#case-xi-alpha-0" title="Permalink to this headline">#</a></h3>
+</section>
+<section id="case-xi-alpha-0">
+<h3>Case: <span class="math notranslate nohighlight">\(\xi^{\alpha} = 0\)</span><a class="headerlink" href="#case-xi-alpha-0" title="Link to this heading">#</a></h3>
 <p>In this case, <span class="math notranslate nohighlight">\(\Gamma\)</span> and <span class="math notranslate nohighlight">\(\overline{\Gamma}\)</span> are not equivalent.
 We can take <span class="math notranslate nohighlight">\((\mathbf{\phi}_{1}, \cdots, \mathbf{\phi}_{d}, a_{0}\mathbf{\phi}_{1}, \cdots, a_{0}\mathbf{\phi}_{d})\)</span> as basis and they form irrep of <span class="math notranslate nohighlight">\(M\)</span> as
 <div class="math notranslate nohighlight">
@@ -481,10 +508,10 @@ We can take <span class="math notranslate nohighlight">\((\mathbf{\phi}_{1}, \cd
     \tilde{\mathbf{\Gamma}}(a_{0}u) &amp;= \omega(a_{0}, u)^{\ast} \tilde{\mathbf{\Gamma}}(a_{0}) \tilde{\mathbf{\Gamma}}(u)
 \end{split}\]</div>
 </p>
-</div>
-</div>
-<div class="section" id="convention-of-anti-linear-operators-in-spgrep">
-<span id="corep-spinor-factor-system"></span><h2>Convention of anti-linear operators in spgrep<a class="headerlink" href="#convention-of-anti-linear-operators-in-spgrep" title="Permalink to this headline">#</a></h2>
+</section>
+</section>
+<section id="convention-of-anti-linear-operators-in-spgrep">
+<span id="corep-spinor-factor-system"></span><h2>Convention of anti-linear operators in spgrep<a class="headerlink" href="#convention-of-anti-linear-operators-in-spgrep" title="Link to this heading">#</a></h2>
 <p>Let <span class="math notranslate nohighlight">\(M\)</span> be magnetic point group other than type I.
 Let <span class="math notranslate nohighlight">\(D\)</span> be a maximal point subgroup of <span class="math notranslate nohighlight">\(M\)</span>.
 Then, <span class="math notranslate nohighlight">\(M\)</span> can be decomposed as <span class="math notranslate nohighlight">\(M = D \sqcup D a_{0}\)</span>, where <span class="math notranslate nohighlight">\(a_{0} = \mathbf{S}_{0} 1'\)</span> is an antisymmetry operation.
@@ -500,26 +527,30 @@ We choose the following convention for choosing unitary or anti-unitary matrices
 where <span class="math notranslate nohighlight">\(\mathbf{U}: \mathrm{O}(3) \to \mathrm{SU}(2)\)</span> is defined <a class="reference internal" href="spinor.html#spin-representation"><span class="std std-ref">here</span></a>.
 <span class="math notranslate nohighlight">\(\sigma_{y}\)</span> is the Pauli matrix.
 <span class="math notranslate nohighlight">\(K\)</span> is an anti-linear operator that takes complex conjugate.</p>
-</div>
-<div class="section" id="references">
-<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">#</a></h2>
+</section>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h2>
 <div class="docutils container" id="id5">
-<dl class="citation">
-<dt class="label" id="id16"><span class="brackets"><a class="fn-backref" href="#id1">WPV18</a></span></dt>
-<dd><p>Haruki Watanabe, Hoi Chun Po, and Ashvin Vishwanath. Structure and topology of band structures in the 1651 magnetic space groups. <em>Sci. Adv.</em>, 4(8):eaat8685, 2018. URL: <a class="reference external" href="https://www.science.org/doi/abs/10.1126/sciadv.aat8685">https://www.science.org/doi/abs/10.1126/sciadv.aat8685</a>, <a class="reference external" href="https://doi.org/10.1126/sciadv.aat8685">doi:10.1126/sciadv.aat8685</a>.</p>
-</dd>
-<dt class="label" id="id10"><span class="brackets"><a class="fn-backref" href="#id1">Wig59</a></span></dt>
-<dd><p>Eugene Wigner. <em>Group theory: and its application to the quantum mechanics of atomic spectra</em>. Elsevier, 1959.</p>
-</dd>
-</dl>
+<div role="list" class="citation-list">
+<div class="citation" id="id16" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">WPV18</a><span class="fn-bracket">]</span></span>
+<p>Haruki Watanabe, Hoi Chun Po, and Ashvin Vishwanath. Structure and topology of band structures in the 1651 magnetic space groups. <em>Sci. Adv.</em>, 4(8):eaat8685, 2018. URL: <a class="reference external" href="https://www.science.org/doi/abs/10.1126/sciadv.aat8685">https://www.science.org/doi/abs/10.1126/sciadv.aat8685</a>, <a class="reference external" href="https://doi.org/10.1126/sciadv.aat8685">doi:10.1126/sciadv.aat8685</a>.</p>
+</div>
+<div class="citation" id="id10" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">Wig59</a><span class="fn-bracket">]</span></span>
+<p>Eugene Wigner. <em>Group theory: and its application to the quantum mechanics of atomic spectra</em>. Elsevier, 1959.</p>
+</div>
+</div>
 </div>
 <hr class="footnotes docutils" />
-<dl class="footnote brackets">
-<dt class="label" id="footnote1"><span class="brackets"><a class="fn-backref" href="#id2">1</a></span></dt>
-<dd><p>Consider <span class="math notranslate nohighlight">\(\mathbf{\Gamma}(a) \mathbf{\Gamma}(m)^{\ast} \mathbf{\Gamma}(m')^{\ast}\)</span> for <span class="math notranslate nohighlight">\(m \in D\)</span> and <span class="math notranslate nohighlight">\(\mathbf{\Gamma}(a) \mathbf{\Gamma}(m)^{\ast} \mathbf{\Gamma}(m')\)</span> for <span class="math notranslate nohighlight">\(m \in a_{0}D\)</span>.</p>
-</dd>
-<dt class="label" id="derivation"><span class="brackets"><a class="fn-backref" href="#id3">2</a></span></dt>
-<dd><p>Be careful anti-linear operators,
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="footnote1" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">1</a><span class="fn-bracket">]</span></span>
+<p>Consider <span class="math notranslate nohighlight">\(\mathbf{\Gamma}(a) \mathbf{\Gamma}(m)^{\ast} \mathbf{\Gamma}(m')^{\ast}\)</span> for <span class="math notranslate nohighlight">\(m \in D\)</span> and <span class="math notranslate nohighlight">\(\mathbf{\Gamma}(a) \mathbf{\Gamma}(m)^{\ast} \mathbf{\Gamma}(m')\)</span> for <span class="math notranslate nohighlight">\(m \in a_{0}D\)</span>.</p>
+</aside>
+<aside class="footnote brackets" id="derivation" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">2</a><span class="fn-bracket">]</span></span>
+<p>Be careful anti-linear operators,
 <div class="math notranslate nohighlight">
 \[\begin{split}
 a_{0} \psi_{i}
@@ -528,10 +559,10 @@ a_{0} \psi_{i}
     &amp;= \sum_{k} \phi_{k} U_{ki}
 \end{split}\]</div>
 </p>
-</dd>
-</dl>
-</div>
-</div>
+</aside>
+</aside>
+</section>
+</section>
 
 
                 </article>
@@ -539,11 +570,10 @@ a_{0} \psi_{i}
 
               
               
-                <footer class="bd-footer-article">
+              
+              
+                <footer class="prev-next-footer d-print-none">
                   
-<div class="footer-article-items footer-article__inner">
-  
-    <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
        href="spinor.html"
@@ -563,10 +593,7 @@ a_{0} \psi_{i}
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
-</div></div>
-  
 </div>
-
                 </footer>
               
             </div>
@@ -574,6 +601,7 @@ a_{0} \psi_{i}
             
               
                 <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
 
   <div class="sidebar-secondary-item">
   <div class="page-toc tocsection onthispage">
@@ -612,6 +640,7 @@ By Kohei Shinohara
   
   <div class="footer-item">
     
+
   <p class="copyright">
     
       © Copyright 2022, Kohei Shinohara.
@@ -638,8 +667,8 @@ By Kohei Shinohara
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
-<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+  <script src="../../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341"></script>
 
   <footer class="bd-footer">
   </footer>
