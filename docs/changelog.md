@@ -1,5 +1,9 @@
 # Change Log
 
+## v0.3.5 (18 Jun. 2024)
+
+- Make compatible with NumPy 2.0.0
+
 ## v0.3.3 (11 Jan. 2023)
 - Improve comparison between linear subspaces [[#53]](https://github.com/spglib/spgrep/pull/53)
     - Use Grassmann distance to measure linear subspaces: {func}`spgrep.utils.grassmann_distance`

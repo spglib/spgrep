@@ -48,7 +48,7 @@ def test_spinor_factor_system_symmorphic(C3v, hexagonal_lattice):
     for unitary_rotation in unitary_rotations:
         assert np.allclose(
             unitary_rotation @ np.conj(unitary_rotation).T,
-            np.eye(2, dtype=np.complex_),
+            np.eye(2, dtype=np.complex128),
         )
 
     # Check factor system
@@ -129,7 +129,7 @@ def test_get_spacegroup_spinor_irreps_from_primitive_symmetry(kpoint, shape_expe
     for unitary_rotation in little_unitary_rotations:
         assert np.allclose(
             unitary_rotation @ np.conj(unitary_rotation).T,
-            np.eye(2, dtype=np.complex_),
+            np.eye(2, dtype=np.complex128),
         )
 
     # Check as representation
@@ -159,7 +159,7 @@ def test_get_crystallographic_pointgroup_spinor_irreps_from_symmetry(Oh):
     for unitary_rotation in unitary_rotations:
         assert np.allclose(
             unitary_rotation @ np.conj(unitary_rotation).T,
-            np.eye(2, dtype=np.complex_),
+            np.eye(2, dtype=np.complex128),
         )
 
     # Check as representation

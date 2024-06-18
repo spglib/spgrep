@@ -23,8 +23,8 @@ REQUIRED = [
 # What packages are optional?
 EXTRAS = {
     "dev": [
-        "pytest==8.2.2",
-        "pytest-cov==5.0.0",
+        "pytest",
+        "pytest-cov",
         "pre-commit",
         "black",
         "mypy",
@@ -32,7 +32,7 @@ EXTRAS = {
         "pyupgrade",
         "pydocstyle",
         "nbqa",
-        "phonopy==2.24.2",
+        "phonopy",
         # Jupyter notebook
         "notebook",
         "matplotlib",
@@ -93,6 +93,7 @@ setup(
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
         "Topic :: Scientific/Engineering :: Mathematics",
         "Topic :: Scientific/Engineering :: Physics",
     ],

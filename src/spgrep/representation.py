@@ -59,7 +59,7 @@ def get_projective_regular_representation(
     n = len(rotations)
     table = get_cayley_table(rotations)
 
-    reg = np.zeros((n, n, n), dtype=np.complex_)
+    reg = np.zeros((n, n, n), dtype=np.complex128)
     for k, j in product(range(n), repeat=2):
         reg[k, table[k, j], j] = factor_system[k, j]
 
@@ -120,7 +120,7 @@ def get_character(representation: NDArrayComplex) -> NDArrayComplex:
     -------
     character: array, (order, )
     """
-    character = np.einsum("ijj->i", representation, optimize="greedy").astype(np.complex_)
+    character = np.einsum("ijj->i", representation, optimize="greedy").astype(np.complex128)
     return character
 
 
@@ -251,7 +251,7 @@ def is_representation(
     """Return true if given matrix function is a (projective) representation with given factor system."""
     order = rep.shape[0]
     if factor_system is None:
-        factor_system = np.ones((order, order), dtype=np.complex_)
+        factor_system = np.ones((order, order), dtype=np.complex128)
 
     for i, ri in enumerate(rep):
         for j, rj in enumerate(rep):
@@ -302,7 +302,7 @@ def check_spacegroup_representation(
     """Check definition of representation. This function works for primitive and conventional cell."""
     order = len(little_rotations)
     if spinor_factor_system is None:
-        spinor_factor_system = np.ones((order, order), dtype=np.complex_)
+        spinor_factor_system = np.ones((order, order), dtype=np.complex128)
 
     little_rotations_int = [ndarray2d_to_integer_tuple(rotation) for rotation in little_rotations]
 

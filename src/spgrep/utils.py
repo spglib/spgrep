@@ -11,8 +11,8 @@ from typing_extensions import TypeAlias  # for Python<3.10
 
 NDArrayBool: TypeAlias = NDArray[np.bool_]
 NDArrayInt: TypeAlias = NDArray[np.int_]
-NDArrayFloat: TypeAlias = NDArray[np.float_]
-NDArrayComplex: TypeAlias = NDArray[np.complex_]
+NDArrayFloat: TypeAlias = NDArray[np.float64]
+NDArrayComplex: TypeAlias = NDArray[np.complex128]
 
 
 def is_integer_array(array: NDArrayFloat, rtol: float = 1e-5, atol: float = 1e-8) -> bool:
@@ -54,7 +54,7 @@ def is_prime(n: int) -> bool:
     return True
 
 
-def nroot(z: np.complex_, n: int) -> np.complex_:
+def nroot(z: np.complex128, n: int) -> np.complex128:
     """Return `n`-th power root of `z` with the minimum angle."""
     root = z ** (1 / n)
     r = np.absolute(root)

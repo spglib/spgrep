@@ -57,7 +57,7 @@ def test_corep_spinor_factor_system(request, symmetry_and_lattice):
     for unitary_rotation in unitary_rotations:
         assert np.allclose(
             unitary_rotation @ np.conj(unitary_rotation).T,
-            np.eye(2, dtype=np.complex_),
+            np.eye(2, dtype=np.complex128),
         )
 
     # Cocycle condition
