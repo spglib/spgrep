@@ -37,7 +37,7 @@ def get_displacements_representation(
         perm_i = permutations[i]
         shifts[i] = positions @ Ri.T + vi[None, :] - positions[perm_i]
 
-    perm_rep = np.zeros((little_order, num_atoms, num_atoms), dtype=np.complex_)
+    perm_rep = np.zeros((little_order, num_atoms, num_atoms), dtype=np.complex128)
     for i, Ri in enumerate(little_rotations):
         for kappa in range(num_atoms):
             kappa2 = permutations[i, kappa]
@@ -48,7 +48,7 @@ def get_displacements_representation(
     # Rotation matrix in cartesian (order, 3, 3)
     A = np.transpose(lattice)  # column-wise lattice vectors
     Ainv = np.linalg.inv(A)
-    rotation_rep = np.array([A @ r @ Ainv for r in little_rotations], dtype=np.complex_)
+    rotation_rep = np.array([A @ r @ Ainv for r in little_rotations], dtype=np.complex128)
 
     rep = np.einsum("ipq,iab->ipaqb", perm_rep, rotation_rep, optimize="greedy")
     return rep.reshape(-1, num_atoms * 3, num_atoms * 3)

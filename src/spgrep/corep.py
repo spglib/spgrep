@@ -186,14 +186,14 @@ def enumerate_spinor_small_corepresentations(
         if indicator == 1:
             # Unitary matrix s.t. irrep @ U = conj_irrep @ U
             U = get_intertwiner(irrep, conj_irrep, atol, max_num_random_generations)
-            corep = np.zeros((order, dim, dim), dtype=np.complex_)
+            corep = np.zeros((order, dim, dim), dtype=np.complex128)
             corep[xsg_indices] = irrep
             corep[a0u] = (
                 np.conj(factor_system[a0_idx, xsg_indices])[:, None, None] * U[None, :, :] @ irrep
             )
         elif indicator == -1:
             U = get_intertwiner(irrep, conj_irrep, atol, max_num_random_generations)
-            corep = np.zeros((order, 2 * dim, 2 * dim), dtype=np.complex_)
+            corep = np.zeros((order, 2 * dim, 2 * dim), dtype=np.complex128)
 
             # [ [irrep, 0],
             #   [0, conj_irrep]]
@@ -202,7 +202,7 @@ def enumerate_spinor_small_corepresentations(
 
             # [ [0, -U],
             #   [U, 0] ]
-            corep_a0 = np.zeros((2 * dim, 2 * dim), dtype=np.complex_)
+            corep_a0 = np.zeros((2 * dim, 2 * dim), dtype=np.complex128)
             corep_a0[:dim, dim:] = -U
             corep_a0[dim:, :dim] = U
 
@@ -212,7 +212,7 @@ def enumerate_spinor_small_corepresentations(
                 @ corep[xsg_indices]
             )
         elif indicator == 0:
-            corep = np.zeros((order, 2 * dim, 2 * dim), dtype=np.complex_)
+            corep = np.zeros((order, 2 * dim, 2 * dim), dtype=np.complex128)
 
             # [ [irrep, 0],
             #   [0, conj_irrep]]
@@ -221,11 +221,11 @@ def enumerate_spinor_small_corepresentations(
 
             # [ [0, omega(a0, a0) irrep[a0 * a0]],
             #   [1, 0] ]
-            corep_a0 = np.zeros((2 * dim, 2 * dim), dtype=np.complex_)
+            corep_a0 = np.zeros((2 * dim, 2 * dim), dtype=np.complex128)
             corep_a0[:dim, dim:] = (
                 factor_system[a0_idx, a0_idx] * irrep[xsg_indices_mapping[table[a0_idx, a0_idx]]]
             )
-            corep_a0[dim:, :dim] = np.eye(dim, dtype=np.complex_)
+            corep_a0[dim:, :dim] = np.eye(dim, dtype=np.complex128)
 
             corep[a0u] = (
                 np.conj(factor_system[a0_idx, xsg_indices])[:, None, None]
@@ -277,12 +277,12 @@ def get_corep_spinor_factor_system(
             [0, -1],
             [1, 0],
         ],
-        dtype=np.complex_,
+        dtype=np.complex128,
     )
 
     # Assign a unitary or anti-unitary operator for each magnetic operation
     order = len(rotations)
-    unitary_rotations = np.zeros((order, 2, 2), dtype=np.complex_)
+    unitary_rotations = np.zeros((order, 2, 2), dtype=np.complex128)
     anti_linear = np.zeros((order,), dtype=np.bool_)
     for i, (rotation, time_reversal) in enumerate(zip(rotations, time_reversals)):
         unitary_rotation = get_spinor_unitary_rotation(lattice, rotation)
@@ -297,7 +297,7 @@ def get_corep_spinor_factor_system(
 
     # Factor system for spinor co-rep
     table = get_cayley_table(rotations, time_reversals)
-    corep_spinor_factor_system = np.zeros((order, order), dtype=np.complex_)
+    corep_spinor_factor_system = np.zeros((order, order), dtype=np.complex128)
     for i, (ui, ai) in enumerate(zip(unitary_rotations, anti_linear)):
         for j, uj in enumerate(unitary_rotations):
             if ai:

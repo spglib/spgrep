@@ -57,7 +57,7 @@ def check_spacegroup_pir(
                 m12 = phase * rep[idx]
             else:
                 half_dim = rep.shape[1] // 2
-                rep_additional = np.zeros((2 * half_dim, 2 * half_dim), dtype=np.complex_)
+                rep_additional = np.zeros((2 * half_dim, 2 * half_dim), dtype=np.complex128)
                 # [ [ cos(kt), -sin(kt) ],
                 #   [ sin(kt), cos(kt) ] ]
                 rep_additional[:half_dim, :half_dim] = np.cos(

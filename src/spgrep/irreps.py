@@ -177,7 +177,7 @@ def enumerate_unitary_irreps(
     """
     order = rotations.shape[0]
     if factor_system is None:
-        factor_system = np.ones((order, order), dtype=np.complex_)
+        factor_system = np.ones((order, order), dtype=np.complex128)
 
     if method == "Neto":
         table = get_cayley_table(rotations)
@@ -264,10 +264,10 @@ def enumerate_unitary_irreps_from_regular_representation(
 
     # For (m, i), reg[m, i, :] has only one nonzero entry.
     # To reduce computational time, suppress reg to only nonzero elements
-    reg_nonzero = np.zeros((n, n), dtype=np.complex_)
+    reg_nonzero = np.zeros((n, n), dtype=np.complex128)
     lookup = np.zeros((n, n), dtype=int)
     for m, i in product(range(n), repeat=2):
-        idx = np.nonzero(reg[m, i, :])[0]
+        idx = np.nonzero(reg[m, i, :])[0].item()
         reg_nonzero[m, i] = reg[m, i, idx]
         lookup[m, i] = idx
 
@@ -277,7 +277,7 @@ def enumerate_unitary_irreps_from_regular_representation(
         hermite_random = rng.random((n, n)) + rng.random((n, n)) * 1j
         hermite_random += np.conj(hermite_random.T)
 
-        hermite_random_reordered = np.zeros((n, n, n), dtype=np.complex_)
+        hermite_random_reordered = np.zeros((n, n, n), dtype=np.complex128)
         meshi, meshj = np.meshgrid(range(n), range(n))
         # hermite_random_reordered[m, i, j] = hermite_random[lookup[m, i], lookup[m, j]]
         for m in range(n):
@@ -434,7 +434,7 @@ def enumerate_unitary_irreps_from_solvable_group_chain(
     """
     identity = get_identity_index(table)
     group = [identity]  # int -> GroupIdx
-    irreps = [np.ones((1, 1, 1), dtype=np.complex_)]
+    irreps = [np.ones((1, 1, 1), dtype=np.complex128)]
 
     # Extend subgroups from identity to whole
     for r in solvable_chain_generators[::-1]:
@@ -504,13 +504,13 @@ def enumerate_unitary_irreps_from_solvable_group_chain(
                     omegaq = omega * np.exp(2j * np.pi * q / p)
                     delta_r = intertwiner / omegaq  # Rep. matrix for r
                     delta_rm = [
-                        np.eye(intertwiner.shape[0], dtype=np.complex_)
+                        np.eye(intertwiner.shape[0], dtype=np.complex128)
                     ]  # delta_rm[m] is rep. matrix for r^m
                     for m in range(1, p):
                         # D(r^m) = D(r) @ D(r^{m-1}) / mu(r, r^{m-1})
                         delta_rm.append(delta_r @ delta_rm[m - 1] / factor_system[r, rm[m - 1]])
 
-                    next_irrep = np.zeros((len(group), dim, dim), dtype=np.complex_)
+                    next_irrep = np.zeros((len(group), dim, dim), dtype=np.complex128)
                     for m in range(p):
                         for s in subgroup:
                             idx = table[rm[m], s]
@@ -522,7 +522,7 @@ def enumerate_unitary_irreps_from_solvable_group_chain(
                     next_sub_irreps.append(next_irrep)
             else:
                 # Mutually inequivalent
-                next_irrep = np.zeros((len(group), dim * p, dim * p), dtype=np.complex_)
+                next_irrep = np.zeros((len(group), dim * p, dim * p), dtype=np.complex128)
                 for m in range(p):
                     for s in subgroup:
                         idx = table[rm[m], s]
@@ -613,7 +613,7 @@ def get_physically_irrep(
         real_irrep = np.real(np.einsum("il,klm,mj->kij", T, irrep, np.conj(T), optimize="greedy"))
 
     elif indicator in [-1, 0]:
-        real_irrep = np.empty((order, 2 * dim, 2 * dim), dtype=np.float_)
+        real_irrep = np.empty((order, 2 * dim, 2 * dim), dtype=np.float64)
         # [ [Re D(g),  Im D(g)]
         #   [-Im D(g), Re D(g)] ]
         real_irrep[:, :dim, :dim] = np.real(irrep)

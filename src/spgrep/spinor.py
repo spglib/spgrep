@@ -125,13 +125,13 @@ def get_spinor_factor_system(
     order = len(rotations)
 
     # Assign a SU(2) rotation for each O(3) operation
-    unitary_rotations = np.zeros((order, 2, 2), dtype=np.complex_)
+    unitary_rotations = np.zeros((order, 2, 2), dtype=np.complex128)
     for i, rotation in enumerate(rotations):
         unitary_rotations[i] = get_spinor_unitary_rotation(lattice, rotation)
 
     # Factor system from spin
     table = get_cayley_table(rotations)
-    spinor_factor_system = np.zeros((order, order), dtype=np.complex_)
+    spinor_factor_system = np.zeros((order, order), dtype=np.complex128)
     for (i, ui), (j, uj) in product(enumerate(unitary_rotations), repeat=2):
         # si @ sj = sk in O(3)
         k = table[i, j]

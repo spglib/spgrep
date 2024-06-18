@@ -18,7 +18,7 @@ def get_standard_basis() -> list[np.ndarray]:
                 [0, 0, 0],
                 [0, 0, 0],
             ],
-            dtype=np.float_,
+            dtype=np.float64,
         ),
         np.array(
             [
@@ -26,7 +26,7 @@ def get_standard_basis() -> list[np.ndarray]:
                 [0, 1, 0],
                 [0, 0, 0],
             ],
-            dtype=np.float_,
+            dtype=np.float64,
         ),
         np.array(
             [
@@ -34,7 +34,7 @@ def get_standard_basis() -> list[np.ndarray]:
                 [0, 0, 0],
                 [0, 0, 1],
             ],
-            dtype=np.float_,
+            dtype=np.float64,
         ),
         np.array(
             [
@@ -42,7 +42,7 @@ def get_standard_basis() -> list[np.ndarray]:
                 [0, 0, 1],
                 [0, 1, 0],
             ],
-            dtype=np.float_,
+            dtype=np.float64,
         )
         / np.sqrt(2),
         np.array(
@@ -51,7 +51,7 @@ def get_standard_basis() -> list[np.ndarray]:
                 [0, 0, 0],
                 [1, 0, 0],
             ],
-            dtype=np.float_,
+            dtype=np.float64,
         )
         / np.sqrt(2),
         np.array(
@@ -60,7 +60,7 @@ def get_standard_basis() -> list[np.ndarray]:
                 [1, 0, 0],
                 [0, 0, 0],
             ],
-            dtype=np.float_,
+            dtype=np.float64,
         )
         / np.sqrt(2),
     ]
