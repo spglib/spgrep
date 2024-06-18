@@ -28,17 +28,17 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
-    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
   <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
 
-    <script src="../../_static/documentation_options.js?v=6fb7fd74"></script>
+    <script src="../../_static/documentation_options.js?v=2a0f1eb7"></script>
     <script src="../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="../../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = '_modules/spgrep/corep';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -220,9 +220,9 @@
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</label></div>
+</button></div>
       
     </div>
   
@@ -499,14 +499,14 @@ document.write(`
         <span class="k">if</span> <span class="n">indicator</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
             <span class="c1"># Unitary matrix s.t. irrep @ U = conj_irrep @ U</span>
             <span class="n">U</span> <span class="o">=</span> <span class="n">get_intertwiner</span><span class="p">(</span><span class="n">irrep</span><span class="p">,</span> <span class="n">conj_irrep</span><span class="p">,</span> <span class="n">atol</span><span class="p">,</span> <span class="n">max_num_random_generations</span><span class="p">)</span>
-            <span class="n">corep</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">order</span><span class="p">,</span> <span class="n">dim</span><span class="p">,</span> <span class="n">dim</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex_</span><span class="p">)</span>
+            <span class="n">corep</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">order</span><span class="p">,</span> <span class="n">dim</span><span class="p">,</span> <span class="n">dim</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">)</span>
             <span class="n">corep</span><span class="p">[</span><span class="n">xsg_indices</span><span class="p">]</span> <span class="o">=</span> <span class="n">irrep</span>
             <span class="n">corep</span><span class="p">[</span><span class="n">a0u</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
                 <span class="n">np</span><span class="o">.</span><span class="n">conj</span><span class="p">(</span><span class="n">factor_system</span><span class="p">[</span><span class="n">a0_idx</span><span class="p">,</span> <span class="n">xsg_indices</span><span class="p">])[:,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="n">U</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span> <span class="o">@</span> <span class="n">irrep</span>
             <span class="p">)</span>
         <span class="k">elif</span> <span class="n">indicator</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
             <span class="n">U</span> <span class="o">=</span> <span class="n">get_intertwiner</span><span class="p">(</span><span class="n">irrep</span><span class="p">,</span> <span class="n">conj_irrep</span><span class="p">,</span> <span class="n">atol</span><span class="p">,</span> <span class="n">max_num_random_generations</span><span class="p">)</span>
-            <span class="n">corep</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">order</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">dim</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">dim</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex_</span><span class="p">)</span>
+            <span class="n">corep</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">order</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">dim</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">dim</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">)</span>
 
             <span class="c1"># [ [irrep, 0],</span>
             <span class="c1">#   [0, conj_irrep]]</span>
@@ -515,7 +515,7 @@ document.write(`
 
             <span class="c1"># [ [0, -U],</span>
             <span class="c1">#   [U, 0] ]</span>
-            <span class="n">corep_a0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">2</span> <span class="o">*</span> <span class="n">dim</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">dim</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex_</span><span class="p">)</span>
+            <span class="n">corep_a0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">2</span> <span class="o">*</span> <span class="n">dim</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">dim</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">)</span>
             <span class="n">corep_a0</span><span class="p">[:</span><span class="n">dim</span><span class="p">,</span> <span class="n">dim</span><span class="p">:]</span> <span class="o">=</span> <span class="o">-</span><span class="n">U</span>
             <span class="n">corep_a0</span><span class="p">[</span><span class="n">dim</span><span class="p">:,</span> <span class="p">:</span><span class="n">dim</span><span class="p">]</span> <span class="o">=</span> <span class="n">U</span>
 
@@ -527,7 +527,7 @@ document.write(`
                 <span class="o">@</span> <span class="n">corep</span><span class="p">[</span><span class="n">xsg_indices</span><span class="p">]</span>
             <span class="p">)</span>
         <span class="k">elif</span> <span class="n">indicator</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">corep</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">order</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">dim</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">dim</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex_</span><span class="p">)</span>
+            <span class="n">corep</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">order</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">dim</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">dim</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">)</span>
 
             <span class="c1"># [ [irrep, 0],</span>
             <span class="c1">#   [0, conj_irrep]]</span>
@@ -536,11 +536,11 @@ document.write(`
 
             <span class="c1"># [ [0, omega(a0, a0) irrep[a0 * a0]],</span>
             <span class="c1">#   [1, 0] ]</span>
-            <span class="n">corep_a0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">2</span> <span class="o">*</span> <span class="n">dim</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">dim</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex_</span><span class="p">)</span>
+            <span class="n">corep_a0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">2</span> <span class="o">*</span> <span class="n">dim</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">dim</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">)</span>
             <span class="n">corep_a0</span><span class="p">[:</span><span class="n">dim</span><span class="p">,</span> <span class="n">dim</span><span class="p">:]</span> <span class="o">=</span> <span class="p">(</span>
                 <span class="n">factor_system</span><span class="p">[</span><span class="n">a0_idx</span><span class="p">,</span> <span class="n">a0_idx</span><span class="p">]</span> <span class="o">*</span> <span class="n">irrep</span><span class="p">[</span><span class="n">xsg_indices_mapping</span><span class="p">[</span><span class="n">table</span><span class="p">[</span><span class="n">a0_idx</span><span class="p">,</span> <span class="n">a0_idx</span><span class="p">]]]</span>
             <span class="p">)</span>
-            <span class="n">corep_a0</span><span class="p">[</span><span class="n">dim</span><span class="p">:,</span> <span class="p">:</span><span class="n">dim</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex_</span><span class="p">)</span>
+            <span class="n">corep_a0</span><span class="p">[</span><span class="n">dim</span><span class="p">:,</span> <span class="p">:</span><span class="n">dim</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">)</span>
 
             <span class="n">corep</span><span class="p">[</span><span class="n">a0u</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
                 <span class="n">np</span><span class="o">.</span><span class="n">conj</span><span class="p">(</span><span class="n">factor_system</span><span class="p">[</span><span class="n">a0_idx</span><span class="p">,</span> <span class="n">xsg_indices</span><span class="p">])[:,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span>
@@ -593,12 +593,12 @@ document.write(`
             <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span>
             <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
         <span class="p">],</span>
-        <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex_</span><span class="p">,</span>
+        <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">,</span>
     <span class="p">)</span>
 
     <span class="c1"># Assign a unitary or anti-unitary operator for each magnetic operation</span>
     <span class="n">order</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">rotations</span><span class="p">)</span>
-    <span class="n">unitary_rotations</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">order</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex_</span><span class="p">)</span>
+    <span class="n">unitary_rotations</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">order</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">)</span>
     <span class="n">anti_linear</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">order</span><span class="p">,),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">bool_</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">rotation</span><span class="p">,</span> <span class="n">time_reversal</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">rotations</span><span class="p">,</span> <span class="n">time_reversals</span><span class="p">)):</span>
         <span class="n">unitary_rotation</span> <span class="o">=</span> <span class="n">get_spinor_unitary_rotation</span><span class="p">(</span><span class="n">lattice</span><span class="p">,</span> <span class="n">rotation</span><span class="p">)</span>
@@ -613,7 +613,7 @@ document.write(`
 
     <span class="c1"># Factor system for spinor co-rep</span>
     <span class="n">table</span> <span class="o">=</span> <span class="n">get_cayley_table</span><span class="p">(</span><span class="n">rotations</span><span class="p">,</span> <span class="n">time_reversals</span><span class="p">)</span>
-    <span class="n">corep_spinor_factor_system</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">order</span><span class="p">,</span> <span class="n">order</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex_</span><span class="p">)</span>
+    <span class="n">corep_spinor_factor_system</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">order</span><span class="p">,</span> <span class="n">order</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">ui</span><span class="p">,</span> <span class="n">ai</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">unitary_rotations</span><span class="p">,</span> <span class="n">anti_linear</span><span class="p">)):</span>
         <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">uj</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">unitary_rotations</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">ai</span><span class="p">:</span>

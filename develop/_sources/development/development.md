@@ -48,8 +48,7 @@ vim docs/changelog.md
 
 # Push with tag
 git tag <next-version>
-git push origin main
-git push origin --tags
+git push origin <next-version>
 ```
 
 ## Subpages
