@@ -1,0 +1,619 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>On-the-fly irreps generation from solvable group chain &#8212; spgrep 0.3.6</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=cbbee893"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'formulation/algorithm/irreps_from_chain';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Numerically obtain intertwiner between equivalent representations" href="intertwiner.html" />
+    <link rel="prev" title="On-the-fly irreps generation from regular representation" href="irreps_from_regular.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">spgrep 0.3.6</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">   Introduction</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../examples/examples.html">   Examples</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../examples/symmetry_adapted_tensor.html">  Symmetry-adapted tensors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples/lattice_vibration.html">  Application of space-group irreps to lattice vibration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples/spin_representation.html">  Spin representation</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../formulation.html">   Formulation</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 has-children"><a class="reference internal" href="../irreps/irreps.html">  Irreducible representation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../irreps/spacegroup_irreps.html">  Irreps of space group</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../irreps/reality.html">  Physically irreps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../irreps/spinor.html">  Spin representation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../irreps/corep.html">  Co-representation</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="algorithm.html">  Algorithm for enumerating irreps</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="irreps_from_regular.html">  On-the-fly irreps generation from regular representation</a></li>
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">  On-the-fly irreps generation from solvable group chain</a></li>
+<li class="toctree-l3"><a class="reference internal" href="intertwiner.html">  Intertwiner</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../projection.html">  Symmetry-adapted basis</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../api/api.html">   API Reference</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../api/api_core.html">    Core functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/api_group.html">    Group</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/api_pointgroup.html">    Point group</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/api_transformation.html">    Transformation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/api_representation.html">    Representation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/api_irreps.html">    Irreps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/api_spinor.html">    Spinor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/api_corep.html">    Co-representation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/api_tensor.html">    Tensor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/api_utils.html">    Utility functions</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">   Change Log</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../development/development.html">   Development</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../development/memo.html">  Memo</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../genindex.html">   Index</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/spglib/spgrep" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/formulation/algorithm/irreps_from_chain.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>On-the-fly irreps generation from solvable group chain</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#subduced-and-induced-representations-for-solvable-group">Subduced and induced representations for solvable group</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#case-1-conjugated-irreps-are-mutually-inequivalent">Case-1: conjugated irreps are mutually inequivalent</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#case-2-conjugated-irreps-are-equivalent">Case-2: conjugated irreps are equivalent</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#decomposition-of-crystallographic-point-groups">Decomposition of crystallographic point groups</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="on-the-fly-irreps-generation-from-solvable-group-chain">
+<h1>On-the-fly irreps generation from solvable group chain<a class="headerlink" href="#on-the-fly-irreps-generation-from-solvable-group-chain" title="Link to this heading">#</a></h1>
+<p>This page describes an algorithm to generate irreps for solvable groups <span id="id1">[<a class="reference internal" href="#id12" title="N. Neto. Irreducible representations of space groups. Acta Cryst. A, 29(4):464–472, Jul 1973. URL: https://doi.org/10.1107/S0567739473001129, doi:10.1107/S0567739473001129.">Net73</a>]</span>.</p>
+<section id="subduced-and-induced-representations-for-solvable-group">
+<h2>Subduced and induced representations for solvable group<a class="headerlink" href="#subduced-and-induced-representations-for-solvable-group" title="Link to this heading">#</a></h2>
+<p>Let <span class="math notranslate nohighlight">\(H\)</span> be invariant subgroup of <span class="math notranslate nohighlight">\(G\)</span> such that <span class="math notranslate nohighlight">\(G/H = \mathbb{Z}_{p}\)</span> (<span class="math notranslate nohighlight">\(p\)</span> is prime and <span class="math notranslate nohighlight">\(r^{p}=e\)</span>),</p>
+<div class="math notranslate nohighlight" id="equation-decomp">
+<span class="eqno">(1)<a class="headerlink" href="#equation-decomp" title="Link to this equation">#</a></span>\[
+  G = \coprod_{m=0}^{p-1} r^{m} H.
+\]</div>
+<p>Consider projective irrep <span class="math notranslate nohighlight">\(\Delta\)</span> with factor system <span class="math notranslate nohighlight">\(\mu\)</span> for <span class="math notranslate nohighlight">\(H\)</span>,
+<div class="math notranslate nohighlight">
+\[
+  S \psi_{j} = \sum_{i=1}^{d} \psi_{i} \Delta(S)_{ij} \quad (R \in H, i = 1, \dots, d).
+\]</div>
+
+The following representations are also irrep over <span class="math notranslate nohighlight">\(H\)</span>:
+<div class="math notranslate nohighlight">
+\[\begin{split}
+  \mathbf{\Delta}^{(m)}(S)
+    &amp;:= \frac{ \mu(S, r^{m}) }{ \mu(r^{m}, S_{m}) } \mathbf{\Delta}(S_{m})
+    \quad (S \in H, m = 0, \dots, p-1) \\
+  S_{m}
+    &amp;:= r^{-m} S r^{m} (\in H)
+\end{split}\]</div>
+
+There are two cases for <span class="math notranslate nohighlight">\(\{ \Delta^{(m)} \}_{m=0, \dots, p-1}\)</span>:</p>
+<ol class="arabic simple">
+<li><p>They are mutually inequivalent: <span class="math notranslate nohighlight">\(\Delta \uparrow G \downarrow H \cong \sum_{m=0}^{p-1} \Delta^{(m)}\)</span></p></li>
+<li><p>They are all equivalent: <span class="math notranslate nohighlight">\(\Delta \uparrow G \downarrow H \cong p \Delta\)</span></p></li>
+</ol>
+<section id="case-1-conjugated-irreps-are-mutually-inequivalent">
+<h3>Case-1: conjugated irreps are mutually inequivalent<a class="headerlink" href="#case-1-conjugated-irreps-are-mutually-inequivalent" title="Link to this heading">#</a></h3>
+<p>For case-1, the induced representation <span class="math notranslate nohighlight">\(\Delta \uparrow G\)</span> is irrep <a class="footnote-reference brackets" href="#footnote1" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> <a class="footnote-reference brackets" href="#footnote2" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>:
+<div class="math notranslate nohighlight">
+\[\begin{split}
+  \Delta \uparrow G (r^{m} S)_{i:, j:}
+    &amp;= \mathbb{I}[i \equiv j + m] \frac{ \mu(r^{m}S, r^{j}) }{ \mu(r^{i}, S_{j} ) } \mathbf{\Delta}( S_{j} )
+    \quad (S \in H).\\
+  \Delta \uparrow G (S)
+    &amp;= \begin{pmatrix}
+      \mathbf{\Delta}^{(0)}(S) &amp; &amp; &amp; \\
+      &amp; \mathbf{\Delta}^{(1)}(S) &amp; &amp; \\
+      &amp; &amp; \ddots &amp; \\
+      &amp; &amp; &amp; \mathbf{\Delta}^{(p-1)}(S)
+    \end{pmatrix}
+    \quad (S \in H) \\
+  \Delta \uparrow G (r)
+    &amp;= \begin{pmatrix}
+      \mathbf{0} &amp; \mathbf{0} &amp; \mathbf{0} &amp; \cdots &amp; \mathbf{0} &amp; \frac{\mu(r, r^{p-1})}{\mu(E,E)} \mathbf{1} \\
+      \frac{\mu(r, E)}{\mu(r,E)} \mathbf{1} &amp; \mathbf{0} &amp; \mathbf{0} &amp; \cdots &amp; \mathbf{0} &amp; \mathbf{0} \\
+      \mathbf{0} &amp; \frac{\mu(r, r)}{\mu(r^{2},E)} \mathbf{1} &amp; \mathbf{0} &amp; \cdots &amp; \mathbf{0} &amp; \mathbf{0} \\
+      \vdots     &amp; \vdots     &amp; \vdots     &amp;        &amp; \vdots     &amp; \vdots \\
+      \mathbf{0} &amp; \mathbf{0} &amp; \mathbf{0} &amp; \cdots &amp; \frac{\mu(r, r^{p-2})}{\mu(r^{p-1},E)} \mathbf{1} &amp; \mathbf{0}
+    \end{pmatrix}.
+\end{split}\]</div>
+</p>
+</section>
+<section id="case-2-conjugated-irreps-are-equivalent">
+<h3>Case-2: conjugated irreps are equivalent<a class="headerlink" href="#case-2-conjugated-irreps-are-equivalent" title="Link to this heading">#</a></h3>
+<p>For case-2, the induced representation <span class="math notranslate nohighlight">\(\Delta \uparrow G\)</span> is reducible.
+Let one of intertwiner between <span class="math notranslate nohighlight">\(\Delta^{(0)}\)</span> and <span class="math notranslate nohighlight">\(\Delta^{(1)}\)</span> be <span class="math notranslate nohighlight">\(\mathbf{U}\)</span>,
+<div class="math notranslate nohighlight">
+\[
+  \mathbf{\Delta}^{(0)}(S) \mathbf{U} = \mathbf{U} \mathbf{\Delta}^{(1)}(S)
+  \quad (\forall S \in H).
+\]</div>
+
+See <a class="reference internal" href="intertwiner.html#intertwiner"><span class="std std-ref">this page</span></a> for numerical way to obtain <span class="math notranslate nohighlight">\(\mathbf{U}\)</span>.
+We scale <span class="math notranslate nohighlight">\(\mathbf{U}\)</span> such that <span class="math notranslate nohighlight">\(\mathbf{U}^{p} = \mathbf{1}\)</span>.</p>
+<p>The induced representation <span class="math notranslate nohighlight">\(\Delta \uparrow G\)</span> is decomposed to <span class="math notranslate nohighlight">\(p\)</span> irreps <span class="math notranslate nohighlight">\(\{ \Delta_{q} \}_{q=0}^{p-1}\)</span>,
+<div class="math notranslate nohighlight">
+\[\begin{split}
+  \mathbf{\Delta}_{q}(S) &amp;= \mathbf{\Delta}(S) \quad (S \in H) \\
+  \mathbf{\Delta}_{q}(r) &amp;= \frac{1}{\omega_{q}} \mathbf{U}.
+\end{split}\]</div>
+</p>
+<p>The coefficient <span class="math notranslate nohighlight">\(\omega_{q} \, (q = 0, \cdots, p - 1)\)</span> is determined as follows:
+<div class="math notranslate nohighlight">
+\[\begin{split}
+  \mu(E, E) \mathbf{1}
+    &amp;= \mathbf{\Delta}_{q}(E) \\
+    &amp;= \mathbf{\Delta}_{q}(r^{p}) \\
+    &amp;= \frac{1}{ \prod_{m=1}^{p-1} \mu(r, r^{m}) } \mathbf{\Delta}_{q}(r)^{p} \\
+    &amp;= \frac{1}{ \prod_{m=1}^{p-1} \mu(r, r^{m}) } \frac{1}{\omega_{q}^{p}} \mathbf{1} 
+      \quad (\because \mathbf{U}^{p} = \mathbf{1}) \\
+  \therefore \omega_{q}
+    &amp;:= \frac{1}{ \left( \mu(E, E) \prod_{m=1}^{p-1} \mu(r, r^{m}) \right)^{\frac{1}{p}} }
+        \exp \left( \frac{2 \pi i q}{p} \right).
+\end{split}\]</div>
+</p>
+</section>
+</section>
+<section id="decomposition-of-crystallographic-point-groups">
+<h2>Decomposition of crystallographic point groups<a class="headerlink" href="#decomposition-of-crystallographic-point-groups" title="Link to this heading">#</a></h2>
+<p>A crystallographic point group <span class="math notranslate nohighlight">\(G\)</span> can always be decomposed as Eq. <a class="reference internal" href="#equation-decomp">(1)</a> because it is a solvable group.
+spgrep adapts the following decomposition <span id="id4">[<a class="reference internal" href="#id24" title="M. I. Aroyo, editor. International Tables for Crystallography. Volume A. International Union of Crystallography, December 2016. URL: https://doi.org/10.1107/97809553602060000114, doi:10.1107/97809553602060000114.">Aro16</a>]</span>:</p>
+<!--
+nbsphinx and sphinxcontrib.mermaid are conflicted.
+So, we need to use mermaid CLI instead of a raw HTML output.
+https://github.com/mgaitan/sphinxcontrib-mermaid/issues/74
+-->
+<p><img alt="point_group_chain" src="../../_images/point_group_chain.mmd.svg" /></p>
+</section>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h2>
+<div class="docutils container" id="id5">
+<div role="list" class="citation-list">
+<div class="citation" id="id24" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id4">Aro16</a><span class="fn-bracket">]</span></span>
+<p>M. I. Aroyo, editor. <em>International Tables for Crystallography</em>. Volume A. International Union of Crystallography, December 2016. URL: <a class="reference external" href="https://doi.org/10.1107/97809553602060000114">https://doi.org/10.1107/97809553602060000114</a>, <a class="reference external" href="https://doi.org/10.1107/97809553602060000114">doi:10.1107/97809553602060000114</a>.</p>
+</div>
+<div class="citation" id="id12" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">Net73</a><span class="fn-bracket">]</span></span>
+<p>N. Neto. Irreducible representations of space groups. <em>Acta Cryst. A</em>, 29(4):464–472, Jul 1973. URL: <a class="reference external" href="https://doi.org/10.1107/S0567739473001129">https://doi.org/10.1107/S0567739473001129</a>, <a class="reference external" href="https://doi.org/10.1107/S0567739473001129">doi:10.1107/S0567739473001129</a>.</p>
+</div>
+</div>
+</div>
+<hr class="footnotes docutils" />
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="footnote1" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">1</a><span class="fn-bracket">]</span></span>
+<p>This follows from Frobenius reciprocity theorem. In this case, <span class="math notranslate nohighlight">\(\Delta\)</span> appears only once in <span class="math notranslate nohighlight">\(\Gamma \downarrow H\)</span>.
+Thus, <span class="math notranslate nohighlight">\(\Gamma\)</span> appears only once in <span class="math notranslate nohighlight">\(\Delta \uparrow G\)</span>.</p>
+</aside>
+<aside class="footnote brackets" id="footnote2" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">2</a><span class="fn-bracket">]</span></span>
+<p>We can choose factor system to satisfy <span class="math notranslate nohighlight">\(\mu(E, R) = \mu(R, E) = 1 (\forall R \in G)\)</span>, and then <span class="math notranslate nohighlight">\(\Delta^{(0)} = \Delta\)</span></p>
+</aside>
+</aside>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="irreps_from_regular.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">On-the-fly irreps generation from regular representation</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="intertwiner.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Numerically obtain intertwiner between equivalent representations</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#subduced-and-induced-representations-for-solvable-group">Subduced and induced representations for solvable group</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#case-1-conjugated-irreps-are-mutually-inequivalent">Case-1: conjugated irreps are mutually inequivalent</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#case-2-conjugated-irreps-are-equivalent">Case-2: conjugated irreps are equivalent</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#decomposition-of-crystallographic-point-groups">Decomposition of crystallographic point groups</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Kohei Shinohara
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2022, Kohei Shinohara.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,694 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Spin representation &#8212; spgrep 0.3.6</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=cbbee893"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'formulation/irreps/spinor';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Co-representation of magnetic point and space group" href="corep.html" />
+    <link rel="prev" title="Physically irreducible representation (PIR)" href="reality.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">spgrep 0.3.6</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">   Introduction</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../examples/examples.html">   Examples</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../examples/symmetry_adapted_tensor.html">  Symmetry-adapted tensors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples/lattice_vibration.html">  Application of space-group irreps to lattice vibration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples/spin_representation.html">  Spin representation</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../formulation.html">   Formulation</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="irreps.html">  Irreducible representation</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="spacegroup_irreps.html">  Irreps of space group</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reality.html">  Physically irreps</a></li>
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">  Spin representation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="corep.html">  Co-representation</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../algorithm/algorithm.html">  Algorithm for enumerating irreps</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../algorithm/irreps_from_regular.html">  On-the-fly irreps generation from regular representation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../algorithm/irreps_from_chain.html">  On-the-fly irreps generation from solvable group chain</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../algorithm/intertwiner.html">  Intertwiner</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../projection.html">  Symmetry-adapted basis</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../api/api.html">   API Reference</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../api/api_core.html">    Core functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/api_group.html">    Group</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/api_pointgroup.html">    Point group</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/api_transformation.html">    Transformation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/api_representation.html">    Representation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/api_irreps.html">    Irreps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/api_spinor.html">    Spinor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/api_corep.html">    Co-representation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/api_tensor.html">    Tensor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/api_utils.html">    Utility functions</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">   Change Log</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../development/development.html">   Development</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../development/memo.html">  Memo</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../genindex.html">   Index</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/spglib/spgrep" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/formulation/irreps/spinor.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Spin representation</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#factor-system-for-spinor">Factor system for spinor</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#symmetry-operation-of-the-first-kind">Symmetry operation of the first kind</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#symmetry-operation-of-the-second-kind">Symmetry operation of the second kind</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#convention-of-rotations-for-spinor">Convention of rotations for spinor</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="spin-representation">
+<span id="id1"></span><h1>Spin representation<a class="headerlink" href="#spin-representation" title="Link to this heading">#</a></h1>
+<p>A spin representation is a projective representation with a factor system for spinor wave functions.
+Here, we give the convention to choose the factor system for spinor in spgrep.</p>
+<section id="factor-system-for-spinor">
+<h2>Factor system for spinor<a class="headerlink" href="#factor-system-for-spinor" title="Link to this heading">#</a></h2>
+<section id="symmetry-operation-of-the-first-kind">
+<h3>Symmetry operation of the first kind<a class="headerlink" href="#symmetry-operation-of-the-first-kind" title="Link to this heading">#</a></h3>
+<p>The map <span class="math notranslate nohighlight">\(\mathrm{SO}(3) \ni \mathbf{R}_{ \theta\hat{\mathbf{n}} } \mapsto \mathbf{U} ( \mathbf{R}_{ \theta\hat{\mathbf{n}} } ) := \exp \left( -\frac{i}{2}\theta \hat{\mathbf{n}} \cdot \mathbf{\sigma} \right) \in \mathrm{SU}(2)\)</span> is not surjective, where <span class="math notranslate nohighlight">\(\mathbf{\sigma}_{i} \, (i=x,y,z)\)</span> are Pauli matrices
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\mathbf{\sigma}_{x}
+    = \begin{pmatrix}
+        0 &amp; 1 \\
+        1 &amp; 0 \\
+    \end{pmatrix},
+\mathbf{\sigma}_{y}
+    = \begin{pmatrix}
+        0 &amp; -i \\
+        i &amp; 0 \\
+    \end{pmatrix},
+\mathbf{\sigma}_{z}
+    = \begin{pmatrix}
+        1 &amp; 0 \\
+        0 &amp; -1 \\
+    \end{pmatrix}.
+\end{split}\]</div>
+
+In fact, <span class="math notranslate nohighlight">\(\mathbf{R}_{\theta\hat{\mathbf{n}}}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{R}_{2\pi - \theta, -\hat{\mathbf{n}}}\)</span> represents the identical rotation.
+However they gives different unitary matrices with opposite signs.
+We choose either of the unitary matices for each rotations as convention.
+In particular, we choose <span class="math notranslate nohighlight">\(\theta=0\)</span> for identity <span class="math notranslate nohighlight">\(\mathbf{E}\)</span>.
+We define a factor system from the ambiguity as
+<div class="math notranslate nohighlight">
+\[
+\mathbf{U}(\mathbf{R}) \mathbf{U}(\mathbf{R}')
+    =: z(\mathbf{R}, \mathbf{R}') \mathbf{U}(\mathbf{R}\mathbf{R}')
+    \quad (\mathbf{R}, \mathbf{R}' \in \mathrm{SO}(3)).
+\]</div>
+
+In our convention, <span class="math notranslate nohighlight">\(z(\mathbf{E}, \mathbf{R}) = z(\mathbf{R}, \mathbf{E}) = 1 \,(\forall \mathbf{R} \in \mathrm{SO}(3))\)</span>.
+Also, this representation matrix adapts Condon-Shortley phase.</p>
+<p>We define the action of a symmetry operation of the first kind on spinor as
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\left[ (\mathbf{R}, \mathbf{v}) \mathbf{\Psi} \right] (\mathbf{r})
+    &amp;:= \mathbf{U}( \mathbf{R} ) \mathbf{\Psi}( (\mathbf{R}, \mathbf{v})^{-1} \mathbf{r}) \\
+\Rightarrow \left[ g_{1} \left[ g_{2} \mathbf{\Psi} \right] \right](\mathbf{r})
+    &amp;= \mathbf{U}(\mathbf{p}_{g_{1}}) \left[ g_{2} \mathbf{\Psi} \right](g_{1}^{-1}\mathbf{r}) \\
+    &amp;= z(\mathbf{p}_{g_{1}}, \mathbf{p}_{g_{2}}) \left[ (g_{1}g_{2}) \mathbf{\Psi} \right](\mathbf{r}).
+\end{split}\]</div>
+</p>
+<p>Consider Bloch function with <span class="math notranslate nohighlight">\(\mathbf{k}\)</span>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{\Psi}_{\mathbf{k}}(\mathbf{r}) = e^{ i \mathbf{k} \cdot \mathbf{r} } \mathbf{u}_{\mathbf{k}}(\mathbf{r}),
+\]</div>
+
+where <span class="math notranslate nohighlight">\(\mathbf{u}_{\mathbf{k}}(\mathbf{r})\)</span> is periodic w.r.t. lattice translations <span class="math notranslate nohighlight">\(L_{\mathcal{T}}\)</span>.
+The Bloch function forms an irreps of translation subgroup <span class="math notranslate nohighlight">\(\mathcal{T}\)</span> of space group <span class="math notranslate nohighlight">\(\mathcal{G}\)</span>:
+<div class="math notranslate nohighlight">
+\[\begin{split}
+(\mathbf{E}, \mathbf{t}) \mathbf{\Psi}_{\mathbf{k}}(\mathbf{r})
+    &amp;= \mathbf{\Psi}( (\mathbf{E}, \mathbf{t})^{-1} \mathbf{r}) \\
+    &amp;= e^{ -i \mathbf{k} \cdot \mathbf{t} } \mathbf{\Psi}(\mathbf{r})
+        \quad (\mathbf{t} \in L_{\mathcal{T}}).
+\end{split}\]</div>
+</p>
+<p>A transformed Bloch function <span class="math notranslate nohighlight">\((\mathbf{R}, \mathbf{v}) \mathbf{\Psi}_{\mathbf{k}}(\mathbf{r})\)</span> is a Bloch function with <span class="math notranslate nohighlight">\(\mathbf{Rk}\)</span>:
+<div class="math notranslate nohighlight">
+\[\begin{split}
+(\mathbf{E}, \mathbf{t}) (\mathbf{R}, \mathbf{v}) \mathbf{\Psi}_{\mathbf{k}}(\mathbf{r})
+    &amp;= (\mathbf{R}, \mathbf{v}) (\mathbf{E}, \mathbf{R}^{-1}\mathbf{t}) \mathbf{\Psi}_{\mathbf{k}}(\mathbf{r})
+        \quad (\because z(\mathbf{E}, \mathbf{R}) = z(\mathbf{R}, \mathbf{E}) = 1 ) \\
+    &amp;= \exp \left( -i \mathbf{k} \cdot \mathbf{R}^{-1} \mathbf{t} \right) (\mathbf{R}, \mathbf{v}) \mathbf{\Psi}_{\mathbf{k}}(\mathbf{r}) \\
+    &amp;= \exp \left( -i \mathbf{Rk} \cdot \mathbf{t} \right) (\mathbf{R}, \mathbf{v}) \mathbf{\Psi}_{\mathbf{k}}(\mathbf{r})
+        \quad (\because \mathbf{R} \in \mathrm{SO}(3) ).
+\end{split}\]</div>
+</p>
+<p>Let <span class="math notranslate nohighlight">\(\Gamma^{\mathbf{k}\alpha}\)</span> be a projective irrep of the little group <span class="math notranslate nohighlight">\(\mathcal{G}^{\mathbf{k}} = \coprod_{ \{ i \mid \mathbf{S}_{i} \in \overline{\mathcal{G}}^{\mathbf{k}} \} } (\mathbf{S}_{i}, \mathbf{w}_{i}) \mathcal{T}\)</span> and <span class="math notranslate nohighlight">\(\{ \mathbf{\Psi}^{\mathbf{k}\alpha}_{\mu} \}_{\mu=1}^{d_{\mathbf{k}\alpha}}\)</span> form the projective irrep.
+For <span class="math notranslate nohighlight">\(\mathbf{S}_{i} \mathbf{S}_{j} = \mathbf{S}_{k}\)</span>,
+<div class="math notranslate nohighlight">
+\[\begin{split}
+    &amp;\sum_{\mu} \mathbf{\Psi}^{\mathbf{k}\alpha}_{\mu} \left[ \mathbf{\Gamma}^{\mathbf{k}\alpha}((\mathbf{S}_{i}, \mathbf{w}_{i})) \mathbf{\Gamma}^{\mathbf{k}\alpha}((\mathbf{S}_{j}, \mathbf{w}_{j})) \right]_{\mu\nu} \\
+    &amp;=
+        (\mathbf{S}_{i}, \mathbf{w}_{i}) \left( (\mathbf{S}_{j}, \mathbf{w}_{j}) \mathbf{\Psi}^{\mathbf{k}\alpha}_{\nu} \right) \\
+    &amp;=
+        \frac{ z(\mathbf{S}_{i}, \mathbf{S}_{j}) }{ z(\mathbf{E}, \mathbf{S}_{k}) }
+        (\mathbf{S}_{k}, \mathbf{w}_{k})
+        \left( (\mathbf{E}, \mathbf{S}_{k}^{-1} (\mathbf{S}_{i}\mathbf{w}_{j} + \mathbf{w}_{i} - \mathbf{w}_{k} ) ) \mathbf{\Psi}^{\mathbf{k}\alpha}_{\nu} \right) \\
+    &amp;=
+        \sum_{\mu} \mathbf{\Psi}^{\mathbf{k}\alpha}_{\mu}
+        z(\mathbf{S}_{i}, \mathbf{S}_{j})
+        e^{-i\mathbf{k}\cdot \left( \mathbf{S}_{i}\mathbf{w}_{j} + \mathbf{w}_{i} - \mathbf{w}_{k} \right) } 
+        \mathbf{\Gamma}^{\mathbf{k}\alpha}((\mathbf{S}_{k}, \mathbf{w}_{k}))
+        \quad (\because z(\mathbf{E}, \mathbf{S}_{k}) = 1, \mathbf{S}_{k} \in \overline{\mathcal{G}}^{\mathbf{k}}).
+\end{split}\]</div>
+</p>
+<p>Then, Simplifying by
+<div class="math notranslate nohighlight">
+\[\begin{split}
+  \mathbf{\Gamma}^{\mathbf{k}\alpha}((\mathbf{R}, \mathbf{v}))
+    &amp;=: e^{ -i \mathbf{k} \cdot \mathbf{v} } \mathbf{D}^{\mathbf{k}\alpha}((\mathbf{R}, \mathbf{v})) \\
+  \mathbf{D}^{\mathbf{k}\alpha}((\mathbf{S}_{i}, \mathbf{w}_{i})) \mathbf{D}^{\mathbf{k}\alpha}((\mathbf{S}_{j}, \mathbf{w}_{j}))
+    &amp;= z(\mathbf{S}_{i}, \mathbf{S}_{j}) e^{ -i \mathbf{g}_{i} \cdot \mathbf{w}_{j} } \mathbf{D}^{\mathbf{k}\alpha}((\mathbf{S}_{k}, \mathbf{w}_{k})),
+\end{split}\]</div>
+
+where <span class="math notranslate nohighlight">\(\mathbf{g}_{i} = \mathbf{S}_{i}^{-1} \mathbf{k} - \mathbf{k}\)</span>.
+We can enumerate projective irreps for spinor from the factor system <span class="math notranslate nohighlight">\(\mu_{\mathbf{k}}(S_{i}, S_{j}) := z(\mathbf{S}_{i}, \mathbf{S}_{j}) \exp \left( -i \mathbf{g}_{i} \cdot \mathbf{w}_{j} \right)\)</span>.</p>
+</section>
+<section id="symmetry-operation-of-the-second-kind">
+<h3>Symmetry operation of the second kind<a class="headerlink" href="#symmetry-operation-of-the-second-kind" title="Link to this heading">#</a></h3>
+<p>We <strong>assume</strong> the inversion <span class="math notranslate nohighlight">\(\mathbf{I}\)</span> acts on spin functions as
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\mathbf{I} \ket{\uparrow} &amp;= \ket{\uparrow} \\
+\mathbf{I} \ket{\downarrow} &amp;= \ket{\downarrow},
+\end{split}\]</div>
+
+which is known as Pauli gauge <span id="id2">[<a class="reference internal" href="#id19" title="Simon L Altmann. Rotations, quaternions, and double groups. Courier Corporation, 2005.">Alt05</a>]</span>.
+In this convention, we can choose factor system as follows:
+<div class="math notranslate nohighlight">
+\[\begin{split}
+z(\mathbf{I}, \mathbf{I}) &amp;= 1 \\
+z(\mathbf{R}, \mathbf{I}\mathbf{R}') &amp;= z(\mathbf{IR}, \mathbf{R}') = z(\mathbf{IR}, \mathbf{I}\mathbf{R}') = z(\mathbf{R}, \mathbf{R}')
+    \quad (\mathbf{R}, \mathbf{R}' \in \mathrm{SO}(3)).
+\end{split}\]</div>
+</p>
+</section>
+</section>
+<section id="convention-of-rotations-for-spinor">
+<h2>Convention of rotations for spinor<a class="headerlink" href="#convention-of-rotations-for-spinor" title="Link to this heading">#</a></h2>
+<p>A rotation <span class="math notranslate nohighlight">\(\mathbf{R}_{ \theta\hat{\mathbf{n}} } \in \mathrm{SO}(3)\)</span> can be written with angular momentum operators:
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\mathbf{R}_{ \theta\hat{\mathbf{n}} }
+    &amp;= \exp \left( -i \theta \hat{\mathbf{n}} \cdot \mathbf{L} \right) \\
+    &amp;= \begin{pmatrix}
+        \cos \theta + n_{x}^{2} (1 - \cos \theta)         &amp; n_{x} n_{y} (1 - \cos \theta) - n_{z} \sin \theta &amp; n_{x} n_{z} (1 - \cos \theta) + n_{y} \sin \theta \\
+        n_{y} n_{x} (1 - \cos \theta) + n_{z} \sin \theta &amp; \cos \theta + n_{y}^{2} (1 - \cos \theta)         &amp; n_{y} n_{z} (1 - \cos \theta) - n_{x} \sin \theta \\
+        n_{z} n_{x} (1 - \cos \theta) - n_{y} \sin \theta &amp; n_{z} n_{y} (1 - \cos \theta) + n_{x} \sin \theta &amp; \cos \theta + n_{z}^{2} (1 - \cos \theta) \\
+    \end{pmatrix} \\
+\mathbf{L}_{x}
+    &amp;:= -i \begin{pmatrix}
+        0 &amp; 0 &amp; 0 \\
+        0 &amp; 0 &amp; 1 \\
+        0 &amp; -1 &amp; 0 \\
+    \end{pmatrix} \\
+\mathbf{L}_{y}
+    &amp;:= -i \begin{pmatrix}
+        0 &amp; 0 &amp; -1 \\
+        0 &amp; 0 &amp; 0 \\
+        1 &amp; 0 &amp; 0 \\
+    \end{pmatrix} \\
+\mathbf{L}_{z}
+    &amp;:= -i \begin{pmatrix}
+        0 &amp; 1 &amp; 0 \\
+        -1 &amp; 0 &amp; 0 \\
+        0 &amp; 0 &amp; 0 \\
+    \end{pmatrix} \\
+\end{split}\]</div>
+</p>
+<p>The axis and angle of <span class="math notranslate nohighlight">\(\mathbf{R}_{ \theta\hat{\mathbf{n}} }\)</span> are interpret by the following relations:
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\mathbf{R}_{f}
+    &amp;:= \mathbf{A}^{-1} \mathbf{R}_{ \theta\hat{\mathbf{n}} } \mathbf{A}
+        \quad \in \mathrm{SL}(3) \\
+\mathrm{tr} \mathbf{R}_{ \theta\hat{\mathbf{n}} }
+    &amp;= 2 \cos \theta + 1 \\
+\end{split}\]</div>
+</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{pmatrix}
+    [R_{ \theta\hat{\mathbf{n}} }]_{23} - [R_{ \theta\hat{\mathbf{n}} }]_{32} \\
+    [R_{ \theta\hat{\mathbf{n}} }]_{31} - [R_{ \theta\hat{\mathbf{n}} }]_{13} \\
+    [R_{ \theta\hat{\mathbf{n}} }]_{12} - [R_{ \theta\hat{\mathbf{n}} }]_{21} \\
+\end{pmatrix}
+= -2 (\sin \theta) \hat{\mathbf{n}}
+\end{split}\]</div>
+<p>The corresponding unitary rotation is explicitly written as
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\mathbf{U} ( \mathbf{R}_{ \theta\hat{\mathbf{n}} } )
+    &amp;= \exp \left( -\frac{i}{2}\theta \hat{\mathbf{n}} \cdot \mathbf{\sigma} \right) \\
+    &amp;= \mathbf{1} \cos \frac{\theta}{2} - i (\hat{\mathbf{n}} \cdot \mathbf{\sigma}) \sin \frac{\theta}{2} \\
+    &amp;=
+        \begin{pmatrix}
+            \cos \frac{\theta}{2} - i n_{z} \sin \frac{\theta}{2} &amp; (-i n_{x} - n_{y}) \sin \frac{\theta}{2} \\
+            (-i n_{x} + n_{y}) \sin \frac{\theta}{2} &amp; \cos \frac{\theta}{2} + i n_{z} \sin \frac{\theta}{2} \\
+        \end{pmatrix}.
+\end{split}\]</div>
+</p>
+</section>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h2>
+<div class="docutils container" id="id3">
+<div role="list" class="citation-list">
+<div class="citation" id="id19" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">Alt05</a><span class="fn-bracket">]</span></span>
+<p>Simon L Altmann. <em>Rotations, quaternions, and double groups</em>. Courier Corporation, 2005.</p>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="reality.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Physically irreducible representation (PIR)</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="corep.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Co-representation of magnetic point and space group</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#factor-system-for-spinor">Factor system for spinor</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#symmetry-operation-of-the-first-kind">Symmetry operation of the first kind</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#symmetry-operation-of-the-second-kind">Symmetry operation of the second kind</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#convention-of-rotations-for-spinor">Convention of rotations for spinor</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Kohei Shinohara
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2022, Kohei Shinohara.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

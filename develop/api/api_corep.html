@@ -1,0 +1,548 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Co-representation for spinor &#8212; spgrep 0.3.6</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=cbbee893"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'api/api_corep';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Tensor" href="api_tensor.html" />
+    <link rel="prev" title="Representation for spinor" href="api_spinor.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">spgrep 0.3.6</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">   Introduction</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../examples/examples.html">   Examples</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../examples/symmetry_adapted_tensor.html">  Symmetry-adapted tensors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/lattice_vibration.html">  Application of space-group irreps to lattice vibration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/spin_representation.html">  Spin representation</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../formulation/formulation.html">   Formulation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../formulation/irreps/irreps.html">  Irreducible representation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../formulation/irreps/spacegroup_irreps.html">  Irreps of space group</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../formulation/irreps/reality.html">  Physically irreps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../formulation/irreps/spinor.html">  Spin representation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../formulation/irreps/corep.html">  Co-representation</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../formulation/algorithm/algorithm.html">  Algorithm for enumerating irreps</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../formulation/algorithm/irreps_from_regular.html">  On-the-fly irreps generation from regular representation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../formulation/algorithm/irreps_from_chain.html">  On-the-fly irreps generation from solvable group chain</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../formulation/algorithm/intertwiner.html">  Intertwiner</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../formulation/projection.html">  Symmetry-adapted basis</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="api.html">   API Reference</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="api_core.html">    Core functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_group.html">    Group</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_pointgroup.html">    Point group</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_transformation.html">    Transformation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_representation.html">    Representation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_irreps.html">    Irreps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_spinor.html">    Spinor</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">    Co-representation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_tensor.html">    Tensor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_utils.html">    Utility functions</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">   Change Log</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../development/development.html">   Development</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../development/memo.html">  Memo</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../genindex.html">   Index</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/spglib/spgrep" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/api/api_corep.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Co-representation for spinor</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spgrep.corep.enumerate_spinor_small_corepresentations"><code class="docutils literal notranslate"><span class="pre">enumerate_spinor_small_corepresentations()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spgrep.corep.get_corep_spinor_factor_system"><code class="docutils literal notranslate"><span class="pre">get_corep_spinor_factor_system()</span></code></a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="co-representation-for-spinor">
+<h1>Co-representation for spinor<a class="headerlink" href="#co-representation-for-spinor" title="Link to this heading">#</a></h1>
+<blockquote>
+<div><dl class="py function">
+<dt class="sig sig-object py" id="spgrep.corep.enumerate_spinor_small_corepresentations">
+<span class="sig-prename descclassname"><span class="pre">spgrep.corep.</span></span><span class="sig-name descname"><span class="pre">enumerate_spinor_small_corepresentations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lattice</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">little_rotations</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">little_translations</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">little_time_reversals</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kpoint</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Neto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rtol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-08</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_num_random_generations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/spgrep/corep.html#enumerate_spinor_small_corepresentations"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spgrep.corep.enumerate_spinor_small_corepresentations" title="Link to this definition">#</a></dt>
+<dd><p>Enumerate all unitary co-irreps of little group for spinor.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\overline{\mathbf{D}}^{\mathbf{k}\alpha}(\mathbf{S}_{i}1) \overline{\mathbf{D}}^{\mathbf{k}\alpha}(\mathbf{S}_{j}\theta_{j})
+     = \omega(\mathbf{S}_{i}1, \mathbf{S}_{j}\theta_{j}) e^{ -i \mathbf{g}_{i} \cdot \mathbf{w}_{j} } \overline{\mathbf{D}}^{\mathbf{k}\alpha}(\mathbf{S}_{k}\theta_{k}) \\
+\overline{\mathbf{D}}^{\mathbf{k}\alpha}(\mathbf{S}_{i}1') \overline{\mathbf{D}}^{\mathbf{k}\alpha}(\mathbf{S}_{j}\theta_{j})^{\ast}
+     = \omega(\mathbf{S}_{i}1', \mathbf{S}_{j}\theta_{j}) e^{ -i \mathbf{g}_{i} \cdot \mathbf{w}_{j} } \overline{\mathbf{D}}^{\mathbf{k}\alpha}(\mathbf{S}_{k}\theta_{k}) \\\end{split}\]</div>
+<p>See <a class="reference internal" href="../formulation/irreps/corep.html#corep-spinor-factor-system"><span class="std std-ref">Convention of anti-linear operators in spgrep</span></a> for spinor-derived factor system <span class="math notranslate nohighlight">\(\omega\)</span>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lattice</strong> (<em>array</em><em>, </em><em>(</em><em>3</em><em>, </em><em>3</em><em>)</em>) – Row-wise basis vectors. <code class="docutils literal notranslate"><span class="pre">lattice[i,</span> <span class="pre">:]</span></code> is the i-th lattice vector.</p></li>
+<li><p><strong>little_rotations</strong> (<em>array</em><em>[</em><em>int</em><em>]</em><em>, </em><em>(</em><em>order</em><em>, </em><em>3</em><em>, </em><em>3</em><em>)</em>)</p></li>
+<li><p><strong>little_translations</strong> (<em>array</em><em>, </em><em>(</em><em>order</em><em>, </em><em>3</em><em>)</em>)</p></li>
+<li><p><strong>little_time_reversals</strong> (<em>array</em><em>[</em><em>int</em><em>]</em><em>, </em><em>(</em><em>order</em><em>)</em>)</p></li>
+<li><p><strong>kpoint</strong> (<em>array</em><em>, </em><em>(</em><em>3</em><em>, </em><em>)</em>)</p></li>
+<li><p><strong>method</strong> (<em>str</em><em>, </em><em>'Neto'</em><em> or </em><em>'random'</em>) – ‘Neto’: construct irreps from a fixed chain of subgroups of little co-group
+‘random’: construct irreps by numerically diagonalizing a random matrix commute with regular representation</p></li>
+<li><p><strong>rtol</strong> (<em>float</em>) – Relative tolerance to distinguish difference eigenvalues</p></li>
+<li><p><strong>atol</strong> (<em>float</em>) – Relative tolerance to compare</p></li>
+<li><p><strong>max_num_random_generations</strong> (<em>int</em>) – Maximum number of trials to generate random matrix</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>small_coreps</strong> (<em>list of array</em>) – Unitary small co-representations (irreps of little group), <span class="math notranslate nohighlight">\(\{ \overline{\mathbf{D}}^{\mathbf{k}\alpha} \}_{\alpha}\)</span></p></li>
+<li><p><strong>indicators</strong> (<em>list[int]</em>) – Frobenius-Schur indicators for each small representation</p></li>
+<li><p><strong>corep_spinor_factor_system</strong> (<em>array, (order, order)</em>) – <code class="docutils literal notranslate"><span class="pre">factor_system[i,</span> <span class="pre">j]</span></code> stands for <span class="math notranslate nohighlight">\(\omega(\mathbf{S}_{i}\theta_{i}, \mathbf{S}_{j}\theta_{j})\)</span></p></li>
+<li><p><strong>unitary_rotations</strong> (<em>array, (order, 2, 2)</em>) – <code class="docutils literal notranslate"><span class="pre">unitary_rotations[i]</span></code> stands for <span class="math notranslate nohighlight">\(\mathbf{U}(\mathbf{S}_{i}) \in SU(2)\)</span>.</p></li>
+<li><p><strong>anti_linear</strong> (<em>array[bool], (order, )</em>) – If <code class="docutils literal notranslate"><span class="pre">anti_linear[i]</span> <span class="pre">==</span> <span class="pre">True</span></code>, the <code class="docutils literal notranslate"><span class="pre">i</span></code>-th operator is anti-linear.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div></blockquote>
+<blockquote>
+<div><dl class="py function">
+<dt class="sig sig-object py" id="spgrep.corep.get_corep_spinor_factor_system">
+<span class="sig-prename descclassname"><span class="pre">spgrep.corep.</span></span><span class="sig-name descname"><span class="pre">get_corep_spinor_factor_system</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lattice</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rotations</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_reversals</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/spgrep/corep.html#get_corep_spinor_factor_system"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spgrep.corep.get_corep_spinor_factor_system" title="Link to this definition">#</a></dt>
+<dd><p>Calculate spin-derived factor system of spin co-representation.</p>
+<p>See <a class="reference internal" href="../formulation/irreps/corep.html#corep-spinor-factor-system"><span class="std std-ref">Convention of anti-linear operators in spgrep</span></a> for spinor-derived factor system <span class="math notranslate nohighlight">\(\omega\)</span>.
+An ordinary symmetry operation <span class="math notranslate nohighlight">\(\mathbf{S}_{i}1\)</span> maps to unitary operator <span class="math notranslate nohighlight">\(\mathbf{U}(\mathbf{S}_{i})\)</span>.
+An antisymmetry operation <span class="math notranslate nohighlight">\(\mathbf{S}_{i}1'\)</span> maps to</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lattice</strong> (<em>array</em><em>, </em><em>(</em><em>3</em><em>, </em><em>3</em><em>)</em>) – Row-wise basis vectors. <code class="docutils literal notranslate"><span class="pre">lattice[i,</span> <span class="pre">:]</span></code> is the i-th lattice vector.</p></li>
+<li><p><strong>rotations</strong> (<em>array</em><em>[</em><em>int</em><em>]</em><em>, </em><em>(</em><em>order</em><em>, </em><em>3</em><em>, </em><em>3</em><em>)</em>) – Rotation parts of magnetic point group, <span class="math notranslate nohighlight">\(\mathbf{S}_{i}\)</span></p></li>
+<li><p><strong>time_reversals</strong> (<em>array</em><em>[</em><em>int</em><em>]</em><em>, </em><em>(</em><em>order</em><em>, </em><em>)</em>) – Time-reversal parts of magnetic point group, <span class="math notranslate nohighlight">\(\theta_{i}\)</span></p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>corep_spinor_factor_system</strong> (<em>array, (order, order)</em>) – <code class="docutils literal notranslate"><span class="pre">factor_system[i,</span> <span class="pre">j]</span></code> stands for <span class="math notranslate nohighlight">\(\omega(\mathbf{S}_{i}\theta_{i}, \mathbf{S}_{j}\theta_{j})\)</span></p></li>
+<li><p><strong>unitary_rotations</strong> (<em>array, (order, 2, 2)</em>) – <code class="docutils literal notranslate"><span class="pre">unitary_rotations[i]</span></code> stands for <span class="math notranslate nohighlight">\(\mathbf{U}(\mathbf{S}_{i}) \in SU(2)\)</span>.</p></li>
+<li><p><strong>anti_linear</strong> (<em>array[bool], (order, )</em>) – If <code class="docutils literal notranslate"><span class="pre">anti_linear[i]</span> <span class="pre">==</span> <span class="pre">True</span></code>, the <code class="docutils literal notranslate"><span class="pre">i</span></code>-th operator is anti-linear.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div></blockquote>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="api_spinor.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Representation for spinor</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="api_tensor.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Tensor</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spgrep.corep.enumerate_spinor_small_corepresentations"><code class="docutils literal notranslate"><span class="pre">enumerate_spinor_small_corepresentations()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spgrep.corep.get_corep_spinor_factor_system"><code class="docutils literal notranslate"><span class="pre">get_corep_spinor_factor_system()</span></code></a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Kohei Shinohara
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2022, Kohei Shinohara.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
