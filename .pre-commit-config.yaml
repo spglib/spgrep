@@ -23,7 +23,7 @@ repos:
       exclude: ^docs/
   # type annotation
   - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.12.1
+    rev: v1.13.0
     hooks:
     - id: mypy
       exclude: ^docs/
@@ -42,7 +42,7 @@ repos:
         types: [pyi]
   # Upgrade syntax
   - repo: https://github.com/asottile/pyupgrade
-    rev: v3.18.0
+    rev: v3.19.0
     hooks:
       - id: pyupgrade
   # Docstring
