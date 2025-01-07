@@ -29,7 +29,7 @@
   <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 <link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
   
   <!-- So that users can add custom icons -->
@@ -38,7 +38,7 @@
   <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../_static/documentation_options.js?v=ab7e19e1"></script>
+    <script src="../../_static/documentation_options.js?v=27577dc1"></script>
     <script src="../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
@@ -299,13 +299,13 @@
   <h1>Source code for spgrep.group</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;Group-theory related functions.&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
-<span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">product</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">itertools</span><span class="w"> </span><span class="kn">import</span> <span class="n">product</span>
 
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
-<span class="kn">from</span> <span class="nn">spgrep.utils</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">spgrep.utils</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">NDArrayComplex</span><span class="p">,</span>
     <span class="n">NDArrayFloat</span><span class="p">,</span>
     <span class="n">NDArrayInt</span><span class="p">,</span>
@@ -315,7 +315,7 @@
 
 <div class="viewcode-block" id="get_cayley_table">
 <a class="viewcode-back" href="../../api/api_group.html#spgrep.group.get_cayley_table">[docs]</a>
-<span class="k">def</span> <span class="nf">get_cayley_table</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_cayley_table</span><span class="p">(</span>
     <span class="n">rotations</span><span class="p">:</span> <span class="n">NDArrayInt</span><span class="p">,</span> <span class="n">time_reversals</span><span class="p">:</span> <span class="n">NDArrayInt</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NDArrayInt</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculate Group multiplication table.</span>
@@ -354,7 +354,7 @@
 
 <div class="viewcode-block" id="get_identity_index">
 <a class="viewcode-back" href="../../api/api_group.html#spgrep.group.get_identity_index">[docs]</a>
-<span class="k">def</span> <span class="nf">get_identity_index</span><span class="p">(</span><span class="n">table</span><span class="p">:</span> <span class="n">NDArrayInt</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_identity_index</span><span class="p">(</span><span class="n">table</span><span class="p">:</span> <span class="n">NDArrayInt</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Return index for identity of group.&quot;&quot;&quot;</span>
     <span class="n">order</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">order</span><span class="p">):</span>
@@ -367,7 +367,7 @@
 
 <div class="viewcode-block" id="get_inverse_index">
 <a class="viewcode-back" href="../../api/api_group.html#spgrep.group.get_inverse_index">[docs]</a>
-<span class="k">def</span> <span class="nf">get_inverse_index</span><span class="p">(</span><span class="n">table</span><span class="p">:</span> <span class="n">NDArrayInt</span><span class="p">,</span> <span class="n">idx</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_inverse_index</span><span class="p">(</span><span class="n">table</span><span class="p">:</span> <span class="n">NDArrayInt</span><span class="p">,</span> <span class="n">idx</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Return index of inverse of ``idx`` element in ``table``.&quot;&quot;&quot;</span>
     <span class="n">order</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
     <span class="n">id_idx</span> <span class="o">=</span> <span class="n">get_identity_index</span><span class="p">(</span><span class="n">table</span><span class="p">)</span>
@@ -381,7 +381,7 @@
 
 <div class="viewcode-block" id="get_order">
 <a class="viewcode-back" href="../../api/api_group.html#spgrep.group.get_order">[docs]</a>
-<span class="k">def</span> <span class="nf">get_order</span><span class="p">(</span><span class="n">table</span><span class="p">:</span> <span class="n">NDArrayInt</span><span class="p">,</span> <span class="n">idx</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_order</span><span class="p">(</span><span class="n">table</span><span class="p">:</span> <span class="n">NDArrayInt</span><span class="p">,</span> <span class="n">idx</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Return order of element ``idx`` in ``table``.&quot;&quot;&quot;</span>
     <span class="n">id_idx</span> <span class="o">=</span> <span class="n">get_identity_index</span><span class="p">(</span><span class="n">table</span><span class="p">)</span>
     <span class="n">ret</span> <span class="o">=</span> <span class="mi">1</span>
@@ -395,7 +395,7 @@
 
 <div class="viewcode-block" id="is_matrix_group">
 <a class="viewcode-back" href="../../api/api_group.html#spgrep.group.is_matrix_group">[docs]</a>
-<span class="k">def</span> <span class="nf">is_matrix_group</span><span class="p">(</span><span class="n">rotations</span><span class="p">:</span> <span class="n">NDArrayInt</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">is_matrix_group</span><span class="p">(</span><span class="n">rotations</span><span class="p">:</span> <span class="n">NDArrayInt</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Return True iff given integer matrices forms group.&quot;&quot;&quot;</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">table</span> <span class="o">=</span> <span class="n">get_cayley_table</span><span class="p">(</span><span class="n">rotations</span><span class="p">)</span>
@@ -414,7 +414,7 @@
 
 <div class="viewcode-block" id="get_factor_system_from_little_group">
 <a class="viewcode-back" href="../../api/api_group.html#spgrep.group.get_factor_system_from_little_group">[docs]</a>
-<span class="k">def</span> <span class="nf">get_factor_system_from_little_group</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_factor_system_from_little_group</span><span class="p">(</span>
     <span class="n">little_rotations</span><span class="p">:</span> <span class="n">NDArrayInt</span><span class="p">,</span>
     <span class="n">little_translations</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">,</span>
     <span class="n">kpoint</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">,</span>
@@ -458,7 +458,7 @@
 
 <div class="viewcode-block" id="get_little_group">
 <a class="viewcode-back" href="../../api/api_group.html#spgrep.group.get_little_group">[docs]</a>
-<span class="k">def</span> <span class="nf">get_little_group</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_little_group</span><span class="p">(</span>
     <span class="n">rotations</span><span class="p">:</span> <span class="n">NDArrayInt</span><span class="p">,</span>
     <span class="n">translations</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">,</span>
     <span class="n">kpoint</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">,</span>
@@ -503,7 +503,7 @@
 
 <div class="viewcode-block" id="check_cocycle_condition">
 <a class="viewcode-back" href="../../api/api_group.html#spgrep.group.check_cocycle_condition">[docs]</a>
-<span class="k">def</span> <span class="nf">check_cocycle_condition</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">check_cocycle_condition</span><span class="p">(</span>
     <span class="n">rotations</span><span class="p">:</span> <span class="n">NDArrayInt</span><span class="p">,</span>
     <span class="n">factor_system</span><span class="p">:</span> <span class="n">NDArrayComplex</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
@@ -527,7 +527,7 @@
 
 <div class="viewcode-block" id="decompose_by_maximal_space_subgroup">
 <a class="viewcode-back" href="../../api/api_group.html#spgrep.group.decompose_by_maximal_space_subgroup">[docs]</a>
-<span class="k">def</span> <span class="nf">decompose_by_maximal_space_subgroup</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">decompose_by_maximal_space_subgroup</span><span class="p">(</span>
     <span class="n">rotations</span><span class="p">:</span> <span class="n">NDArrayInt</span><span class="p">,</span>
     <span class="n">translations</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">,</span>
     <span class="n">time_reversals</span><span class="p">:</span> <span class="n">NDArrayInt</span><span class="p">,</span>

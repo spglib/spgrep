@@ -29,7 +29,7 @@
   <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 <link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
   
   <!-- So that users can add custom icons -->
@@ -38,7 +38,7 @@
   <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../_static/documentation_options.js?v=ab7e19e1"></script>
+    <script src="../../_static/documentation_options.js?v=27577dc1"></script>
     <script src="../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
@@ -299,34 +299,34 @@
   <h1>Source code for spgrep.irreps</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;On-the-fly irreps generations.&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
-<span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">product</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Literal</span>
-<span class="kn">from</span> <span class="nn">warnings</span> <span class="kn">import</span> <span class="n">warn</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">itertools</span><span class="w"> </span><span class="kn">import</span> <span class="n">product</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Literal</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">warnings</span><span class="w"> </span><span class="kn">import</span> <span class="n">warn</span>
 
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
-<span class="kn">from</span> <span class="nn">spgrep.group</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">spgrep.group</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">get_cayley_table</span><span class="p">,</span>
     <span class="n">get_factor_system_from_little_group</span><span class="p">,</span>
     <span class="n">get_identity_index</span><span class="p">,</span>
     <span class="n">get_inverse_index</span><span class="p">,</span>
     <span class="n">get_order</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">spgrep.pointgroup</span> <span class="kn">import</span> <span class="n">get_pointgroup_chain_generators</span>
-<span class="kn">from</span> <span class="nn">spgrep.representation</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">spgrep.pointgroup</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_pointgroup_chain_generators</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">spgrep.representation</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">frobenius_schur_indicator</span><span class="p">,</span>
     <span class="n">get_character</span><span class="p">,</span>
     <span class="n">get_intertwiner</span><span class="p">,</span>
     <span class="n">get_projective_regular_representation</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">spgrep.utils</span> <span class="kn">import</span> <span class="n">NDArrayComplex</span><span class="p">,</span> <span class="n">NDArrayFloat</span><span class="p">,</span> <span class="n">NDArrayInt</span><span class="p">,</span> <span class="n">nroot</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">spgrep.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">NDArrayComplex</span><span class="p">,</span> <span class="n">NDArrayFloat</span><span class="p">,</span> <span class="n">NDArrayInt</span><span class="p">,</span> <span class="n">nroot</span>
 
 
 <div class="viewcode-block" id="enumerate_small_representations">
 <a class="viewcode-back" href="../../api/api_irreps.html#spgrep.irreps.enumerate_small_representations">[docs]</a>
-<span class="k">def</span> <span class="nf">enumerate_small_representations</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">enumerate_small_representations</span><span class="p">(</span>
     <span class="n">little_rotations</span><span class="p">:</span> <span class="n">NDArrayInt</span><span class="p">,</span>
     <span class="n">little_translations</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">,</span>
     <span class="n">kpoint</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">,</span>
@@ -445,7 +445,7 @@
 
 <div class="viewcode-block" id="enumerate_unitary_irreps">
 <a class="viewcode-back" href="../../api/api_irreps.html#spgrep.irreps.enumerate_unitary_irreps">[docs]</a>
-<span class="k">def</span> <span class="nf">enumerate_unitary_irreps</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">enumerate_unitary_irreps</span><span class="p">(</span>
     <span class="n">rotations</span><span class="p">:</span> <span class="n">NDArrayInt</span><span class="p">,</span>
     <span class="n">factor_system</span><span class="p">:</span> <span class="n">NDArrayComplex</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">real</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
@@ -547,7 +547,7 @@
 
 <div class="viewcode-block" id="enumerate_unitary_irreps_from_regular_representation">
 <a class="viewcode-back" href="../../api/api_irreps.html#spgrep.irreps.enumerate_unitary_irreps_from_regular_representation">[docs]</a>
-<span class="k">def</span> <span class="nf">enumerate_unitary_irreps_from_regular_representation</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">enumerate_unitary_irreps_from_regular_representation</span><span class="p">(</span>
     <span class="n">reg</span><span class="p">:</span> <span class="n">NDArrayComplex</span><span class="p">,</span>
     <span class="n">rtol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-5</span><span class="p">,</span>
     <span class="n">max_num_random_generations</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span>
@@ -612,7 +612,7 @@
 
 <div class="viewcode-block" id="decompose_representation">
 <a class="viewcode-back" href="../../api/api_irreps.html#spgrep.irreps.decompose_representation">[docs]</a>
-<span class="k">def</span> <span class="nf">decompose_representation</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">decompose_representation</span><span class="p">(</span>
     <span class="n">representation</span><span class="p">:</span> <span class="n">NDArrayComplex</span><span class="p">,</span>
     <span class="n">rtol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-5</span><span class="p">,</span>
     <span class="n">max_num_random_generations</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span>
@@ -660,7 +660,7 @@
 
 
 
-<span class="k">def</span> <span class="nf">_get_irreps_from_matrix</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_get_irreps_from_matrix</span><span class="p">(</span>
     <span class="n">reg</span><span class="p">:</span> <span class="n">NDArrayComplex</span><span class="p">,</span> <span class="n">matrix</span><span class="p">:</span> <span class="n">NDArrayComplex</span><span class="p">,</span> <span class="n">rtol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-5</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">NDArrayComplex</span><span class="p">]:</span>
     <span class="c1"># eigvecs[:, i] is the normalized eigenvector to eigvals[i]</span>
@@ -718,7 +718,7 @@
 
 <div class="viewcode-block" id="enumerate_unitary_irreps_from_solvable_group_chain">
 <a class="viewcode-back" href="../../api/api_irreps.html#spgrep.irreps.enumerate_unitary_irreps_from_solvable_group_chain">[docs]</a>
-<span class="k">def</span> <span class="nf">enumerate_unitary_irreps_from_solvable_group_chain</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">enumerate_unitary_irreps_from_solvable_group_chain</span><span class="p">(</span>
     <span class="n">table</span><span class="p">:</span> <span class="n">NDArrayInt</span><span class="p">,</span>
     <span class="n">factor_system</span><span class="p">:</span> <span class="n">NDArrayComplex</span><span class="p">,</span>
     <span class="n">solvable_chain_generators</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
@@ -875,7 +875,7 @@
 
 
 
-<span class="k">def</span> <span class="nf">get_physically_irrep</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_physically_irrep</span><span class="p">(</span>
     <span class="n">irrep</span><span class="p">:</span> <span class="n">NDArrayComplex</span><span class="p">,</span>
     <span class="n">indicator</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
     <span class="n">atol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-5</span><span class="p">,</span>
@@ -943,7 +943,7 @@
 
 <div class="viewcode-block" id="is_equivalent_irrep">
 <a class="viewcode-back" href="../../api/api_irreps.html#spgrep.irreps.is_equivalent_irrep">[docs]</a>
-<span class="k">def</span> <span class="nf">is_equivalent_irrep</span><span class="p">(</span><span class="n">character1</span><span class="p">:</span> <span class="n">NDArrayComplex</span><span class="p">,</span> <span class="n">character2</span><span class="p">:</span> <span class="n">NDArrayComplex</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">is_equivalent_irrep</span><span class="p">(</span><span class="n">character1</span><span class="p">:</span> <span class="n">NDArrayComplex</span><span class="p">,</span> <span class="n">character2</span><span class="p">:</span> <span class="n">NDArrayComplex</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Return true if two irreps are equivalent.&quot;&quot;&quot;</span>
     <span class="n">order</span> <span class="o">=</span> <span class="n">character1</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
     <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">around</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">conj</span><span class="p">(</span><span class="n">character1</span><span class="p">)</span> <span class="o">*</span> <span class="n">character2</span><span class="p">))</span> <span class="o">==</span> <span class="n">order</span><span class="p">:</span>
@@ -953,7 +953,7 @@
 
 
 
-<span class="k">def</span> <span class="nf">purify_irrep_value</span><span class="p">(</span><span class="n">irrep</span><span class="p">:</span> <span class="n">NDArrayComplex</span><span class="p">,</span> <span class="n">atol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-8</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NDArrayComplex</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">purify_irrep_value</span><span class="p">(</span><span class="n">irrep</span><span class="p">:</span> <span class="n">NDArrayComplex</span><span class="p">,</span> <span class="n">atol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-8</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NDArrayComplex</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Purify values of irreps.&quot;&quot;&quot;</span>
     <span class="c1"># Each value should be 0 or exp(2 pi q / p) (p=1,2,3,4,6, q = 0,...,p-1)</span>
     <span class="n">possible_values</span> <span class="o">=</span> <span class="p">[</span>
@@ -972,7 +972,7 @@
     <span class="k">return</span> <span class="n">irrep</span>
 
 
-<span class="k">def</span> <span class="nf">purify_real_irrep_value</span><span class="p">(</span><span class="n">real_irrep</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">,</span> <span class="n">atol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-8</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NDArrayFloat</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">purify_real_irrep_value</span><span class="p">(</span><span class="n">real_irrep</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">,</span> <span class="n">atol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-8</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NDArrayFloat</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Purify values of physically irreducible representations.&quot;&quot;&quot;</span>
     <span class="n">values</span> <span class="o">=</span> <span class="p">[</span>
         <span class="mi">0</span><span class="p">,</span>

@@ -29,7 +29,7 @@
   <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 <link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
   
   <!-- So that users can add custom icons -->
@@ -38,7 +38,7 @@
   <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../_static/documentation_options.js?v=ab7e19e1"></script>
+    <script src="../../_static/documentation_options.js?v=27577dc1"></script>
     <script src="../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
@@ -299,30 +299,30 @@
   <h1>Source code for spgrep.core</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;Enumerate unitary irreps from crystal structure or symmetry operations.&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Literal</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Literal</span>
 
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">spglib</span> <span class="kn">import</span> <span class="n">get_magnetic_symmetry_dataset</span><span class="p">,</span> <span class="n">get_symmetry_dataset</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">spglib</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_magnetic_symmetry_dataset</span><span class="p">,</span> <span class="n">get_symmetry_dataset</span>
 
-<span class="kn">from</span> <span class="nn">spgrep.corep</span> <span class="kn">import</span> <span class="n">enumerate_spinor_small_corepresentations</span>
-<span class="kn">from</span> <span class="nn">spgrep.group</span> <span class="kn">import</span> <span class="n">get_little_group</span>
-<span class="kn">from</span> <span class="nn">spgrep.irreps</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">spgrep.corep</span><span class="w"> </span><span class="kn">import</span> <span class="n">enumerate_spinor_small_corepresentations</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">spgrep.group</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_little_group</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">spgrep.irreps</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">enumerate_small_representations</span><span class="p">,</span>
     <span class="n">enumerate_unitary_irreps</span><span class="p">,</span>
     <span class="n">purify_irrep_value</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">spgrep.spinor</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">spgrep.spinor</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">enumerate_spinor_small_representations</span><span class="p">,</span>
     <span class="n">get_spinor_factor_system</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">spgrep.transform</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">spgrep.transform</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">get_primitive_transformation_matrix</span><span class="p">,</span>
     <span class="n">transform_symmetry_and_kpoint</span><span class="p">,</span>
     <span class="n">unique_primitive_symmetry</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">spgrep.utils</span> <span class="kn">import</span> <span class="n">NDArrayBool</span><span class="p">,</span> <span class="n">NDArrayComplex</span><span class="p">,</span> <span class="n">NDArrayFloat</span><span class="p">,</span> <span class="n">NDArrayInt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">spgrep.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">NDArrayBool</span><span class="p">,</span> <span class="n">NDArrayComplex</span><span class="p">,</span> <span class="n">NDArrayFloat</span><span class="p">,</span> <span class="n">NDArrayInt</span>
 
 <span class="c1">################################################################################</span>
 <span class="c1"># Linear representation</span>
@@ -331,7 +331,7 @@
 
 <div class="viewcode-block" id="get_spacegroup_irreps">
 <a class="viewcode-back" href="../../api/api_core.html#spgrep.get_spacegroup_irreps">[docs]</a>
-<span class="k">def</span> <span class="nf">get_spacegroup_irreps</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_spacegroup_irreps</span><span class="p">(</span>
     <span class="n">lattice</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">,</span>
     <span class="n">positions</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">,</span>
     <span class="n">numbers</span><span class="p">:</span> <span class="n">NDArrayInt</span><span class="p">,</span>
@@ -435,7 +435,7 @@
 
 <div class="viewcode-block" id="get_spacegroup_irreps_from_primitive_symmetry">
 <a class="viewcode-back" href="../../api/api_core.html#spgrep.get_spacegroup_irreps_from_primitive_symmetry">[docs]</a>
-<span class="k">def</span> <span class="nf">get_spacegroup_irreps_from_primitive_symmetry</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_spacegroup_irreps_from_primitive_symmetry</span><span class="p">(</span>
     <span class="n">rotations</span><span class="p">:</span> <span class="n">NDArrayInt</span><span class="p">,</span>
     <span class="n">translations</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">,</span>
     <span class="n">kpoint</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">,</span>
@@ -522,7 +522,7 @@
 
 <div class="viewcode-block" id="get_crystallographic_pointgroup_irreps_from_symmetry">
 <a class="viewcode-back" href="../../api/api_core.html#spgrep.get_crystallographic_pointgroup_irreps_from_symmetry">[docs]</a>
-<span class="k">def</span> <span class="nf">get_crystallographic_pointgroup_irreps_from_symmetry</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_crystallographic_pointgroup_irreps_from_symmetry</span><span class="p">(</span>
     <span class="n">rotations</span><span class="p">:</span> <span class="n">NDArrayInt</span><span class="p">,</span>
     <span class="n">real</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">method</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;Neto&quot;</span><span class="p">,</span> <span class="s2">&quot;random&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Neto&quot;</span><span class="p">,</span>
@@ -575,7 +575,7 @@
 
 <div class="viewcode-block" id="get_spacegroup_spinor_irreps">
 <a class="viewcode-back" href="../../api/api_core.html#spgrep.get_spacegroup_spinor_irreps">[docs]</a>
-<span class="k">def</span> <span class="nf">get_spacegroup_spinor_irreps</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_spacegroup_spinor_irreps</span><span class="p">(</span>
     <span class="n">lattice</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">,</span>
     <span class="n">positions</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">,</span>
     <span class="n">numbers</span><span class="p">:</span> <span class="n">NDArrayInt</span><span class="p">,</span>
@@ -773,7 +773,7 @@
 
 <div class="viewcode-block" id="get_spacegroup_spinor_irreps_from_primitive_symmetry">
 <a class="viewcode-back" href="../../api/api_core.html#spgrep.get_spacegroup_spinor_irreps_from_primitive_symmetry">[docs]</a>
-<span class="k">def</span> <span class="nf">get_spacegroup_spinor_irreps_from_primitive_symmetry</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_spacegroup_spinor_irreps_from_primitive_symmetry</span><span class="p">(</span>
     <span class="n">lattice</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">,</span>
     <span class="n">rotations</span><span class="p">:</span> <span class="n">NDArrayInt</span><span class="p">,</span>
     <span class="n">translations</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">,</span>
@@ -909,7 +909,7 @@
 
 <div class="viewcode-block" id="get_crystallographic_pointgroup_spinor_irreps_from_symmetry">
 <a class="viewcode-back" href="../../api/api_core.html#spgrep.get_crystallographic_pointgroup_spinor_irreps_from_symmetry">[docs]</a>
-<span class="k">def</span> <span class="nf">get_crystallographic_pointgroup_spinor_irreps_from_symmetry</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_crystallographic_pointgroup_spinor_irreps_from_symmetry</span><span class="p">(</span>
     <span class="n">lattice</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">,</span>
     <span class="n">rotations</span><span class="p">:</span> <span class="n">NDArrayInt</span><span class="p">,</span>
     <span class="n">time_reversals</span><span class="p">:</span> <span class="n">NDArrayInt</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -1008,7 +1008,7 @@
 <span class="c1">################################################################################</span>
 
 
-<span class="k">def</span> <span class="nf">_adjust_phase_for_centering_translations</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_adjust_phase_for_centering_translations</span><span class="p">(</span>
     <span class="n">prim_translations</span><span class="p">,</span>
     <span class="n">prim_kpoint</span><span class="p">,</span>
     <span class="n">uniq_prim_translations</span><span class="p">,</span>

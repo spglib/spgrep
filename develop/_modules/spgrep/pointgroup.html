@@ -29,7 +29,7 @@
   <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 <link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
   
   <!-- So that users can add custom icons -->
@@ -38,7 +38,7 @@
   <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../_static/documentation_options.js?v=ab7e19e1"></script>
+    <script src="../../_static/documentation_options.js?v=27577dc1"></script>
     <script src="../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
@@ -299,12 +299,12 @@
   <h1>Source code for spgrep.pointgroup</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;Decomposition of crystallographic point groups as solvable groups.&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">spglib</span> <span class="kn">import</span> <span class="n">get_pointgroup</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">spglib</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_pointgroup</span>
 
-<span class="kn">from</span> <span class="nn">spgrep.utils</span> <span class="kn">import</span> <span class="n">NDArrayInt</span><span class="p">,</span> <span class="n">ndarray2d_to_integer_tuple</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">spgrep.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">NDArrayInt</span><span class="p">,</span> <span class="n">ndarray2d_to_integer_tuple</span>
 
 <span class="c1"># List of point groups after applying transformation matrices given by `spglib.get_pointgroup`</span>
 <span class="c1"># See https://github.com/spglib/spglib/issues/164</span>
@@ -961,13 +961,13 @@
 <span class="p">}</span>
 
 
-<span class="k">def</span> <span class="nf">get_generators</span><span class="p">(</span><span class="n">pg_symbol</span><span class="p">,</span> <span class="n">idx</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_generators</span><span class="p">(</span><span class="n">pg_symbol</span><span class="p">,</span> <span class="n">idx</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Return indices of symmetry operations which generate given point group.&quot;&quot;&quot;</span>
     <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">gens</span> <span class="o">=</span> <span class="n">_get_generators</span><span class="p">(</span><span class="n">pg_symbol</span><span class="p">,</span> <span class="n">idx</span><span class="p">,</span> <span class="p">[])</span>
     <span class="k">return</span> <span class="n">gens</span>
 
 
-<span class="k">def</span> <span class="nf">_get_generators</span><span class="p">(</span><span class="n">pg_symbol</span><span class="p">,</span> <span class="n">idx</span><span class="p">,</span> <span class="n">gens</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_get_generators</span><span class="p">(</span><span class="n">pg_symbol</span><span class="p">,</span> <span class="n">idx</span><span class="p">,</span> <span class="n">gens</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">pg_symbol</span> <span class="o">==</span> <span class="s2">&quot;1&quot;</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">gens</span>
 
@@ -979,7 +979,7 @@
 
 <div class="viewcode-block" id="get_pointgroup_chain_generators">
 <a class="viewcode-back" href="../../api/api_pointgroup.html#spgrep.pointgroup.get_pointgroup_chain_generators">[docs]</a>
-<span class="k">def</span> <span class="nf">get_pointgroup_chain_generators</span><span class="p">(</span><span class="n">prim_rotations</span><span class="p">:</span> <span class="n">NDArrayInt</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_pointgroup_chain_generators</span><span class="p">(</span><span class="n">prim_rotations</span><span class="p">:</span> <span class="n">NDArrayInt</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Calculate generators of given crystallographic point group in primitive basis.</span>
 
 <span class="sd">    The returned generators give a normal series whose factor groups are all Abelian.</span>

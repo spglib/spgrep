@@ -29,7 +29,7 @@
   <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 <link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
   
   <!-- So that users can add custom icons -->
@@ -38,7 +38,7 @@
   <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../_static/documentation_options.js?v=ab7e19e1"></script>
+    <script src="../../_static/documentation_options.js?v=27577dc1"></script>
     <script src="../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
@@ -299,14 +299,14 @@
   <h1>Source code for spgrep.utils</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;Utility functions.&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Literal</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Literal</span>
 
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">numpy.typing</span> <span class="kn">import</span> <span class="n">NDArray</span>
-<span class="kn">from</span> <span class="nn">spglib</span> <span class="kn">import</span> <span class="n">get_symmetry_from_database</span>
-<span class="kn">from</span> <span class="nn">typing_extensions</span> <span class="kn">import</span> <span class="n">TypeAlias</span>  <span class="c1"># for Python&lt;3.10</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">numpy.typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">NDArray</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">spglib</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_symmetry_from_database</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing_extensions</span><span class="w"> </span><span class="kn">import</span> <span class="n">TypeAlias</span>  <span class="c1"># for Python&lt;3.10</span>
 
 <span class="n">NDArrayBool</span><span class="p">:</span> <span class="n">TypeAlias</span> <span class="o">=</span> <span class="n">NDArray</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">bool_</span><span class="p">]</span>
 <span class="n">NDArrayInt</span><span class="p">:</span> <span class="n">TypeAlias</span> <span class="o">=</span> <span class="n">NDArray</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">int_</span><span class="p">]</span>
@@ -314,20 +314,20 @@
 <span class="n">NDArrayComplex</span><span class="p">:</span> <span class="n">TypeAlias</span> <span class="o">=</span> <span class="n">NDArray</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">]</span>
 
 
-<span class="k">def</span> <span class="nf">is_integer_array</span><span class="p">(</span><span class="n">array</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">,</span> <span class="n">rtol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-5</span><span class="p">,</span> <span class="n">atol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-8</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">is_integer_array</span><span class="p">(</span><span class="n">array</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">,</span> <span class="n">rtol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-5</span><span class="p">,</span> <span class="n">atol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-8</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Return true if all values of ``array`` are almost integers.&quot;&quot;&quot;</span>
     <span class="n">array_int</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">around</span><span class="p">(</span><span class="n">array</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">array_int</span><span class="p">,</span> <span class="n">array</span><span class="p">,</span> <span class="n">rtol</span><span class="o">=</span><span class="n">rtol</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="n">atol</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">ndarray2d_to_integer_tuple</span><span class="p">(</span><span class="n">array</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">]]:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">ndarray2d_to_integer_tuple</span><span class="p">(</span><span class="n">array</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">]]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert two-dimensional array to tuple of tuple.&quot;&quot;&quot;</span>
     <span class="n">array_int</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">around</span><span class="p">(</span><span class="n">array</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
     <span class="n">array_t</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">tuple</span><span class="p">,</span> <span class="n">array_int</span><span class="o">.</span><span class="n">tolist</span><span class="p">()))</span>
     <span class="k">return</span> <span class="n">array_t</span>  <span class="c1"># type: ignore</span>
 
 
-<span class="k">def</span> <span class="nf">get_symmetry_from_hall_number</span><span class="p">(</span><span class="n">hall_number</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">NDArrayInt</span><span class="p">,</span> <span class="n">NDArrayFloat</span><span class="p">]:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_symmetry_from_hall_number</span><span class="p">(</span><span class="n">hall_number</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">NDArrayInt</span><span class="p">,</span> <span class="n">NDArrayFloat</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Return symmetry operations from Hall number.</span>
 
 <span class="sd">    Parameters</span>
@@ -345,7 +345,7 @@
     <span class="k">return</span> <span class="n">rotations</span><span class="p">,</span> <span class="n">translations</span>
 
 
-<span class="k">def</span> <span class="nf">is_prime</span><span class="p">(</span><span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">is_prime</span><span class="p">(</span><span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Return true if given number is prime.&quot;&quot;&quot;</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">n</span> <span class="o">%</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
@@ -353,7 +353,7 @@
     <span class="k">return</span> <span class="kc">True</span>
 
 
-<span class="k">def</span> <span class="nf">nroot</span><span class="p">(</span><span class="n">z</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">nroot</span><span class="p">(</span><span class="n">z</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Return `n`-th power root of `z` with the minimum angle.&quot;&quot;&quot;</span>
     <span class="n">root</span> <span class="o">=</span> <span class="n">z</span> <span class="o">**</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">n</span><span class="p">)</span>
     <span class="n">r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">absolute</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
@@ -364,7 +364,7 @@
 
 <div class="viewcode-block" id="grassmann_distance">
 <a class="viewcode-back" href="../../api/api_utils.html#spgrep.utils.grassmann_distance">[docs]</a>
-<span class="k">def</span> <span class="nf">grassmann_distance</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">grassmann_distance</span><span class="p">(</span>
     <span class="n">basis1</span><span class="p">:</span> <span class="n">NDArrayComplex</span><span class="p">,</span>
     <span class="n">basis2</span><span class="p">:</span> <span class="n">NDArrayComplex</span><span class="p">,</span>
     <span class="nb">ord</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;min&quot;</span><span class="p">,</span> <span class="s2">&quot;projection&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;min&quot;</span><span class="p">,</span>
@@ -423,7 +423,7 @@
 
 
 
-<span class="k">def</span> <span class="nf">mode_dot</span><span class="p">(</span><span class="n">coeffs</span><span class="p">:</span> <span class="n">NDArray</span><span class="p">,</span> <span class="n">list_matrix</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">NDArray</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">NDArray</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">mode_dot</span><span class="p">(</span><span class="n">coeffs</span><span class="p">:</span> <span class="n">NDArray</span><span class="p">,</span> <span class="n">list_matrix</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">NDArray</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">NDArray</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculate p-mode product of tensor and list of matrices.</span>
 
 <span class="sd">    For example, 3-mode product of ``coeffs`` and ``list_matrix=[m1, m2, m3]`` is ``np.einsum(&quot;ijk,ia,jb,kc&quot;, coeffs, m1, m2, m3)``.</span>
@@ -438,7 +438,7 @@
 <span class="sd">    ret: (n_1, ..., n_p)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">_mode_dot</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="n">mat</span><span class="p">,</span> <span class="n">axis</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_mode_dot</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="n">mat</span><span class="p">,</span> <span class="n">axis</span><span class="p">):</span>
         <span class="c1"># tensor: (m_{0}, ..., m_{axis}, ...)</span>
         <span class="c1"># mat: (m_{axis}, n)</span>
         <span class="c1"># ret: (m_{0}, ..., n, ...)</span>

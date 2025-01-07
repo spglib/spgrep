@@ -29,7 +29,7 @@
   <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 <link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
   
   <!-- So that users can add custom icons -->
@@ -38,7 +38,7 @@
   <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../_static/documentation_options.js?v=ab7e19e1"></script>
+    <script src="../../_static/documentation_options.js?v=27577dc1"></script>
     <script src="../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
@@ -299,30 +299,30 @@
   <h1>Source code for spgrep.corep</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;Spin co-representation.&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Literal</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Literal</span>
 
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
-<span class="kn">from</span> <span class="nn">spgrep.group</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">spgrep.group</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">decompose_by_maximal_space_subgroup</span><span class="p">,</span>
     <span class="n">get_cayley_table</span><span class="p">,</span>
     <span class="n">get_factor_system_from_little_group</span><span class="p">,</span>
     <span class="n">get_inverse_index</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">spgrep.irreps</span> <span class="kn">import</span> <span class="n">enumerate_unitary_irreps</span><span class="p">,</span> <span class="n">is_equivalent_irrep</span>
-<span class="kn">from</span> <span class="nn">spgrep.representation</span> <span class="kn">import</span> <span class="n">get_character</span><span class="p">,</span> <span class="n">get_intertwiner</span>
-<span class="kn">from</span> <span class="nn">spgrep.spinor</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">spgrep.irreps</span><span class="w"> </span><span class="kn">import</span> <span class="n">enumerate_unitary_irreps</span><span class="p">,</span> <span class="n">is_equivalent_irrep</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">spgrep.representation</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_character</span><span class="p">,</span> <span class="n">get_intertwiner</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">spgrep.spinor</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">enumerate_spinor_small_representations</span><span class="p">,</span>
     <span class="n">get_spinor_unitary_rotation</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">spgrep.utils</span> <span class="kn">import</span> <span class="n">NDArrayBool</span><span class="p">,</span> <span class="n">NDArrayComplex</span><span class="p">,</span> <span class="n">NDArrayFloat</span><span class="p">,</span> <span class="n">NDArrayInt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">spgrep.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">NDArrayBool</span><span class="p">,</span> <span class="n">NDArrayComplex</span><span class="p">,</span> <span class="n">NDArrayFloat</span><span class="p">,</span> <span class="n">NDArrayInt</span>
 
 
 <div class="viewcode-block" id="enumerate_spinor_small_corepresentations">
 <a class="viewcode-back" href="../../api/api_corep.html#spgrep.corep.enumerate_spinor_small_corepresentations">[docs]</a>
-<span class="k">def</span> <span class="nf">enumerate_spinor_small_corepresentations</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">enumerate_spinor_small_corepresentations</span><span class="p">(</span>
     <span class="n">lattice</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">,</span>
     <span class="n">little_rotations</span><span class="p">:</span> <span class="n">NDArrayInt</span><span class="p">,</span>
     <span class="n">little_translations</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">,</span>
@@ -546,7 +546,7 @@
 
 
 
-<span class="k">def</span> <span class="nf">get_corep_spinor_factor_system</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_corep_spinor_factor_system</span><span class="p">(</span>
     <span class="n">lattice</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">,</span>
     <span class="n">rotations</span><span class="p">:</span> <span class="n">NDArrayInt</span><span class="p">,</span>
     <span class="n">time_reversals</span><span class="p">:</span> <span class="n">NDArrayInt</span><span class="p">,</span>

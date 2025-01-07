@@ -29,7 +29,7 @@
   <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 <link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
   
   <!-- So that users can add custom icons -->
@@ -38,7 +38,7 @@
   <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../_static/documentation_options.js?v=ab7e19e1"></script>
+    <script src="../../_static/documentation_options.js?v=27577dc1"></script>
     <script src="../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
@@ -299,20 +299,20 @@
   <h1>Source code for spgrep.tensor</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;Symmetric tensor.&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
-<span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">permutations</span><span class="p">,</span> <span class="n">product</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">itertools</span><span class="w"> </span><span class="kn">import</span> <span class="n">permutations</span><span class="p">,</span> <span class="n">product</span>
 
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
-<span class="kn">from</span> <span class="nn">spgrep.irreps</span> <span class="kn">import</span> <span class="n">enumerate_unitary_irreps</span><span class="p">,</span> <span class="n">is_equivalent_irrep</span>
-<span class="kn">from</span> <span class="nn">spgrep.representation</span> <span class="kn">import</span> <span class="n">get_character</span><span class="p">,</span> <span class="n">get_direct_product</span><span class="p">,</span> <span class="n">project_to_irrep</span>
-<span class="kn">from</span> <span class="nn">spgrep.utils</span> <span class="kn">import</span> <span class="n">NDArrayComplex</span><span class="p">,</span> <span class="n">NDArrayFloat</span><span class="p">,</span> <span class="n">NDArrayInt</span><span class="p">,</span> <span class="n">grassmann_distance</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">spgrep.irreps</span><span class="w"> </span><span class="kn">import</span> <span class="n">enumerate_unitary_irreps</span><span class="p">,</span> <span class="n">is_equivalent_irrep</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">spgrep.representation</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_character</span><span class="p">,</span> <span class="n">get_direct_product</span><span class="p">,</span> <span class="n">project_to_irrep</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">spgrep.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">NDArrayComplex</span><span class="p">,</span> <span class="n">NDArrayFloat</span><span class="p">,</span> <span class="n">NDArrayInt</span><span class="p">,</span> <span class="n">grassmann_distance</span>
 
 
 <div class="viewcode-block" id="get_symmetry_adapted_tensors">
 <a class="viewcode-back" href="../../api/api_tensor.html#spgrep.tensor.get_symmetry_adapted_tensors">[docs]</a>
-<span class="k">def</span> <span class="nf">get_symmetry_adapted_tensors</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_symmetry_adapted_tensors</span><span class="p">(</span>
     <span class="n">rep</span><span class="p">:</span> <span class="n">NDArrayComplex</span> <span class="o">|</span> <span class="n">NDArrayFloat</span><span class="p">,</span>
     <span class="n">rotations</span><span class="p">:</span> <span class="n">NDArrayInt</span><span class="p">,</span>
     <span class="n">rank</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
@@ -384,7 +384,7 @@
 
 <div class="viewcode-block" id="apply_intrinsic_symmetry">
 <a class="viewcode-back" href="../../api/api_tensor.html#spgrep.tensor.apply_intrinsic_symmetry">[docs]</a>
-<span class="k">def</span> <span class="nf">apply_intrinsic_symmetry</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">apply_intrinsic_symmetry</span><span class="p">(</span>
     <span class="n">tensors</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">NDArrayComplex</span><span class="p">]</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="n">NDArrayFloat</span><span class="p">],</span>
     <span class="n">atol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-6</span><span class="p">,</span>  <span class="c1"># A bit large tolerance setting to handle numerical noise</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">NDArrayComplex</span><span class="p">]</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="n">NDArrayFloat</span><span class="p">]:</span>
