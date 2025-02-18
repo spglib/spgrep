@@ -55,7 +55,7 @@ jobs:
         sudo apt-get install -y pandoc
     - name: Install
       run: |
-        uv pip install -e .[dev,docs]
+        uv pip install --system -e .[dev,docs]
     - name: Build
       run: |
         sphinx-build docs docs_build
