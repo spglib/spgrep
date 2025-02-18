@@ -1,5 +1,9 @@
 # Change Log
 
+## v0.3.6 (18 Feb. 2025)
+
+- Drop support for Python 3.8
+
 ## v0.3.5 (18 Jun. 2024)
 
 - Make compatible with NumPy 2.0.0
