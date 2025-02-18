@@ -14,6 +14,8 @@
 # import sys
 # sys.path.insert(0, os.path.abspath('.'))
 
+# https://github.com/pypa/setuptools_scm/
+from importlib.metadata import version
 
 # -- Project information -----------------------------------------------------
 
@@ -21,9 +23,6 @@ project = "spgrep"
 copyright = "2022, Kohei Shinohara"
 author = "Kohei Shinohara"
 repository_url = "https://github.com/spglib/spgrep"
-
-# https://github.com/pypa/setuptools_scm/
-from importlib.metadata import version
 
 release = version("spgrep")
 # for example take major/minor

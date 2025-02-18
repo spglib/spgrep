@@ -87,6 +87,7 @@ extend-ignore = [
     "D203",  # Conflict with D211
     "D205",
     "D213",  # Conflict with D212
+    "E501",
 ]
 
 [tool.mypy]

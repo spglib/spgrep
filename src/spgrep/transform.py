@@ -23,7 +23,8 @@ def transform_symmetry_and_kpoint(
     Let a given transformation_matrix be :math:`\mathbf{P}`.
     Symmetry operation :math:`(\mathbf{R}, \mathbf{v})` is transformed to
     :math:`(\mathbf{P}, 0)^{-1} (\mathbf{R}, \mathbf{v}) (\mathbf{P}, 0) = (\mathbf{P}^{-1} \mathbf{R} \mathbf{P}, \mathbf{P}^{-1} \mathbf{v})`.
-    Coefficients of k-vector :math:`\mathbf{k}` are transformed to :math:`\mathbf{P}^{T} \mathbf{k}`.
+    Coefficients of k-vector :math:`\mathbf{k}` are transformed
+    to :math:`\mathbf{P}^{T} \mathbf{k}`.
 
     Parameters
     ----------
@@ -67,7 +68,9 @@ def unique_primitive_symmetry(
     unique_rotations: array, (new_num_sym, 3, 3)
     unique_translations: array, (new_num_sym, 3)
     mapping_to_primitive_symmetry: array, (num_sym, )
-        ``(rotations[i], translations[i])`` is transformed to ``(unique_rotations[j], unique_translations[j])`` where ``j = mapping_to_primitive_symmetry[i]``.
+        ``(rotations[i], translations[i])`` is transformed to
+        ``(unique_rotations[j], unique_translations[j])``
+        where ``j = mapping_to_primitive_symmetry[i]``.
     """
     rotations_int: list[tuple[tuple[int]]] = []
 
@@ -91,11 +94,14 @@ def unique_primitive_symmetry(
 
 
 def get_primitive_transformation_matrix(hall_number: int) -> NDArrayFloat:
-    """Return transformation matrix from standard unit cell specified with hall_number into a primitive cell. The transformation matrix is consistent with Spglib's convention [1,2] and KVEC's convention [3].
+    """Return transformation matrix from standard unit cell specified with hall_number
+    into a primitive cell. The transformation matrix is consistent with Spglib's convention [1,2]
+    and KVEC's convention [3].
 
     * [1] https://spglib.github.io/spglib/definition.html
     * [2] https://github.com/spglib/spglib/pull/137
-    * [3] M. I. Aroyo, D. Orobengoa, G. de la Flor, E.S. Tasci, J. M. Perez-Mato and H. Wondratschek, Acta Cryst. A70 126-137 (2014).
+    * [3] M. I. Aroyo, D. Orobengoa, G. de la Flor, E.S. Tasci, J. M. Perez-Mato
+          and H. Wondratschek, Acta Cryst. A70 126-137 (2014).
     """
     crystal_system = get_crystal_system(hall_number)
     spacegroup_type = get_spacegroup_type(hall_number)
@@ -183,7 +189,7 @@ def get_crystal_system(
         if (lb <= hall_number) and (hall_number <= ub):
             return csystem  # type: ignore
 
-    raise ValueError("Unknown Hall number: {}".format(hall_number))
+    raise ValueError(f"Unknown Hall number: {hall_number}")
 
 
 def get_centering(hall_symbol: str) -> Literal["P", "A", "C", "I", "R", "F"]:

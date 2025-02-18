@@ -69,11 +69,17 @@ def grassmann_distance(
     ord: Literal["min", "projection"] = "min",
     skip_orthonormalization: bool = False,
 ) -> float:
-    r"""Return Grassmann distance between two linear subspaces spanned by ``basis1`` and ``basis2``.
+    r"""Return Grassmann distance between two linear subspaces spanned
+    by ``basis1`` and ``basis2``.
 
     References
-    * [1] Jihun Hamm and Daniel D. Lee. 2008. Grassmann discriminant analysis: a unifying view on subspace-based learning. In Proceedings of the 25th international conference on Machine learning (ICML '08). Association for Computing Machinery, New York, NY, USA, 376–383. https://doi.org/10.1145/1390156.1390204
-    * [2] Schubert Varieties and Distances between Subspaces of Different Dimensions, Ke Ye and Lek-Heng Lim, SIAM Journal on Matrix Analysis and Applications 2016 37:3, 1176-1197
+    * [1] Jihun Hamm and Daniel D. Lee. 2008. Grassmann discriminant analysis: a unifying view
+          on subspace-based learning. In Proceedings of the 25th international conference
+          on Machine learning (ICML '08). Association for Computing Machinery, New York, NY, USA,
+          376-383. https://doi.org/10.1145/1390156.1390204
+    * [2] Schubert Varieties and Distances between Subspaces of Different Dimensions,
+          Ke Ye and Lek-Heng Lim, SIAM Journal on Matrix Analysis and Applications 2016 37:3,
+          1176-1197
 
     Parameters
     ----------
@@ -99,7 +105,8 @@ def grassmann_distance(
         col_orthonormal_basis1 = basis1.T
         col_orthonormal_basis2 = basis2.T
     else:
-        # QR decomposition of column-wise vectors gives Gram-Schmidt orthonormalized vectors in column wise.
+        # QR decomposition of column-wise vectors gives Gram-Schmidt orthonormalized vectors
+        # in column wise.
         col_orthonormal_basis1 = np.linalg.qr(np.transpose(basis1))[0]
         col_orthonormal_basis2 = np.linalg.qr(np.transpose(basis2))[0]
 
@@ -124,7 +131,8 @@ def grassmann_distance(
 def mode_dot(coeffs: NDArray, list_matrix: list[NDArray]) -> NDArray:
     """Calculate p-mode product of tensor and list of matrices.
 
-    For example, 3-mode product of ``coeffs`` and ``list_matrix=[m1, m2, m3]`` is ``np.einsum("ijk,ia,jb,kc", coeffs, m1, m2, m3)``.
+    For example, 3-mode product of ``coeffs`` and ``list_matrix=[m1, m2, m3]`` is
+    ``np.einsum("ijk,ia,jb,kc", coeffs, m1, m2, m3)``.
 
     Parameters
     ----------

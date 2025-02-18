@@ -23,8 +23,3 @@ repos:
     hooks:
     - id: mypy
       exclude: ^docs/
-  # Notebook
-  - repo: https://github.com/nbQA-dev/nbQA
-    rev: 1.9.1
-    hooks:
-      - id: nbqa-black

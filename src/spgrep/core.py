@@ -704,9 +704,7 @@ def _adjust_phase_for_centering_translations(
         remapping_prim_little_group[idx] = i
 
     mapping_little_group = []  # [0..little_group_order) -> [0..num_sym)
-    mapping_conv_to_prim_little_group = (
-        []
-    )  # [0..little_group_order) -> [0..prim_little_group_order)
+    mapping_conv_to_prim_little_group = []  # [0..little_group_order) -> [0..prim_little_group_order)
     shifts = []  # (little_group_order, )
     for i in range(len(mapping_to_prim)):
         idx_prim = mapping_to_prim[i]  # in [0..order)
