@@ -10,50 +10,16 @@ repos:
       - id: check-json
       - id: debug-statements
       - id: end-of-file-fixer
-  # formatter
-  - repo: https://github.com/psf/black
-    rev: 25.1.0
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.9.6
     hooks:
-    - id: black
-  # linter
-  - repo: https://github.com/PyCQA/flake8
-    rev: 7.1.2
-    hooks:
-    - id: flake8
-      exclude: ^docs/
+      - id: ruff-format
+      - id: ruff
+        args: [ "--fix", "--show-fixes"]
+        types_or: [python, pyi]
   # type annotation
   - repo: https://github.com/pre-commit/mirrors-mypy
     rev: v1.15.0
     hooks:
     - id: mypy
       exclude: ^docs/
-  # isort
-  - repo: https://github.com/pycqa/isort
-    rev: 6.0.0
-    hooks:
-      - id: isort
-        name: isort (python)
-        args: ["--profile", "black"]
-      - id: isort
-        name: isort (cython)
-        types: [cython]
-      - id: isort
-        name: isort (pyi)
-        types: [pyi]
-  # Upgrade syntax
-  - repo: https://github.com/asottile/pyupgrade
-    rev: v3.19.1
-    hooks:
-      - id: pyupgrade
-  # Docstring
-  - repo: https://github.com/pycqa/pydocstyle
-    rev: 6.3.0
-    hooks:
-    - id: pydocstyle
-      additional_dependencies: ["toml"]
-      files: ^src/spgrep/
-  # Notebook
-  - repo: https://github.com/nbQA-dev/nbQA
-    rev: 1.9.1
-    hooks:
-      - id: nbqa-black

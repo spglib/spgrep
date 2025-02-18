@@ -2,31 +2,93 @@
 requires = ["setuptools>=45", "setuptools_scm[toml]>=6.2", "wheel"]
 build-backend = "setuptools.build_meta"
 
+[project]
+name = "spgrep"
+description = "On-the-fly generator of space-group irreducible representations"
+readme = "README.md"
+authors = [
+    { name = "Kohei Shinohara", email = "kshinohara0508@gmail.com" },
+]
+requires-python = ">=3.9.0"
+dynamic = [
+    'version',
+]
+license = { text = "BSD" }
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: BSD License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Mathematics",
+    "Topic :: Scientific/Engineering :: Physics",
+]
+dependencies = [
+  "typing_extensions",
+  "numpy>=1.20.1",
+  "spglib>=2.0.2",
+]
+
+[project.urls]
+homepage = "https://github.com/spglib/spgrep"
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "pytest-cov",
+    "pre-commit",
+    "mypy",
+    "pyupgrade",
+    "pydocstyle",
+    "nbqa",
+    "phonopy",
+    "notebook",
+    "matplotlib",
+    "seaborn",
+    "ipython",
+    "ipykernel",
+]
+docs = [
+    "docutils",
+    "sphinx",
+    "sphinx-autobuild",
+    "nbsphinx",
+    "sphinxcontrib-bibtex>=2.6.2",
+    "myst-parser",
+    "sphinx-book-theme>=0.8.0",
+    "linkify-it-py",
+]
+
 # Enable version inference
 [tool.setuptools_scm]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 
-[tool.black]
+[tool.ruff]
 line-length = 99
-target-version = ['py38', 'py39', 'py310', 'py311']
-include = '\.pyi?$'
-exclude = '''
-/(
-    \.eggs
-  | \.git
-  | \.hg
-  | \.mypy_cache
-  | \.tox
-  | \.venv
-  | _build
-  | buck-out
-  | build
-  | dist
-  | docs
-)/
-'''
+[tool.ruff.lint]
+extend-select = [
+    "F",           # pyflakes
+    "E",           # pycodestyle-errors
+    "I",           # isort
+    # "D",           # pydocstyle
+    "UP",          # pyupgrade
+]
+extend-ignore = [
+    "D100",
+    "D101",
+    "D102",
+    "D103",
+    "D203",  # Conflict with D211
+    "D205",
+    "D213",  # Conflict with D212
+    "E501",
+]
 
 [tool.mypy]
 exclude = [
