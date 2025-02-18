@@ -39,8 +39,8 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../_static/documentation_options.js?v=3f05724b"></script>
-    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/documentation_options.js?v=7471feac"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
@@ -363,10 +363,23 @@
 <div><dl class="py function">
 <dt class="sig sig-object py" id="spgrep.utils.grassmann_distance">
 <span class="sig-prename descclassname"><span class="pre">spgrep.utils.</span></span><span class="sig-name descname"><span class="pre">grassmann_distance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">basis1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">basis2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ord</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'min'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip_orthonormalization</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/spgrep/utils.html#grassmann_distance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spgrep.utils.grassmann_distance" title="Link to this definition">#</a></dt>
-<dd><p>Return Grassmann distance between two linear subspaces spanned by <code class="docutils literal notranslate"><span class="pre">basis1</span></code> and <code class="docutils literal notranslate"><span class="pre">basis2</span></code>.</p>
+<dd><p>Return Grassmann distance between two linear subspaces spanned
+by <code class="docutils literal notranslate"><span class="pre">basis1</span></code> and <code class="docutils literal notranslate"><span class="pre">basis2</span></code>.</p>
 <p>References
-* [1] Jihun Hamm and Daniel D. Lee. 2008. Grassmann discriminant analysis: a unifying view on subspace-based learning. In Proceedings of the 25th international conference on Machine learning (ICML ‘08). Association for Computing Machinery, New York, NY, USA, 376–383. <a class="reference external" href="https://doi.org/10.1145/1390156.1390204">https://doi.org/10.1145/1390156.1390204</a>
-* [2] Schubert Varieties and Distances between Subspaces of Different Dimensions, Ke Ye and Lek-Heng Lim, SIAM Journal on Matrix Analysis and Applications 2016 37:3, 1176-1197</p>
+* [1] Jihun Hamm and Daniel D. Lee. 2008. Grassmann discriminant analysis: a unifying view</p>
+<blockquote>
+<div><p>on subspace-based learning. In Proceedings of the 25th international conference
+on Machine learning (ICML ‘08). Association for Computing Machinery, New York, NY, USA,
+376-383. <a class="reference external" href="https://doi.org/10.1145/1390156.1390204">https://doi.org/10.1145/1390156.1390204</a></p>
+</div></blockquote>
+<ul class="simple">
+<li><dl class="simple">
+<dt>[2] Schubert Varieties and Distances between Subspaces of Different Dimensions,</dt><dd><p>Ke Ye and Lek-Heng Lim, SIAM Journal on Matrix Analysis and Applications 2016 37:3,
+1176-1197</p>
+</dd>
+</dl>
+</li>
+</ul>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">

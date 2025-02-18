@@ -39,8 +39,8 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../_static/documentation_options.js?v=3f05724b"></script>
-    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/documentation_options.js?v=7471feac"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
@@ -369,7 +369,8 @@
 <p>Let a given transformation_matrix be <span class="math notranslate nohighlight">\(\mathbf{P}\)</span>.
 Symmetry operation <span class="math notranslate nohighlight">\((\mathbf{R}, \mathbf{v})\)</span> is transformed to
 <span class="math notranslate nohighlight">\((\mathbf{P}, 0)^{-1} (\mathbf{R}, \mathbf{v}) (\mathbf{P}, 0) = (\mathbf{P}^{-1} \mathbf{R} \mathbf{P}, \mathbf{P}^{-1} \mathbf{v})\)</span>.
-Coefficients of k-vector <span class="math notranslate nohighlight">\(\mathbf{k}\)</span> are transformed to <span class="math notranslate nohighlight">\(\mathbf{P}^{T} \mathbf{k}\)</span>.</p>
+Coefficients of k-vector <span class="math notranslate nohighlight">\(\mathbf{k}\)</span> are transformed
+to <span class="math notranslate nohighlight">\(\mathbf{P}^{T} \mathbf{k}\)</span>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -395,11 +396,17 @@ Coefficients of k-vector <span class="math notranslate nohighlight">\(\mathbf{k}
 <div><dl class="py function">
 <dt class="sig sig-object py" id="spgrep.transform.get_primitive_transformation_matrix">
 <span class="sig-prename descclassname"><span class="pre">spgrep.transform.</span></span><span class="sig-name descname"><span class="pre">get_primitive_transformation_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hall_number</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/spgrep/transform.html#get_primitive_transformation_matrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spgrep.transform.get_primitive_transformation_matrix" title="Link to this definition">#</a></dt>
-<dd><p>Return transformation matrix from standard unit cell specified with hall_number into a primitive cell. The transformation matrix is consistent with Spglib’s convention [1,2] and KVEC’s convention [3].</p>
+<dd><p>Return transformation matrix from standard unit cell specified with hall_number
+into a primitive cell. The transformation matrix is consistent with Spglib’s convention [1,2]
+and KVEC’s convention [3].</p>
 <ul class="simple">
 <li><p>[1] <a class="reference external" href="https://spglib.github.io/spglib/definition.html">https://spglib.github.io/spglib/definition.html</a></p></li>
 <li><p>[2] <a class="github reference external" href="https://github.com/spglib/spglib/pull/137">spglib/spglib#137</a></p></li>
-<li><p>[3] M. I. Aroyo, D. Orobengoa, G. de la Flor, E.S. Tasci, J. M. Perez-Mato and H. Wondratschek, Acta Cryst. A70 126-137 (2014).</p></li>
+<li><dl class="simple">
+<dt>[3] M. I. Aroyo, D. Orobengoa, G. de la Flor, E.S. Tasci, J. M. Perez-Mato</dt><dd><p>and H. Wondratschek, Acta Cryst. A70 126-137 (2014).</p>
+</dd>
+</dl>
+</li>
 </ul>
 </dd></dl>
 
