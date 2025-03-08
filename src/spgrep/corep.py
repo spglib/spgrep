@@ -12,7 +12,11 @@ from spgrep.group import (
     get_factor_system_from_little_group,
     get_inverse_index,
 )
-from spgrep.irreps import enumerate_unitary_irreps, is_equivalent_irrep
+from spgrep.irreps import (
+    enumerate_small_representations,
+    enumerate_unitary_irreps,
+    is_equivalent_irrep,
+)
 from spgrep.representation import get_character, get_intertwiner
 from spgrep.spinor import (
     enumerate_spinor_small_representations,
@@ -73,8 +77,6 @@ def enumerate_spinor_small_corepresentations(
     anti_linear: array[bool], (order, )
         If ``anti_linear[i] == True``, the ``i``-th operator is anti-linear.
     """
-    order = len(little_rotations)
-
     if np.all(little_time_reversals == 0):
         # Type-I MSG
         irreps, spinor_factor_system, unitary_rotations = enumerate_spinor_small_representations(
@@ -87,17 +89,9 @@ def enumerate_spinor_small_corepresentations(
             atol=atol,
             max_num_random_generations=max_num_random_generations,
         )
+        order = len(little_rotations)
         anti_linear = np.zeros((order,), dtype=np.bool_)
         return irreps, [], spinor_factor_system, unitary_rotations, anti_linear
-
-    # Coset-decompose Type-II, -III, -IV MSG
-    (xsg_indices, _, a0_idx) = decompose_by_maximal_space_subgroup(  # type: ignore
-        little_rotations, little_translations, little_time_reversals
-    )
-    xsg_order = len(xsg_indices)
-    xsg_indices_mapping = {}  # xsg_indices -> [0, xsg_order)
-    for i, idx in enumerate(xsg_indices):
-        xsg_indices_mapping[idx] = i
 
     # Factor system from spinor
     corep_spinor_factor_system, unitary_rotations, anti_linear = get_corep_spinor_factor_system(
@@ -111,133 +105,17 @@ def enumerate_spinor_small_corepresentations(
     )
     factor_system = corep_spinor_factor_system * nonsymmorphic_factor_system
 
-    # Compute irreps of little co-group
-    xsg_factor_system = factor_system[xsg_indices][:, xsg_indices]
-    little_cogroup_irreps, _ = enumerate_unitary_irreps(
-        rotations=little_rotations[xsg_indices],
-        factor_system=xsg_factor_system,
-        real=False,  # Nonsense to consider real-value irreps
+    small_coreps, indicators = _enumerate_small_corepresentations_with_factor_system(
+        little_rotations=little_rotations,
+        little_translations=little_translations,
+        little_time_reversals=little_time_reversals,
+        kpoint=kpoint,
+        factor_system=factor_system,
         method=method,
         rtol=rtol,
         atol=atol,
         max_num_random_generations=max_num_random_generations,
     )
-
-    # Construct "conjugated" irreps
-    conj_irreps = []
-    table = get_cayley_table(little_rotations, little_time_reversals)
-    characters = [get_character(irrep) for irrep in little_cogroup_irreps]
-    inv_a0_idx = get_inverse_index(table, a0_idx)
-    for irrep in little_cogroup_irreps:
-        conj_indices = table[inv_a0_idx, table[xsg_indices, a0_idx]]  # a0^-1 * xsg_indices * a0
-        conj_indices_mapping = [xsg_indices_mapping[idx] for idx in conj_indices]
-        conj_irrep = (
-            factor_system[xsg_indices, a0_idx][:, None, None]
-            / factor_system[a0_idx, conj_indices][:, None, None]
-            * np.conj(irrep[conj_indices_mapping])
-        )
-        conj_irreps.append(conj_irrep)
-
-    # Pair "conjugated" irreps
-    conj_pairs = []  # list of (indicator, irrep of little co-group, conjugated irrep)
-    indicators = []
-    visited = [False for _ in range(len(little_cogroup_irreps))]
-    a0u = table[a0_idx, xsg_indices]  # a0 * u
-    factor_a0u_a0u = [factor_system[idx, idx] for idx in a0u]
-    a0ua0u_mapping = [xsg_indices_mapping[table[idx, idx]] for idx in a0u]  # (a0 * u)^2
-    for i, (character_i, irrep_i, conj_irrep_i) in enumerate(
-        zip(characters, little_cogroup_irreps, conj_irreps)
-    ):
-        if visited[i]:
-            continue
-        visited[i] = True
-
-        # Frobenius-Schur indicator for co-representation
-        indicator = np.around(
-            np.real(np.sum(factor_a0u_a0u * character_i[a0ua0u_mapping]))
-        ).astype(int)
-        assert indicator % xsg_order == 0
-        indicator = indicator // xsg_order
-
-        conj_pairs.append((indicator, irrep_i, conj_irrep_i))
-        indicators.append(indicator)
-        if indicator != 0:
-            continue  # indicator = 1 or -1
-
-        # Inequivalent case
-        conj_character_i = get_character(conj_irrep_i)
-        found = False
-        for j, character_j in enumerate(characters):
-            if visited[j]:
-                continue
-            if is_equivalent_irrep(conj_character_i, character_j):
-                found = True
-                visited[j] = True
-                break
-        assert found
-
-    # Construct co-representations
-    small_coreps = []
-    phases = np.array(
-        [np.exp(-2j * np.pi * np.dot(kpoint, translation)) for translation in little_translations]
-    )
-    for indicator, irrep, conj_irrep in conj_pairs:
-        dim = irrep.shape[1]
-        if indicator == 1:
-            # Unitary matrix s.t. irrep @ U = conj_irrep @ U
-            U = get_intertwiner(irrep, conj_irrep, atol, max_num_random_generations)
-            corep = np.zeros((order, dim, dim), dtype=np.complex128)
-            corep[xsg_indices] = irrep
-            corep[a0u] = (
-                np.conj(factor_system[a0_idx, xsg_indices])[:, None, None] * U[None, :, :] @ irrep
-            )
-        elif indicator == -1:
-            U = get_intertwiner(irrep, conj_irrep, atol, max_num_random_generations)
-            corep = np.zeros((order, 2 * dim, 2 * dim), dtype=np.complex128)
-
-            # [ [irrep, 0],
-            #   [0, conj_irrep]]
-            corep[xsg_indices, :dim, :dim] = irrep
-            corep[xsg_indices, dim:, dim:] = conj_irrep
-
-            # [ [0, -U],
-            #   [U, 0] ]
-            corep_a0 = np.zeros((2 * dim, 2 * dim), dtype=np.complex128)
-            corep_a0[:dim, dim:] = -U
-            corep_a0[dim:, :dim] = U
-
-            corep[a0u] = (
-                np.conj(factor_system[a0_idx, xsg_indices])[:, None, None]
-                * corep_a0[None, :, :]
-                @ corep[xsg_indices]
-            )
-        elif indicator == 0:
-            corep = np.zeros((order, 2 * dim, 2 * dim), dtype=np.complex128)
-
-            # [ [irrep, 0],
-            #   [0, conj_irrep]]
-            corep[xsg_indices, :dim, :dim] = irrep
-            corep[xsg_indices, dim:, dim:] = conj_irrep
-
-            # [ [0, omega(a0, a0) irrep[a0 * a0]],
-            #   [1, 0] ]
-            corep_a0 = np.zeros((2 * dim, 2 * dim), dtype=np.complex128)
-            corep_a0[:dim, dim:] = (
-                factor_system[a0_idx, a0_idx] * irrep[xsg_indices_mapping[table[a0_idx, a0_idx]]]
-            )
-            corep_a0[dim:, :dim] = np.eye(dim, dtype=np.complex128)
-
-            corep[a0u] = (
-                np.conj(factor_system[a0_idx, xsg_indices])[:, None, None]
-                * corep_a0[None, :, :]
-                @ corep[xsg_indices]
-            )
-        else:
-            raise ValueError("Unreachable!")
-
-        # Small co-representation
-        small_corep = corep * phases[:, None, None]
-        small_coreps.append(small_corep)
 
     return small_coreps, indicators, corep_spinor_factor_system, unitary_rotations, anti_linear
 
@@ -314,3 +192,246 @@ def get_corep_spinor_factor_system(
                     break
 
     return corep_spinor_factor_system, unitary_rotations, anti_linear
+
+
+def enumerate_small_corepresentations(
+    little_rotations: NDArrayInt,
+    little_translations: NDArrayFloat,
+    little_time_reversals: NDArrayInt,
+    kpoint: NDArrayFloat,
+    method: Literal["Neto", "random"] = "Neto",
+    rtol: float = 1e-5,
+    atol: float = 1e-8,
+    max_num_random_generations: int = 4,
+) -> tuple[list[NDArrayComplex], list[NDArrayBool]]:
+    order = len(little_rotations)
+    if np.all(little_time_reversals == 0):
+        # Type-I MSG
+        irreps, _ = enumerate_small_representations(
+            little_rotations=little_rotations,
+            little_translations=little_translations,
+            kpoint=kpoint,
+            real=False,
+            method=method,
+            rtol=rtol,
+            atol=atol,
+            max_num_random_generations=max_num_random_generations,
+        )
+        anti_linear = np.zeros((order,), dtype=np.bool_)
+        return irreps, anti_linear
+
+    anti_linear = np.zeros((order,), dtype=np.bool_)
+    for i, time_reversal in enumerate(little_time_reversals):
+        if time_reversal == 1:
+            anti_linear[i] = True  # Anti-linear operator
+        else:
+            anti_linear[i] = False  # Linear operator
+
+    # Factor system from nonsymmorphic
+    # Factor system from magnetic moment is trivial because everything act on real space
+    factor_system = get_factor_system_from_little_group(
+        little_rotations,
+        little_translations,
+        kpoint,
+    )
+
+    small_coreps, _ = _enumerate_small_corepresentations_with_factor_system(
+        little_rotations=little_rotations,
+        little_translations=little_translations,
+        little_time_reversals=little_time_reversals,
+        kpoint=kpoint,
+        factor_system=factor_system,
+        method=method,
+        rtol=rtol,
+        atol=atol,
+        max_num_random_generations=max_num_random_generations,
+    )
+
+    return small_coreps, anti_linear
+
+
+def _enumerate_small_corepresentations_with_factor_system(
+    little_rotations: NDArrayInt,
+    little_translations: NDArrayFloat,
+    little_time_reversals: NDArrayInt,
+    kpoint: NDArrayFloat,
+    factor_system: NDArrayComplex,
+    method: Literal["Neto", "random"] = "Neto",
+    rtol: float = 1e-5,
+    atol: float = 1e-8,
+    max_num_random_generations: int = 4,
+) -> tuple[list[NDArrayComplex], list[int]]:
+    r"""Enumerate all unitary co-irreps of little group with given factor system.
+
+    .. math::
+       \overline{\mathbf{D}}^{\mathbf{k}\alpha}(\mathbf{S}_{i}1) \overline{\mathbf{D}}^{\mathbf{k}\alpha}(\mathbf{S}_{j}\theta_{j})
+            = \omega(\mathbf{S}_{i}1, \mathbf{S}_{j}\theta_{j}) e^{ -i \mathbf{g}_{i} \cdot \mathbf{w}_{j} } \overline{\mathbf{D}}^{\mathbf{k}\alpha}(\mathbf{S}_{k}\theta_{k}) \\
+       \overline{\mathbf{D}}^{\mathbf{k}\alpha}(\mathbf{S}_{i}1') \overline{\mathbf{D}}^{\mathbf{k}\alpha}(\mathbf{S}_{j}\theta_{j})^{\ast}
+            = \omega(\mathbf{S}_{i}1', \mathbf{S}_{j}\theta_{j}) e^{ -i \mathbf{g}_{i} \cdot \mathbf{w}_{j} } \overline{\mathbf{D}}^{\mathbf{k}\alpha}(\mathbf{S}_{k}\theta_{k}) \\
+
+    Parameters
+    ----------
+    little_rotations: array[int], (order, 3, 3)
+    little_translations: array, (order, 3)
+    little_time_reversals: array[int], (order)
+    kpoint: array, (3, )
+    factor_system: array, (order, order)
+        ``factor_system[i, j]`` stands for :math:`\omega(\mathbf{S}_{i}\theta_{i}, \mathbf{S}_{j}\theta_{j})`
+    method: str, 'Neto' or 'random'
+        'Neto': construct irreps from a fixed chain of subgroups of little co-group
+        'random': construct irreps by numerically diagonalizing a random matrix commute with regular representation
+    rtol: float
+        Relative tolerance to distinguish difference eigenvalues
+    atol: float
+        Relative tolerance to compare
+    max_num_random_generations: int
+        Maximum number of trials to generate random matrix
+
+    Returns
+    -------
+    small_coreps: list of array
+        Unitary small co-representations (irreps of little group), :math:`\{ \overline{\mathbf{D}}^{\mathbf{k}\alpha} \}_{\alpha}`
+    indicators: list[int]
+        Frobenius-Schur indicators for each small representation
+    """
+    # Coset-decompose Type-II, -III, -IV MSG
+    (xsg_indices, _, a0_idx) = decompose_by_maximal_space_subgroup(  # type: ignore
+        little_rotations, little_translations, little_time_reversals
+    )
+    xsg_order = len(xsg_indices)
+    xsg_indices_mapping = {}  # xsg_indices -> [0, xsg_order)
+    for i, idx in enumerate(xsg_indices):
+        xsg_indices_mapping[idx] = i
+
+    # Compute irreps of little co-group
+    xsg_factor_system = factor_system[xsg_indices][:, xsg_indices]
+    little_cogroup_irreps, _ = enumerate_unitary_irreps(
+        rotations=little_rotations[xsg_indices],
+        factor_system=xsg_factor_system,
+        real=False,  # Nonsense to consider real-value irreps
+        method=method,
+        rtol=rtol,
+        atol=atol,
+        max_num_random_generations=max_num_random_generations,
+    )
+
+    # Construct "conjugated" irreps
+    conj_irreps: list[NDArrayComplex] = []
+    table = get_cayley_table(little_rotations, little_time_reversals)
+    characters = [get_character(irrep) for irrep in little_cogroup_irreps]
+    inv_a0_idx = get_inverse_index(table, a0_idx)
+    for irrep in little_cogroup_irreps:
+        conj_indices = table[inv_a0_idx, table[xsg_indices, a0_idx]]  # a0^-1 * xsg_indices * a0
+        conj_indices_mapping = [xsg_indices_mapping[idx] for idx in conj_indices]
+        conj_irrep = (
+            factor_system[xsg_indices, a0_idx][:, None, None]
+            / factor_system[a0_idx, conj_indices][:, None, None]
+            * np.conj(irrep[conj_indices_mapping])
+        )
+        conj_irreps.append(conj_irrep)
+
+    # Pair "conjugated" irreps
+    conj_pairs: list[
+        tuple[int, NDArrayComplex, NDArrayComplex]
+    ] = []  # list of (indicator, irrep of little co-group, conjugated irrep)
+    indicators: list[int] = []
+    visited = [False for _ in range(len(little_cogroup_irreps))]
+    a0u = table[a0_idx, xsg_indices]  # a0 * u
+    factor_a0u_a0u = [factor_system[idx, idx] for idx in a0u]
+    a0ua0u_mapping = [xsg_indices_mapping[table[idx, idx]] for idx in a0u]  # (a0 * u)^2
+    for i, (character_i, irrep_i, conj_irrep_i) in enumerate(
+        zip(characters, little_cogroup_irreps, conj_irreps)
+    ):
+        if visited[i]:
+            continue
+        visited[i] = True
+
+        # Frobenius-Schur indicator for co-representation
+        indicator = np.around(
+            np.real(np.sum(factor_a0u_a0u * character_i[a0ua0u_mapping]))
+        ).astype(int)
+        assert indicator % xsg_order == 0
+        indicator = indicator // xsg_order
+
+        conj_pairs.append((indicator, irrep_i, conj_irrep_i))
+        indicators.append(indicator)
+        if indicator != 0:
+            continue  # indicator = 1 or -1
+
+        # Inequivalent case
+        conj_character_i = get_character(conj_irrep_i)
+        found = False
+        for j, character_j in enumerate(characters):
+            if visited[j]:
+                continue
+            if is_equivalent_irrep(conj_character_i, character_j):
+                found = True
+                visited[j] = True
+                break
+        assert found
+
+    # Construct co-representations
+    small_coreps: list[NDArrayComplex] = []
+    phases = np.array(
+        [np.exp(-2j * np.pi * np.dot(kpoint, translation)) for translation in little_translations]
+    )
+    order = len(little_rotations)
+    for indicator, irrep, conj_irrep in conj_pairs:
+        dim = irrep.shape[1]
+        if indicator == 1:
+            # Unitary matrix s.t. irrep @ U = conj_irrep @ U
+            U = get_intertwiner(irrep, conj_irrep, atol, max_num_random_generations)
+            corep = np.zeros((order, dim, dim), dtype=np.complex128)
+            corep[xsg_indices] = irrep
+            corep[a0u] = (
+                np.conj(factor_system[a0_idx, xsg_indices])[:, None, None] * U[None, :, :] @ irrep
+            )
+        elif indicator == -1:
+            U = get_intertwiner(irrep, conj_irrep, atol, max_num_random_generations)
+            corep = np.zeros((order, 2 * dim, 2 * dim), dtype=np.complex128)
+
+            # [ [irrep, 0],
+            #   [0, conj_irrep]]
+            corep[xsg_indices, :dim, :dim] = irrep
+            corep[xsg_indices, dim:, dim:] = conj_irrep
+
+            # [ [0, -U],
+            #   [U, 0] ]
+            corep_a0 = np.zeros((2 * dim, 2 * dim), dtype=np.complex128)
+            corep_a0[:dim, dim:] = -U
+            corep_a0[dim:, :dim] = U
+
+            corep[a0u] = (
+                np.conj(factor_system[a0_idx, xsg_indices])[:, None, None]
+                * corep_a0[None, :, :]
+                @ corep[xsg_indices]
+            )
+        elif indicator == 0:
+            corep = np.zeros((order, 2 * dim, 2 * dim), dtype=np.complex128)
+
+            # [ [irrep, 0],
+            #   [0, conj_irrep]]
+            corep[xsg_indices, :dim, :dim] = irrep
+            corep[xsg_indices, dim:, dim:] = conj_irrep
+
+            # [ [0, omega(a0, a0) irrep[a0 * a0]],
+            #   [1, 0] ]
+            corep_a0 = np.zeros((2 * dim, 2 * dim), dtype=np.complex128)
+            corep_a0[:dim, dim:] = (
+                factor_system[a0_idx, a0_idx] * irrep[xsg_indices_mapping[table[a0_idx, a0_idx]]]
+            )
+            corep_a0[dim:, :dim] = np.eye(dim, dtype=np.complex128)
+
+            corep[a0u] = (
+                np.conj(factor_system[a0_idx, xsg_indices])[:, None, None]
+                * corep_a0[None, :, :]
+                @ corep[xsg_indices]
+            )
+        else:
+            raise ValueError("Unreachable!")
+
+        # Small co-representation
+        small_corep = corep * phases[:, None, None]
+        small_coreps.append(small_corep)
+
+    return small_coreps, indicators
