@@ -1,10 +1,13 @@
 import numpy as np
 import pytest
 
-from spgrep.core import get_crystallographic_pointgroup_spinor_irreps_from_symmetry
+from spgrep.core import (
+    get_crystallographic_pointgroup_spinor_irreps_from_symmetry,
+    get_magnetic_spacegroup_coreps_from_primitive_symmetry,
+)
 from spgrep.corep import get_corep_spinor_factor_system
 from spgrep.group import get_cayley_table
-from spgrep.utils import NDArrayComplex, NDArrayInt
+from spgrep.utils import NDArrayComplex, NDArrayFloat, NDArrayInt
 
 
 def check_corep_cocycle_condition(
@@ -90,5 +93,45 @@ def test_get_crystallographic_pointgroup_spinor_irreps_from_symmetry(
         lattice,
         rotations,
         time_reversals,
+        method=method,
+    )
+
+
+@pytest.mark.parametrize(
+    "kpoint",
+    [
+        np.array([0.0, 0.0, 0.0]),
+        np.array([0.5, 0.0, 0.0]),
+        np.array([0.5, 0.5, 0.0]),
+        np.array([0.5, 0.5, 0.5]),
+    ],
+)
+@pytest.mark.parametrize("method", [("Neto"), ("random")])
+@pytest.mark.parametrize(
+    "symmetry_and_lattice",
+    [
+        ("P42mnm_type1"),
+        ("P42mnm_type2"),
+        ("P42mnm_type3"),
+        ("bcc_type4"),
+    ],
+)
+def test_get_magnetic_spacegroup_coreps_from_primitive_symmetry(
+    request, kpoint: NDArrayFloat, method, symmetry_and_lattice
+):
+    rotations, translations, time_reversals, lattice = request.getfixturevalue(
+        symmetry_and_lattice
+    )
+
+    # TODO: Add more tests
+    (
+        co_irreps,
+        anti_linear,
+        mapping_little_group,
+    ) = get_magnetic_spacegroup_coreps_from_primitive_symmetry(
+        rotations=rotations,
+        translations=translations,
+        time_reversals=time_reversals,
+        kpoint=kpoint,
         method=method,
     )

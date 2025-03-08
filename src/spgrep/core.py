@@ -7,7 +7,10 @@ from typing import Literal
 import numpy as np
 from spglib import get_magnetic_symmetry_dataset, get_symmetry_dataset
 
-from spgrep.corep import enumerate_spinor_small_corepresentations
+from spgrep.corep import (
+    enumerate_small_corepresentations,
+    enumerate_spinor_small_corepresentations,
+)
 from spgrep.group import get_little_group
 from spgrep.irreps import (
     enumerate_small_representations,
@@ -258,6 +261,89 @@ def get_crystallographic_pointgroup_irreps_from_symmetry(
         max_num_random_generations=max_num_random_generations,
     )
     return irreps
+
+
+################################################################################
+# Co-representation
+################################################################################
+
+
+def get_magnetic_spacegroup_coreps_from_primitive_symmetry(
+    rotations: NDArrayInt,
+    translations: NDArrayFloat,
+    time_reversals: NDArrayInt,
+    kpoint: NDArrayFloat,
+    method: Literal["Neto", "random"] = "Neto",
+    rtol: float = 1e-5,
+    atol: float = 1e-8,
+    max_num_random_generations: int = 4,
+) -> tuple[list[NDArrayComplex], list[NDArrayBool], NDArrayInt]:
+    r"""Compute all irreducible co-representations of given magnetic space group up to unitary transformation.
+
+    Note that ``rotations`` and ``translations`` should be specified in a primitive magnetic cell.
+
+    Parameters
+    ----------
+    rotations: array[int], (order, 3, 3)
+        Assume a fractional coordinates `x` are transformed by the i-th symmetry operation as follows:
+            ``np.dot(rotations[i, :, :], x) + translations[i, :]``
+    translations: array, (order, 3)
+    kpoint: array, (3, )
+        Reciprocal vector with respect to reciprocal lattice.
+        For pure translation :math:`\mathbf{t}`, returned irrep :math:`\Gamma^{(\alpha)}` takes
+
+        .. math::
+            \Gamma^{(\alpha)}((E, \mathbf{t})) = e^{ -i\mathbf{k}\cdot\mathbf{t} } \mathbf{1}.
+
+        See :ref:`physically_irreps` for details.
+
+    method: str, 'Neto' or 'random'
+        'Neto': construct irreps from a fixed chain of subgroups of little co-group
+        'random': construct irreps by numerically diagonalizing a random matrix commute with regular representation
+    rtol: float
+        Relative tolerance
+    atol: float
+        Absolute tolerance to distinguish difference eigenvalues
+    max_num_random_generations: int
+        Maximum number of trials to generate random matrix
+
+    Returns
+    -------
+    irreps: list of Irreps with (little_group_order, dim, dim)
+        Let ``i = mapping_little_group[idx]``. ``irreps[alpha][i, :, :]`` is the ``alpha``-th irreducible matrix representation of ``(rotations[i], translations[i])``.
+    anti_linear: array[bool], (order, )
+        If ``anti_linear[i] == True``, the ``i``-th operator is anti-linear.
+    mapping_little_group: array, (little_group_order, )
+        Let ``i = mapping_little_group[idx]``.
+        ``(rotations[i], translations[i])`` belongs to the little group of given space space group and kpoint.
+    """
+    # Sanity check to use primitive cell
+    for rotation, translation, time_reversal in zip(rotations, translations, time_reversals):
+        if (
+            np.allclose(rotation, np.eye(3), rtol=rtol, atol=atol)
+            and not np.allclose(translation, 0, atol=atol)
+            and (time_reversal == 0)
+        ):
+            raise ValueError("Specify magnetic symmetry operations in primitive cell!")
+
+    little_rotations, little_translations, mapping_little_group = get_little_group(
+        rotations, translations, kpoint, atol=atol
+    )
+    little_time_reversals = time_reversals[mapping_little_group]
+
+    # Small representations of little group
+    irreps, anti_linear = enumerate_small_corepresentations(
+        little_rotations=little_rotations,
+        little_translations=little_translations,
+        little_time_reversals=little_time_reversals,
+        kpoint=kpoint,
+        method=method,
+        rtol=rtol,
+        atol=atol,
+        max_num_random_generations=max_num_random_generations,
+    )
+
+    return irreps, anti_linear, mapping_little_group
 
 
 ################################################################################
