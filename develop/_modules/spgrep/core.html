@@ -35,7 +35,7 @@
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="../../_static/documentation_options.js?v=493f2243"></script>
+    <script src="../../_static/documentation_options.js?v=a88d3826"></script>
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
@@ -320,6 +320,7 @@ document.write(`
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">spglib</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_magnetic_symmetry_dataset</span><span class="p">,</span> <span class="n">get_symmetry_dataset</span>
 
+<span class="kn">from</span><span class="w"> </span><span class="nn">spgrep._constants</span><span class="w"> </span><span class="kn">import</span> <span class="n">ATOL</span><span class="p">,</span> <span class="n">MAX_NUM_RANDOM_GENERATIONS</span><span class="p">,</span> <span class="n">RTOL</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">spgrep.corep</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">enumerate_small_corepresentations</span><span class="p">,</span>
     <span class="n">enumerate_spinor_small_corepresentations</span><span class="p">,</span>
@@ -341,11 +342,10 @@ document.write(`
 <span class="p">)</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">spgrep.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">NDArrayBool</span><span class="p">,</span> <span class="n">NDArrayComplex</span><span class="p">,</span> <span class="n">NDArrayFloat</span><span class="p">,</span> <span class="n">NDArrayInt</span>
 
+
 <span class="c1">################################################################################</span>
 <span class="c1"># Linear representation</span>
 <span class="c1">################################################################################</span>
-
-
 <div class="viewcode-block" id="get_spacegroup_irreps">
 <a class="viewcode-back" href="../../api/api_core.html#spgrep.get_spacegroup_irreps">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">get_spacegroup_irreps</span><span class="p">(</span>
@@ -356,9 +356,9 @@ document.write(`
     <span class="n">method</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;Neto&quot;</span><span class="p">,</span> <span class="s2">&quot;random&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Neto&quot;</span><span class="p">,</span>
     <span class="n">reciprocal_lattice</span><span class="p">:</span> <span class="n">NDArrayFloat</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">symprec</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-5</span><span class="p">,</span>
-    <span class="n">rtol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-5</span><span class="p">,</span>
-    <span class="n">atol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-8</span><span class="p">,</span>
-    <span class="n">max_num_random_generations</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span>
+    <span class="n">rtol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">RTOL</span><span class="p">,</span>
+    <span class="n">atol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">ATOL</span><span class="p">,</span>
+    <span class="n">max_num_random_generations</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">MAX_NUM_RANDOM_GENERATIONS</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="n">NDArrayComplex</span><span class="p">],</span> <span class="n">NDArrayInt</span><span class="p">,</span> <span class="n">NDArrayFloat</span><span class="p">,</span> <span class="n">NDArrayInt</span><span class="p">]:</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Compute all irreducible representations of space group of given structure up to unitary transformation.</span>
 
@@ -458,9 +458,9 @@ document.write(`
     <span class="n">kpoint</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">,</span>
     <span class="n">real</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">method</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;Neto&quot;</span><span class="p">,</span> <span class="s2">&quot;random&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Neto&quot;</span><span class="p">,</span>
-    <span class="n">rtol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-5</span><span class="p">,</span>
-    <span class="n">atol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-8</span><span class="p">,</span>
-    <span class="n">max_num_random_generations</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span>
+    <span class="n">rtol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">RTOL</span><span class="p">,</span>
+    <span class="n">atol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">ATOL</span><span class="p">,</span>
+    <span class="n">max_num_random_generations</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">MAX_NUM_RANDOM_GENERATIONS</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="n">NDArrayComplex</span><span class="p">],</span> <span class="n">NDArrayInt</span><span class="p">]</span> <span class="o">|</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="n">NDArrayFloat</span><span class="p">],</span> <span class="n">NDArrayInt</span><span class="p">]:</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Compute all irreducible representations of given space group up to unitary transformation.</span>
 
@@ -543,9 +543,9 @@ document.write(`
     <span class="n">rotations</span><span class="p">:</span> <span class="n">NDArrayInt</span><span class="p">,</span>
     <span class="n">real</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">method</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;Neto&quot;</span><span class="p">,</span> <span class="s2">&quot;random&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Neto&quot;</span><span class="p">,</span>
-    <span class="n">rtol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-5</span><span class="p">,</span>
-    <span class="n">atol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-8</span><span class="p">,</span>
-    <span class="n">max_num_random_generations</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span>
+    <span class="n">rtol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">RTOL</span><span class="p">,</span>
+    <span class="n">atol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">ATOL</span><span class="p">,</span>
+    <span class="n">max_num_random_generations</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">MAX_NUM_RANDOM_GENERATIONS</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">NDArrayComplex</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute all irreducible representations of given crystallographic point group up to unitary transformation.</span>
 
@@ -588,17 +588,15 @@ document.write(`
 <span class="c1">################################################################################</span>
 <span class="c1"># Co-representation</span>
 <span class="c1">################################################################################</span>
-
-
 <span class="k">def</span><span class="w"> </span><span class="nf">get_magnetic_spacegroup_coreps_from_primitive_symmetry</span><span class="p">(</span>
     <span class="n">rotations</span><span class="p">:</span> <span class="n">NDArrayInt</span><span class="p">,</span>
     <span class="n">translations</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">,</span>
     <span class="n">time_reversals</span><span class="p">:</span> <span class="n">NDArrayInt</span><span class="p">,</span>
     <span class="n">kpoint</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">,</span>
     <span class="n">method</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;Neto&quot;</span><span class="p">,</span> <span class="s2">&quot;random&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Neto&quot;</span><span class="p">,</span>
-    <span class="n">rtol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-5</span><span class="p">,</span>
-    <span class="n">atol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-8</span><span class="p">,</span>
-    <span class="n">max_num_random_generations</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span>
+    <span class="n">rtol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">RTOL</span><span class="p">,</span>
+    <span class="n">atol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">ATOL</span><span class="p">,</span>
+    <span class="n">max_num_random_generations</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">MAX_NUM_RANDOM_GENERATIONS</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="n">NDArrayComplex</span><span class="p">],</span> <span class="nb">list</span><span class="p">[</span><span class="n">NDArrayBool</span><span class="p">],</span> <span class="n">NDArrayInt</span><span class="p">]:</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Compute all irreducible co-representations of given magnetic space group up to unitary transformation.</span>
 
@@ -671,8 +669,6 @@ document.write(`
 <span class="c1">################################################################################</span>
 <span class="c1"># Spin representation</span>
 <span class="c1">################################################################################</span>
-
-
 <div class="viewcode-block" id="get_spacegroup_spinor_irreps">
 <a class="viewcode-back" href="../../api/api_core.html#spgrep.get_spacegroup_spinor_irreps">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">get_spacegroup_spinor_irreps</span><span class="p">(</span>
@@ -684,9 +680,9 @@ document.write(`
     <span class="n">method</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;Neto&quot;</span><span class="p">,</span> <span class="s2">&quot;random&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Neto&quot;</span><span class="p">,</span>
     <span class="n">reciprocal_lattice</span><span class="p">:</span> <span class="n">NDArrayFloat</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">symprec</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-5</span><span class="p">,</span>
-    <span class="n">rtol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-5</span><span class="p">,</span>
-    <span class="n">atol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-8</span><span class="p">,</span>
-    <span class="n">max_num_random_generations</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span>
+    <span class="n">rtol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">RTOL</span><span class="p">,</span>
+    <span class="n">atol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">ATOL</span><span class="p">,</span>
+    <span class="n">max_num_random_generations</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">MAX_NUM_RANDOM_GENERATIONS</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="p">(</span>
     <span class="nb">tuple</span><span class="p">[</span>
         <span class="nb">list</span><span class="p">[</span><span class="n">NDArrayComplex</span><span class="p">],</span>
@@ -880,9 +876,9 @@ document.write(`
     <span class="n">time_reversals</span><span class="p">:</span> <span class="n">NDArrayInt</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">kpoint</span><span class="p">:</span> <span class="n">NDArrayFloat</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">method</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;Neto&quot;</span><span class="p">,</span> <span class="s2">&quot;random&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Neto&quot;</span><span class="p">,</span>
-    <span class="n">rtol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-5</span><span class="p">,</span>
-    <span class="n">atol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-8</span><span class="p">,</span>
-    <span class="n">max_num_random_generations</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span>
+    <span class="n">rtol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">RTOL</span><span class="p">,</span>
+    <span class="n">atol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">ATOL</span><span class="p">,</span>
+    <span class="n">max_num_random_generations</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">MAX_NUM_RANDOM_GENERATIONS</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="p">(</span>
     <span class="nb">tuple</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="n">NDArrayComplex</span><span class="p">],</span> <span class="n">NDArrayComplex</span><span class="p">,</span> <span class="n">NDArrayComplex</span><span class="p">,</span> <span class="n">NDArrayInt</span><span class="p">]</span>
     <span class="o">|</span> <span class="nb">tuple</span><span class="p">[</span>
@@ -1014,9 +1010,9 @@ document.write(`
     <span class="n">rotations</span><span class="p">:</span> <span class="n">NDArrayInt</span><span class="p">,</span>
     <span class="n">time_reversals</span><span class="p">:</span> <span class="n">NDArrayInt</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">method</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;Neto&quot;</span><span class="p">,</span> <span class="s2">&quot;random&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Neto&quot;</span><span class="p">,</span>
-    <span class="n">rtol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-5</span><span class="p">,</span>
-    <span class="n">atol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-8</span><span class="p">,</span>
-    <span class="n">max_num_random_generations</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span>
+    <span class="n">rtol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">RTOL</span><span class="p">,</span>
+    <span class="n">atol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">ATOL</span><span class="p">,</span>
+    <span class="n">max_num_random_generations</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">MAX_NUM_RANDOM_GENERATIONS</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="p">(</span>
     <span class="nb">tuple</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="n">NDArrayComplex</span><span class="p">],</span> <span class="n">NDArrayComplex</span><span class="p">,</span> <span class="n">NDArrayComplex</span><span class="p">]</span>
     <span class="o">|</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="n">NDArrayComplex</span><span class="p">],</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">NDArrayComplex</span><span class="p">,</span> <span class="n">NDArrayComplex</span><span class="p">,</span> <span class="n">NDArrayBool</span><span class="p">]</span>
@@ -1106,8 +1102,6 @@ document.write(`
 <span class="c1">################################################################################</span>
 <span class="c1"># Auxiliary functions</span>
 <span class="c1">################################################################################</span>
-
-
 <span class="k">def</span><span class="w"> </span><span class="nf">_adjust_phase_for_centering_translations</span><span class="p">(</span>
     <span class="n">prim_translations</span><span class="p">,</span>
     <span class="n">prim_kpoint</span><span class="p">,</span>

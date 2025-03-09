@@ -35,7 +35,7 @@
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="../../_static/documentation_options.js?v=493f2243"></script>
+    <script src="../../_static/documentation_options.js?v=a88d3826"></script>
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
@@ -321,6 +321,7 @@ document.write(`
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
+<span class="kn">from</span><span class="w"> </span><span class="nn">spgrep._constants</span><span class="w"> </span><span class="kn">import</span> <span class="n">ATOL</span><span class="p">,</span> <span class="n">MAX_NUM_RANDOM_GENERATIONS</span><span class="p">,</span> <span class="n">RTOL</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">spgrep.group</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">get_cayley_table</span><span class="p">,</span>
     <span class="n">get_factor_system_from_little_group</span><span class="p">,</span>
@@ -346,9 +347,9 @@ document.write(`
     <span class="n">kpoint</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">,</span>
     <span class="n">real</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">method</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;Neto&quot;</span><span class="p">,</span> <span class="s2">&quot;random&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Neto&quot;</span><span class="p">,</span>
-    <span class="n">rtol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-5</span><span class="p">,</span>
-    <span class="n">atol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-8</span><span class="p">,</span>
-    <span class="n">max_num_random_generations</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span>
+    <span class="n">rtol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">RTOL</span><span class="p">,</span>
+    <span class="n">atol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">ATOL</span><span class="p">,</span>
+    <span class="n">max_num_random_generations</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">MAX_NUM_RANDOM_GENERATIONS</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="n">NDArrayComplex</span><span class="p">],</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]]</span> <span class="o">|</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="n">NDArrayFloat</span><span class="p">],</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]]:</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Enumerate all unitary small representations of little group.</span>
 
@@ -464,9 +465,9 @@ document.write(`
     <span class="n">factor_system</span><span class="p">:</span> <span class="n">NDArrayComplex</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">real</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">method</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;Neto&quot;</span><span class="p">,</span> <span class="s2">&quot;random&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Neto&quot;</span><span class="p">,</span>
-    <span class="n">rtol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-5</span><span class="p">,</span>
-    <span class="n">atol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-8</span><span class="p">,</span>
-    <span class="n">max_num_random_generations</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span>
+    <span class="n">rtol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">RTOL</span><span class="p">,</span>
+    <span class="n">atol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">ATOL</span><span class="p">,</span>
+    <span class="n">max_num_random_generations</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">MAX_NUM_RANDOM_GENERATIONS</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="n">NDArrayComplex</span><span class="p">]</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="n">NDArrayFloat</span><span class="p">],</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Enumerate all unitary irreps with of matrix group ``rotations`` with ``factor_system``.</span>
 
@@ -563,8 +564,8 @@ document.write(`
 <a class="viewcode-back" href="../../api/api_irreps.html#spgrep.irreps.enumerate_unitary_irreps_from_regular_representation">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">enumerate_unitary_irreps_from_regular_representation</span><span class="p">(</span>
     <span class="n">reg</span><span class="p">:</span> <span class="n">NDArrayComplex</span><span class="p">,</span>
-    <span class="n">rtol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-5</span><span class="p">,</span>
-    <span class="n">max_num_random_generations</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span>
+    <span class="n">rtol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">RTOL</span><span class="p">,</span>
+    <span class="n">max_num_random_generations</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">MAX_NUM_RANDOM_GENERATIONS</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">NDArrayComplex</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Decompose given (projective) regular representation and obtain all unitary Irreps.</span>
 
@@ -628,8 +629,8 @@ document.write(`
 <a class="viewcode-back" href="../../api/api_irreps.html#spgrep.irreps.decompose_representation">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">decompose_representation</span><span class="p">(</span>
     <span class="n">representation</span><span class="p">:</span> <span class="n">NDArrayComplex</span><span class="p">,</span>
-    <span class="n">rtol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-5</span><span class="p">,</span>
-    <span class="n">max_num_random_generations</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span>
+    <span class="n">rtol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">RTOL</span><span class="p">,</span>
+    <span class="n">max_num_random_generations</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">MAX_NUM_RANDOM_GENERATIONS</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">NDArrayComplex</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Decompose given (projective) representation into all unitary irreps.</span>
 
@@ -675,7 +676,7 @@ document.write(`
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_get_irreps_from_matrix</span><span class="p">(</span>
-    <span class="n">reg</span><span class="p">:</span> <span class="n">NDArrayComplex</span><span class="p">,</span> <span class="n">matrix</span><span class="p">:</span> <span class="n">NDArrayComplex</span><span class="p">,</span> <span class="n">rtol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-5</span>
+    <span class="n">reg</span><span class="p">:</span> <span class="n">NDArrayComplex</span><span class="p">,</span> <span class="n">matrix</span><span class="p">:</span> <span class="n">NDArrayComplex</span><span class="p">,</span> <span class="n">rtol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">RTOL</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">NDArrayComplex</span><span class="p">]:</span>
     <span class="c1"># eigvecs[:, i] is the normalized eigenvector to eigvals[i]</span>
     <span class="n">eigvals</span><span class="p">,</span> <span class="n">eigvecs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigh</span><span class="p">(</span><span class="n">matrix</span><span class="p">)</span>
@@ -736,8 +737,8 @@ document.write(`
     <span class="n">table</span><span class="p">:</span> <span class="n">NDArrayInt</span><span class="p">,</span>
     <span class="n">factor_system</span><span class="p">:</span> <span class="n">NDArrayComplex</span><span class="p">,</span>
     <span class="n">solvable_chain_generators</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
-    <span class="n">atol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-8</span><span class="p">,</span>
-    <span class="n">max_num_random_generations</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span>
+    <span class="n">atol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">ATOL</span><span class="p">,</span>
+    <span class="n">max_num_random_generations</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">MAX_NUM_RANDOM_GENERATIONS</span><span class="p">,</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Calculate symmetrized irreps from given chain of solvable group.</span>
 
@@ -892,8 +893,8 @@ document.write(`
 <span class="k">def</span><span class="w"> </span><span class="nf">get_physically_irrep</span><span class="p">(</span>
     <span class="n">irrep</span><span class="p">:</span> <span class="n">NDArrayComplex</span><span class="p">,</span>
     <span class="n">indicator</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
-    <span class="n">atol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-5</span><span class="p">,</span>
-    <span class="n">max_num_random_generations</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span>
+    <span class="n">atol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">ATOL</span><span class="p">,</span>
+    <span class="n">max_num_random_generations</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">MAX_NUM_RANDOM_GENERATIONS</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NDArrayFloat</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute physically irreducible representation (over real number) from given unitary irrep over complex number.</span>
 
@@ -967,7 +968,7 @@ document.write(`
 
 
 
-<span class="k">def</span><span class="w"> </span><span class="nf">purify_irrep_value</span><span class="p">(</span><span class="n">irrep</span><span class="p">:</span> <span class="n">NDArrayComplex</span><span class="p">,</span> <span class="n">atol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-8</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NDArrayComplex</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">purify_irrep_value</span><span class="p">(</span><span class="n">irrep</span><span class="p">:</span> <span class="n">NDArrayComplex</span><span class="p">,</span> <span class="n">atol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">ATOL</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NDArrayComplex</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Purify values of irreps.&quot;&quot;&quot;</span>
     <span class="c1"># Each value should be 0 or exp(2 pi q / p) (p=1,2,3,4,6, q = 0,...,p-1)</span>
     <span class="n">possible_values</span> <span class="o">=</span> <span class="p">[</span>
@@ -986,7 +987,7 @@ document.write(`
     <span class="k">return</span> <span class="n">irrep</span>
 
 
-<span class="k">def</span><span class="w"> </span><span class="nf">purify_real_irrep_value</span><span class="p">(</span><span class="n">real_irrep</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">,</span> <span class="n">atol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-8</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NDArrayFloat</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">purify_real_irrep_value</span><span class="p">(</span><span class="n">real_irrep</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">,</span> <span class="n">atol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">ATOL</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NDArrayFloat</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Purify values of physically irreducible representations.&quot;&quot;&quot;</span>
     <span class="n">values</span> <span class="o">=</span> <span class="p">[</span>
         <span class="mi">0</span><span class="p">,</span>

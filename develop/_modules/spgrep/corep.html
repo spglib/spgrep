@@ -35,7 +35,7 @@
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="../../_static/documentation_options.js?v=493f2243"></script>
+    <script src="../../_static/documentation_options.js?v=a88d3826"></script>
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
@@ -319,6 +319,7 @@ document.write(`
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
+<span class="kn">from</span><span class="w"> </span><span class="nn">spgrep._constants</span><span class="w"> </span><span class="kn">import</span> <span class="n">ATOL</span><span class="p">,</span> <span class="n">MAX_NUM_RANDOM_GENERATIONS</span><span class="p">,</span> <span class="n">RTOL</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">spgrep.group</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">decompose_by_maximal_space_subgroup</span><span class="p">,</span>
     <span class="n">get_cayley_table</span><span class="p">,</span>
@@ -347,9 +348,9 @@ document.write(`
     <span class="n">little_time_reversals</span><span class="p">:</span> <span class="n">NDArrayInt</span><span class="p">,</span>
     <span class="n">kpoint</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">,</span>
     <span class="n">method</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;Neto&quot;</span><span class="p">,</span> <span class="s2">&quot;random&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Neto&quot;</span><span class="p">,</span>
-    <span class="n">rtol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-5</span><span class="p">,</span>
-    <span class="n">atol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-8</span><span class="p">,</span>
-    <span class="n">max_num_random_generations</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span>
+    <span class="n">rtol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">RTOL</span><span class="p">,</span>
+    <span class="n">atol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">ATOL</span><span class="p">,</span>
+    <span class="n">max_num_random_generations</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">MAX_NUM_RANDOM_GENERATIONS</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="n">NDArrayComplex</span><span class="p">],</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">NDArrayComplex</span><span class="p">,</span> <span class="n">NDArrayComplex</span><span class="p">,</span> <span class="n">NDArrayBool</span><span class="p">]:</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Enumerate all unitary co-irreps of little group for spinor.</span>
 
@@ -519,9 +520,9 @@ document.write(`
     <span class="n">little_time_reversals</span><span class="p">:</span> <span class="n">NDArrayInt</span><span class="p">,</span>
     <span class="n">kpoint</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">,</span>
     <span class="n">method</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;Neto&quot;</span><span class="p">,</span> <span class="s2">&quot;random&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Neto&quot;</span><span class="p">,</span>
-    <span class="n">rtol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-5</span><span class="p">,</span>
-    <span class="n">atol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-8</span><span class="p">,</span>
-    <span class="n">max_num_random_generations</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span>
+    <span class="n">rtol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">RTOL</span><span class="p">,</span>
+    <span class="n">atol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">ATOL</span><span class="p">,</span>
+    <span class="n">max_num_random_generations</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">MAX_NUM_RANDOM_GENERATIONS</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="n">NDArrayComplex</span><span class="p">],</span> <span class="nb">list</span><span class="p">[</span><span class="n">NDArrayBool</span><span class="p">]]:</span>
     <span class="n">order</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">little_rotations</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">little_time_reversals</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
@@ -576,9 +577,9 @@ document.write(`
     <span class="n">kpoint</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">,</span>
     <span class="n">factor_system</span><span class="p">:</span> <span class="n">NDArrayComplex</span><span class="p">,</span>
     <span class="n">method</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;Neto&quot;</span><span class="p">,</span> <span class="s2">&quot;random&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Neto&quot;</span><span class="p">,</span>
-    <span class="n">rtol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-5</span><span class="p">,</span>
-    <span class="n">atol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-8</span><span class="p">,</span>
-    <span class="n">max_num_random_generations</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span>
+    <span class="n">rtol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">RTOL</span><span class="p">,</span>
+    <span class="n">atol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">ATOL</span><span class="p">,</span>
+    <span class="n">max_num_random_generations</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">MAX_NUM_RANDOM_GENERATIONS</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="n">NDArrayComplex</span><span class="p">],</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]]:</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Enumerate all unitary co-irreps of little group with given factor system.</span>
 

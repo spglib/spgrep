@@ -35,7 +35,7 @@
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="../../_static/documentation_options.js?v=493f2243"></script>
+    <script src="../../_static/documentation_options.js?v=a88d3826"></script>
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
@@ -319,6 +319,7 @@ document.write(`
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
+<span class="kn">from</span><span class="w"> </span><span class="nn">spgrep._constants</span><span class="w"> </span><span class="kn">import</span> <span class="n">ATOL</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">spgrep.irreps</span><span class="w"> </span><span class="kn">import</span> <span class="n">enumerate_unitary_irreps</span><span class="p">,</span> <span class="n">is_equivalent_irrep</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">spgrep.representation</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_character</span><span class="p">,</span> <span class="n">get_direct_product</span><span class="p">,</span> <span class="n">project_to_irrep</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">spgrep.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">NDArrayComplex</span><span class="p">,</span> <span class="n">NDArrayFloat</span><span class="p">,</span> <span class="n">NDArrayInt</span><span class="p">,</span> <span class="n">grassmann_distance</span>
@@ -331,7 +332,7 @@ document.write(`
     <span class="n">rotations</span><span class="p">:</span> <span class="n">NDArrayInt</span><span class="p">,</span>
     <span class="n">rank</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
     <span class="n">real</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-    <span class="n">atol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-8</span><span class="p">,</span>
+    <span class="n">atol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">ATOL</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">NDArrayComplex</span><span class="p">]</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="n">NDArrayFloat</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculate symmetry-adapted tensors with rank=``rank``.</span>
 
