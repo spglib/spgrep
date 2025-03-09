@@ -6,7 +6,8 @@ on:
     tags:
       - "v[0-9]+.[0-9]+.[0-9]+"
   workflow_dispatch:
-
+env:
+  PYTHON_VERSION: "3.12"
 jobs:
   deploy-docs:
     if: ${{ github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags') }}
@@ -21,7 +22,7 @@ jobs:
           enable-cache: true
       - uses: actions/setup-python@v5
         with:
-          python-version: "3.12"
+          python-version: ${{ env.PYTHON_VERSION }}
       - name: Install dependencies
         run: |
           sudo apt-get install -y pandoc
@@ -56,7 +57,7 @@ jobs:
           enable-cache: true
       - uses: actions/setup-python@v5
         with:
-          python-version: "3.12"
+          python-version: ${{ env.PYTHON_VERSION }}
       - name: Build
         run: |
           uv pip install --system build
@@ -72,3 +73,18 @@ jobs:
         with:
           verbose: true
           attestations: false
+
+  release:
+    name: Create release
+    runs-on: ubuntu-latest
+    needs:
+      - deploy-pypi
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: softprops/action-gh-release@v2
+        with:
+          name: spgrep ${{ github.ref_name }}
+          prerelease: ${{ contains(github.ref, 'rc') }}
+          generate_release_notes: true

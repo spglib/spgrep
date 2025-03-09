@@ -6,13 +6,15 @@ on:
   pull_request:
     branches: [main, develop]
 
+env:
+  PYTHON_VERSION: "3.12"
+
 jobs:
   tests:
     runs-on: ubuntu-latest
     strategy:
       matrix:
         python-version: ["3.9", "3.10", "3.11", "3.12"]
-
     steps:
     - uses: actions/checkout@v4
       with:
@@ -31,7 +33,7 @@ jobs:
       run: |
         python -m pytest -v --cov=spgrep --cov-report=xml tests/
     - name: Upload coverage to Codecov
-      if: matrix.python-version == '3.12'
+      if: matrix.python-version == ${{ env.PYTHON_VERSION }}
       uses: codecov/codecov-action@v5
       with:
         file: ./coverage.xml
@@ -49,7 +51,7 @@ jobs:
         enable-cache: true
     - uses: actions/setup-python@v5
       with:
-        python-version: "3.12"
+        python-version: ${{ env.PYTHON_VERSION }}
     - name: Install dependencies
       run: |
         sudo apt-get install -y pandoc
