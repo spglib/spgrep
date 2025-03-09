@@ -8,6 +8,7 @@ from warnings import warn
 
 import numpy as np
 
+from spgrep._constants import ATOL, MAX_NUM_RANDOM_GENERATIONS, RTOL
 from spgrep.group import (
     get_cayley_table,
     get_factor_system_from_little_group,
@@ -31,9 +32,9 @@ def enumerate_small_representations(
     kpoint: NDArrayFloat,
     real: bool = False,
     method: Literal["Neto", "random"] = "Neto",
-    rtol: float = 1e-5,
-    atol: float = 1e-8,
-    max_num_random_generations: int = 4,
+    rtol: float = RTOL,
+    atol: float = ATOL,
+    max_num_random_generations: int = MAX_NUM_RANDOM_GENERATIONS,
 ) -> tuple[list[NDArrayComplex], list[int]] | tuple[list[NDArrayFloat], list[int]]:
     r"""Enumerate all unitary small representations of little group.
 
@@ -146,9 +147,9 @@ def enumerate_unitary_irreps(
     factor_system: NDArrayComplex | None = None,
     real: bool = False,
     method: Literal["Neto", "random"] = "Neto",
-    rtol: float = 1e-5,
-    atol: float = 1e-8,
-    max_num_random_generations: int = 4,
+    rtol: float = RTOL,
+    atol: float = ATOL,
+    max_num_random_generations: int = MAX_NUM_RANDOM_GENERATIONS,
 ) -> tuple[list[NDArrayComplex] | list[NDArrayFloat], list[int]]:
     """Enumerate all unitary irreps with of matrix group ``rotations`` with ``factor_system``.
 
@@ -242,8 +243,8 @@ def enumerate_unitary_irreps(
 
 def enumerate_unitary_irreps_from_regular_representation(
     reg: NDArrayComplex,
-    rtol: float = 1e-5,
-    max_num_random_generations: int = 4,
+    rtol: float = RTOL,
+    max_num_random_generations: int = MAX_NUM_RANDOM_GENERATIONS,
 ) -> list[NDArrayComplex]:
     """Decompose given (projective) regular representation and obtain all unitary Irreps.
 
@@ -304,8 +305,8 @@ def enumerate_unitary_irreps_from_regular_representation(
 
 def decompose_representation(
     representation: NDArrayComplex,
-    rtol: float = 1e-5,
-    max_num_random_generations: int = 4,
+    rtol: float = RTOL,
+    max_num_random_generations: int = MAX_NUM_RANDOM_GENERATIONS,
 ) -> list[NDArrayComplex]:
     """Decompose given (projective) representation into all unitary irreps.
 
@@ -350,7 +351,7 @@ def decompose_representation(
 
 
 def _get_irreps_from_matrix(
-    reg: NDArrayComplex, matrix: NDArrayComplex, rtol: float = 1e-5
+    reg: NDArrayComplex, matrix: NDArrayComplex, rtol: float = RTOL
 ) -> list[NDArrayComplex]:
     # eigvecs[:, i] is the normalized eigenvector to eigvals[i]
     eigvals, eigvecs = np.linalg.eigh(matrix)
@@ -409,8 +410,8 @@ def enumerate_unitary_irreps_from_solvable_group_chain(
     table: NDArrayInt,
     factor_system: NDArrayComplex,
     solvable_chain_generators: list[int],
-    atol: float = 1e-8,
-    max_num_random_generations: int = 4,
+    atol: float = ATOL,
+    max_num_random_generations: int = MAX_NUM_RANDOM_GENERATIONS,
 ):
     r"""Calculate symmetrized irreps from given chain of solvable group.
 
@@ -562,8 +563,8 @@ def enumerate_unitary_irreps_from_solvable_group_chain(
 def get_physically_irrep(
     irrep: NDArrayComplex,
     indicator: int,
-    atol: float = 1e-5,
-    max_num_random_generations: int = 4,
+    atol: float = ATOL,
+    max_num_random_generations: int = MAX_NUM_RANDOM_GENERATIONS,
 ) -> NDArrayFloat:
     """Compute physically irreducible representation (over real number) from given unitary irrep over complex number.
 
@@ -633,7 +634,7 @@ def is_equivalent_irrep(character1: NDArrayComplex, character2: NDArrayComplex) 
         return False
 
 
-def purify_irrep_value(irrep: NDArrayComplex, atol: float = 1e-8) -> NDArrayComplex:
+def purify_irrep_value(irrep: NDArrayComplex, atol: float = ATOL) -> NDArrayComplex:
     """Purify values of irreps."""
     # Each value should be 0 or exp(2 pi q / p) (p=1,2,3,4,6, q = 0,...,p-1)
     possible_values = [
@@ -652,7 +653,7 @@ def purify_irrep_value(irrep: NDArrayComplex, atol: float = 1e-8) -> NDArrayComp
     return irrep
 
 
-def purify_real_irrep_value(real_irrep: NDArrayFloat, atol: float = 1e-8) -> NDArrayFloat:
+def purify_real_irrep_value(real_irrep: NDArrayFloat, atol: float = ATOL) -> NDArrayFloat:
     """Purify values of physically irreducible representations."""
     values = [
         0,

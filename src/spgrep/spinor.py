@@ -7,6 +7,7 @@ from typing import Literal
 
 import numpy as np
 
+from spgrep._constants import ATOL, MAX_NUM_RANDOM_GENERATIONS, RTOL
 from spgrep.group import get_cayley_table, get_factor_system_from_little_group
 from spgrep.irreps import enumerate_unitary_irreps
 from spgrep.utils import NDArrayComplex, NDArrayFloat, NDArrayInt
@@ -18,9 +19,9 @@ def enumerate_spinor_small_representations(
     little_translations: NDArrayFloat | None = None,
     kpoint: NDArrayFloat | None = None,
     method: Literal["Neto", "random"] = "Neto",
-    rtol: float = 1e-5,
-    atol: float = 1e-8,
-    max_num_random_generations: int = 4,
+    rtol: float = RTOL,
+    atol: float = ATOL,
+    max_num_random_generations: int = MAX_NUM_RANDOM_GENERATIONS,
 ) -> tuple[list[NDArrayComplex], NDArrayComplex, NDArrayComplex]:
     r"""Enumerate all unitary irreps :math:`\mathbf{D}^{\mathbf{k}\alpha}` of little group for spinor.
 

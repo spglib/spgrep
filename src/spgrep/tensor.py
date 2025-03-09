@@ -6,6 +6,7 @@ from itertools import permutations, product
 
 import numpy as np
 
+from spgrep._constants import ATOL
 from spgrep.irreps import enumerate_unitary_irreps, is_equivalent_irrep
 from spgrep.representation import get_character, get_direct_product, project_to_irrep
 from spgrep.utils import NDArrayComplex, NDArrayFloat, NDArrayInt, grassmann_distance
@@ -16,7 +17,7 @@ def get_symmetry_adapted_tensors(
     rotations: NDArrayInt,
     rank: int,
     real: bool = False,
-    atol: float = 1e-8,
+    atol: float = ATOL,
 ) -> list[NDArrayComplex] | list[NDArrayFloat]:
     """Calculate symmetry-adapted tensors with rank=``rank``.
 
