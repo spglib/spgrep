@@ -7,6 +7,7 @@ from typing import Literal
 import numpy as np
 from spglib import get_magnetic_symmetry_dataset, get_symmetry_dataset
 
+from spgrep._constants import ATOL, MAX_NUM_RANDOM_GENERATIONS, RTOL
 from spgrep.corep import (
     enumerate_small_corepresentations,
     enumerate_spinor_small_corepresentations,
@@ -28,11 +29,10 @@ from spgrep.transform import (
 )
 from spgrep.utils import NDArrayBool, NDArrayComplex, NDArrayFloat, NDArrayInt
 
+
 ################################################################################
 # Linear representation
 ################################################################################
-
-
 def get_spacegroup_irreps(
     lattice: NDArrayFloat,
     positions: NDArrayFloat,
@@ -41,9 +41,9 @@ def get_spacegroup_irreps(
     method: Literal["Neto", "random"] = "Neto",
     reciprocal_lattice: NDArrayFloat | None = None,
     symprec: float = 1e-5,
-    rtol: float = 1e-5,
-    atol: float = 1e-8,
-    max_num_random_generations: int = 4,
+    rtol: float = RTOL,
+    atol: float = ATOL,
+    max_num_random_generations: int = MAX_NUM_RANDOM_GENERATIONS,
 ) -> tuple[list[NDArrayComplex], NDArrayInt, NDArrayFloat, NDArrayInt]:
     r"""Compute all irreducible representations of space group of given structure up to unitary transformation.
 
@@ -140,9 +140,9 @@ def get_spacegroup_irreps_from_primitive_symmetry(
     kpoint: NDArrayFloat,
     real: bool = False,
     method: Literal["Neto", "random"] = "Neto",
-    rtol: float = 1e-5,
-    atol: float = 1e-8,
-    max_num_random_generations: int = 4,
+    rtol: float = RTOL,
+    atol: float = ATOL,
+    max_num_random_generations: int = MAX_NUM_RANDOM_GENERATIONS,
 ) -> tuple[list[NDArrayComplex], NDArrayInt] | tuple[list[NDArrayFloat], NDArrayInt]:
     r"""Compute all irreducible representations of given space group up to unitary transformation.
 
@@ -222,9 +222,9 @@ def get_crystallographic_pointgroup_irreps_from_symmetry(
     rotations: NDArrayInt,
     real: bool = False,
     method: Literal["Neto", "random"] = "Neto",
-    rtol: float = 1e-5,
-    atol: float = 1e-8,
-    max_num_random_generations: int = 4,
+    rtol: float = RTOL,
+    atol: float = ATOL,
+    max_num_random_generations: int = MAX_NUM_RANDOM_GENERATIONS,
 ) -> list[NDArrayComplex]:
     """Compute all irreducible representations of given crystallographic point group up to unitary transformation.
 
@@ -266,17 +266,15 @@ def get_crystallographic_pointgroup_irreps_from_symmetry(
 ################################################################################
 # Co-representation
 ################################################################################
-
-
 def get_magnetic_spacegroup_coreps_from_primitive_symmetry(
     rotations: NDArrayInt,
     translations: NDArrayFloat,
     time_reversals: NDArrayInt,
     kpoint: NDArrayFloat,
     method: Literal["Neto", "random"] = "Neto",
-    rtol: float = 1e-5,
-    atol: float = 1e-8,
-    max_num_random_generations: int = 4,
+    rtol: float = RTOL,
+    atol: float = ATOL,
+    max_num_random_generations: int = MAX_NUM_RANDOM_GENERATIONS,
 ) -> tuple[list[NDArrayComplex], list[NDArrayBool], NDArrayInt]:
     r"""Compute all irreducible co-representations of given magnetic space group up to unitary transformation.
 
@@ -349,8 +347,6 @@ def get_magnetic_spacegroup_coreps_from_primitive_symmetry(
 ################################################################################
 # Spin representation
 ################################################################################
-
-
 def get_spacegroup_spinor_irreps(
     lattice: NDArrayFloat,
     positions: NDArrayFloat,
@@ -360,9 +356,9 @@ def get_spacegroup_spinor_irreps(
     method: Literal["Neto", "random"] = "Neto",
     reciprocal_lattice: NDArrayFloat | None = None,
     symprec: float = 1e-5,
-    rtol: float = 1e-5,
-    atol: float = 1e-8,
-    max_num_random_generations: int = 4,
+    rtol: float = RTOL,
+    atol: float = ATOL,
+    max_num_random_generations: int = MAX_NUM_RANDOM_GENERATIONS,
 ) -> (
     tuple[
         list[NDArrayComplex],
@@ -553,9 +549,9 @@ def get_spacegroup_spinor_irreps_from_primitive_symmetry(
     time_reversals: NDArrayInt | None = None,
     kpoint: NDArrayFloat | None = None,
     method: Literal["Neto", "random"] = "Neto",
-    rtol: float = 1e-5,
-    atol: float = 1e-8,
-    max_num_random_generations: int = 4,
+    rtol: float = RTOL,
+    atol: float = ATOL,
+    max_num_random_generations: int = MAX_NUM_RANDOM_GENERATIONS,
 ) -> (
     tuple[list[NDArrayComplex], NDArrayComplex, NDArrayComplex, NDArrayInt]
     | tuple[
@@ -684,9 +680,9 @@ def get_crystallographic_pointgroup_spinor_irreps_from_symmetry(
     rotations: NDArrayInt,
     time_reversals: NDArrayInt | None = None,
     method: Literal["Neto", "random"] = "Neto",
-    rtol: float = 1e-5,
-    atol: float = 1e-8,
-    max_num_random_generations: int = 4,
+    rtol: float = RTOL,
+    atol: float = ATOL,
+    max_num_random_generations: int = MAX_NUM_RANDOM_GENERATIONS,
 ) -> (
     tuple[list[NDArrayComplex], NDArrayComplex, NDArrayComplex]
     | tuple[list[NDArrayComplex], list[int], NDArrayComplex, NDArrayComplex, NDArrayBool]
@@ -775,8 +771,6 @@ def get_crystallographic_pointgroup_spinor_irreps_from_symmetry(
 ################################################################################
 # Auxiliary functions
 ################################################################################
-
-
 def _adjust_phase_for_centering_translations(
     prim_translations,
     prim_kpoint,

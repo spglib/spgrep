@@ -6,6 +6,7 @@ from itertools import product
 
 import numpy as np
 
+from spgrep._constants import ATOL
 from spgrep.utils import (
     NDArrayComplex,
     NDArrayFloat,
@@ -143,7 +144,7 @@ def get_little_group(
     rotations: NDArrayInt,
     translations: NDArrayFloat,
     kpoint: NDArrayFloat,
-    atol: float = 1e-8,
+    atol: float = ATOL,
 ) -> tuple[NDArrayInt, NDArrayFloat, NDArrayInt]:
     """Return coset of little group of given space group which stabilize kpoint under rotations.
 

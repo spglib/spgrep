@@ -7,6 +7,7 @@ from warnings import warn
 
 import numpy as np
 
+from spgrep._constants import ATOL, MAX_NUM_RANDOM_GENERATIONS, RTOL
 from spgrep.group import get_cayley_table
 from spgrep.utils import (
     NDArrayComplex,
@@ -69,8 +70,8 @@ def get_projective_regular_representation(
 def get_intertwiner(
     rep1: NDArrayComplex,
     rep2: NDArrayComplex,
-    atol: float = 1e-8,
-    max_num_random_generations: int = 4,
+    atol: float = ATOL,
+    max_num_random_generations: int = MAX_NUM_RANDOM_GENERATIONS,
 ):
     """Calculate intertwiner matrix between ``rep1`` and ``rep2`` such that ``rep1 @ matrix == matrix @ rep2`` if they are equivalent.
 
@@ -246,8 +247,8 @@ def is_representation(
     rep: NDArrayComplex,
     table: NDArrayInt,
     factor_system: NDArrayComplex | None = None,
-    rtol: float = 1e-5,
-    atol: float = 1e-8,
+    rtol: float = RTOL,
+    atol: float = ATOL,
 ) -> bool:
     """Return true if given matrix function is a (projective) representation with given factor system."""
     order = rep.shape[0]
@@ -298,7 +299,7 @@ def check_spacegroup_representation(
     kpoint: NDArrayFloat,
     rep: NDArrayComplex,
     spinor_factor_system: NDArrayComplex | None = None,
-    rtol: float = 1e-5,
+    rtol: float = RTOL,
 ) -> bool:
     """Check definition of representation. This function works for primitive and conventional cell."""
     order = len(little_rotations)

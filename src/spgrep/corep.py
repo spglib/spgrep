@@ -6,6 +6,7 @@ from typing import Literal
 
 import numpy as np
 
+from spgrep._constants import ATOL, MAX_NUM_RANDOM_GENERATIONS, RTOL
 from spgrep.group import (
     decompose_by_maximal_space_subgroup,
     get_cayley_table,
@@ -32,9 +33,9 @@ def enumerate_spinor_small_corepresentations(
     little_time_reversals: NDArrayInt,
     kpoint: NDArrayFloat,
     method: Literal["Neto", "random"] = "Neto",
-    rtol: float = 1e-5,
-    atol: float = 1e-8,
-    max_num_random_generations: int = 4,
+    rtol: float = RTOL,
+    atol: float = ATOL,
+    max_num_random_generations: int = MAX_NUM_RANDOM_GENERATIONS,
 ) -> tuple[list[NDArrayComplex], list[int], NDArrayComplex, NDArrayComplex, NDArrayBool]:
     r"""Enumerate all unitary co-irreps of little group for spinor.
 
@@ -200,9 +201,9 @@ def enumerate_small_corepresentations(
     little_time_reversals: NDArrayInt,
     kpoint: NDArrayFloat,
     method: Literal["Neto", "random"] = "Neto",
-    rtol: float = 1e-5,
-    atol: float = 1e-8,
-    max_num_random_generations: int = 4,
+    rtol: float = RTOL,
+    atol: float = ATOL,
+    max_num_random_generations: int = MAX_NUM_RANDOM_GENERATIONS,
 ) -> tuple[list[NDArrayComplex], list[NDArrayBool]]:
     order = len(little_rotations)
     if np.all(little_time_reversals == 0):
@@ -257,9 +258,9 @@ def _enumerate_small_corepresentations_with_factor_system(
     kpoint: NDArrayFloat,
     factor_system: NDArrayComplex,
     method: Literal["Neto", "random"] = "Neto",
-    rtol: float = 1e-5,
-    atol: float = 1e-8,
-    max_num_random_generations: int = 4,
+    rtol: float = RTOL,
+    atol: float = ATOL,
+    max_num_random_generations: int = MAX_NUM_RANDOM_GENERATIONS,
 ) -> tuple[list[NDArrayComplex], list[int]]:
     r"""Enumerate all unitary co-irreps of little group with given factor system.
 
