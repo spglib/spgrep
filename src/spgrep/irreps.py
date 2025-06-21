@@ -606,10 +606,11 @@ def get_physically_irrep(
             else:
                 real_eigvec = np.imag(eigvec)
             real_eigvecs.append(real_eigvec / np.linalg.norm(real_eigvec))
-        S = np.transpose(real_eigvecs)
+        S = np.array(real_eigvecs)
 
         # Square root of intertwiner
         T = S.T @ np.diag([nroot(eigval, 2) for eigval in eigvals]) @ S
+        assert np.allclose(T @ T, U, atol=atol), "T is not square root of intertwiner."
 
         real_irrep = np.real(np.einsum("il,klm,mj->kij", T, irrep, np.conj(T), optimize="greedy"))
 
