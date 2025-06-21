@@ -56,7 +56,7 @@ jobs:
         uv sync --extra docs
     - name: Build
       run: |
-        sphinx-build docs docs_build
+        uv run sphinx-build docs docs_build
     # Generated documents are push to `gh-pages` branch
     # `ACTIONS_DEPLOY_KEY` is set by following: https://github.com/peaceiris/actions-gh-pages#%EF%B8%8F-create-ssh-deploy-key
     - name: Deploy
