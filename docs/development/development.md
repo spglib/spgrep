@@ -3,11 +3,9 @@
 ## Installation
 
 ```shell
-conda create -n spgrep python=3.10 pip
-conda activate spgrep
 git clone git@github.com:spglib/spgrep.git
 cd spgrep
-pip install -e ".[dev,docs]"
+uv sync --all-extras
 pre-commit install
 
 # Run pre-commit manually

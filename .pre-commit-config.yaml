@@ -6,6 +6,7 @@ repos:
     rev: v5.0.0
     hooks:
       - id: check-added-large-files
+        exclude: uv.lock
       - id: check-yaml
       - id: check-json
       - id: debug-statements
@@ -23,9 +24,12 @@ repos:
       - id: ruff
         args: [ "--fix", "--show-fixes"]
         types_or: [python, pyi]
-  # type annotation
   - repo: https://github.com/pre-commit/mirrors-mypy
     rev: v1.16.1
     hooks:
     - id: mypy
       exclude: ^docs/
+  - repo: https://github.com/astral-sh/uv-pre-commit
+    rev: 0.7.12
+    hooks:
+      - id: uv-lock
