@@ -9,37 +9,6 @@ on:
 env:
   PYTHON_VERSION: "3.12"
 jobs:
-  deploy-docs:
-    if: ${{ github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags') }}
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - name: Install uv
-        uses: astral-sh/setup-uv@v6
-        with:
-          enable-cache: true
-      - uses: actions/setup-python@v5
-        with:
-          python-version: ${{ env.PYTHON_VERSION }}
-      - name: Install dependencies
-        run: |
-          sudo apt-get install -y pandoc
-      - name: Install
-        run: |
-          uv pip install --system -e .[dev,docs]
-      - name: Build
-        run: |
-          sphinx-build docs docs_build
-      # Generated documents are push to `gh-pages` branch
-      # `ACTIONS_DEPLOY_KEY` is set by following: https://github.com/peaceiris/actions-gh-pages#%EF%B8%8F-create-ssh-deploy-key
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
-          publish_dir: ./docs_build
-
   deploy-pypi:
     runs-on: ubuntu-latest
     environment: release
@@ -53,8 +22,6 @@ jobs:
         uses: astral-sh/setup-uv@v6
         with:
           enable-cache: true
-      - uses: actions/setup-python@v5
-        with:
           python-version: ${{ env.PYTHON_VERSION }}
       - name: Build
         run: |

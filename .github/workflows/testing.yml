@@ -23,15 +23,13 @@ jobs:
       uses: astral-sh/setup-uv@v6
       with:
         enable-cache: true
-    - uses: actions/setup-python@v5
-      with:
         python-version: ${{ matrix.python-version }}
     - name: Install
       run: |
-        uv pip install --system -e .[dev]
+        uv sync --extra testing
     - name: Test with pytest
       run: |
-        python -m pytest -v --cov=spgrep --cov-report=xml tests/
+        uv run pytest -v --cov=spgrep --cov-report=xml tests/
     - name: Upload coverage to Codecov
       if: matrix.python-version == ${{ env.PYTHON_VERSION }}
       uses: codecov/codecov-action@v5
@@ -49,15 +47,21 @@ jobs:
       uses: astral-sh/setup-uv@v6
       with:
         enable-cache: true
-    - uses: actions/setup-python@v5
-      with:
         python-version: ${{ env.PYTHON_VERSION }}
     - name: Install dependencies
       run: |
         sudo apt-get install -y pandoc
     - name: Install
       run: |
-        uv pip install --system -e .[dev,docs]
+        uv sync --extra docs
     - name: Build
       run: |
-        sphinx-build docs docs_build
+        uv run sphinx-build docs docs_build
+    # Generated documents are push to `gh-pages` branch
+    # `ACTIONS_DEPLOY_KEY` is set by following: https://github.com/peaceiris/actions-gh-pages#%EF%B8%8F-create-ssh-deploy-key
+    - name: Deploy
+      if: ${{ github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags') }}
+      uses: peaceiris/actions-gh-pages@v4
+      with:
+        deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+        publish_dir: ./docs_build

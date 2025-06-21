@@ -38,12 +38,7 @@ homepage = "https://github.com/spglib/spgrep"
 
 [project.optional-dependencies]
 dev = [
-    "pytest",
-    "pytest-cov",
     "pre-commit",
-    "mypy",
-    "pyupgrade",
-    "pydocstyle",
     "nbqa",
     "phonopy",
     "notebook",
@@ -52,7 +47,12 @@ dev = [
     "ipython",
     "ipykernel",
 ]
+testing = [
+    "pytest",
+    "pytest-cov",
+]
 docs = [
+    "spgrep[dev]",
     "docutils",
     "sphinx",
     "sphinx-autobuild",

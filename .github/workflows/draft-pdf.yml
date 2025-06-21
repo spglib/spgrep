@@ -2,12 +2,8 @@ name: JOSS draft
 
 on:
   push:
-    branches: [develop]
-    paths:
-      - "docs/paper/**"
-  pull_request:
-    paths:
-      - "docs/paper/**"
+    branches-ignore:
+      - '**'
 
 jobs:
   paper:
