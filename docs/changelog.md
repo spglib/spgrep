@@ -1,5 +1,9 @@
 # Change Log
 
+## v0.3.9 (21 Jun. 2025)
+
+- Fix bug in physically irreducible representation
+
 ## v0.3.6 (18 Feb. 2025)
 
 - Drop support for Python 3.8
