@@ -2,9 +2,9 @@ name: testing
 
 on:
   push:
-    branches: [main, develop, rc]
+    branches: [develop, rc]
   pull_request:
-    branches: [main, develop]
+    branches: [develop]
 
 env:
   PYTHON_VERSION: "3.12"
@@ -61,10 +61,3 @@ jobs:
     - name: Build
       run: |
         sphinx-build docs docs_build
-    - name: Deploy docs at develop branch
-      if: ${{ github.ref == 'refs/heads/develop' }}
-      uses: peaceiris/actions-gh-pages@v4
-      with:
-        deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
-        publish_dir: ./docs_build
-        destination_dir: develop
