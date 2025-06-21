@@ -72,7 +72,7 @@ def get_intertwiner(
     rep2: NDArrayComplex,
     atol: float = ATOL,
     max_num_random_generations: int = MAX_NUM_RANDOM_GENERATIONS,
-):
+) -> NDArrayComplex:
     """Calculate intertwiner matrix between ``rep1`` and ``rep2`` such that ``rep1 @ matrix == matrix @ rep2`` if they are equivalent.
 
     The determinant of ``matrix`` is scaled to be unity.
@@ -100,14 +100,16 @@ def get_intertwiner(
     rng = np.random.default_rng(0)
     for _ in range(max_num_random_generations):
         random = rng.random((dim, dim)) + rng.random((dim, dim)) * 1j
-        matrix = np.einsum("kil,lm,kjm->ij", rep1, random, np.conj(rep2), optimize="greedy")
+        matrix: NDArrayComplex = np.einsum(
+            "kil,lm,kjm->ij", rep1, random, np.conj(rep2), optimize="greedy"
+        )
         if not np.allclose(matrix, 0, atol=atol):
             # Scale such that determinant is unity
             matrix /= np.linalg.det(matrix) ** (1 / dim)
             return matrix
 
     warn("Failed to search all irreps. Try increasing max_num_random_generations.")
-    return np.zeros((dim, dim))
+    return np.zeros((dim, dim), dtype=np.complex128)
 
 
 def get_character(representation: NDArrayComplex) -> NDArrayComplex:
