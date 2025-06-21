@@ -13,12 +13,11 @@
 
 - Github: <https://github.com/spglib/spgrep>
 - Document: <https://spglib.github.io/spgrep>
-- Document(develop): <https://spglib.github.io/spgrep/develop/>
 - PyPI: <https://pypi.org/project/spgrep>
 
 ## Features
 
-- Enumerate the following irreducible representations (irreps) of space groups from [spglib](https://spglib.github.io/spglib/)’s cell and kpoints:
+- Enumerate the following irreducible representations (irreps) of space groups from [spglib](https://spglib.github.io/spglib/)'s cell and kpoints:
     - Linear irreps
     - Physically irreps (irreps over real numbers)
     - Projective irreps for spnior
