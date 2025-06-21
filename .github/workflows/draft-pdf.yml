@@ -2,11 +2,10 @@ name: JOSS draft
 
 on:
   push:
-    branches: [main, develop]
+    branches: [develop]
     paths:
       - "docs/paper/**"
   pull_request:
-    branches: [main, develop]
     paths:
       - "docs/paper/**"
 
