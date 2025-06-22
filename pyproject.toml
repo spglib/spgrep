@@ -39,9 +39,6 @@ homepage = "https://github.com/spglib/spgrep"
 [project.optional-dependencies]
 dev = [
     "pre-commit",
-    "mypy",
-    "pyupgrade",
-    "pydocstyle",
     "nbqa",
     "phonopy",
     "notebook",
