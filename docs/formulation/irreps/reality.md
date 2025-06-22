@@ -44,11 +44,11 @@ $$
   \mathbf{T}^{\top} &= \mathbf{T}.
 $$
 
-A transformed representation $\mathbf{\Gamma}'(g) := \mathbf{T}\mathbf{\Gamma}(g)\mathbf{T}^{-1}$ is real because
+A transformed representation $\mathbf{\Gamma}'(g) := \mathbf{T}^{-1}\mathbf{\Gamma}(g)\mathbf{T}$ is real because
 $$
   \mathbf{\Gamma}'(g)
-  &= \mathbf{T} \mathbf{U}^{-1} \mathbf{\Gamma}(g)^{\ast} \mathbf{U} \mathbf{T}^{-1} \\
-  &= \mathbf{T}^{-1} \mathbf{\Gamma}(g)^{\ast} \mathbf{T} \\
+  &= \mathbf{T}^{-1} \mathbf{U} \mathbf{\Gamma}(g)^{\ast} \mathbf{U}^{-1} \mathbf{T} \\
+  &= \mathbf{T} \mathbf{\Gamma}(g)^{\ast} \mathbf{T}^{-1} \\
   &= \mathbf{\Gamma}'(g)^{\ast}.
 $$
 
