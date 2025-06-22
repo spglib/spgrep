@@ -1,5 +1,9 @@
 # Change Log
 
+## v0.3.11 (22 Jun. 2025)
+
+- Further fix bug in physically irreducible representation
+
 ## v0.3.9 (21 Jun. 2025)
 
 - Fix bug in physically irreducible representation
