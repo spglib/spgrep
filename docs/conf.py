@@ -69,7 +69,7 @@ napoleon_use_ivar = True
 bibtex_bibfiles = ["references.bib"]
 
 intersphinx_mapping = {
-    "spglib": ("https://spglib.github.io/spglib/", None),
+    "spglib": ("https://spglib.readthedocs.io/en/latest/", None),
 }
 
 # MyST

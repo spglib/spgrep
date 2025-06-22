@@ -612,7 +612,7 @@ def get_physically_irrep(
         T = S.T @ np.diag([nroot(eigval, 2) for eigval in eigvals]) @ S
         assert np.allclose(T @ T, U, atol=atol), "T is not square root of intertwiner."
 
-        real_irrep = np.real(np.einsum("il,klm,mj->kij", T, irrep, np.conj(T), optimize="greedy"))
+        real_irrep = np.real(np.einsum("il,klm,mj->kij", np.conj(T), irrep, T, optimize="greedy"))
 
     elif indicator in [-1, 0]:
         real_irrep = np.empty((order, 2 * dim, 2 * dim), dtype=np.float64)
