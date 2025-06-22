@@ -1,5 +1,4 @@
 # Spgrep
-
 [![testing](https://github.com/spglib/spgrep/actions/workflows/testing.yml/badge.svg)](https://github.com/spglib/spgrep/actions/workflows/testing.yml)
 [![pre-commit.ci status](https://results.pre-commit.ci/badge/github/spglib/spgrep/develop.svg)](https://results.pre-commit.ci/latest/github/spglib/spgrep/develop)
 [![codecov](https://codecov.io/gh/spglib/spgrep/graph/badge.svg?token=DQGVFCTB1P)](https://codecov.io/gh/spglib/spgrep)
@@ -19,10 +18,10 @@
 ## Features
 
 - Enumerate the following irreducible representations (irreps) of space groups from [spglib](https://spglib.github.io/spglib/)'s cell and kpoints:
-  - Linear irreps
-  - Physically irreps (irreps over real numbers)
-  - Projective irreps for spnior
-  - Projective irreducible co-representations for spinor
+    - Linear irreps
+    - Physically irreps (irreps over real numbers)
+    - Projective irreps for spnior
+    - Projective irreducible co-representations for spinor
 - Enumerate irreps of crystallographic point groups as well
 - Find symmetry-adapted basis forming given irreps
 - Minimal dependencies (numpy and [spglib](https://spglib.github.io/spglib/))
@@ -78,13 +77,11 @@ See [example pages](docs/examples/examples.md) for more detailed use cases and [
 ## Installation
 
 Spgrep works with Python3.8+ and can be installed via PyPI:
-
 ```shell
 pip install spgrep
 ```
 
 or in local:
-
 ```shell
 conda create -n spgrep python=3.10 pip
 conda activate spgrep
