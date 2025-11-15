@@ -46,6 +46,7 @@ dev = [
     "seaborn",
     "ipython",
     "ipykernel",
+    "snakeviz",
 ]
 testing = [
     "pytest",
