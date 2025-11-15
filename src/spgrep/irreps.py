@@ -376,9 +376,11 @@ def _get_irreps_from_matrix(
         transformation = np.linalg.qr(np.transpose(list_eigvecs))[0]
 
         # Compute character before irrep to avoid calculating duplicated irreps
-        character = np.einsum(
-            "li,klm,mi->k", np.conj(transformation), reg, transformation, optimize="greedy"
-        )
+        # character = np.einsum("li,klm,mi->k", np.conj(transformation), reg, transformation)
+        #           = np.einsum("klm,ml->k", reg, proj)
+        proj = transformation @ np.conj(transformation.T)
+        character = np.einsum("klm,ml->k", reg, proj, optimize="greedy")
+
         # Check if this is really irrep by character
         if not is_equivalent_irrep(character, character):
             continue
@@ -394,9 +396,9 @@ def _get_irreps_from_matrix(
         if not is_unique:
             continue
 
-        irrep = np.einsum(
-            "li,klm,mj->kij", np.conj(transformation), reg, transformation, optimize="greedy"
-        )
+        # irrep = np.einsum("li,klm,mj->kij", np.conj(transformation), reg, transformation)
+        tmp = reg @ transformation  # (order, order, dim)
+        irrep = np.einsum("li,klj->kij", np.conj(transformation), tmp, optimize="greedy")
         irreps.append(irrep)
         characters.append(character)
 
