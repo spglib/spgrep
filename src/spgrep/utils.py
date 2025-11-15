@@ -2,12 +2,11 @@
 
 from __future__ import annotations
 
-from typing import Any, Literal
+from typing import Any, Literal, TypeAlias
 
 import numpy as np
 from numpy.typing import NDArray
 from spglib import get_symmetry_from_database
-from typing_extensions import TypeAlias  # for Python<3.10
 
 NDArrayBool: TypeAlias = NDArray[np.bool_]
 NDArrayInt: TypeAlias = NDArray[np.int_]
