@@ -1,5 +1,9 @@
 # Change Log
 
+## v0.4.0 (15 Nov. 2025)
+
+- Drop Python 3.9 support
+
 ## v0.3.11 (22 Jun. 2025)
 
 - Further fix bug in physically irreducible representation
