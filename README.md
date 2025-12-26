@@ -95,6 +95,27 @@ pip install -e .
 
 See the [change log](docs/changelog.md) for recent changes.
 
+## How to cite spgrep
+
+If you use spgrep in your research, please consider citing the following work:
+
+- [Kohei Shinohara, Atsushi Togo, Isao Tanaka, spgrep: On-the-fly generator of space-group irreducible representations, J. Open Source Softw. 8, 85, 5269 (2023)](https://doi.org/10.21105/joss.05269)
+
+```
+@article{spgrep,
+    doi = {10.21105/joss.05269},
+    url = {https://doi.org/10.21105/joss.05269},
+    year = {2023},
+    publisher = {The Open Journal},
+    volume = {8},
+    number = {85},
+    pages = {5269},
+    author = {Shinohara, Kohei and Togo, Atsushi and Tanaka, Isao},
+    title = {spgrep: On-the-fly generator of space-group irreducible representations},
+    journal = {J. Open Source Softw.} 
+}
+```
+
 ## How to contribute
 
 We welcome any contributions to improve functionalities.
