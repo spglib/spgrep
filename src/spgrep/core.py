@@ -12,7 +12,6 @@ from spgrep.corep import (
     enumerate_small_corepresentations,
     enumerate_spinor_small_corepresentations,
 )
-from spgrep.group import get_little_group
 from spgrep.irreps import (
     enumerate_small_representations,
     enumerate_unitary_irreps,
@@ -22,6 +21,7 @@ from spgrep.spinor import (
     enumerate_spinor_small_representations,
     get_spinor_factor_system,
 )
+from spgrep.symmetry.group import get_little_group
 from spgrep.transform import (
     get_primitive_transformation_matrix,
     transform_symmetry_and_kpoint,

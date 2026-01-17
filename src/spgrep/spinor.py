@@ -8,8 +8,8 @@ from typing import Literal
 import numpy as np
 
 from spgrep._constants import ATOL, MAX_NUM_RANDOM_GENERATIONS, RTOL
-from spgrep.group import get_cayley_table, get_factor_system_from_little_group
 from spgrep.irreps import enumerate_unitary_irreps
+from spgrep.symmetry.group import get_cayley_table, get_factor_system_from_little_group
 from spgrep.utils import NDArrayComplex, NDArrayFloat, NDArrayInt
 
 

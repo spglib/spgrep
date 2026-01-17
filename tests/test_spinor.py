@@ -6,12 +6,7 @@ from spgrep.core import (
     get_spacegroup_spinor_irreps,
     get_spacegroup_spinor_irreps_from_primitive_symmetry,
 )
-from spgrep.group import (
-    check_cocycle_condition,
-    get_cayley_table,
-    get_identity_index,
-    get_little_group,
-)
+from spgrep.rep.group import get_identity_index
 from spgrep.representation import (
     check_spacegroup_representation,
     is_representation,
@@ -21,6 +16,11 @@ from spgrep.spinor import (
     enumerate_spinor_small_representations,
     get_rotation_angle_and_axis,
     get_spinor_factor_system,
+)
+from spgrep.symmetry.group import (
+    check_cocycle_condition,
+    get_cayley_table,
+    get_little_group,
 )
 
 

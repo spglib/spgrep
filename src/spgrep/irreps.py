@@ -9,19 +9,17 @@ from warnings import warn
 import numpy as np
 
 from spgrep._constants import ATOL, MAX_NUM_RANDOM_GENERATIONS, RTOL
-from spgrep.group import (
-    get_cayley_table,
-    get_factor_system_from_little_group,
-    get_identity_index,
-    get_inverse_index,
-    get_order,
-)
 from spgrep.pointgroup import get_pointgroup_chain_generators
+from spgrep.rep.group import get_identity_index, get_inverse_index, get_order
 from spgrep.representation import (
     frobenius_schur_indicator,
     get_character,
     get_intertwiner,
     get_projective_regular_representation,
+)
+from spgrep.symmetry.group import (
+    get_cayley_table,
+    get_factor_system_from_little_group,
 )
 from spgrep.utils import NDArrayComplex, NDArrayFloat, NDArrayInt, nroot
 

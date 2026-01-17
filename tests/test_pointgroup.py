@@ -1,7 +1,8 @@
 import numpy as np
 
-from spgrep.group import get_cayley_table, get_inverse_index, is_matrix_group
 from spgrep.pointgroup import get_generators, pg_dataset
+from spgrep.rep.group import get_inverse_index
+from spgrep.symmetry.group import get_cayley_table, is_matrix_group
 
 
 def test_pg_dataset():

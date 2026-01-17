@@ -8,7 +8,7 @@ from warnings import warn
 import numpy as np
 
 from spgrep._constants import ATOL, MAX_NUM_RANDOM_GENERATIONS, RTOL
-from spgrep.group import get_cayley_table
+from spgrep.symmetry.group import get_cayley_table
 from spgrep.utils import (
     NDArrayComplex,
     NDArrayFloat,

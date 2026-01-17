@@ -7,21 +7,21 @@ from typing import Literal
 import numpy as np
 
 from spgrep._constants import ATOL, MAX_NUM_RANDOM_GENERATIONS, RTOL
-from spgrep.group import (
-    decompose_by_maximal_space_subgroup,
-    get_cayley_table,
-    get_factor_system_from_little_group,
-    get_inverse_index,
-)
 from spgrep.irreps import (
     enumerate_small_representations,
     enumerate_unitary_irreps,
     is_equivalent_irrep,
 )
+from spgrep.rep.group import get_inverse_index
 from spgrep.representation import get_character, get_intertwiner
 from spgrep.spinor import (
     enumerate_spinor_small_representations,
     get_spinor_unitary_rotation,
+)
+from spgrep.symmetry.group import (
+    decompose_by_maximal_space_subgroup,
+    get_cayley_table,
+    get_factor_system_from_little_group,
 )
 from spgrep.utils import NDArrayBool, NDArrayComplex, NDArrayFloat, NDArrayInt
 

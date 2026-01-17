@@ -10,12 +10,6 @@ from spgrep.core import (
     get_spacegroup_irreps,
     get_spacegroup_irreps_from_primitive_symmetry,
 )
-from spgrep.group import (
-    check_cocycle_condition,
-    get_cayley_table,
-    get_factor_system_from_little_group,
-    get_little_group,
-)
 from spgrep.irreps import (
     enumerate_small_representations,
     enumerate_unitary_irreps,
@@ -28,6 +22,12 @@ from spgrep.representation import (
     get_character,
     is_representation,
     is_unitary,
+)
+from spgrep.symmetry.group import (
+    check_cocycle_condition,
+    get_cayley_table,
+    get_factor_system_from_little_group,
+    get_little_group,
 )
 from spgrep.transform import transform_symmetry_and_kpoint, unique_primitive_symmetry
 from spgrep.utils import NDArrayComplex, get_symmetry_from_hall_number
