@@ -17,6 +17,15 @@ changelog:
     - title: 📔 Documentation
       labels:
         - documentation
+    - title: 🤖 CI
+      labels:
+        - ci
+      exclude:
+        labels:
+          - renovate
+    - title: renovate
+      labels:
+        - renovate
     - title: Other changes
       labels:
         - '*'
