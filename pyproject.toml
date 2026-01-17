@@ -1,95 +1,93 @@
 [build-system]
-requires = ["setuptools>=45", "setuptools_scm[toml]>=6.2", "wheel"]
 build-backend = "setuptools.build_meta"
+requires = [ "setuptools>=45", "setuptools-scm[toml]>=6.2", "wheel" ]
 
 [project]
 name = "spgrep"
 description = "On-the-fly generator of space-group irreducible representations"
 readme = "README.md"
+license = { text = "BSD" }
 authors = [
-    { name = "Kohei Shinohara", email = "kshinohara0508@gmail.com" },
+  { name = "Kohei Shinohara", email = "kshinohara0508@gmail.com" },
 ]
 requires-python = ">=3.10.0"
-dynamic = [
-    'version',
-]
-license = { text = "BSD" }
 classifiers = [
-    "Development Status :: 3 - Alpha",
-    "Intended Audience :: Science/Research",
-    "License :: OSI Approved :: BSD License",
-    "Operating System :: OS Independent",
-    "Programming Language :: Python",
-    "Programming Language :: Python :: 3.9",
-    "Programming Language :: Python :: 3.10",
-    "Programming Language :: Python :: 3.11",
-    "Programming Language :: Python :: 3.12",
-    "Topic :: Scientific/Engineering :: Mathematics",
-    "Topic :: Scientific/Engineering :: Physics",
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Science/Research",
+  "License :: OSI Approved :: BSD License",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
+  "Topic :: Scientific/Engineering :: Mathematics",
+  "Topic :: Scientific/Engineering :: Physics",
+]
+dynamic = [
+  "version",
 ]
 dependencies = [
-  "typing_extensions",
   "numpy>=1.20.1",
   "spglib>=2.0.2",
+  "typing-extensions",
 ]
 
-[project.urls]
-homepage = "https://github.com/spglib/spgrep"
-
-[project.optional-dependencies]
-dev = [
-    "prek",
-    "nbqa",
-    "phonopy",
-    "notebook",
-    "matplotlib",
-    "seaborn",
-    "ipython",
-    "ipykernel",
-    "snakeviz",
+optional-dependencies.dev = [
+  "ipykernel",
+  "ipython",
+  "matplotlib",
+  "nbqa",
+  "notebook",
+  "phonopy",
+  "prek",
+  "seaborn",
+  "snakeviz",
 ]
-testing = [
-    "pytest",
-    "pytest-cov",
+optional-dependencies.docs = [
+  "docutils",
+  "linkify-it-py",
+  "myst-parser",
+  "nbsphinx",
+  "spgrep[dev]",
+  "sphinx",
+  "sphinx-autobuild",
+  "sphinx-book-theme>=0.8",
+  "sphinxcontrib-bibtex>=2.6.2",
 ]
-docs = [
-    "spgrep[dev]",
-    "docutils",
-    "sphinx",
-    "sphinx-autobuild",
-    "nbsphinx",
-    "sphinxcontrib-bibtex>=2.6.2",
-    "myst-parser",
-    "sphinx-book-theme>=0.8.0",
-    "linkify-it-py",
-]
-
 # Enable version inference
-[tool.setuptools_scm]
+optional-dependencies.testing = [
+  "pytest",
+  "pytest-cov",
+]
+urls.homepage = "https://github.com/spglib/spgrep"
 
-[tool.pytest.ini_options]
-testpaths = ["tests"]
+[tool.setuptools_scm]
 
 [tool.ruff]
 line-length = 99
-[tool.ruff.lint]
-extend-select = [
-    "F",           # pyflakes
-    "E",           # pycodestyle-errors
-    "I",           # isort
-    # "D",           # pydocstyle
-    "UP",          # pyupgrade
+lint.extend-select = [
+  "E", # pycodestyle-errors
+  "F", # pyflakes
+  "I", # isort
+  # "D",           # pydocstyle
+  "UP", # pyupgrade
 ]
-extend-ignore = [
-    "D100",
-    "D101",
-    "D102",
-    "D103",
-    "D203",  # Conflict with D211
-    "D205",
-    "D213",  # Conflict with D212
-    "E501",
+lint.extend-ignore = [
+  "D100",
+  "D101",
+  "D102",
+  "D103",
+  "D203", # Conflict with D211
+  "D205",
+  "D213", # Conflict with D212
+  "E501",
 ]
+
+[tool.pytest.ini_options]
+testpaths = [ "tests" ]
 
 [tool.mypy]
 exclude = [
