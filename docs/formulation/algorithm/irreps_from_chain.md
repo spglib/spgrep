@@ -79,7 +79,7 @@ $$
     &= \mathbf{\Delta}_{q}(E) \\
     &= \mathbf{\Delta}_{q}(r^{p}) \\
     &= \frac{1}{ \prod_{m=1}^{p-1} \mu(r, r^{m}) } \mathbf{\Delta}_{q}(r)^{p} \\
-    &= \frac{1}{ \prod_{m=1}^{p-1} \mu(r, r^{m}) } \frac{1}{\omega_{q}^{p}} \mathbf{1} 
+    &= \frac{1}{ \prod_{m=1}^{p-1} \mu(r, r^{m}) } \frac{1}{\omega_{q}^{p}} \mathbf{1}
       \quad (\because \mathbf{U}^{p} = \mathbf{1}) \\
   \therefore \omega_{q}
     &:= \frac{1}{ \left( \mu(E, E) \prod_{m=1}^{p-1} \mu(r, r^{m}) \right)^{\frac{1}{p}} }

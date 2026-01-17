@@ -4,8 +4,8 @@ set positional-arguments
 default:
     just --list
 
-pre-commit:
-    pre-commit run --all-files
+prek:
+    prek run --all-files
 
 install:
     uv sync --all-extras

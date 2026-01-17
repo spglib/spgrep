@@ -11,6 +11,10 @@ repos:
       - id: check-json
       - id: debug-statements
       - id: end-of-file-fixer
+      - id: trailing-whitespace
+      - id: check-toml
+      - id: check-merge-conflict
+      - id: detect-private-key
   - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.14.11
     hooks:
@@ -27,3 +31,7 @@ repos:
     rev: 0.9.24
     hooks:
       - id: uv-lock
+  - repo: https://github.com/python-jsonschema/check-jsonschema
+    rev: 0.36.0
+    hooks:
+      - id: check-github-workflows

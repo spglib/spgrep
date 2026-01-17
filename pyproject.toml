@@ -38,7 +38,7 @@ homepage = "https://github.com/spglib/spgrep"
 
 [project.optional-dependencies]
 dev = [
-    "pre-commit",
+    "prek",
     "nbqa",
     "phonopy",
     "notebook",

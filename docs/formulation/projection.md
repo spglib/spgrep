@@ -5,7 +5,7 @@ A typical procedure to use irreps is as follows:
 1. Define an action of symmetry operations of a space group $\mathcal{G}$ on your interested objects
 1. Fourier-transform your selected basis $\{ \phi^{(\mathbf{k})}_{i} \}_{\mathbf{k}, i}$ such that
     ```{math}
-        g \phi^{(\mathbf{k})}_{j} &= \sum_{i} \phi^{(\mathbf{k})}_{i} \Gamma^{(\mathbf{k})}_{ij} 
+        g \phi^{(\mathbf{k})}_{j} &= \sum_{i} \phi^{(\mathbf{k})}_{i} \Gamma^{(\mathbf{k})}_{ij}
         \quad (g \in \mathcal{G}^{\mathbf{k}}) \\
         \mathbf{\Gamma}^{(\mathbf{k})}((\mathbf{E}, \mathbf{t})) &= e^{ -i\mathbf{k}\cdot\mathbf{t} } \mathbf{1}
         \quad ( (\mathbf{E}, \mathbf{t}) \in \mathcal{G}^{\mathbf{k}}) \\

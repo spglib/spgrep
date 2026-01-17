@@ -110,7 +110,7 @@ If you use spgrep in your research, please consider citing the following work:
     pages = {5269},
     author = {Shinohara, Kohei and Togo, Atsushi and Tanaka, Isao},
     title = {spgrep: On-the-fly generator of space-group irreducible representations},
-    journal = {J. Open Source Softw.} 
+    journal = {J. Open Source Softw.}
 }
 ```
 
