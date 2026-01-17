@@ -9,7 +9,7 @@ uv sync --all-extras
 pre-commit install
 
 # Run pre-commit manually
-pre-commit run --all-file 
+pre-commit run --all-file
 ```
 
 ## How to compile documents

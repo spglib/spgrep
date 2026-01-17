@@ -1,18 +1,16 @@
 # Spgrep
 
 [![testing](https://github.com/spglib/spgrep/actions/workflows/testing.yml/badge.svg)](https://github.com/spglib/spgrep/actions/workflows/testing.yml)
-[![pre-commit.ci status](https://results.pre-commit.ci/badge/github/spglib/spgrep/develop.svg)](https://results.pre-commit.ci/latest/github/spglib/spgrep/develop)
 [![codecov](https://codecov.io/gh/spglib/spgrep/graph/badge.svg?token=DQGVFCTB1P)](https://codecov.io/gh/spglib/spgrep)
 [![License](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/spgrep)](https://img.shields.io/pypi/pyversions/spgrep)
 [![PyPI version](https://badge.fury.io/py/spgrep.svg)](https://badge.fury.io/py/spgrep)
 [![PyPI Downloads](https://img.shields.io/pypi/dm/spgrep)](https://img.shields.io/pypi/dm/spgrep)
-![Lines of code](https://img.shields.io/tokei/lines/github/spglib/spgrep)
 [![DOI](https://joss.theoj.org/papers/10.21105/joss.05269/status.svg)](https://doi.org/10.21105/joss.05269)
 
 **Spgrep** is a Python package of on-the-fly generator of space-group irreducible representations.
 
-- Github: <https://github.com/spglib/spgrep>
+- GitHub: <https://github.com/spglib/spgrep>
 - Document: <https://spglib.github.io/spgrep>
 - PyPI: <https://pypi.org/project/spgrep>
 
@@ -77,7 +75,7 @@ See [example pages](docs/examples/examples.md) for more detailed use cases and [
 
 ## Installation
 
-Spgrep works with Python3.8+ and can be installed via PyPI:
+Spgrep works with Python3.10+ and can be installed via PyPI:
 
 ```shell
 pip install spgrep
@@ -112,7 +110,7 @@ If you use spgrep in your research, please consider citing the following work:
     pages = {5269},
     author = {Shinohara, Kohei and Togo, Atsushi and Tanaka, Isao},
     title = {spgrep: On-the-fly generator of space-group irreducible representations},
-    journal = {J. Open Source Softw.} 
+    journal = {J. Open Source Softw.}
 }
 ```
 

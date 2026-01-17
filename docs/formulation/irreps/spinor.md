@@ -84,7 +84,7 @@ $$
     &=
         \sum_{\mu} \mathbf{\Psi}^{\mathbf{k}\alpha}_{\mu}
         z(\mathbf{S}_{i}, \mathbf{S}_{j})
-        e^{-i\mathbf{k}\cdot \left( \mathbf{S}_{i}\mathbf{w}_{j} + \mathbf{w}_{i} - \mathbf{w}_{k} \right) } 
+        e^{-i\mathbf{k}\cdot \left( \mathbf{S}_{i}\mathbf{w}_{j} + \mathbf{w}_{i} - \mathbf{w}_{k} \right) }
         \mathbf{\Gamma}^{\mathbf{k}\alpha}((\mathbf{S}_{k}, \mathbf{w}_{k}))
         \quad (\because z(\mathbf{E}, \mathbf{S}_{k}) = 1, \mathbf{S}_{k} \in \overline{\mathcal{G}}^{\mathbf{k}}).
 $$
