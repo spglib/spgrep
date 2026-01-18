@@ -97,11 +97,11 @@ def get_spacegroup_irreps(
     kpoint_conv = kpoint @ reciprocal_lattice @ np.linalg.inv(dual_lattice)
 
     dataset = get_symmetry_dataset(cell=(lattice, positions, numbers), symprec=symprec)
-    rotations = dataset["rotations"]
-    translations = dataset["translations"]
+    rotations = dataset.rotations
+    translations = dataset.translations
 
     # Transform to primitive
-    to_primitive = get_primitive_transformation_matrix(dataset["hall_number"])
+    to_primitive = get_primitive_transformation_matrix(dataset.hall_number)
     prim_rotations, prim_translations, prim_kpoint = transform_symmetry_and_kpoint(
         to_primitive, rotations, translations, kpoint_conv
     )
@@ -457,11 +457,11 @@ def get_spacegroup_spinor_irreps(
             cell=(lattice, positions, numbers, magmoms), symprec=symprec
         )
 
-    rotations = dataset["rotations"]
-    translations = dataset["translations"]
+    rotations = dataset.rotations
+    translations = dataset.translations
 
     # Transform to primitive
-    to_primitive = get_primitive_transformation_matrix(dataset["hall_number"])
+    to_primitive = get_primitive_transformation_matrix(dataset.hall_number)
     prim_rotations, prim_translations, prim_kpoint = transform_symmetry_and_kpoint(
         to_primitive, rotations, translations, kpoint_conv
     )

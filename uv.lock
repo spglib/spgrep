@@ -3108,15 +3108,15 @@ requires-dist = [
     { name = "pytest-cov", marker = "extra == 'testing'" },
     { name = "seaborn", marker = "extra == 'dev'" },
     { name = "snakeviz", marker = "extra == 'dev'" },
-    { name = "spglib", specifier = ">=2.0.2" },
+    { name = "spglib", specifier = ">=2.7" },
     { name = "spgrep", extras = ["dev"], marker = "extra == 'docs'" },
     { name = "sphinx", marker = "extra == 'docs'" },
     { name = "sphinx-autobuild", marker = "extra == 'docs'" },
-    { name = "sphinx-book-theme", marker = "extra == 'docs'", specifier = ">=0.8.0" },
+    { name = "sphinx-book-theme", marker = "extra == 'docs'", specifier = ">=0.8" },
     { name = "sphinxcontrib-bibtex", marker = "extra == 'docs'", specifier = ">=2.6.2" },
     { name = "typing-extensions" },
 ]
-provides-extras = ["dev", "testing", "docs"]
+provides-extras = ["dev", "docs", "testing"]
 
 [[package]]
 name = "sphinx"

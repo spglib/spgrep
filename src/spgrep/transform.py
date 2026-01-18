@@ -107,7 +107,7 @@ def get_primitive_transformation_matrix(hall_number: int) -> NDArrayFloat:
     spacegroup_type = get_spacegroup_type(hall_number)
 
     if crystal_system == "trigonal":
-        choice = spacegroup_type["choice"]
+        choice = spacegroup_type.choice
         if choice == "H":
             return np.array(
                 [
