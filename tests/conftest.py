@@ -4,7 +4,7 @@ import numpy as np
 import pytest
 from spglib import get_magnetic_symmetry_from_database
 
-from spgrep.pointgroup import pg_dataset
+from spgrep.symmetry.pointgroup import pg_dataset
 from spgrep.utils import NDArrayFloat, NDArrayInt, get_symmetry_from_hall_number
 
 

@@ -16,7 +16,6 @@ from spgrep.irreps import (
     get_physically_irrep,
     is_equivalent_irrep,
 )
-from spgrep.pointgroup import pg_dataset
 from spgrep.rep.representation import get_character, is_representation, is_unitary
 from spgrep.symmetry.group import (
     check_cocycle_condition,
@@ -24,6 +23,7 @@ from spgrep.symmetry.group import (
     get_factor_system_from_little_group,
     get_little_group,
 )
+from spgrep.symmetry.pointgroup import pg_dataset
 from spgrep.symmetry.representation import check_spacegroup_representation
 from spgrep.transform import transform_symmetry_and_kpoint, unique_primitive_symmetry
 from spgrep.utils import NDArrayComplex, get_symmetry_from_hall_number
