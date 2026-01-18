@@ -46,3 +46,11 @@
         :members:
         :undoc-members:
 ```
+
+## Subgroup enumeration
+
+```{eval-rst}
+    .. automodule:: spgrep.symmetry.subgroup
+        :members:
+        :undoc-members:
+```
