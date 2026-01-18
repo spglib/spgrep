@@ -7,8 +7,8 @@ from itertools import permutations, product
 import numpy as np
 
 from spgrep._constants import ATOL
-from spgrep.irreps import enumerate_unitary_irreps, is_equivalent_irrep
-from spgrep.rep.irreps import project_to_irrep
+from spgrep.irreps import enumerate_unitary_irreps
+from spgrep.rep.irreps import is_equivalent_irrep, project_to_irrep
 from spgrep.rep.representation import get_character, get_direct_product
 from spgrep.utils import NDArrayComplex, NDArrayFloat, NDArrayInt, grassmann_distance
 

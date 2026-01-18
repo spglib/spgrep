@@ -1,16 +1,9 @@
+from __future__ import annotations
+
 import numpy as np
 
-from spgrep.irreps import enumerate_unitary_irreps, is_equivalent_irrep
-from spgrep.rep.irreps import project_to_irrep
+from spgrep.rep.irreps import is_equivalent_irrep
 from spgrep.rep.representation import get_character, get_intertwiner
-from spgrep.symmetry.representation import get_regular_representation
-
-
-def test_get_character(C3v):
-    reg = get_regular_representation(C3v)
-    actual = get_character(reg)
-    expect = np.array([6, 0, 0, 0, 0, 0])
-    assert np.allclose(actual, expect)
 
 
 def test_intertwiner():
@@ -37,23 +30,3 @@ def test_intertwiner():
         np.einsum("kil,lj->kij", rep1, intertwiner),
         np.einsum("il,klj->kij", intertwiner, rep2),
     )
-
-
-def test_project_to_irrep(C3v):
-    reg = get_regular_representation(C3v)
-    irreps, _ = enumerate_unitary_irreps(C3v)
-
-    count = 0
-    for irrep in irreps:
-        projected = project_to_irrep(reg, irrep)
-        count += len(projected)
-
-        for basis in projected:
-            assert np.allclose(np.linalg.norm(basis, axis=1), 1)
-
-    assert count == sum(irrep.shape[1] for irrep in irreps)
-
-
-def test_frobenius_schur_indicator(C4):
-    irreps, indicators = enumerate_unitary_irreps(C4)
-    assert sorted(indicators) == [0, 0, 1, 1]

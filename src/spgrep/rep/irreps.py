@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from itertools import product
 from warnings import warn
 
 import numpy as np
@@ -147,3 +148,20 @@ def frobenius_schur_indicator(irrep: NDArrayComplex) -> int:
         raise ValueError(f"Given representation is not irreducible: indicator={indicator}")
 
     return indicator
+
+
+def is_equivalent_irrep(character1: NDArrayComplex, character2: NDArrayComplex) -> bool:
+    """Return true if two irreps are equivalent."""
+    order = character1.shape[0]
+    if np.around(np.sum(np.conj(character1) * character2)) == order:
+        return True
+    else:
+        return False
+
+
+def is_unique_irreps(irreps: list[NDArrayComplex]):
+    characters = [get_character(irrep) for irrep in irreps]
+    for (i, ci), (j, cj) in product(enumerate(characters), repeat=2):
+        if is_equivalent_irrep(ci, cj) != (i == j):
+            return False
+    return True

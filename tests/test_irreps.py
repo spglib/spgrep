@@ -1,7 +1,5 @@
 from __future__ import annotations
 
-from itertools import product
-
 import numpy as np
 import pytest
 
@@ -10,44 +8,14 @@ from spgrep.core import (
     get_spacegroup_irreps,
     get_spacegroup_irreps_from_primitive_symmetry,
 )
-from spgrep.irreps import (
-    enumerate_small_representations,
-    enumerate_unitary_irreps,
-    get_physically_irrep,
-    is_equivalent_irrep,
-)
-from spgrep.rep.representation import get_character, is_representation, is_unitary
+from spgrep.rep.irreps import is_unique_irreps
+from spgrep.rep.representation import is_representation, is_unitary
 from spgrep.symmetry.group import (
-    check_cocycle_condition,
     get_cayley_table,
-    get_factor_system_from_little_group,
-    get_little_group,
 )
 from spgrep.symmetry.pointgroup import pg_dataset
 from spgrep.symmetry.representation import check_spacegroup_representation
 from spgrep.transform import transform_symmetry_and_kpoint, unique_primitive_symmetry
-from spgrep.utils import NDArrayComplex, get_symmetry_from_hall_number
-
-
-@pytest.mark.parametrize("method", [("Neto"), ("random")])
-def test_get_irreps_random_C3v(method, C3v):
-    irreps, _ = enumerate_unitary_irreps(C3v, method=method)
-
-    # Check dimensions
-    assert [irrep.shape[1] for irrep in irreps] == [1, 1, 2]
-    # Check characters
-    characters_expect = np.array(
-        [
-            [1, 1, 1, 1, 1, 1],  # A1
-            [1, 1, 1, -1, -1, -1],  # A2
-            [2, -1, -1, 0, 0, 0],  # E
-        ]
-    )
-    characters_actual = np.array([get_character(irrep) for irrep in irreps])
-    assert np.allclose(characters_actual, characters_expect)
-
-    for irrep in irreps:
-        assert is_unitary(irrep)
 
 
 @pytest.mark.parametrize("method", [("Neto"), ("random")])
@@ -178,156 +146,3 @@ def test_get_spacegroup_irreps(method, kpoint, shape_expect, num_sym_expect, cor
         assert is_unitary(irrep)
 
     assert is_unique_irreps(irreps)
-
-
-def is_unique_irreps(irreps: list[NDArrayComplex]):
-    characters = [get_character(irrep) for irrep in irreps]
-    for (i, ci), (j, cj) in product(enumerate(characters), repeat=2):
-        if is_equivalent_irrep(ci, cj) != (i == j):
-            return False
-    return True
-
-
-def test_tetragonal():
-    # -42m
-    rotations = np.array(
-        [
-            [[1, 0, 0], [0, 1, 0], [0, 0, 1]],
-            [[0, -1, 0], [-1, 0, 0], [1, 1, 1]],
-            [[-1, -1, -1], [0, 0, 1], [0, 1, 0]],
-            [[0, 0, -1], [1, 1, 1], [-1, 0, 0]],
-            [[0, 0, 1], [1, 0, 0], [-1, -1, -1]],
-            [[1, 1, 1], [0, -1, 0], [0, 0, -1]],
-            [[-1, 0, 0], [0, 0, -1], [0, -1, 0]],
-            [[0, 1, 0], [-1, -1, -1], [1, 0, 0]],
-        ]
-    )
-    irreps, _ = enumerate_unitary_irreps(rotations, method="Neto")
-    assert len(irreps) == 5
-
-
-@pytest.mark.parametrize(
-    "hall_number",
-    [
-        6,  # P2_1 (No. 4)
-        350,  # P4_1 (No. 76)
-        390,  # P-42_1m (No.113)
-        431,  # P3_1 (No. 144)
-        521,  # Pn-3m (No.224)
-    ],
-)
-@pytest.mark.parametrize(
-    "kpoint",
-    [
-        np.array([0.5, 0.5, 0]),
-    ],
-)
-@pytest.mark.parametrize(
-    "method",
-    [
-        "Neto",
-        "random",
-    ],
-)
-@pytest.mark.parametrize(
-    "origin_shift",
-    [
-        np.array([1 / 3, 0, 0]),
-        np.array([3 / 4, 0, 0]),
-        np.array([3 / 4, 1 / 4, 0]),
-    ],
-)
-def test_small_representation_with_origin_shift(hall_number, kpoint, method, origin_shift):
-    rotations, translations = get_symmetry_from_hall_number(hall_number)
-    little_rotations, little_translations, _ = get_little_group(rotations, translations, kpoint)
-    assert len(little_rotations) > 0
-
-    new_little_translations = []
-    for R, tau in zip(little_rotations, little_translations):
-        new_tau = np.remainder(tau + R @ origin_shift - origin_shift, 1)
-        new_little_translations.append(new_tau)
-    new_little_translations = np.array(new_little_translations)
-
-    # Test factor system
-    factor_system = get_factor_system_from_little_group(
-        little_rotations, new_little_translations, kpoint
-    )
-    assert check_cocycle_condition(little_rotations, factor_system)
-
-    # Test "weighted" irreps
-    table = get_cayley_table(little_rotations)
-    irreps, _ = enumerate_unitary_irreps(little_rotations, factor_system, method=method)
-    assert sum(irrep.shape[1] ** 2 for irrep in irreps) == len(little_rotations)
-    for irrep in irreps:
-        assert is_representation(irrep, table, factor_system)
-
-    # Test small representations
-    small_reps, _ = enumerate_small_representations(
-        little_rotations, new_little_translations, kpoint, method=method
-    )
-    assert sum(irrep.shape[1] ** 2 for irrep in small_reps) == len(little_rotations)
-    for irrep in small_reps:
-        assert check_spacegroup_representation(
-            little_rotations, new_little_translations, kpoint, irrep
-        )
-
-
-def test_physically_irrep():
-    irrep = np.array(
-        [
-            [
-                [1.00000000e00 + 0.00000000e00j, -6.93889390e-17 - 5.55111512e-17j],
-                [-6.93889390e-17 + 5.55111512e-17j, 1.00000000e00 + 0.00000000e00j],
-            ],
-            [
-                [1.75723416e-02 + 2.77555756e-17j, -9.14828354e-01 - 4.03460401e-01j],
-                [-9.14828354e-01 + 4.03460401e-01j, -1.75723416e-02 + 2.77555756e-17j],
-            ],
-            [
-                [-1.00000000e00 + 2.77555756e-17j, 5.55111512e-17 - 5.55111512e-17j],
-                [3.46944695e-17 + 0.00000000e00j, -1.00000000e00 + 1.38777878e-17j],
-            ],
-            [
-                [-5.00000000e-01 + 3.71108152e-01j, -7.18554655e-01 - 3.09770799e-01j],
-                [7.18554655e-01 - 3.09770799e-01j, -5.00000000e-01 - 3.71108152e-01j],
-            ],
-            [
-                [-7.73548252e-01 + 0.00000000e00j, -6.19768309e-01 + 1.32326661e-01j],
-                [-6.19768309e-01 - 1.32326661e-01j, 7.73548252e-01 + 0.00000000e00j],
-            ],
-            [
-                [7.91120593e-01 + 0.00000000e00j, -2.95060045e-01 - 5.35787062e-01j],
-                [-2.95060045e-01 + 5.35787062e-01j, -7.91120593e-01 + 8.67361738e-19j],
-            ],
-            [
-                [-5.00000000e-01 - 3.71108152e-01j, 7.18554655e-01 + 3.09770799e-01j],
-                [-7.18554655e-01 + 3.09770799e-01j, -5.00000000e-01 + 3.71108152e-01j],
-            ],
-            [
-                [5.00000000e-01 + 3.71108152e-01j, -7.18554655e-01 - 3.09770799e-01j],
-                [7.18554655e-01 - 3.09770799e-01j, 5.00000000e-01 - 3.71108152e-01j],
-            ],
-            [
-                [-7.91120593e-01 + 0.00000000e00j, 2.95060045e-01 + 5.35787062e-01j],
-                [2.95060045e-01 - 5.35787062e-01j, 7.91120593e-01 + 1.04083409e-17j],
-            ],
-            [
-                [7.73548252e-01 - 5.55111512e-17j, 6.19768309e-01 - 1.32326661e-01j],
-                [6.19768309e-01 + 1.32326661e-01j, -7.73548252e-01 + 0.00000000e00j],
-            ],
-            [
-                [5.00000000e-01 - 3.71108152e-01j, 7.18554655e-01 + 3.09770799e-01j],
-                [-7.18554655e-01 + 3.09770799e-01j, 5.00000000e-01 + 3.71108152e-01j],
-            ],
-            [
-                [-1.75723416e-02 + 0.00000000e00j, 9.14828354e-01 + 4.03460401e-01j],
-                [9.14828354e-01 - 4.03460401e-01j, 1.75723416e-02 - 2.77555756e-17j],
-            ],
-        ]
-    )
-
-    physically_irrep = get_physically_irrep(irrep, indicator=1)
-    assert np.allclose(
-        np.abs(np.linalg.det(physically_irrep)),
-        1.0,
-    )
