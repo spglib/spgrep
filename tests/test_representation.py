@@ -1,12 +1,9 @@
 import numpy as np
 
 from spgrep.irreps import enumerate_unitary_irreps, is_equivalent_irrep
-from spgrep.representation import (
-    get_character,
-    get_intertwiner,
-    get_regular_representation,
-    project_to_irrep,
-)
+from spgrep.rep.irreps import project_to_irrep
+from spgrep.rep.representation import get_character, get_intertwiner
+from spgrep.symmetry.representation import get_regular_representation
 
 
 def test_get_character(C3v):

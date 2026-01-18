@@ -4,7 +4,7 @@ import numpy as np
 import pytest
 from spglib import get_symmetry_from_database
 
-from spgrep.representation import is_representation
+from spgrep.rep.representation import is_representation
 from spgrep.symmetry.group import get_cayley_table
 from spgrep.tensor import apply_intrinsic_symmetry, get_symmetry_adapted_tensors
 

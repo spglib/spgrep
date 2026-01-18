@@ -2,355 +2,42 @@
 
 from __future__ import annotations
 
-from itertools import product
-from warnings import warn
+import warnings
 
-import numpy as np
-
-from spgrep._constants import ATOL, MAX_NUM_RANDOM_GENERATIONS, RTOL
-from spgrep.symmetry.group import get_cayley_table
-from spgrep.utils import (
-    NDArrayComplex,
-    NDArrayFloat,
-    NDArrayInt,
-    grassmann_distance,
-    ndarray2d_to_integer_tuple,
+warnings.warn(
+    "The `spgrep.representation` module is deprecated and will be removed in a future release. "
+    "Use `spgrep.rep.representation`, `spgrep.symmetry.representation`, and `spgrep.rep.irreps` instead.",
+    DeprecationWarning,
+    stacklevel=2,
 )
 
 
-def get_regular_representation(rotations: NDArrayInt) -> NDArrayInt:
-    """Calculate regular representation of point group.
+from spgrep.rep.irreps import frobenius_schur_indicator, project_to_irrep  # noqa: E402
+from spgrep.rep.representation import (  # noqa: E402
+    get_character,
+    get_direct_product,
+    get_intertwiner,
+    is_representation,
+    is_unitary,
+)
+from spgrep.symmetry.representation import (  # noqa: E402
+    check_spacegroup_representation,
+    get_projective_regular_representation,
+    get_regular_representation,
+)
 
-    Parameters
-    ----------
-    rotations: array, (order, 3, 3)
-
-    Returns
-    -------
-    reg: array, (order, order, order)
-        ``reg[k]`` is a representation matrix for ``rotations[k]``.
-        If and only if ``np.dot(rotations[k], rotations[j]) == rotations[i]``, ``reg[k, i, j] == 1``.
-    """
-    n = len(rotations)
-    table = get_cayley_table(rotations)
-
-    reg = np.zeros((n, n, n), dtype=int)
-    for k, j in product(range(n), repeat=2):
-        reg[k, table[k, j], j] = 1
-
-    return reg
-
-
-def get_projective_regular_representation(
-    rotations: NDArrayInt, factor_system: NDArrayComplex
-) -> NDArrayComplex:
-    """Calculate regular representation of space group with factor system.
-
-    Parameters
-    ----------
-    rotations: array, (order, 3, 3)
-    factor_system: array, (order, order)
-
-    Returns
-    -------
-    reg: array, (order, order, order)
-        ``reg[k]`` is a representation matrix for ``rotations[k]``.
-        If and only if ``np.dot(rotations[k], rotations[j]) == rotations[i]``, ``reg[k, i, j] == factor_system[k, j]``.
-    """
-    n = len(rotations)
-    table = get_cayley_table(rotations)
-
-    reg = np.zeros((n, n, n), dtype=np.complex128)
-    for k, j in product(range(n), repeat=2):
-        reg[k, table[k, j], j] = factor_system[k, j]
-
-    return reg
-
-
-def get_intertwiner(
-    rep1: NDArrayComplex,
-    rep2: NDArrayComplex,
-    atol: float = ATOL,
-    max_num_random_generations: int = MAX_NUM_RANDOM_GENERATIONS,
-) -> NDArrayComplex:
-    """Calculate intertwiner matrix between ``rep1`` and ``rep2`` such that ``rep1 @ matrix == matrix @ rep2`` if they are equivalent.
-
-    The determinant of ``matrix`` is scaled to be unity.
-
-    This function takes O(order * dim^4).
-
-    Parameters
-    ----------
-    rep1: array, (order, dim, dim)
-        Unitary irrep
-    rep2: array, (order, dim, dim)
-        Unitary irrep
-    atol: float
-        Absolute tolerance to distinguish difference eigenvalues
-    max_num_random_generations: int
-        Maximum number of trials to generate random matrix
-
-    Returns
-    -------
-    matrix: array, (dim, dim)
-    """
-    assert rep1.shape == rep2.shape
-    dim = rep1.shape[1]
-
-    rng = np.random.default_rng(0)
-    for _ in range(max_num_random_generations):
-        random = rng.random((dim, dim)) + rng.random((dim, dim)) * 1j
-        matrix: NDArrayComplex = np.einsum(
-            "kil,lm,kjm->ij", rep1, random, np.conj(rep2), optimize="greedy"
-        )
-        if not np.allclose(matrix, 0, atol=atol):
-            # Scale such that determinant is unity
-            matrix /= np.linalg.det(matrix) ** (1 / dim)
-            return matrix
-
-    warn("Failed to search all irreps. Try increasing max_num_random_generations.")
-    return np.zeros((dim, dim), dtype=np.complex128)
-
-
-def get_character(representation: NDArrayComplex) -> NDArrayComplex:
-    """Calculate character of representation.
-
-    Parameters
-    ----------
-    representation: array, (order, dim, dim)
-
-    Returns
-    -------
-    character: array, (order, )
-    """
-    character = np.einsum("ijj->i", representation, optimize="greedy").astype(np.complex128)
-    return character
-
-
-def project_to_irrep(
-    representation: NDArrayComplex,
-    irrep: NDArrayComplex,
-    atol: float = 1e-6,  # A bit large tolerance setting to handle numerical noise in `representation`
-    max_num_trials: int = 10,
-) -> list[NDArrayComplex]:
-    r"""Construct basis functions for ``irrep`` by linear combinations of basis functions of ``representation``.
-
-    Parameters
-    ----------
-    representation: array, (order, dim, dim)
-    irrep: array, (order, dim_irrep, dim_irrep)
-        Unitary (projective) irrep with factor system s.t. :math:`\mu(E, E) = 1`.
-    atol: float, default=1e-5
-        Absolute tolerance to compare basis vectors
-    max_num_trials: int, default=10
-        Maximum number to retry when failed to select projected basis vectors
-
-    Returns
-    -------
-    basis: list of array with (irrep_dim, dim)
-        Each basis vectors are orthonormal.
-    """
-    order = irrep.shape[0]
-    dim_irrep = irrep.shape[1]
-    dim = representation.shape[1]
-    if representation.shape != (order, dim, dim) or irrep.shape != (order, dim_irrep, dim_irrep):
-        raise ValueError("Given representation and irrep do not have consistent dimensions.")
-
-    # Pre-compute number of independent basis vectors
-    character_irrep = get_character(irrep)
-    character = get_character(representation)
-    character_sum = np.sum(np.conj(character_irrep) * character)
-    if not np.isclose(character_sum, np.around(character_sum), atol=atol):
-        warn("Inner product of characters should return an integer.")
-    num_basis = np.around(character_sum) / order
-    num_basis = np.around(np.real(num_basis)).astype(int)
-    if num_basis == 0:
-        return []
-
-    def _project_to_irrep(adjusted_atol):
-        count = 0
-        basis: list[NDArrayComplex] = []
-        for n in range(dim):
-            for j in range(dim_irrep):
-                # basis_nj[i, :] is the i-th basis vector forms given irrep (i = 0, ... dim_irrep-1)
-                # These basis vectors are mutually orthogonal by construction!
-                basis_nj = (
-                    dim_irrep
-                    / order
-                    * np.einsum(
-                        "ki,km->im",
-                        np.conj(irrep[:, :, j]),
-                        representation[:, :, n],
-                        optimize="greedy",
-                    )
-                )
-
-                norms = np.linalg.norm(basis_nj, axis=1)
-                if np.any(np.isclose(norms, 0, atol=adjusted_atol)):
-                    continue
-
-                # Normalize basis vectors s.t. they are orthonormal.
-                basis_nj /= norms[:, None]
-
-                # Check if linearly independent with other basis vectors
-                # If basis_nj is not independent, Grassmann distance (min correlation) should be one.
-                # We use very rough tolerance, 0.5 to avoid numerical noises.
-                if (len(basis) > 0) and grassmann_distance(
-                    basis_nj, np.concatenate(np.array(basis), axis=0)
-                ) < 0.5:
-                    continue
-
-                basis.append(basis_nj)
-                count += 1
-
-        return basis, count
-
-    # Binary search for appropriate tolerance
-    atol_lb = 1e-10
-    atol_ub = 1e-2
-    adjusted_atol = np.clip(atol, atol_lb, atol_ub)
-    for _ in range(max_num_trials):
-        basis, count = _project_to_irrep(adjusted_atol)
-        if count == num_basis:
-            break
-        elif count < num_basis:
-            # Tighten tolerance to compare basis vectors
-            adjusted_atol = np.sqrt(atol_lb * adjusted_atol)
-            warn(f"Tighten tolerance for projection: {adjusted_atol}")
-        else:
-            # Loosen tolerance to compare basis vectors
-            adjusted_atol = np.sqrt(atol_ub * adjusted_atol)
-            warn(f"Loosen tolerance for projection: {adjusted_atol}")
-
-    if count < num_basis:
-        warn(
-            f"Inconsistent number of independent basis vectors (expect={num_basis}, actual={count})."
-            "Try decreasing atol."
-        )
-    elif count > num_basis:
-        warn(
-            f"Inconsistent number of independent basis vectors (expect={num_basis}, actual={count})."
-            "Try increasing atol."
-        )
-
-    return basis
-
-
-def is_unitary(representation: NDArrayComplex) -> bool:
-    """Return true if given representation is unitary."""
-    dim = representation.shape[1]
-    for matrix in representation:
-        if not np.allclose(matrix @ np.conj(matrix.T), np.eye(dim)):
-            return False
-    return True
-
-
-def is_representation(
-    rep: NDArrayComplex,
-    table: NDArrayInt,
-    factor_system: NDArrayComplex | None = None,
-    rtol: float = RTOL,
-    atol: float = ATOL,
-) -> bool:
-    """Return true if given matrix function is a (projective) representation with given factor system."""
-    order = rep.shape[0]
-    if factor_system is None:
-        factor_system = np.ones((order, order), dtype=np.complex128)
-
-    for i, ri in enumerate(rep):
-        for j, rj in enumerate(rep):
-            actual = ri @ rj
-            expect = rep[table[i, j]] * factor_system[i, j]
-            if not np.allclose(actual, expect, rtol=rtol, atol=atol):
-                return False
-
-    return True
-
-
-def frobenius_schur_indicator(irrep: NDArrayComplex) -> int:
-    r"""Inspect given unitary (projective) irrep is real, pseudo-real, or not unitary equivalent.
-
-    .. math::
-       \mathrm{indicator} =
-       \frac{1}{|G|} \sum_{ g \in G } \chi(g^{2})
-
-    Parameters
-    ----------
-    irrep: array, (order, dim, dim)
-
-    Returns
-    -------
-    indicator: int
-        If ``indicator==1``, it is real Reps.
-        If ``indicator==-1``, it is psedu-real Reps.
-        Otherwise, it and adjoint Reps. are not equivalent.
-    """
-    order = irrep.shape[0]
-    indicator = np.einsum("kij,kji->", irrep, irrep, optimize="greedy") / order
-    indicator = int(np.around(np.real(indicator)))
-
-    if indicator > 1:
-        raise ValueError(f"Given representation is not irreducible: indicator={indicator}")
-
-    return indicator
-
-
-def check_spacegroup_representation(
-    little_rotations: NDArrayInt,
-    little_translations: NDArrayFloat,
-    kpoint: NDArrayFloat,
-    rep: NDArrayComplex,
-    spinor_factor_system: NDArrayComplex | None = None,
-    rtol: float = RTOL,
-) -> bool:
-    """Check definition of representation. This function works for primitive and conventional cell."""
-    order = len(little_rotations)
-    if spinor_factor_system is None:
-        spinor_factor_system = np.ones((order, order), dtype=np.complex128)
-
-    little_rotations_int = [ndarray2d_to_integer_tuple(rotation) for rotation in little_rotations]
-
-    # Check if ``rep`` preserves multiplication
-    for idx1, (r1, t1, m1) in enumerate(zip(little_rotations, little_translations, rep)):
-        for idx2, (r2, t2, m2) in enumerate(zip(little_rotations, little_translations, rep)):
-            r12 = r1 @ r2
-            t12 = r1 @ t2 + t1
-            idx = little_rotations_int.index(ndarray2d_to_integer_tuple(r12))
-            # little_translations[idx] may differ from t12 by lattice translation.
-            m12 = (
-                spinor_factor_system[idx1, idx2]
-                * np.exp(-2j * np.pi * np.dot(kpoint, t12 - little_translations[idx]))
-                * rep[idx]
-            )
-
-            if not np.allclose(m12, m1 @ m2, rtol=rtol):
-                return False
-
-    return True
-
-
-def get_direct_product(
-    rep1: NDArrayComplex | NDArrayFloat, rep2: NDArrayComplex | NDArrayFloat
-) -> NDArrayComplex | NDArrayFloat:
-    """Return Knocker product of two representations.
-
-    Parameters
-    ----------
-    rep1: array, (order, dim1, dim1)
-    rep2: array, (order, dim2, dim2)
-
-    Returns
-    -------
-    direct: (order, dim1 * dim2, dim1 * dim2)
-    """
-    order = rep1.shape[0]
-    dim1 = rep1.shape[1]
-    dim2 = rep2.shape[1]
-
-    if rep1.shape != (order, dim1, dim1) or rep2.shape != (order, dim2, dim2):
-        raise ValueError("Inconsistent shapes.")
-
-    direct = (rep1[:, :, None, :, None] * rep2[:, None, :, None, :]).reshape(
-        order, dim1 * dim2, dim1 * dim2
-    )
-    return direct
+__all__ = [
+    # spgrep.rep.representation
+    "get_intertwiner",
+    "get_character",
+    "is_unitary",
+    "is_representation",
+    "get_direct_product",
+    # spgrep.symmetry.representation
+    "get_regular_representation",
+    "get_projective_regular_representation",
+    "check_spacegroup_representation",
+    # spgrep.rep.irreps
+    "project_to_irrep",
+    "frobenius_schur_indicator",
+]

@@ -13,7 +13,7 @@ from spgrep.irreps import (
     is_equivalent_irrep,
 )
 from spgrep.rep.group import get_inverse_index
-from spgrep.representation import get_character, get_intertwiner
+from spgrep.rep.representation import get_character, get_intertwiner
 from spgrep.spinor import (
     enumerate_spinor_small_representations,
     get_spinor_unitary_rotation,

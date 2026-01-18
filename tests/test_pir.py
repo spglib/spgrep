@@ -2,7 +2,7 @@ import numpy as np
 import pytest
 
 from spgrep.irreps import enumerate_small_representations, enumerate_unitary_irreps
-from spgrep.representation import is_representation
+from spgrep.rep.representation import is_representation
 from spgrep.symmetry.group import get_cayley_table, get_little_group
 from spgrep.utils import (
     NDArrayComplex,
