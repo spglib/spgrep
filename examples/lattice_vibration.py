@@ -4,7 +4,8 @@ import numpy as np
 import phonopy
 
 from spgrep import get_spacegroup_irreps
-from spgrep.representation import check_spacegroup_representation, project_to_irrep
+from spgrep.rep.irreps import project_to_irrep
+from spgrep.symmetry.representation import check_spacegroup_representation
 
 
 def get_displacements_representation(

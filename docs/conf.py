@@ -54,7 +54,7 @@ templates_path = ["_templates"]
 exclude_patterns = ["README.md", "paper/**"]
 
 # The suffix(es) of source filenames.
-source_suffix = [".rst"]
+source_suffix = [".rst", ".md"]
 
 autoclass_content = "both"
 autodoc_typehints = "none"
