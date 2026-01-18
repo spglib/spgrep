@@ -6,10 +6,10 @@
 git clone git@github.com:spglib/spgrep.git
 cd spgrep
 uv sync --all-extras
-pre-commit install
+prek install
 
-# Run pre-commit manually
-pre-commit run --all-file
+# Run prek manually
+prek run --all-file
 ```
 
 ## How to compile documents

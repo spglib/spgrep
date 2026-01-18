@@ -1,5 +1,11 @@
 # Change Log
 
+## v0.5.0 (19 Jan. 2026)
+
+- The following modules are separated into subpackages: `spgrep.group`, `spgrep.representation`, `spgrep.pointgroup`, `spgrep.irreps`, `spgrep.tensor`, and `spgrep.transform`.
+- Port `enumerate_point_subgroup` from spgrep-modulation
+- Require `spglib>=2.7` as dependency
+
 ## v0.4.0 (15 Nov. 2025)
 
 - Drop Python 3.9 support
