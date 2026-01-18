@@ -1,5 +1,5 @@
 from spgrep import get_spacegroup_irreps
-from spgrep.representation import get_character
+from spgrep.rep.representation import get_character
 
 # Rutile structure (https://materialsproject.org/materials/mp-2657/)
 # P4_2/mnm (No. 136)
