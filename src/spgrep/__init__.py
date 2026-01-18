@@ -26,3 +26,11 @@ try:
 except PackageNotFoundError:
     # package is not installed
     pass
+
+# https://spglib.readthedocs.io/en/stable/exceptions/python.html#python-api-exceptions
+try:
+    import spglib.error
+
+    spglib.error.OLD_ERROR_HANDLING = False
+except AttributeError:
+    pass
