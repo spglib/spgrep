@@ -6,7 +6,7 @@ from spgrep.core import (
     get_magnetic_spacegroup_coreps_from_primitive_symmetry,
 )
 from spgrep.corep import get_corep_spinor_factor_system
-from spgrep.group import get_cayley_table
+from spgrep.symmetry.group import get_cayley_table
 from spgrep.utils import NDArrayComplex, NDArrayFloat, NDArrayInt
 
 

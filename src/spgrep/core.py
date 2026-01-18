@@ -12,17 +12,17 @@ from spgrep.corep import (
     enumerate_small_corepresentations,
     enumerate_spinor_small_corepresentations,
 )
-from spgrep.group import get_little_group
-from spgrep.irreps import (
-    enumerate_small_representations,
-    enumerate_unitary_irreps,
-    purify_irrep_value,
-)
 from spgrep.spinor import (
     enumerate_spinor_small_representations,
     get_spinor_factor_system,
 )
-from spgrep.transform import (
+from spgrep.symmetry.enumerate import (
+    enumerate_small_representations,
+    enumerate_unitary_irreps,
+    purify_irrep_value,
+)
+from spgrep.symmetry.group import get_little_group
+from spgrep.symmetry.transform import (
     get_primitive_transformation_matrix,
     transform_symmetry_and_kpoint,
     unique_primitive_symmetry,

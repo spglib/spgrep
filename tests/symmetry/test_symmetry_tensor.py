@@ -4,9 +4,9 @@ import numpy as np
 import pytest
 from spglib import get_symmetry_from_database
 
-from spgrep.group import get_cayley_table
-from spgrep.representation import is_representation
-from spgrep.tensor import apply_intrinsic_symmetry, get_symmetry_adapted_tensors
+from spgrep.rep.representation import is_representation
+from spgrep.symmetry.group import get_cayley_table
+from spgrep.symmetry.tensor import apply_intrinsic_symmetry, get_symmetry_adapted_tensors
 
 
 def get_standard_basis() -> list[np.ndarray]:
