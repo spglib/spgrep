@@ -27,12 +27,14 @@ jobs:
           pip install build
           python -m build --wheel
       - name: Publish package to TestPyPI
+        if: ${{ contains(github.ref, 'rc') }}
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
           repository-url: https://test.pypi.org/legacy/
           verbose: true
           attestations: false
       - name: Publish package to PyPI
+        if: ${{ !contains(github.ref, 'rc') }}
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
           verbose: true
