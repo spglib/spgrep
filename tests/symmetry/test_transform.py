@@ -2,7 +2,7 @@ import numpy as np
 import pytest
 from spglib import get_symmetry_dataset
 
-from spgrep.transform import (
+from spgrep.symmetry.transform import (
     get_centering,
     get_primitive_transformation_matrix,
     transform_symmetry_and_kpoint,

@@ -15,7 +15,7 @@ from spgrep.symmetry.group import (
 )
 from spgrep.symmetry.pointgroup import pg_dataset
 from spgrep.symmetry.representation import check_spacegroup_representation
-from spgrep.transform import transform_symmetry_and_kpoint, unique_primitive_symmetry
+from spgrep.symmetry.transform import transform_symmetry_and_kpoint, unique_primitive_symmetry
 
 
 @pytest.mark.parametrize("method", [("Neto"), ("random")])
