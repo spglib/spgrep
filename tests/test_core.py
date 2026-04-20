@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import numpy as np
 import pytest
+import spglib
 
 from spgrep.core import (
     get_crystallographic_pointgroup_irreps_from_symmetry,
@@ -146,3 +147,21 @@ def test_get_spacegroup_irreps(method, kpoint, shape_expect, num_sym_expect, cor
         assert is_unitary(irrep)
 
     assert is_unique_irreps(irreps)
+
+
+def test_kpoint_list_input_regression():
+    # Regression for https://github.com/spglib/spgrep/issues/284
+    # Passing kpoint as a Python list previously triggered list-concatenation
+    # in `2 * kpoint` and produced doubled real irreps.
+    symmetry = spglib.get_symmetry_from_database(517)  # Pm-3m (No. 221)
+    rotations = symmetry["rotations"]
+    translations = symmetry["translations"]
+    kpoint = [0.5, 0.5, 0.5]
+
+    irreps_list, _ = get_spacegroup_irreps_from_primitive_symmetry(
+        rotations, translations, kpoint, real=True
+    )
+    irreps_arr, _ = get_spacegroup_irreps_from_primitive_symmetry(
+        rotations, translations, np.asarray(kpoint, dtype=float), real=True
+    )
+    assert [ir.shape for ir in irreps_list] == [ir.shape for ir in irreps_arr]

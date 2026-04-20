@@ -89,6 +89,7 @@ def get_spacegroup_irreps(
         Let ``i = mapping_little_group[idx]``.
         ``(rotations[i], translations[i])`` belongs to the little group of given space space group and kpoint.
     """
+    kpoint = np.asarray(kpoint, dtype=float)
     # Transform given `kpoint` in dual of `lattice`
     dual_lattice = np.linalg.inv(lattice).T
     if reciprocal_lattice is None:
@@ -192,6 +193,8 @@ def get_spacegroup_irreps_from_primitive_symmetry(
         Let ``i = mapping_little_group[idx]``.
         ``(rotations[i], translations[i])`` belongs to the little group of given space space group and kpoint.
     """
+    kpoint = np.asarray(kpoint, dtype=float)
+
     # Sanity check to use primitive cell
     for rotation, translation in zip(rotations, translations):
         if np.allclose(rotation, np.eye(3), rtol=rtol, atol=atol) and not np.allclose(
@@ -315,6 +318,8 @@ def get_magnetic_spacegroup_coreps_from_primitive_symmetry(
         Let ``i = mapping_little_group[idx]``.
         ``(rotations[i], translations[i])`` belongs to the little group of given space space group and kpoint.
     """
+    kpoint = np.asarray(kpoint, dtype=float)
+
     # Sanity check to use primitive cell
     for rotation, translation, time_reversal in zip(rotations, translations, time_reversals):
         if (
@@ -442,6 +447,8 @@ def get_spacegroup_spinor_irreps(
     """
     if kpoint is None:
         kpoint = np.zeros(3)
+    else:
+        kpoint = np.asarray(kpoint, dtype=float)
 
     # Transform given `kpoint` in dual of `lattice`
     dual_lattice = np.linalg.inv(lattice).T
@@ -616,6 +623,8 @@ def get_spacegroup_spinor_irreps_from_primitive_symmetry(
     """
     if kpoint is None:
         kpoint = np.zeros(3)
+    else:
+        kpoint = np.asarray(kpoint, dtype=float)
 
     # Sanity check to use primitive cell
     for rotation, translation in zip(rotations, translations):
