@@ -10,7 +10,22 @@ env:
   PYTHON_VERSION: "3.13"
 
 jobs:
+  path-filter:
+    runs-on: ubuntu-latest
+    outputs:
+      python: ${{ steps.filter.outputs.python }}
+      docs: ${{ steps.filter.outputs.docs }}
+    steps:
+      - uses: actions/checkout@v6
+      - name: Filter paths
+        id: filter
+        uses: dorny/paths-filter@v4
+        with:
+          filters: .github/filters.yaml
+
   tests:
+    needs: path-filter
+    if: ${{ needs.path-filter.outputs.python == 'true' }}
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -39,6 +54,8 @@ jobs:
         fail_ci_if_error: false
 
   docs:
+    needs: path-filter
+    if: ${{ needs.path-filter.outputs.docs == 'true' }}
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v6
@@ -66,3 +83,14 @@ jobs:
       with:
         deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
         publish_dir: ./docs_build
+
+  pass:
+    if: always()
+    name: ✅ Pass tests
+    needs: [tests, docs]
+    runs-on: ubuntu-latest
+    steps:
+      - if: needs.tests.result == 'failure'
+        run: exit 1
+      - if: needs.docs.result == 'failure'
+        run: exit 1
