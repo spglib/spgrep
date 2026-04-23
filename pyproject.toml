@@ -35,7 +35,6 @@ dependencies = [
   "spglib>=2.7",
   "typing-extensions",
 ]
-
 optional-dependencies.dev = [
   "ipykernel",
   "ipython",
@@ -67,12 +66,15 @@ urls.homepage = "https://github.com/spglib/spgrep"
 
 [tool.setuptools_scm]
 
+[tool.uv]
+exclude-newer = "1 week"
+
 [tool.ruff]
 line-length = 99
 lint.extend-select = [
-  "E", # pycodestyle-errors
-  "F", # pyflakes
-  "I", # isort
+  "E",  # pycodestyle-errors
+  "F",  # pyflakes
+  "I",  # isort
   # "D",           # pydocstyle
   "UP", # pyupgrade
 ]
@@ -87,11 +89,11 @@ lint.extend-ignore = [
   "E501",
 ]
 
-[tool.pytest.ini_options]
-testpaths = [ "tests" ]
-
 [tool.mypy]
 exclude = [
-  'docs',
+  "docs",
 ]
 warn_no_return = false
+
+[tool.pytest]
+ini_options.testpaths = [ "tests" ]
