@@ -150,6 +150,70 @@ def get_little_group(
     )
 
 
+def get_little_group_of_pm_k(
+    rotations: NDArrayInt,
+    translations: NDArrayFloat,
+    kpoint: NDArrayFloat,
+    atol: float = ATOL,
+) -> tuple[NDArrayInt, NDArrayFloat, NDArrayInt, NDArrayInt]:
+    r"""Return coset of little group of :math:`\pm \mathbf{k}`.
+
+    Returns operations that stabilize :math:`\{\mathbf{k}, -\mathbf{k}\}` as a
+    set (i.e. :math:`\mathbf{S}^{\top}\mathbf{k} \equiv \pm \mathbf{k}` mod
+    reciprocal lattice). See :ref:`pir_kbark`.
+
+    Parameters
+    ----------
+    rotations: array, (order, 3, 3)
+    translations: array, (order, 3)
+    kpoint: array, (3, )
+
+    Returns
+    -------
+    little_rotations: array, (little_group_order, 3, 3)
+    little_translations: array, (little_group_order, 3)
+    mapping_little_group: array, (little_group_order, )
+        ``(rotations[mapping_little_group[idx]], translations[mapping_little_group[idx]])``
+        belongs to the little group of :math:`\pm \mathbf{k}`.
+    flip_k: array[int], (little_group_order, )
+        ``flip_k[idx] == 0`` iff the ``idx``-th operation stabilizes
+        :math:`\mathbf{k}` itself. ``flip_k[idx] == 1`` iff it maps
+        :math:`\mathbf{k} \to -\mathbf{k}` (but not :math:`\mathbf{k}`).
+        When :math:`2\mathbf{k} \equiv \mathbf{0}` every stabilizing operation
+        counts as ``0``, so ``flip_k`` is all zeros and the output agrees with
+        :func:`get_little_group`.
+    """
+    little_rotations = []
+    little_translations = []
+    mapping_little_group = []
+    flip_k = []
+
+    for i, (rotation, translation) in enumerate(zip(rotations, translations)):
+        residual_plus = rotation.T @ kpoint - kpoint
+        residual_plus = residual_plus - np.rint(residual_plus)
+        stabilizes = np.allclose(residual_plus, 0, atol=atol)
+
+        residual_minus = rotation.T @ kpoint + kpoint
+        residual_minus = residual_minus - np.rint(residual_minus)
+        flips = np.allclose(residual_minus, 0, atol=atol)
+
+        if not (stabilizes or flips):
+            continue
+
+        little_rotations.append(rotation)
+        little_translations.append(translation)
+        mapping_little_group.append(i)
+        # If both hold (i.e. 2k equiv 0), treat as unitary (0).
+        flip_k.append(0 if stabilizes else 1)
+
+    return (
+        np.array(little_rotations),
+        np.array(little_translations),
+        np.array(mapping_little_group),
+        np.array(flip_k, dtype=np.int_),
+    )
+
+
 def check_cocycle_condition(
     rotations: NDArrayInt,
     factor_system: NDArrayComplex,
