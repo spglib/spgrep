@@ -31,7 +31,7 @@ prek run --all-files                                              # lint + forma
 
 CI (`.github/workflows/testing.yml`) runs the matrix over Python 3.10/3.11/3.12/3.13 and a separate docs build job; pandoc is required for docs builds.
 
-Releases are tag-driven: bump `docs/changelog.md`, then `git tag <version> && git push origin <version>`. Version is derived by `setuptools-scm`.
+Releases are tag-driven: move `[Unreleased]` entries under a dated `## vX.Y.Z` heading in `docs/changelog.md`, then `git tag <version> && git push origin <version>`. Version is derived by `setuptools-scm`.
 
 ## Architecture
 
@@ -92,3 +92,5 @@ Tests in `tests/` mirror the source layout (`tests/rep/`, `tests/symmetry/`, top
 - The `_constants.MAX_NUM_RANDOM_GENERATIONS` retry knob exists because the `"random"` method can statistically fail; honor it rather than introducing infinite loops.
 - Ruff is configured with `line-length = 99` and selects `E`, `F`, `I`, `UP`. `D2xx` pydocstyle rules listed in `[tool.ruff.lint.extend-ignore]` are intentionally disabled — do not re-enable them piecemeal.
 - mypy excludes `docs/` and sets `warn_no_return = false`.
+- `docs/changelog.md` follows [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.1.0/). User-visible changes go under `## [Unreleased]` in a categorized subsection (`### Added`, `### Changed`, `### Deprecated`, `### Removed`, `### Fixed`, `### Security`); the section is dated and renamed at release time. Historical `v0.x` entries predate the format and are left as flat bullet lists.
+- Co-representation conventions (`src/spgrep/corep.py`, `docs/formulation/irreps/corep.md`): for `a ∈ Da_0` anti-linear, the multiplication law is `Γ(a) · Γ(u)^* = ω(a,u) · Γ(a·u)`. When constructing the extension from a unitary irrep `Γ` of `D` to a co-rep of `M`, the right operand must be complex-conjugated (`@ np.conj(...)`). Factor systems spgrep builds have `|ω| = 1`, so `1/ω = conj(ω)` — the prefactor `np.conj(factor_system[a0_idx, xsg_indices])` depends on this.
