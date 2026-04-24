@@ -21,8 +21,8 @@ from spgrep.symmetry.enumerate import (  # noqa: E402
     enumerate_unitary_irreps,
     enumerate_unitary_irreps_from_solvable_group_chain,
     purify_irrep_value,
-    purify_real_irrep_value,
 )
+from spgrep.symmetry.pir import purify_real_irrep_value  # noqa: E402
 
 __all__ = [
     # spgrep.rep.enumerate
