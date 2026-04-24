@@ -9,6 +9,7 @@ from spgrep._constants import ATOL, MAX_NUM_RANDOM_GENERATIONS, RTOL
 from spgrep.rep.enumerate import enumerate_unitary_irreps_from_regular_representation
 from spgrep.rep.group import get_identity_index, get_inverse_index, get_order
 from spgrep.rep.irreps import frobenius_schur_indicator, is_equivalent_irrep
+from spgrep.rep.pir import get_physically_irrep
 from spgrep.rep.representation import get_character, get_intertwiner
 from spgrep.utils import NDArrayBool, NDArrayComplex, NDArrayFloat, NDArrayInt, nroot
 
@@ -70,6 +71,26 @@ def enumerate_small_representations(
         little_rotations, little_translations, kpoint
     )
 
+    # When the caller supplies G^{k,k-bar} with 2k not equiv 0, some operations
+    # map k to -k and the PIR construction on G^{k,k-bar} differs from the
+    # standard G^k path (see reality.md :ref:`pir_kbark`). Route early so we
+    # avoid enumerating complex irreps on the full little group only to discard
+    # them -- the pm-k path enumerates on G^k instead.
+    if real:
+        flip_k = _flip_ops_mask(little_rotations, kpoint, atol)
+        if np.any(flip_k):
+            return _enumerate_pir_on_pm_k(
+                little_rotations,
+                little_translations,
+                kpoint,
+                flip_k,
+                factor_system,
+                method=method,
+                rtol=rtol,
+                atol=atol,
+                max_num_random_generations=max_num_random_generations,
+            )
+
     # Compute irreps of little co-group
     little_cogroup_irreps, _ = enumerate_unitary_irreps(
         little_rotations,
@@ -81,55 +102,37 @@ def enumerate_small_representations(
     )
 
     # Small representations of little group
-    irreps = []
-    for rep in little_cogroup_irreps:
-        phases = np.array(
-            [
-                np.exp(-2j * np.pi * np.dot(kpoint, translation))
-                for translation in little_translations
-            ]
-        )
-        irreps.append(rep * phases[:, None, None])
+    phases = np.array([np.exp(-2j * np.pi * np.dot(kpoint, t)) for t in little_translations])
+    irreps = [rep * phases[:, None, None] for rep in little_cogroup_irreps]
 
     if not real:
         indicators = [frobenius_schur_indicator(irrep) for irrep in irreps]
         return irreps, indicators
 
-    # Identify operations that map k -> -k (k-flipping) within the little group.
-    # See reality.md: when 2k not equiv 0, the physically irreducible
-    # representation is defined on the little group of +/- k. Callers that want
-    # that output must pass G^{k,k-bar} (see ``get_little_group_of_pm_k``); then
-    # some operations will flip k.
-    flip_k = np.zeros(len(little_rotations), dtype=np.bool_)
-    for i, rotation in enumerate(little_rotations):
-        residual = rotation.T @ kpoint - kpoint
-        residual = residual - np.rint(residual)
-        if not np.allclose(residual, 0, atol=atol):
-            flip_k[i] = True
-
-    if np.any(flip_k):
-        return _enumerate_pir_on_pm_k(
-            little_rotations,
-            little_translations,
-            kpoint,
-            flip_k,
-            factor_system,
-            method=method,
-            rtol=rtol,
-            atol=atol,
-            max_num_random_generations=max_num_random_generations,
-        )
-
-    # Every element of the given little group stabilizes k (standard G^k path).
-    # For 2k equiv 0 this is the full story. For 2k not equiv 0 with a
-    # G^k-only input, we fall back to the historical behavior of forcing the
-    # Re/Im block realification on the G^k irreps.
     return _make_physically_irreps_from_complex(
         irreps,
         kpoint=kpoint,
         atol=atol,
         max_num_random_generations=max_num_random_generations,
     )
+
+
+def _flip_ops_mask(
+    little_rotations: NDArrayInt,
+    kpoint: NDArrayFloat,
+    atol: float,
+) -> NDArrayBool:
+    """Mask of operations in ``little_rotations`` that map ``k`` to ``-k`` (and not to ``k``).
+
+    Mirrors the ``flip_k`` returned by :func:`spgrep.symmetry.group.get_little_group_of_pm_k`
+    for the same ``kpoint``. When :math:`2\\mathbf{k} \\equiv \\mathbf{0}` every
+    stabilizing operation also "flips" k trivially; in that case this returns
+    all ``False`` so the caller falls through to the standard path.
+    """
+    residuals = np.einsum("bji,j->bi", little_rotations, kpoint) - kpoint
+    residuals -= np.rint(residuals)
+    stabilizes = np.all(np.abs(residuals) < atol, axis=1)
+    return ~stabilizes
 
 
 def _enumerate_pir_on_pm_k(
@@ -181,52 +184,48 @@ def _enumerate_pir_on_pm_k(
     xsg_phases = np.array([np.exp(-2j * np.pi * np.dot(kpoint, t)) for t in xsg_translations])
     xsg_small_irreps = [rep * xsg_phases[:, None, None] for rep in xsg_cogroup_irreps]
 
+    # Mask of operations (S, w) in G^{k,k-bar} whose (I + S^T) k is an integer
+    # vector, i.e. those that survive the translation-projection sum in the
+    # Frobenius-Schur formula (see :ref:`physically_irreps`).
+    residuals = np.einsum("bij,j->bi", little_rotations.transpose(0, 2, 1), kpoint) + kpoint
+    residuals -= np.rint(residuals)
+    translation_mask = np.all(np.abs(residuals) < atol, axis=1)
+
     real_irreps: list[NDArrayFloat] = []
     indicators: list[int] = []
     seen_characters: list[NDArrayComplex] = []
 
     for small_irrep in xsg_small_irreps:
-        # Build the induced representation Ind_{G^k}^{G^{k,k-bar}}(Gamma).
         induced = _build_induced_representation(
             little_rotations=little_rotations,
-            little_translations=little_translations,
             flip_k=flip_k,
             small_irrep=small_irrep,
             table=table,
-            xsg_indices=xsg_indices_list,
             xsg_indices_mapping=xsg_indices_mapping,
             a0_idx=a0_idx,
             inv_a0_idx=inv_a0_idx,
         )
 
-        # De-duplicate: two G^k irreps that are a0-conjugates of each other
-        # give rise to the same induced rep on G^{k,k-bar}.
+        # Two G^k irreps that are a0-conjugates of each other induce the same
+        # rep on G^{k,k-bar}; skip the duplicate.
         character = get_character(induced)
         if any(is_equivalent_irrep(character, c) for c in seen_characters):
             continue
         seen_characters.append(character)
 
-        # At generic k (where Ind is irreducible on G^{k,k-bar}) the induced
-        # rep is a genuine complex irrep. Compute the Frobenius-Schur indicator
-        # on the full space-group G^{k,k-bar} (accounting for the translation
-        # subgroup) and realify using the translation-averaged intertwiner
-        # (:ref:`physically_irreps`). When the indicator is +1 we can find a
-        # same-dimensional real form; otherwise we Re/Im-double the complex
-        # representation.
-        indicator = _fs_indicator_on_pm_k(induced, little_rotations, kpoint, atol=atol)
+        indicator = _fs_indicator_on_pm_k(induced, table, translation_mask)
         try:
             real_irrep = _realify_small_rep_on_pm_k(
                 induced,
-                little_rotations,
-                kpoint,
                 indicator,
+                translation_mask,
                 atol=atol,
                 max_num_random_generations=max_num_random_generations,
             )
         except (AssertionError, RuntimeError):
-            # Fallback: Re/Im block doubling always produces a valid real
-            # matrix rep of G^{k,k-bar}, at the cost of doubling the dimension.
-            real_irrep = _realify_via_reim_block(induced)
+            # Intertwiner search failed: fall back to Re/Im block doubling,
+            # which doubles the dimension but is always a valid real rep.
+            real_irrep = get_physically_irrep(induced, indicator=0, atol=atol)
             indicator = 0
         real_irrep = purify_real_irrep_value(real_irrep, atol=atol)
         real_irreps.append(real_irrep)
@@ -237,51 +236,26 @@ def _enumerate_pir_on_pm_k(
 
 def _fs_indicator_on_pm_k(
     induced: NDArrayComplex,
-    little_rotations: NDArrayInt,
-    kpoint: NDArrayFloat,
-    atol: float,
+    table: NDArrayInt,
+    translation_mask: NDArrayBool,
 ) -> int:
     r"""Frobenius-Schur indicator of a small rep on G^{k,k-bar}.
 
-    Computes ``(1 / |cogroup|) sum_i 1[(I + S_i^T) k equiv 0] * Tr(rep(i^2))``,
-    where ``i^2`` is the coset representative of ``(S_i, w_i)^2``. The ``1[...]``
-    factor comes from the translation sum (see :ref:`physically_irreps`).
-
-    ``induced`` is indexed on the cogroup coset representatives of
-    ``little_rotations``; ``(S_i, w_i)^2`` always lies in one of those cosets
-    since G^{k,k-bar} is closed.
+    Computes ``(1 / |cogroup|) sum_i 1[(I + S_i^T) k equiv 0] * Tr(rep(i^2))``.
+    The ``1[...]`` factor comes from the translation sum (see
+    :ref:`physically_irreps`); the caller supplies it as ``translation_mask``.
     """
-    table = get_cayley_table(little_rotations)
-    order = len(little_rotations)
+    order = table.shape[0]
     total = 0.0 + 0j
-    for i in range(order):
-        residual = (np.eye(3) + little_rotations[i].T) @ kpoint
-        residual = residual - np.rint(residual)
-        if not np.allclose(residual, 0, atol=atol):
-            continue
-        i2 = table[i, i]
-        total += np.trace(induced[i2])
+    for i in np.where(translation_mask)[0]:
+        total += np.trace(induced[table[i, i]])
     return int(np.around(np.real(total / order)))
-
-
-def _realify_via_reim_block(rep: NDArrayComplex) -> NDArrayFloat:
-    """Re/Im block-double realification of a complex matrix rep."""
-    order, dim, _ = rep.shape
-    real = np.empty((order, 2 * dim, 2 * dim), dtype=np.float64)
-    re = np.real(rep)
-    im = np.imag(rep)
-    real[:, :dim, :dim] = re
-    real[:, :dim, dim:] = -im
-    real[:, dim:, :dim] = im
-    real[:, dim:, dim:] = re
-    return real
 
 
 def _realify_small_rep_on_pm_k(
     small_rep: NDArrayComplex,
-    little_rotations: NDArrayInt,
-    kpoint: NDArrayFloat,
     indicator: int,
+    translation_mask: NDArrayBool,
     atol: float,
     max_num_random_generations: int,
 ) -> NDArrayFloat:
@@ -293,21 +267,17 @@ def _realify_small_rep_on_pm_k(
     Re/Im block doubling (``indicator == 0``) to convert to a real matrix rep.
     """
     if indicator == 1:
-        # Translation-averaged intertwiner per reality.md. We start from a
-        # SYMMETRIC random B (so that U = sum M B M^{*†} comes out symmetric
-        # for suitable parity reasons). The translation-projection sum
-        # restricts to operations ``i`` with ``(I + S_i^T) k equiv 0``.
-        order, dim, _ = small_rep.shape
+        # B is drawn symmetric so that U = sum M B M^{*†} is symmetric (parity
+        # argument per reality.md); only operations with translation_mask[i]
+        # contribute due to the translation-projection sum.
+        dim = small_rep.shape[1]
+        active_indices = np.where(translation_mask)[0]
         rng = np.random.default_rng()
         for _ in range(max_num_random_generations):
             B = rng.standard_normal((dim, dim)) + 1j * rng.standard_normal((dim, dim))
-            B = B + B.T  # enforce symmetry
+            B = B + B.T
             U = np.zeros((dim, dim), dtype=np.complex128)
-            for i in range(order):
-                residual = (np.eye(3) + little_rotations[i].T) @ kpoint
-                residual = residual - np.rint(residual)
-                if not np.allclose(residual, 0, atol=atol):
-                    continue
+            for i in active_indices:
                 Mi = small_rep[i]
                 U += Mi @ B @ np.conj(Mi).T
             if np.linalg.matrix_rank(U, tol=max(atol, 1e-6)) == dim:
@@ -321,7 +291,6 @@ def _realify_small_rep_on_pm_k(
         det = np.linalg.det(U)
         U = U / det ** (1.0 / dim)
 
-        # Diagonalize U = S^{-1} diag(omega) S and take T = S^{-1} diag(sqrt(omega)) S.
         eigvals, eigvecs = np.linalg.eig(U)
         real_eigvecs = []
         for eigvec in np.transpose(eigvecs):
@@ -334,33 +303,19 @@ def _realify_small_rep_on_pm_k(
         T = S.T @ np.diag([nroot(e, 2) for e in eigvals]) @ S
         assert np.allclose(T @ T, U, atol=max(atol, 1e-6))
 
-        real_irrep = np.real(
-            np.einsum("il,klm,mj->kij", np.conj(T), small_rep, T, optimize="greedy")
-        )
-        return real_irrep
+        return np.real(np.einsum("il,klm,mj->kij", np.conj(T), small_rep, T, optimize="greedy"))
 
     if indicator in (-1, 0):
-        dim = small_rep.shape[1]
-        order = small_rep.shape[0]
-        real_irrep = np.empty((order, 2 * dim, 2 * dim), dtype=np.float64)
-        re = np.real(small_rep)
-        im = np.imag(small_rep)
-        real_irrep[:, :dim, :dim] = re
-        real_irrep[:, :dim, dim:] = im
-        real_irrep[:, dim:, :dim] = -im
-        real_irrep[:, dim:, dim:] = re
-        return real_irrep
+        return get_physically_irrep(small_rep, indicator=indicator, atol=atol)
 
     raise ValueError(f"Unexpected Frobenius-Schur indicator: {indicator}")
 
 
 def _build_induced_representation(
     little_rotations: NDArrayInt,
-    little_translations: NDArrayFloat,
     flip_k: NDArrayBool,
     small_irrep: NDArrayComplex,
     table: NDArrayInt,
-    xsg_indices: list[int],
     xsg_indices_mapping: dict[int, int],
     a0_idx: int,
     inv_a0_idx: int,
