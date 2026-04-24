@@ -1,9 +1,14 @@
 import numpy as np
 import pytest
 
+from spgrep.core import get_spacegroup_irreps_from_primitive_symmetry
 from spgrep.rep.representation import is_representation
 from spgrep.symmetry.enumerate import enumerate_small_representations, enumerate_unitary_irreps
-from spgrep.symmetry.group import get_cayley_table, get_little_group
+from spgrep.symmetry.group import (
+    get_cayley_table,
+    get_little_group,
+    get_little_group_of_pm_k,
+)
 from spgrep.utils import (
     NDArrayComplex,
     NDArrayFloat,
@@ -90,3 +95,38 @@ def test_spacegroup_pir():
     assert len(physically_irreps) == 2
     for pir, indicator in zip(physically_irreps, indicators):
         assert check_spacegroup_pir(little_rotations, little_translations, kpoint, pir, indicator)
+
+
+def test_spacegroup_pir_pm3m_lambda():
+    # SG 221 (Pm-3m) at k=(u,u,u) on the Lambda line, where 2k is not
+    # equivalent to 0. Compares against the Bilbao Crystallographic Server's
+    # PIR enumeration (LD1, LD2, LD3 of dimensions 2, 2, 4 on the little group
+    # of +/- k). We verify the structural properties that must hold for any
+    # valid PIR extension on G^{k,k-bar}; the exact matrix entries are
+    # basis-dependent.
+    rotations, translations = get_symmetry_from_hall_number(517)  # Pm-3m
+    u = 0.1  # generic Lambda point; 2u is not integer so 2k is not equivalent to 0
+    kpoint = np.array([u, u, u])
+
+    pm_k_rotations, _, mapping_little_group, flip_k = get_little_group_of_pm_k(
+        rotations, translations, kpoint
+    )
+    # little cogroup of +/- k for Lambda in Pm-3m is D3d (order 12),
+    # half stabilizing k, half mapping k to -k.
+    assert len(pm_k_rotations) == 12
+    assert int(np.sum(flip_k == 0)) == 6
+    assert int(np.sum(flip_k == 1)) == 6
+
+    physically_irreps, _ = get_spacegroup_irreps_from_primitive_symmetry(
+        rotations, translations, kpoint, real=True
+    )
+    # Bilbao reports LD1, LD2, LD3 -- 3 PIRs in total.
+    assert len(physically_irreps) == 3
+
+    table = get_cayley_table(pm_k_rotations)
+    for pir in physically_irreps:
+        # Each output must be a real matrix representation of G^{k,k-bar}.
+        assert pir.dtype.kind == "f"
+        assert pir.shape[0] == len(pm_k_rotations)
+        assert pir.shape[1] == pir.shape[2]
+        assert is_representation(pir, table)
