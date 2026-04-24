@@ -1,5 +1,9 @@
 # Change Log
 
+## Unreleased
+
+- Fix co-representation extension formula for `a_0 u` in all three Frobenius-Schur cases: the right operand is now complex-conjugated as required by the co-representation multiplication law. Prior output violated the law for any source irrep with non-real matrices.
+
 ## v0.5.0 (19 Jan. 2026)
 
 - The following modules are separated into subpackages: `spgrep.group`, `spgrep.representation`, `spgrep.pointgroup`, `spgrep.irreps`, `spgrep.tensor`, and `spgrep.transform`.
