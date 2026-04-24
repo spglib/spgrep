@@ -96,6 +96,7 @@ html_theme_options = {
     "navigation_with_keys": True,
     "repository_url": repository_url,
     "use_repository_button": True,
+    "show_toc_level": 3,
 }
 
 # hide sphinx footer
