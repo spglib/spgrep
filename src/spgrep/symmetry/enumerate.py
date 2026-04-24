@@ -9,7 +9,6 @@ from spgrep._constants import ATOL, MAX_NUM_RANDOM_GENERATIONS, RTOL
 from spgrep.rep.enumerate import enumerate_unitary_irreps_from_regular_representation
 from spgrep.rep.group import get_identity_index, get_inverse_index, get_order
 from spgrep.rep.irreps import frobenius_schur_indicator, is_equivalent_irrep
-from spgrep.rep.pir import get_physically_irrep
 from spgrep.rep.representation import get_character, get_intertwiner
 from spgrep.utils import NDArrayComplex, NDArrayFloat, NDArrayInt, nroot
 
@@ -17,6 +16,7 @@ from .group import (
     get_cayley_table,
     get_factor_system_from_little_group,
 )
+from .pir import _make_physically_irreps_from_complex
 from .pointgroup import get_pointgroup_chain_generators
 from .representation import get_projective_regular_representation
 
@@ -95,46 +95,12 @@ def enumerate_small_representations(
         indicators = [frobenius_schur_indicator(irrep) for irrep in irreps]
         return irreps, indicators
 
-    # Physically irreducible representation
-    conjugated_pairs = []
-    visited = [False for _ in range(len(irreps))]
-    characters = [get_character(irrep) for irrep in irreps]
-    for i, ci in enumerate(characters):
-        if visited[i]:
-            continue
-        visited[i] = True
-        inequivalent = False
-        for j, cj in enumerate(characters):
-            if visited[j]:
-                continue
-            if is_equivalent_irrep(np.conj(ci), cj):
-                conjugated_pairs.append((i, j))
-                visited[j] = True
-                inequivalent = True
-                break
-        if not inequivalent:
-            conjugated_pairs.append((i, i))
-
-    real_irreps = []
-    indicators = []
-    for conj_pair in conjugated_pairs:
-        irrep = irreps[conj_pair[0]]
-
-        indicator = frobenius_schur_indicator(irrep)
-        # summation over translations becomes zero unless `2*kpoint equiv 0`
-        two_kpoint = 2 * kpoint
-        two_kpoint -= np.rint(two_kpoint)
-        if not np.allclose(two_kpoint, 0):
-            indicator = 0
-
-        real_irrep = get_physically_irrep(
-            irrep, indicator, atol=atol, max_num_random_generations=max_num_random_generations
-        )
-        real_irrep = purify_real_irrep_value(real_irrep, atol=atol)
-        real_irreps.append(real_irrep)
-        indicators.append(indicator)
-
-    return real_irreps, indicators
+    return _make_physically_irreps_from_complex(
+        irreps,
+        kpoint=kpoint,
+        atol=atol,
+        max_num_random_generations=max_num_random_generations,
+    )
 
 
 def enumerate_unitary_irreps(
@@ -201,39 +167,12 @@ def enumerate_unitary_irreps(
         indicators = [frobenius_schur_indicator(irrep) for irrep in irreps]
         return irreps, indicators
 
-    # Physically irreducible representation
-    conjugated_pairs = []
-    visited = [False for _ in range(len(irreps))]
-    characters = [get_character(irrep) for irrep in irreps]
-    for i, ci in enumerate(characters):
-        if visited[i]:
-            continue
-        visited[i] = True
-        inequivalent = False
-        for j, cj in enumerate(characters):
-            if visited[j]:
-                continue
-            if is_equivalent_irrep(np.conj(ci), cj):
-                conjugated_pairs.append((i, j))
-                visited[j] = True
-                inequivalent = True
-                break
-        if not inequivalent:
-            conjugated_pairs.append((i, i))
-
-    real_irreps = []
-    indicators = []
-    for conj_pair in conjugated_pairs:
-        irrep = irreps[conj_pair[0]]
-        indicator = frobenius_schur_indicator(irrep)
-        real_irrep = get_physically_irrep(
-            irrep, indicator, atol=atol, max_num_random_generations=max_num_random_generations
-        )
-        real_irrep = purify_real_irrep_value(real_irrep, atol=atol)
-        real_irreps.append(real_irrep)
-        indicators.append(indicator)
-
-    return real_irreps, indicators
+    return _make_physically_irreps_from_complex(
+        irreps,
+        kpoint=None,
+        atol=atol,
+        max_num_random_generations=max_num_random_generations,
+    )
 
 
 def enumerate_unitary_irreps_from_solvable_group_chain(
@@ -407,19 +346,3 @@ def purify_irrep_value(irrep: NDArrayComplex, atol: float = ATOL) -> NDArrayComp
     for v in possible_values:
         irrep[np.abs(irrep - v) < atol] = v
     return irrep
-
-
-def purify_real_irrep_value(real_irrep: NDArrayFloat, atol: float = ATOL) -> NDArrayFloat:
-    """Purify values of physically irreducible representations."""
-    values = [
-        0,
-        1,  # 0/1
-        1 / 2,  # 1/3
-        np.sqrt(3) / 2,  # 1/3
-        -1 / 2,  # 2/3
-        -np.sqrt(3) / 2,  # 2/3
-        -1,  # 1/2
-    ]
-    for v in values:
-        real_irrep[np.abs(real_irrep - v) < atol] = v
-    return real_irrep
