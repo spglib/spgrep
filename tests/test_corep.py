@@ -5,9 +5,35 @@ from spgrep.core import (
     get_crystallographic_pointgroup_spinor_irreps_from_symmetry,
     get_magnetic_spacegroup_coreps_from_primitive_symmetry,
 )
-from spgrep.corep import get_corep_spinor_factor_system
-from spgrep.symmetry.group import get_cayley_table
-from spgrep.utils import NDArrayComplex, NDArrayFloat, NDArrayInt
+from spgrep.corep import (
+    _enumerate_small_corepresentations_with_factor_system,
+    get_corep_spinor_factor_system,
+)
+from spgrep.symmetry.group import get_cayley_table, get_factor_system_from_little_group
+from spgrep.utils import (
+    NDArrayBool,
+    NDArrayComplex,
+    NDArrayFloat,
+    NDArrayInt,
+    get_symmetry_from_hall_number,
+)
+
+
+def _assert_corep_composition_law(
+    corep: NDArrayComplex,
+    anti_linear: NDArrayBool,
+    factor_system: NDArrayComplex,
+    table: NDArrayInt,
+    atol: float = 1e-8,
+) -> None:
+    """Verify ``D(g_i) @ (D(g_j)* if g_i anti-linear else D(g_j)) == omega(g_i, g_j) * D(g_i g_j)``."""
+    order = corep.shape[0]
+    for i in range(order):
+        for j in range(order):
+            right = np.conj(corep[j]) if anti_linear[i] else corep[j]
+            lhs = corep[i] @ right
+            rhs = factor_system[i, j] * corep[table[i, j]]
+            assert np.allclose(lhs, rhs, atol=atol), f"corep law violated at (i={i}, j={j})"
 
 
 def check_corep_cocycle_condition(
@@ -96,6 +122,10 @@ def test_get_crystallographic_pointgroup_spinor_irreps_from_symmetry(
         method=method,
     )
 
+    table = get_cayley_table(rotations, time_reversals)
+    for co_irrep in co_irreps:
+        _assert_corep_composition_law(co_irrep, anti_linear, factor_system, table)
+
 
 @pytest.mark.parametrize(
     "kpoint",
@@ -135,3 +165,58 @@ def test_get_magnetic_spacegroup_coreps_from_primitive_symmetry(
         kpoint=kpoint,
         method=method,
     )
+
+
+def test_corep_composition_law_221_lambda():
+    """Regression: co-rep extension must conjugate the right operand when the left is anti-linear.
+
+    Constructs the little group of :math:`\\pm \\mathbf{k}` for ITA No. 221
+    (:math:`Pm\\bar{3}m`) at :math:`\\mathbf{k} = (1/4, 1/4, 1/4)` (a non-TRIM
+    point; the 2-dim ``E`` irrep of :math:`D_3` appears here and is non-real).
+    Feeds the k-flip mask as ``little_time_reversals`` -- this matches how the
+    co-rep machinery is used to extend a small rep of :math:`G^{\\mathbf{k}}` to
+    :math:`G^{\\mathbf{k}\\bar{\\mathbf{k}}}`. Before the conjugation fix this
+    assertion fails at 72/144 pairs for one of the three ``ksi`` blocks; after
+    the fix all pairs pass.
+    """
+    rotations, translations = get_symmetry_from_hall_number(517)  # ITA No. 221, Pm-3m
+    kpoint = np.array([0.25, 0.25, 0.25])
+
+    pm_k_mask = []
+    flip_k_list = []
+    for rot in rotations:
+        residual_plus = rot.T @ kpoint - kpoint
+        residual_minus = rot.T @ kpoint + kpoint
+        keeps_k = np.allclose(residual_plus - np.rint(residual_plus), 0)
+        flips_k = np.allclose(residual_minus - np.rint(residual_minus), 0)
+        if keeps_k:
+            pm_k_mask.append(True)
+            flip_k_list.append(0)
+        elif flips_k:
+            pm_k_mask.append(True)
+            flip_k_list.append(1)
+        else:
+            pm_k_mask.append(False)
+    pm_k_mask = np.array(pm_k_mask)
+    flip_k = np.array(flip_k_list, dtype=int)
+    pm_k_rotations = rotations[pm_k_mask]
+    pm_k_translations = translations[pm_k_mask]
+
+    factor_system = get_factor_system_from_little_group(pm_k_rotations, pm_k_translations, kpoint)
+    table = get_cayley_table(pm_k_rotations, flip_k)
+
+    coreps, _ = _enumerate_small_corepresentations_with_factor_system(
+        little_rotations=pm_k_rotations,
+        little_translations=pm_k_translations,
+        little_time_reversals=flip_k,
+        kpoint=kpoint,
+        factor_system=factor_system,
+    )
+
+    # Translation phases carried on the small co-reps -- strip them so the
+    # residual composition law uses the linear-part factor system directly.
+    phases = np.exp(-2j * np.pi * pm_k_translations @ kpoint)
+    anti_linear = flip_k.astype(bool)
+    for corep in coreps:
+        bare = corep / phases[:, None, None]
+        _assert_corep_composition_law(bare, anti_linear, factor_system, table)

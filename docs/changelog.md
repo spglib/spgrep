@@ -1,5 +1,16 @@
 # Change Log
 
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.1.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [Unreleased]
+
+### Fixed
+
+- Co-representation extension formula for `a_0 u` in all three Frobenius-Schur cases (`_enumerate_small_corepresentations_with_factor_system` in `spgrep.corep`): the right operand is now complex-conjugated as required by the co-representation multiplication law. The previous output violated the law whenever the source irrep of the unitary subgroup had non-real matrices. `enumerate_spinor_small_corepresentations` inherits the fix since it delegates to the same helper.
+
 ## v0.5.0 (19 Jan. 2026)
 
 - The following modules are separated into subpackages: `spgrep.group`, `spgrep.representation`, `spgrep.pointgroup`, `spgrep.irreps`, `spgrep.tensor`, and `spgrep.transform`.
