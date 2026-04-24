@@ -52,7 +52,8 @@ def test_get_little_group_of_pm_k_coincides_with_little_group_when_2k_is_zero(P4
     np.testing.assert_allclose(pm_translations, little_translations)
     np.testing.assert_array_equal(pm_mapping, mapping_little_group)
     assert flip_k.shape == (len(little_rotations),)
-    assert np.all(flip_k == 0)
+    assert flip_k.dtype == np.bool_
+    assert not np.any(flip_k)
 
 
 def test_get_little_group_of_pm_k_on_pm3m_lambda():
@@ -71,15 +72,16 @@ def test_get_little_group_of_pm_k_on_pm3m_lambda():
     assert pm_translations.shape == (12, 3)
     assert pm_mapping.shape == (12,)
     assert flip_k.shape == (12,)
-    assert np.count_nonzero(flip_k == 0) == 6
-    assert np.count_nonzero(flip_k == 1) == 6
+    assert flip_k.dtype == np.bool_
+    assert np.count_nonzero(~flip_k) == 6
+    assert np.count_nonzero(flip_k) == 6
 
     # Stabilizing ops match get_little_group.
     little_rotations, _, _ = get_little_group(rotations, translations, kpoint)
-    np.testing.assert_array_equal(pm_rotations[flip_k == 0], little_rotations)
+    np.testing.assert_array_equal(pm_rotations[~flip_k], little_rotations)
 
     # k-flipping ops satisfy S^T k == -k (mod 1).
-    for rot in pm_rotations[flip_k == 1]:
+    for rot in pm_rotations[flip_k]:
         residual = rot.T @ kpoint + kpoint
         residual -= np.rint(residual)
         np.testing.assert_allclose(residual, 0, atol=1e-8)

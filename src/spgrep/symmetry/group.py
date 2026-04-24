@@ -8,6 +8,7 @@ import numpy as np
 
 from spgrep._constants import ATOL
 from spgrep.utils import (
+    NDArrayBool,
     NDArrayComplex,
     NDArrayFloat,
     NDArrayInt,
@@ -155,7 +156,7 @@ def get_little_group_of_pm_k(
     translations: NDArrayFloat,
     kpoint: NDArrayFloat,
     atol: float = ATOL,
-) -> tuple[NDArrayInt, NDArrayFloat, NDArrayInt, NDArrayInt]:
+) -> tuple[NDArrayInt, NDArrayFloat, NDArrayInt, NDArrayBool]:
     r"""Return coset of little group of :math:`\pm \mathbf{k}`.
 
     Returns operations that stabilize :math:`\{\mathbf{k}, -\mathbf{k}\}` as a
@@ -175,13 +176,13 @@ def get_little_group_of_pm_k(
     mapping_little_group: array, (little_group_order, )
         ``(rotations[mapping_little_group[idx]], translations[mapping_little_group[idx]])``
         belongs to the little group of :math:`\pm \mathbf{k}`.
-    flip_k: array[int], (little_group_order, )
-        ``flip_k[idx] == 0`` iff the ``idx``-th operation stabilizes
-        :math:`\mathbf{k}` itself. ``flip_k[idx] == 1`` iff it maps
+    flip_k: array[bool], (little_group_order, )
+        ``flip_k[idx]`` is ``False`` iff the ``idx``-th operation stabilizes
+        :math:`\mathbf{k}` itself, and ``True`` iff it maps
         :math:`\mathbf{k} \to -\mathbf{k}` (but not :math:`\mathbf{k}`).
         When :math:`2\mathbf{k} \equiv \mathbf{0}` every stabilizing operation
-        counts as ``0``, so ``flip_k`` is all zeros and the output agrees with
-        :func:`get_little_group`.
+        counts as ``False``, so ``flip_k`` is all ``False`` and the output
+        agrees with :func:`get_little_group`.
     """
     little_rotations = []
     little_translations = []
@@ -203,14 +204,14 @@ def get_little_group_of_pm_k(
         little_rotations.append(rotation)
         little_translations.append(translation)
         mapping_little_group.append(i)
-        # If both hold (i.e. 2k equiv 0), treat as unitary (0).
-        flip_k.append(0 if stabilizes else 1)
+        # If both hold (i.e. 2k equiv 0), treat as unitary (False).
+        flip_k.append(not stabilizes)
 
     return (
         np.array(little_rotations),
         np.array(little_translations),
         np.array(mapping_little_group),
-        np.array(flip_k, dtype=np.int_),
+        np.array(flip_k, dtype=np.bool_),
     )
 
 
