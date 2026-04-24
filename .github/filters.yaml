@@ -1,5 +1,5 @@
 python:
-  - 'spgrep/**'
+  - 'src/spgrep/**'
   - 'tests/**'
   - 'pyproject.toml'
   - 'uv.lock'
@@ -7,7 +7,7 @@ python:
   - '.github/filters.yaml'
 docs:
   - 'docs/**'
-  - 'spgrep/**'
+  - 'src/spgrep/**'
   - 'pyproject.toml'
   - 'uv.lock'
   - '.github/workflows/testing.yml'
