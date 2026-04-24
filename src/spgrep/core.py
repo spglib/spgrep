@@ -21,7 +21,7 @@ from spgrep.symmetry.enumerate import (
     enumerate_unitary_irreps,
     purify_irrep_value,
 )
-from spgrep.symmetry.group import get_little_group
+from spgrep.symmetry.group import get_little_group, get_little_group_of_pm_k
 from spgrep.symmetry.transform import (
     get_primitive_transformation_matrix,
     transform_symmetry_and_kpoint,
@@ -175,6 +175,10 @@ def get_spacegroup_irreps_from_primitive_symmetry(
            \end{pmatrix}
 
         where :math:`\mathbf{k}` is `kpoint`.
+        When ``real=True``, the physically irreducible representations are
+        defined on the little group of :math:`\pm\mathbf{k}` (G^{k,k-bar});
+        ``mapping_little_group`` reflects that. G^{k,k-bar} coincides with
+        the ordinary little group when :math:`2\mathbf{k} \equiv \mathbf{0}`.
     method: str, 'Neto' or 'random'
         'Neto': construct irreps from a fixed chain of subgroups of little co-group
         'random': construct irreps by numerically diagonalizing a random matrix commute with regular representation
@@ -192,6 +196,7 @@ def get_spacegroup_irreps_from_primitive_symmetry(
     mapping_little_group: array, (little_group_order, )
         Let ``i = mapping_little_group[idx]``.
         ``(rotations[i], translations[i])`` belongs to the little group of given space space group and kpoint.
+        When ``real=True``, it refers to the little group of :math:`\pm\mathbf{k}` instead.
     """
     kpoint = np.asarray(kpoint, dtype=float)
 
@@ -202,9 +207,14 @@ def get_spacegroup_irreps_from_primitive_symmetry(
         ):
             raise ValueError("Specify symmetry operations in primitive cell!")
 
-    little_rotations, little_translations, mapping_little_group = get_little_group(
-        rotations, translations, kpoint, atol=atol
-    )
+    if real:
+        little_rotations, little_translations, mapping_little_group, _ = get_little_group_of_pm_k(
+            rotations, translations, kpoint, atol=atol
+        )
+    else:
+        little_rotations, little_translations, mapping_little_group = get_little_group(
+            rotations, translations, kpoint, atol=atol
+        )
 
     # Small representations of little group
     irreps, indicators = enumerate_small_representations(

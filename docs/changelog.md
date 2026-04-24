@@ -7,9 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Physically irreducible representations (`real=True`) are now defined on the little group of $\pm\mathbf{k}$ instead of only the little group of $\mathbf{k}$, following `docs/formulation/irreps/reality.md`. This fixes the output carrier for $2\mathbf{k} \not\equiv \mathbf{0}$ k-points. A new helper `get_little_group_of_pm_k` is available in `spgrep.symmetry.group`.
+
 ### Fixed
 
 - Co-representation extension formula for `a_0 u` in all three Frobenius-Schur cases (`_enumerate_small_corepresentations_with_factor_system` in `spgrep.corep`): the right operand is now complex-conjugated as required by the co-representation multiplication law. The previous output violated the law whenever the source irrep of the unitary subgroup had non-real matrices. `enumerate_spinor_small_corepresentations` inherits the fix since it delegates to the same helper.
+
 
 ## v0.5.0 (19 Jan. 2026)
 
