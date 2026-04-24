@@ -72,7 +72,7 @@ A new basis $\{ \frac{1}{\sqrt{2}}(\phi_{i} + \psi_{i}) \}_{i}$ gives the follow
 $$
     \tilde{\mathbf{\Gamma}}(u) &= \mathbf{\Gamma}(u) \\
     \tilde{\mathbf{\Gamma}}(a_{0}) &= \mathbf{U} \\
-    \tilde{\mathbf{\Gamma}}(a_{0}u) &= \omega(a_{0}, u)^{\ast} \tilde{\mathbf{\Gamma}}(a_{0}) \tilde{\mathbf{\Gamma}}(u) \\
+    \tilde{\mathbf{\Gamma}}(a_{0}u) &= \omega(a_{0}, u)^{\ast} \tilde{\mathbf{\Gamma}}(a_{0}) \tilde{\mathbf{\Gamma}}(u)^{\ast} \\
     \mathbf{U}\mathbf{U}^{\ast} &= \omega(a_{0}, a_{0})\Gamma(a_{0}^{2}).
 $$
 
@@ -105,7 +105,7 @@ $$
             \mathbf{0} & -\mathbf{U} \\
             \mathbf{U} & \mathbf{0} \\
         \end{pmatrix} \\
-    \tilde{\mathbf{\Gamma}}(a_{0}u) &= \omega(a_{0}, u)^{\ast} \tilde{\mathbf{\Gamma}}(a_{0}) \tilde{\mathbf{\Gamma}}(u)
+    \tilde{\mathbf{\Gamma}}(a_{0}u) &= \omega(a_{0}, u)^{\ast} \tilde{\mathbf{\Gamma}}(a_{0}) \tilde{\mathbf{\Gamma}}(u)^{\ast}
 $$
 
 ### Case: $\xi^{\alpha} = 0$
@@ -123,7 +123,7 @@ $$
             \mathbf{0} & \omega(a_{0}, a_{0}) \mathbf{\Gamma}(a_{0}^{2}) \\
             \mathbf{1} & \mathbf{0} \\
         \end{pmatrix} \\
-    \tilde{\mathbf{\Gamma}}(a_{0}u) &= \omega(a_{0}, u)^{\ast} \tilde{\mathbf{\Gamma}}(a_{0}) \tilde{\mathbf{\Gamma}}(u)
+    \tilde{\mathbf{\Gamma}}(a_{0}u) &= \omega(a_{0}, u)^{\ast} \tilde{\mathbf{\Gamma}}(a_{0}) \tilde{\mathbf{\Gamma}}(u)^{\ast}
 $$
 
 (corep_spinor_factor_system)=

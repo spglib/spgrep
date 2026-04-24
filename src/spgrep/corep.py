@@ -382,7 +382,9 @@ def _enumerate_small_corepresentations_with_factor_system(
             corep = np.zeros((order, dim, dim), dtype=np.complex128)
             corep[xsg_indices] = irrep
             corep[a0u] = (
-                np.conj(factor_system[a0_idx, xsg_indices])[:, None, None] * U[None, :, :] @ irrep
+                np.conj(factor_system[a0_idx, xsg_indices])[:, None, None]
+                * U[None, :, :]
+                @ np.conj(irrep)
             )
         elif indicator == -1:
             U = get_intertwiner(irrep, conj_irrep, atol, max_num_random_generations)
@@ -402,7 +404,7 @@ def _enumerate_small_corepresentations_with_factor_system(
             corep[a0u] = (
                 np.conj(factor_system[a0_idx, xsg_indices])[:, None, None]
                 * corep_a0[None, :, :]
-                @ corep[xsg_indices]
+                @ np.conj(corep[xsg_indices])
             )
         elif indicator == 0:
             corep = np.zeros((order, 2 * dim, 2 * dim), dtype=np.complex128)
@@ -423,7 +425,7 @@ def _enumerate_small_corepresentations_with_factor_system(
             corep[a0u] = (
                 np.conj(factor_system[a0_idx, xsg_indices])[:, None, None]
                 * corep_a0[None, :, :]
-                @ corep[xsg_indices]
+                @ np.conj(corep[xsg_indices])
             )
         else:
             raise ValueError("Unreachable!")
