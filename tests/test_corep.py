@@ -167,18 +167,19 @@ def test_get_magnetic_spacegroup_coreps_from_primitive_symmetry(
     )
 
 
-def test_corep_composition_law_pm3m_lambda():
+def test_corep_composition_law_221_lambda():
     """Regression: co-rep extension must conjugate the right operand when the left is anti-linear.
 
-    Constructs the little group of :math:`\\pm \\mathbf{k}` for Pm-3m at
-    :math:`\\mathbf{k} = (1/4, 1/4, 1/4)` (a non-TRIM point; the 2-dim ``E`` irrep
-    of :math:`D_3` appears here and is non-real). Feeds the k-flip mask as
-    ``little_time_reversals`` -- this matches how the co-rep machinery is used to
-    extend a small rep of :math:`G^{\\mathbf{k}}` to :math:`G^{\\mathbf{k}\\bar{\\mathbf{k}}}`.
-    Before the conjugation fix this assertion fails at 72/144 pairs for one of
-    the three ``ksi`` blocks; after the fix all pairs pass.
+    Constructs the little group of :math:`\\pm \\mathbf{k}` for ITA No. 221
+    (:math:`Pm\\bar{3}m`) at :math:`\\mathbf{k} = (1/4, 1/4, 1/4)` (a non-TRIM
+    point; the 2-dim ``E`` irrep of :math:`D_3` appears here and is non-real).
+    Feeds the k-flip mask as ``little_time_reversals`` -- this matches how the
+    co-rep machinery is used to extend a small rep of :math:`G^{\\mathbf{k}}` to
+    :math:`G^{\\mathbf{k}\\bar{\\mathbf{k}}}`. Before the conjugation fix this
+    assertion fails at 72/144 pairs for one of the three ``ksi`` blocks; after
+    the fix all pairs pass.
     """
-    rotations, translations = get_symmetry_from_hall_number(517)  # Pm-3m
+    rotations, translations = get_symmetry_from_hall_number(517)  # ITA No. 221, Pm-3m
     kpoint = np.array([0.25, 0.25, 0.25])
 
     pm_k_mask = []
