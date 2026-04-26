@@ -187,6 +187,30 @@ $$
 selects the block-matrix form of $\tilde{\mathbf{\Gamma}}^{\mathbf{k}\alpha}(a)$; see {ref}`corep <corep>` for the three cases and their derivation.
 In every case $\tilde{\mathbf{\Gamma}}^{\mathbf{k}\alpha}(a h) = \tilde{\mathbf{\Gamma}}^{\mathbf{k}\alpha}(a) \tilde{\mathbf{\Gamma}}^{\mathbf{k}\alpha}(h)$ on the remaining coset $a \mathcal{G}^{\mathbf{k}}$.
 
+### Realification of the corep on $\mathcal{G}^{\mathbf{k}\bar{\mathbf{k}}}$
+
+The extended corep $\tilde{\mathbf{\Gamma}}^{\mathbf{k}\alpha}$ acts $\mathbb{C}$-linearly on $\mathcal{G}^{\mathbf{k}}$ and $\mathbb{C}$-antilinearly on $a\mathcal{G}^{\mathbf{k}}$ (the latter sending $\mathbf{v} \mapsto \tilde{\mathbf{D}}(g) \mathbf{v}^{\ast}$ for $g \in a\mathcal{G}^{\mathbf{k}}$).
+Identify $\mathbb{C}^{d}$ with $\mathbb{R}^{2d}$ via $\mathbf{v} = \mathbf{x} + i\mathbf{y} \leftrightarrow (\mathbf{x}, \mathbf{y})^{\top}$.
+With $\tilde{\mathbf{D}} = \tilde{\mathbf{\Gamma}}^{\mathbf{k}\alpha}(g)$ split as $\tilde{\mathbf{D}} = \mathrm{Re}\,\tilde{\mathbf{D}} + i\,\mathrm{Im}\,\tilde{\mathbf{D}}$, the two cases are:
+
+**Linear** ($g \in \mathcal{G}^{\mathbf{k}}$): $\tilde{\mathbf{D}}\mathbf{v} = (\mathrm{Re}\,\tilde{\mathbf{D}}\,\mathbf{x} - \mathrm{Im}\,\tilde{\mathbf{D}}\,\mathbf{y}) + i(\mathrm{Im}\,\tilde{\mathbf{D}}\,\mathbf{x} + \mathrm{Re}\,\tilde{\mathbf{D}}\,\mathbf{y})$, giving
+$$
+  \rho(g) = \begin{pmatrix}
+    \mathrm{Re}\, \tilde{\mathbf{D}} & -\mathrm{Im}\, \tilde{\mathbf{D}} \\
+    \mathrm{Im}\, \tilde{\mathbf{D}} & \mathrm{Re}\, \tilde{\mathbf{D}} \\
+  \end{pmatrix}.
+$$
+
+**Antilinear** ($g \in a\mathcal{G}^{\mathbf{k}}$): $\tilde{\mathbf{D}}\mathbf{v}^{\ast} = (\mathrm{Re}\,\tilde{\mathbf{D}}\,\mathbf{x} + \mathrm{Im}\,\tilde{\mathbf{D}}\,\mathbf{y}) + i(\mathrm{Im}\,\tilde{\mathbf{D}}\,\mathbf{x} - \mathrm{Re}\,\tilde{\mathbf{D}}\,\mathbf{y})$, giving
+$$
+  \rho(g) = \begin{pmatrix}
+    \mathrm{Re}\, \tilde{\mathbf{D}} & \mathrm{Im}\, \tilde{\mathbf{D}} \\
+    \mathrm{Im}\, \tilde{\mathbf{D}} & -\mathrm{Re}\, \tilde{\mathbf{D}} \\
+  \end{pmatrix}.
+$$
+
+The conjugation in the corep multiplication law $\tilde{\mathbf{\Gamma}}^{\mathbf{k}\alpha}(g_1 g_2) = \tilde{\mathbf{\Gamma}}^{\mathbf{k}\alpha}(g_1)\,\tilde{\mathbf{\Gamma}}^{\mathbf{k}\alpha}(g_2)^{(\ast)}$ (the $\ast$ applied iff $g_1 \in a\mathcal{G}^{\mathbf{k}}$) is absorbed by the antilinear block, so $\rho$ satisfies ordinary matrix multiplication $\rho(g_1 g_2) = \rho(g_1)\rho(g_2)$ and is a real linear representation of $\mathcal{G}^{\mathbf{k}\bar{\mathbf{k}}}$ on $\mathbb{R}^{2d}$.
+
 ## References
 
 ```{bibliography}
