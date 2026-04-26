@@ -130,3 +130,34 @@ def test_spacegroup_pir_pm3m_lambda():
         assert pir.shape[0] == len(pm_k_rotations)
         assert pir.shape[1] == pir.shape[2]
         assert is_representation(pir, table)
+
+
+def test_spacegroup_pir_r3m_smk1():
+    # SG 166 (R-3m) at Bilbao's k1=(u,-2u,0)_hex on the SM line, where 2k is
+    # not equivalent to 0. Compares against the Bilbao Crystallographic Server's
+    # PIR enumeration (SM1, SM2 of dimension 2 on the 4-op little group of
+    # +/- k). As in test_spacegroup_pir_pm3m_lambda, only the structural
+    # properties are checked; the exact matrix entries are basis-dependent.
+    # Hall 459 is the primitive rhombohedral setting; Bilbao's hexagonal-axes
+    # k1=(u,-2u,0) transforms to k=(0,-u,u) in primitive rhombohedral basis.
+    rotations, translations = get_symmetry_from_hall_number(459)  # R-3m primitive rhom
+    u = 0.13  # generic; 2u is not an integer so 2k is not equivalent to 0
+    kpoint = np.array([0.0, -u, u])
+
+    pm_k_rotations, _, _, flip_k = get_little_group_of_pm_k(rotations, translations, kpoint)
+    # Little group of +/- k1 = {1, 2_010, 1bar, m_010}: 2 stabilize k1, 2 flip.
+    assert len(pm_k_rotations) == 4
+    assert int(np.sum(flip_k == 0)) == 2
+    assert int(np.sum(flip_k == 1)) == 2
+
+    physically_irreps, _ = get_spacegroup_irreps_from_primitive_symmetry(
+        rotations, translations, kpoint, real=True
+    )
+    # Bilbao reports SM1, SM2 -- 2 PIRs of dim 2 each.
+    assert len(physically_irreps) == 2
+
+    table = get_cayley_table(pm_k_rotations)
+    for pir in physically_irreps:
+        assert pir.shape == (4, 2, 2)
+        assert pir.dtype.kind == "f"
+        assert is_representation(pir, table)
