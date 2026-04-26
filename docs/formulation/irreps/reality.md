@@ -189,27 +189,58 @@ In every case $\tilde{\mathbf{\Gamma}}^{\mathbf{k}\alpha}(a h) = \tilde{\mathbf{
 
 ### Realification of the corep on $\mathcal{G}^{\mathbf{k}\bar{\mathbf{k}}}$
 
-The extended corep $\tilde{\mathbf{\Gamma}}^{\mathbf{k}\alpha}$ acts $\mathbb{C}$-linearly on $\mathcal{G}^{\mathbf{k}}$ and $\mathbb{C}$-antilinearly on $a\mathcal{G}^{\mathbf{k}}$ (the latter sending $\mathbf{v} \mapsto \tilde{\mathbf{D}}(g) \mathbf{v}^{\ast}$ for $g \in a\mathcal{G}^{\mathbf{k}}$).
-Identify $\mathbb{C}^{d}$ with $\mathbb{R}^{2d}$ via $\mathbf{v} = \mathbf{x} + i\mathbf{y} \leftrightarrow (\mathbf{x}, \mathbf{y})^{\top}$.
-With $\tilde{\mathbf{D}} = \tilde{\mathbf{\Gamma}}^{\mathbf{k}\alpha}(g)$ split as $\tilde{\mathbf{D}} = \mathrm{Re}\,\tilde{\mathbf{D}} + i\,\mathrm{Im}\,\tilde{\mathbf{D}}$, the two cases are:
+Use the same change of basis as in the finite-group $(2, 3)$ subsection,
+$$
+  (\mathbf{v}_{1}, \cdots, \mathbf{v}_{d}, \mathbf{v}_{1}^{\ast}, \cdots, \mathbf{v}_{d}^{\ast}) \mathbf{U}
+    = \sqrt{2} (\mathrm{Re}\, \mathbf{v}_{1}, \cdots, \mathrm{Re}\, \mathbf{v}_{d}, \mathrm{Im}\, \mathbf{v}_{1}, \cdots, \mathrm{Im}\, \mathbf{v}_{d}),
+  \quad
+  \mathbf{U} := \frac{1}{\sqrt{2}}\begin{pmatrix}
+    \mathbf{1}_{d} & -i \mathbf{1}_{d} \\
+    \mathbf{1}_{d} & i \mathbf{1}_{d} \\
+  \end{pmatrix},
+$$
+and write $\tilde{\mathbf{D}}(g) := \tilde{\mathbf{\Gamma}}^{\mathbf{k}\alpha}(g)$.
 
-**Linear** ($g \in \mathcal{G}^{\mathbf{k}}$): $\tilde{\mathbf{D}}\mathbf{v} = (\mathrm{Re}\,\tilde{\mathbf{D}}\,\mathbf{x} - \mathrm{Im}\,\tilde{\mathbf{D}}\,\mathbf{y}) + i(\mathrm{Im}\,\tilde{\mathbf{D}}\,\mathbf{x} + \mathrm{Re}\,\tilde{\mathbf{D}}\,\mathbf{y})$, giving
+For $g \in \mathcal{G}^{\mathbf{k}}$ the corep acts $\mathbb{C}$-linearly, so on the doubled basis it is block-diagonal and the realification is the formula already obtained in the finite-group $(2, 3)$ subsection:
 $$
-  \rho(g) = \begin{pmatrix}
-    \mathrm{Re}\, \tilde{\mathbf{D}} & -\mathrm{Im}\, \tilde{\mathbf{D}} \\
-    \mathrm{Im}\, \tilde{\mathbf{D}} & \mathrm{Re}\, \tilde{\mathbf{D}} \\
-  \end{pmatrix}.
+  \mathbf{U}^{-1}
+  \begin{pmatrix}
+    \tilde{\mathbf{D}}(g) & \\
+    & \tilde{\mathbf{D}}(g)^{\ast} \\
+  \end{pmatrix}
+  \mathbf{U}
+  = \begin{pmatrix}
+    \mathrm{Re}\, \tilde{\mathbf{D}}(g) & \mathrm{Im}\, \tilde{\mathbf{D}}(g) \\
+    -\mathrm{Im}\, \tilde{\mathbf{D}}(g) & \mathrm{Re}\, \tilde{\mathbf{D}}(g) \\
+  \end{pmatrix}
+  \quad (g \in \mathcal{G}^{\mathbf{k}}).
 $$
 
-**Antilinear** ($g \in a\mathcal{G}^{\mathbf{k}}$): $\tilde{\mathbf{D}}\mathbf{v}^{\ast} = (\mathrm{Re}\,\tilde{\mathbf{D}}\,\mathbf{x} + \mathrm{Im}\,\tilde{\mathbf{D}}\,\mathbf{y}) + i(\mathrm{Im}\,\tilde{\mathbf{D}}\,\mathbf{x} - \mathrm{Re}\,\tilde{\mathbf{D}}\,\mathbf{y})$, giving
+For $g \in a \mathcal{G}^{\mathbf{k}}$ the corep acts $\mathbb{C}$-antilinearly as $\mathbf{v} \mapsto \tilde{\mathbf{D}}(g) \mathbf{v}^{\ast}$.
+On the doubled basis $(\mathbf{v}_{1}, \cdots, \mathbf{v}_{d}, \mathbf{v}_{1}^{\ast}, \cdots, \mathbf{v}_{d}^{\ast})$ this antilinear action becomes the $\mathbb{C}$-linear block-off-diagonal matrix
 $$
-  \rho(g) = \begin{pmatrix}
-    \mathrm{Re}\, \tilde{\mathbf{D}} & \mathrm{Im}\, \tilde{\mathbf{D}} \\
-    \mathrm{Im}\, \tilde{\mathbf{D}} & -\mathrm{Re}\, \tilde{\mathbf{D}} \\
-  \end{pmatrix}.
+  \begin{pmatrix}
+    & \tilde{\mathbf{D}}(g) \\
+    \tilde{\mathbf{D}}(g)^{\ast} &
+  \end{pmatrix},
+$$
+because $g \cdot \sum_{i} c_{i} \mathbf{v}_{i} = \sum_{i,j} c_{i}^{\ast} \tilde{\mathbf{D}}(g)_{ji} \mathbf{v}_{j}$ pairs the $\mathbf{v}$-block of coordinates with the $\mathbf{v}^{\ast}$-block of basis vectors.
+Conjugating with $\mathbf{U}$ then gives
+$$
+  \mathbf{U}^{-1}
+  \begin{pmatrix}
+    & \tilde{\mathbf{D}}(g) \\
+    \tilde{\mathbf{D}}(g)^{\ast} &
+  \end{pmatrix}
+  \mathbf{U}
+  = \begin{pmatrix}
+    \mathrm{Re}\, \tilde{\mathbf{D}}(g) & -\mathrm{Im}\, \tilde{\mathbf{D}}(g) \\
+    -\mathrm{Im}\, \tilde{\mathbf{D}}(g) & -\mathrm{Re}\, \tilde{\mathbf{D}}(g) \\
+  \end{pmatrix}
+  \quad (g \in a\mathcal{G}^{\mathbf{k}}).
 $$
 
-The conjugation in the corep multiplication law $\tilde{\mathbf{\Gamma}}^{\mathbf{k}\alpha}(g_1 g_2) = \tilde{\mathbf{\Gamma}}^{\mathbf{k}\alpha}(g_1)\,\tilde{\mathbf{\Gamma}}^{\mathbf{k}\alpha}(g_2)^{(\ast)}$ (the $\ast$ applied iff $g_1 \in a\mathcal{G}^{\mathbf{k}}$) is absorbed by the antilinear block, so $\rho$ satisfies ordinary matrix multiplication $\rho(g_1 g_2) = \rho(g_1)\rho(g_2)$ and is a real linear representation of $\mathcal{G}^{\mathbf{k}\bar{\mathbf{k}}}$ on $\mathbb{R}^{2d}$.
+The corep multiplication law (with $\ast$ applied iff the left factor is antilinear) is reproduced by ordinary matrix multiplication of these $2d \times 2d$ real blocks, so the resulting matrices form a real linear representation of $\mathcal{G}^{\mathbf{k}\bar{\mathbf{k}}}$.
 
 ## References
 

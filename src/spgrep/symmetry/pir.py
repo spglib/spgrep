@@ -89,24 +89,28 @@ def _realify_corep_to_real_rep(
 ) -> NDArrayFloat:
     r"""Realise a complex corepresentation as a real linear matrix representation.
 
-    A corepresentation acts on a complex vector space :math:`\mathbb{C}^d` via
-    unitary matrices on linear ops and via :math:`z \mapsto D(g) z^{\ast}` on
-    antilinear ops. Viewing :math:`\mathbb{C}^d \simeq \mathbb{R}^{2d}` via
-    :math:`z = x + i y \mapsto (x, y)`, multiplication by :math:`w = a + i b` is
-    :math:`\bigl[\begin{smallmatrix}a & -b \\ b & a\end{smallmatrix}\bigr]` and
-    complex conjugation is :math:`\mathrm{diag}(I_d, -I_d)`. Composing these
-    gives the real-linear images:
+    Follows the change of basis used in the finite-group :math:`(2, 3)` block
+    of :ref:`physically_irreps` and its extension to
+    :math:`\mathcal{G}^{\mathbf{k}\bar{\mathbf{k}}}`: the doubled basis
+    :math:`(\mathbf{v}_{1}, \dots, \mathbf{v}_{d}, \mathbf{v}_{1}^{\ast}, \dots,
+    \mathbf{v}_{d}^{\ast}) \mathbf{U}` is rotated to the real basis by
 
-    - linear op :math:`g`:
-      :math:`\bigl[\begin{smallmatrix} \mathrm{Re}\,D & -\mathrm{Im}\,D \\
-      \mathrm{Im}\,D & \mathrm{Re}\,D \end{smallmatrix}\bigr]`,
-    - antilinear op :math:`g`:
-      :math:`\bigl[\begin{smallmatrix} \mathrm{Re}\,D & \mathrm{Im}\,D \\
-      \mathrm{Im}\,D & -\mathrm{Re}\,D \end{smallmatrix}\bigr]`.
+    .. math::
 
-    This conversion produces a genuine matrix representation of the underlying
-    (linear) group on :math:`\mathbb{R}^{2d}`, which is the physically
-    irreducible representation associated with the corepresentation.
+        \mathbf{U} = \frac{1}{\sqrt{2}}
+            \begin{pmatrix} \mathbf{1}_d & -i \mathbf{1}_d \\
+                            \mathbf{1}_d &  i \mathbf{1}_d \end{pmatrix}.
+
+    For a linear op :math:`g \in \mathcal{G}^{\mathbf{k}}`,
+    :math:`\mathbf{U}^{-1} \mathrm{diag}(D, D^{\ast}) \mathbf{U}` gives
+    :math:`\bigl[\begin{smallmatrix} \mathrm{Re}\,D & \mathrm{Im}\,D \\
+    -\mathrm{Im}\,D & \mathrm{Re}\,D \end{smallmatrix}\bigr]`.
+    For an antilinear op :math:`g \in a\mathcal{G}^{\mathbf{k}}` the action
+    :math:`\mathbf{v} \mapsto D(g)\mathbf{v}^{\ast}` is the off-diagonal block
+    :math:`\bigl[\begin{smallmatrix} & D(g) \\ D(g)^{\ast} & \end{smallmatrix}\bigr]`
+    on the doubled basis, and conjugating by :math:`\mathbf{U}` gives
+    :math:`\bigl[\begin{smallmatrix} \mathrm{Re}\,D & -\mathrm{Im}\,D \\
+    -\mathrm{Im}\,D & -\mathrm{Re}\,D \end{smallmatrix}\bigr]`.
 
     Parameters
     ----------
@@ -127,12 +131,12 @@ def _realify_corep_to_real_rep(
     for g in range(order):
         if anti_linear[g]:
             real_rep[g, :dim, :dim] = re[g]
-            real_rep[g, :dim, dim:] = im[g]
-            real_rep[g, dim:, :dim] = im[g]
+            real_rep[g, :dim, dim:] = -im[g]
+            real_rep[g, dim:, :dim] = -im[g]
             real_rep[g, dim:, dim:] = -re[g]
         else:
             real_rep[g, :dim, :dim] = re[g]
-            real_rep[g, :dim, dim:] = -im[g]
-            real_rep[g, dim:, :dim] = im[g]
+            real_rep[g, :dim, dim:] = im[g]
+            real_rep[g, dim:, :dim] = -im[g]
             real_rep[g, dim:, dim:] = re[g]
     return real_rep
