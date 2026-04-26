@@ -189,19 +189,9 @@ In every case $\tilde{\mathbf{\Gamma}}^{\mathbf{k}\alpha}(a h) = \tilde{\mathbf{
 
 ### Realification of the corep on $\mathcal{G}^{\mathbf{k}\bar{\mathbf{k}}}$
 
-Use the same change of basis as in the finite-group $(2, 3)$ subsection,
-$$
-  (\mathbf{v}_{1}, \cdots, \mathbf{v}_{d}, \mathbf{v}_{1}^{\ast}, \cdots, \mathbf{v}_{d}^{\ast}) \mathbf{U}
-    = \sqrt{2} (\mathrm{Re}\, \mathbf{v}_{1}, \cdots, \mathrm{Re}\, \mathbf{v}_{d}, \mathrm{Im}\, \mathbf{v}_{1}, \cdots, \mathrm{Im}\, \mathbf{v}_{d}),
-  \quad
-  \mathbf{U} := \frac{1}{\sqrt{2}}\begin{pmatrix}
-    \mathbf{1}_{d} & -i \mathbf{1}_{d} \\
-    \mathbf{1}_{d} & i \mathbf{1}_{d} \\
-  \end{pmatrix},
-$$
-and write $\tilde{\mathbf{D}}(g) := \tilde{\mathbf{\Gamma}}^{\mathbf{k}\alpha}(g)$.
+Reuse the change of basis from the finite-group $(2, 3)$ subsection and write $\tilde{\mathbf{D}}(g) := \tilde{\mathbf{\Gamma}}^{\mathbf{k}\alpha}(g)$.
+For $g \in \mathcal{G}^{\mathbf{k}}$ the corep acts $\mathbb{C}$-linearly, so on the doubled basis it is block-diagonal and the realification is the same formula as the finite-group $(2, 3)$ subsection:
 
-For $g \in \mathcal{G}^{\mathbf{k}}$ the corep acts $\mathbb{C}$-linearly, so on the doubled basis it is block-diagonal and the realification is the formula already obtained in the finite-group $(2, 3)$ subsection:
 $$
   \mathbf{U}^{-1}
   \begin{pmatrix}
@@ -216,21 +206,15 @@ $$
   \quad (g \in \mathcal{G}^{\mathbf{k}}).
 $$
 
-For $g \in a \mathcal{G}^{\mathbf{k}}$ the corep acts $\mathbb{C}$-antilinearly as $\mathbf{v} \mapsto \tilde{\mathbf{D}}(g) \mathbf{v}^{\ast}$.
-On the doubled basis $(\mathbf{v}_{1}, \cdots, \mathbf{v}_{d}, \mathbf{v}_{1}^{\ast}, \cdots, \mathbf{v}_{d}^{\ast})$ this antilinear action becomes the $\mathbb{C}$-linear block-off-diagonal matrix
-$$
-  \begin{pmatrix}
-    & \tilde{\mathbf{D}}(g) \\
-    \tilde{\mathbf{D}}(g)^{\ast} &
-  \end{pmatrix},
-$$
-because $g \cdot \sum_{i} c_{i} \mathbf{v}_{i} = \sum_{i,j} c_{i}^{\ast} \tilde{\mathbf{D}}(g)_{ji} \mathbf{v}_{j}$ pairs the $\mathbf{v}$-block of coordinates with the $\mathbf{v}^{\ast}$-block of basis vectors.
-Conjugating with $\mathbf{U}$ then gives
+For $g \in a\mathcal{G}^{\mathbf{k}}$ the corep acts $\mathbb{C}$-antilinearly as $\mathbf{v} \mapsto \tilde{\mathbf{D}}(g) \mathbf{v}^{\ast}$.
+On the doubled basis $(\mathbf{v}_{1}, \cdots, \mathbf{v}_{d}, \mathbf{v}_{1}^{\ast}, \cdots, \mathbf{v}_{d}^{\ast})$ this antilinear action is the $\mathbb{C}$-linear block-off-diagonal matrix $\bigl(\begin{smallmatrix} \mathbf{0} & \tilde{\mathbf{D}}(g) \\ \tilde{\mathbf{D}}(g)^{\ast} & \mathbf{0} \end{smallmatrix}\bigr)$, since $g$ exchanges the $\mathbf{v}$ and $\mathbf{v}^{\ast}$ blocks of basis vectors while complex-conjugating coordinates.
+Conjugating with $\mathbf{U}$ gives
+
 $$
   \mathbf{U}^{-1}
   \begin{pmatrix}
-    & \tilde{\mathbf{D}}(g) \\
-    \tilde{\mathbf{D}}(g)^{\ast} &
+    \mathbf{0} & \tilde{\mathbf{D}}(g) \\
+    \tilde{\mathbf{D}}(g)^{\ast} & \mathbf{0} \\
   \end{pmatrix}
   \mathbf{U}
   = \begin{pmatrix}
