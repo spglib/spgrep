@@ -21,7 +21,8 @@ from spgrep.symmetry.enumerate import (
     enumerate_unitary_irreps,
     purify_irrep_value,
 )
-from spgrep.symmetry.group import get_little_group
+from spgrep.symmetry.group import get_little_group, get_little_group_of_pm_k
+from spgrep.symmetry.pir import _realify_corep_to_real_rep, purify_real_irrep_value
 from spgrep.symmetry.transform import (
     get_primitive_transformation_matrix,
     transform_symmetry_and_kpoint,
@@ -175,6 +176,10 @@ def get_spacegroup_irreps_from_primitive_symmetry(
            \end{pmatrix}
 
         where :math:`\mathbf{k}` is `kpoint`.
+        When ``real=True``, the physically irreducible representations are
+        defined on the little group of :math:`\pm\mathbf{k}` (G^{k,k-bar});
+        ``mapping_little_group`` reflects that. G^{k,k-bar} coincides with
+        the ordinary little group when :math:`2\mathbf{k} \equiv \mathbf{0}`.
     method: str, 'Neto' or 'random'
         'Neto': construct irreps from a fixed chain of subgroups of little co-group
         'random': construct irreps by numerically diagonalizing a random matrix commute with regular representation
@@ -192,6 +197,7 @@ def get_spacegroup_irreps_from_primitive_symmetry(
     mapping_little_group: array, (little_group_order, )
         Let ``i = mapping_little_group[idx]``.
         ``(rotations[i], translations[i])`` belongs to the little group of given space space group and kpoint.
+        When ``real=True``, it refers to the little group of :math:`\pm\mathbf{k}` instead.
     """
     kpoint = np.asarray(kpoint, dtype=float)
 
@@ -202,12 +208,41 @@ def get_spacegroup_irreps_from_primitive_symmetry(
         ):
             raise ValueError("Specify symmetry operations in primitive cell!")
 
-    little_rotations, little_translations, mapping_little_group = get_little_group(
-        rotations, translations, kpoint, atol=atol
-    )
+    if real:
+        (
+            little_rotations,
+            little_translations,
+            mapping_little_group,
+            flip_k,
+        ) = get_little_group_of_pm_k(rotations, translations, kpoint, atol=atol)
+        if np.any(flip_k):
+            # 2k not equiv 0: per reality.md "Extension to G^{k,k-bar}", build the
+            # small corep on G^{k,k-bar} via the corep machinery (with the k -> -k
+            # flip playing the role of complex conjugation), then convert each
+            # complex corep to a real linear matrix representation.
+            coreps, anti_linear = enumerate_small_corepresentations(
+                little_rotations,
+                little_translations,
+                flip_k.astype(np.int64),
+                kpoint,
+                method=method,
+                rtol=rtol,
+                atol=atol,
+                max_num_random_generations=max_num_random_generations,
+            )
+            irreps = [
+                purify_real_irrep_value(_realify_corep_to_real_rep(c, anti_linear), atol=atol)
+                for c in coreps
+            ]
+            return irreps, mapping_little_group
+    else:
+        little_rotations, little_translations, mapping_little_group = get_little_group(
+            rotations, translations, kpoint, atol=atol
+        )
 
-    # Small representations of little group
-    irreps, indicators = enumerate_small_representations(
+    # Small representations of little group (2k equiv 0 case for ``real=True``,
+    # or the ordinary complex enumeration when ``real=False``).
+    irreps, _ = enumerate_small_representations(
         little_rotations,
         little_translations,
         kpoint,

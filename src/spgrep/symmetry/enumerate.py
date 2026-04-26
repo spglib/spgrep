@@ -81,15 +81,8 @@ def enumerate_small_representations(
     )
 
     # Small representations of little group
-    irreps = []
-    for rep in little_cogroup_irreps:
-        phases = np.array(
-            [
-                np.exp(-2j * np.pi * np.dot(kpoint, translation))
-                for translation in little_translations
-            ]
-        )
-        irreps.append(rep * phases[:, None, None])
+    phases = np.array([np.exp(-2j * np.pi * np.dot(kpoint, t)) for t in little_translations])
+    irreps = [rep * phases[:, None, None] for rep in little_cogroup_irreps]
 
     if not real:
         indicators = [frobenius_schur_indicator(irrep) for irrep in irreps]

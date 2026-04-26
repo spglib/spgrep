@@ -8,7 +8,7 @@ from spgrep._constants import ATOL, MAX_NUM_RANDOM_GENERATIONS
 from spgrep.rep.irreps import frobenius_schur_indicator, is_equivalent_irrep
 from spgrep.rep.pir import get_physically_irrep
 from spgrep.rep.representation import get_character
-from spgrep.utils import NDArrayComplex, NDArrayFloat
+from spgrep.utils import NDArrayBool, NDArrayComplex, NDArrayFloat
 
 
 def purify_real_irrep_value(real_irrep: NDArrayFloat, atol: float = ATOL) -> NDArrayFloat:
@@ -81,3 +81,62 @@ def _make_physically_irreps_from_complex(
         indicators.append(indicator)
 
     return real_irreps, indicators
+
+
+def _realify_corep_to_real_rep(
+    corep: NDArrayComplex,
+    anti_linear: NDArrayBool,
+) -> NDArrayFloat:
+    r"""Realise a complex corepresentation as a real linear matrix representation.
+
+    Follows the change of basis used in the finite-group :math:`(2, 3)` block
+    of :ref:`physically_irreps` and its extension to
+    :math:`\mathcal{G}^{\mathbf{k}\bar{\mathbf{k}}}`: the doubled basis
+    :math:`(\mathbf{v}_{1}, \dots, \mathbf{v}_{d}, \mathbf{v}_{1}^{\ast}, \dots,
+    \mathbf{v}_{d}^{\ast}) \mathbf{U}` is rotated to the real basis by
+
+    .. math::
+
+        \mathbf{U} = \frac{1}{\sqrt{2}}
+            \begin{pmatrix} \mathbf{1}_d & -i \mathbf{1}_d \\
+                            \mathbf{1}_d &  i \mathbf{1}_d \end{pmatrix}.
+
+    For a linear op :math:`g \in \mathcal{G}^{\mathbf{k}}`,
+    :math:`\mathbf{U}^{-1} \mathrm{diag}(D, D^{\ast}) \mathbf{U}` gives
+    :math:`\bigl[\begin{smallmatrix} \mathrm{Re}\,D & \mathrm{Im}\,D \\
+    -\mathrm{Im}\,D & \mathrm{Re}\,D \end{smallmatrix}\bigr]`.
+    For an antilinear op :math:`g \in a\mathcal{G}^{\mathbf{k}}` the action
+    :math:`\mathbf{v} \mapsto D(g)\mathbf{v}^{\ast}` is the off-diagonal block
+    :math:`\bigl[\begin{smallmatrix} & D(g) \\ D(g)^{\ast} & \end{smallmatrix}\bigr]`
+    on the doubled basis, and conjugating by :math:`\mathbf{U}` gives
+    :math:`\bigl[\begin{smallmatrix} \mathrm{Re}\,D & -\mathrm{Im}\,D \\
+    -\mathrm{Im}\,D & -\mathrm{Re}\,D \end{smallmatrix}\bigr]`.
+
+    Parameters
+    ----------
+    corep: array, (order, dim, dim)
+        Complex corepresentation matrices.
+    anti_linear: array[bool], (order,)
+        ``anti_linear[g]`` is ``True`` iff operation ``g`` acts antilinearly
+        (i.e. its corepresentation product law involves complex conjugation).
+
+    Returns
+    -------
+    real_rep: array, (order, 2 * dim, 2 * dim)
+    """
+    order, dim, _ = corep.shape
+    real_rep = np.empty((order, 2 * dim, 2 * dim), dtype=np.float64)
+    re = np.real(corep)
+    im = np.imag(corep)
+    for g in range(order):
+        if anti_linear[g]:
+            real_rep[g, :dim, :dim] = re[g]
+            real_rep[g, :dim, dim:] = -im[g]
+            real_rep[g, dim:, :dim] = -im[g]
+            real_rep[g, dim:, dim:] = -re[g]
+        else:
+            real_rep[g, :dim, :dim] = re[g]
+            real_rep[g, :dim, dim:] = im[g]
+            real_rep[g, dim:, :dim] = -im[g]
+            real_rep[g, dim:, dim:] = re[g]
+    return real_rep
