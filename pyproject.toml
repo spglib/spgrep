@@ -40,7 +40,7 @@ optional-dependencies.dev = [
   "ipython",
   "matplotlib",
   "nbqa",
-  "notebook",
+  "notebook>=7.5.6",
   "phonopy",
   "prek",
   "seaborn",

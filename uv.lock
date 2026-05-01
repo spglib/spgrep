@@ -15,7 +15,7 @@ resolution-markers = [
 ]
 
 [options]
-exclude-newer = "0001-01-01T00:00:00Z" # This has no effect and is included for backwards compatibility when using relative exclude-newer values.
+exclude-newer = "2026-04-24T06:35:38.720594Z"
 exclude-newer-span = "P1W"
 
 [options.exclude-newer-package]
@@ -3444,7 +3444,7 @@ requires-dist = [
     { name = "myst-parser", marker = "extra == 'docs'" },
     { name = "nbqa", marker = "extra == 'dev'" },
     { name = "nbsphinx", marker = "extra == 'docs'" },
-    { name = "notebook", marker = "extra == 'dev'" },
+    { name = "notebook", marker = "extra == 'dev'", specifier = ">=7.5.6" },
     { name = "numpy", specifier = ">=1.20.1" },
     { name = "phonopy", marker = "extra == 'dev'" },
     { name = "prek", marker = "extra == 'dev'" },
