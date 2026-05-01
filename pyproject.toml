@@ -68,6 +68,9 @@ urls.homepage = "https://github.com/spglib/spgrep"
 
 [tool.uv]
 exclude-newer = "1 week"
+# Override the cutoff for security patches that are newer than the window above.
+# CVE-2026-40171 (GHSA-rch3-82jr-f9w9): jupyterlab >= 4.5.7, notebook >= 7.5.6.
+exclude-newer-package = { jupyterlab = "2026-05-01", notebook = "2026-05-01" }
 
 [tool.ruff]
 line-length = 99
