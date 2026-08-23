@@ -125,7 +125,7 @@ def test_small_representation_with_origin_shift(hall_number, kpoint, method, ori
 
 
 def test_frobenius_schur_indicator(C4):
-    irreps, indicators = enumerate_unitary_irreps(C4)
+    _, indicators = enumerate_unitary_irreps(C4)
     assert sorted(indicators) == [0, 0, 1, 1]
 
 

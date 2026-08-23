@@ -46,7 +46,7 @@ def get_cayley_table(
             trk = tri != trj
             k = operations_list.index((ndarray2d_to_integer_tuple(rk), trk))
             if table[i][j] != -1:
-                ValueError("Should specify a matrix group.")
+                raise ValueError("Should specify a matrix group.")
             table[i][j] = k
 
     return np.array(table)

@@ -18,9 +18,9 @@ from spgrep.symmetry.transform import (  # noqa: E402
 )
 
 __all__ = [
+    "get_centering",
+    "get_crystal_system",
+    "get_primitive_transformation_matrix",
     "transform_symmetry_and_kpoint",
     "unique_primitive_symmetry",
-    "get_primitive_transformation_matrix",
-    "get_crystal_system",
-    "get_centering",
 ]

@@ -23,13 +23,13 @@ from spgrep.symmetry.group import (  # noqa: E402
 )
 
 __all__ = [
-    "get_identity_index",
-    "get_inverse_index",
-    "get_order",
-    "get_cayley_table",
-    "is_matrix_group",
-    "get_factor_system_from_little_group",
-    "get_little_group",
     "check_cocycle_condition",
     "decompose_by_maximal_space_subgroup",
+    "get_cayley_table",
+    "get_factor_system_from_little_group",
+    "get_identity_index",
+    "get_inverse_index",
+    "get_little_group",
+    "get_order",
+    "is_matrix_group",
 ]

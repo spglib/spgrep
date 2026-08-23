@@ -88,11 +88,11 @@ def test_spinor_irreps(method, C3v, hexagonal_lattice):
 def test_get_spacegroup_spinor_irreps(kpoint, shape_expect, corundum_cell):
     (
         irreps,
-        little_spinor_factor_system,
-        little_unitary_rotations,
-        rotations,
-        translations,
-        mapping,
+        _little_spinor_factor_system,
+        _little_unitary_rotations,
+        _rotations,
+        _translations,
+        _mapping,
     ) = get_spacegroup_spinor_irreps(
         *corundum_cell,
         kpoint=kpoint,
@@ -114,7 +114,7 @@ def test_get_spacegroup_spinor_irreps_from_primitive_symmetry(kpoint, shape_expe
         irreps,
         little_spinor_factor_system,
         little_unitary_rotations,
-        mapping_little_group,
+        _mapping_little_group,
     ) = get_spacegroup_spinor_irreps_from_primitive_symmetry(
         lattice=np.eye(3),
         rotations=rotations,

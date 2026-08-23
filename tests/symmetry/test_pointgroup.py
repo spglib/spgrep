@@ -6,7 +6,7 @@ from spgrep.symmetry.pointgroup import get_generators, pg_dataset
 
 
 def test_pg_dataset():
-    for _, groups in pg_dataset.items():
+    for groups in pg_dataset.values():
         for pg in groups:
             rotations = np.array(pg)
             assert is_matrix_group(rotations)
@@ -28,5 +28,5 @@ def test_group_chain():
                 # table[:gen, :gen] is normal subgroup
                 assert np.all(table[:gen, :gen] < gen)
                 for n in range(gen):
-                    assert all([table[inv[g], table[n, g]] < gen for g in range(prev_size)])
+                    assert all(table[inv[g], table[n, g]] < gen for g in range(prev_size))
                 prev_size = gen

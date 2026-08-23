@@ -108,7 +108,7 @@ def test_spacegroup_pir_pm3m_lambda():
     u = 0.1  # generic Lambda point; 2u is not integer so 2k is not equivalent to 0
     kpoint = np.array([u, u, u])
 
-    pm_k_rotations, _, mapping_little_group, flip_k = get_little_group_of_pm_k(
+    pm_k_rotations, _, _mapping_little_group, flip_k = get_little_group_of_pm_k(
         rotations, translations, kpoint
     )
     # little cogroup of +/- k for Lambda in Pm-3m is D3d (order 12),

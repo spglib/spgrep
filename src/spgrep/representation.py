@@ -27,17 +27,14 @@ from spgrep.symmetry.representation import (  # noqa: E402
 )
 
 __all__ = [
-    # spgrep.rep.representation
-    "get_intertwiner",
-    "get_character",
-    "is_unitary",
-    "is_representation",
-    "get_direct_product",
-    # spgrep.symmetry.representation
-    "get_regular_representation",
-    "get_projective_regular_representation",
     "check_spacegroup_representation",
-    # spgrep.rep.irreps
-    "project_to_irrep",
     "frobenius_schur_indicator",
+    "get_character",
+    "get_direct_product",
+    "get_intertwiner",
+    "get_projective_regular_representation",
+    "get_regular_representation",
+    "is_representation",
+    "is_unitary",
+    "project_to_irrep",
 ]

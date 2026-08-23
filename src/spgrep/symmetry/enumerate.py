@@ -218,7 +218,7 @@ def enumerate_unitary_irreps_from_solvable_group_chain(
         group = []
         for m in range(p):
             group.extend([table[rm[m], s] for s in subgroup])
-        group = sorted(list(set(group)))
+        group = sorted(set(group))
 
         subgroup_remapping = {}  # GroupIdx -> int for `subgroup`
         for i, si in enumerate(subgroup):
@@ -309,7 +309,7 @@ def enumerate_unitary_irreps_from_solvable_group_chain(
         for sub_irrep in next_sub_irreps:
             # Skip duplicated irrep
             character = get_character(sub_irrep)
-            if any([is_equivalent_irrep(character, c) for c in sub_characters]):
+            if any(is_equivalent_irrep(character, c) for c in sub_characters):
                 continue
 
             irreps.append(sub_irrep)

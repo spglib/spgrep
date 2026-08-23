@@ -19,8 +19,8 @@ exclude-newer = "0001-01-01T00:00:00Z" # This has no effect and is included for 
 exclude-newer-span = "P1W"
 
 [options.exclude-newer-package]
-notebook = "2026-05-02T00:00:00Z"
-jupyterlab = "2026-05-02T00:00:00Z"
+notebook = "2026-05-01T15:00:00Z"
+jupyterlab = "2026-05-01T15:00:00Z"
 
 [[package]]
 name = "accessible-pygments"
