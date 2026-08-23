@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from queue import Queue
+from collections import deque
 
 from spgrep.rep.group import get_identity_index, get_inverse_index
 from spgrep.utils import (
@@ -79,7 +79,7 @@ def enumerate_point_subgroup_naive(table, preserve_sublattice: list[bool]):
     ret = []
     for bits in range(1, 1 << order):
         elements = _decode_bits(bits, order)
-        if not all([preserve_sublattice[idx] for idx in elements]):
+        if not all(preserve_sublattice[idx] for idx in elements):
             continue
 
         if _is_subgroup(elements, table):
@@ -108,18 +108,15 @@ def _traverse(
 ) -> list[int]:
     """Traverse group elements from generators."""
     visited = [False for _ in range(len(table))]
-    que = Queue()  # type: ignore
-    que.put(identity)
+    que = deque([identity])
+    visited[identity] = True
 
-    while not que.empty():
-        g = que.get()
-        if visited[g]:
-            continue
-        visited[g] = True
-
+    while que:
+        g = que.popleft()
         for h in generators:
             gh = int(table[g, h])  # cast np.int64 to int
             if not visited[gh]:
-                que.put(gh)
+                visited[gh] = True
+                que.append(gh)
 
     return sorted([i for i, v in enumerate(visited) if v])
