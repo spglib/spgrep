@@ -25,15 +25,12 @@ from spgrep.symmetry.enumerate import (  # noqa: E402
 from spgrep.symmetry.pir import purify_real_irrep_value  # noqa: E402
 
 __all__ = [
-    # spgrep.rep.enumerate
-    "enumerate_unitary_irreps_from_regular_representation",
     "decompose_representation",
-    # spgrep.rep.pir
-    "get_physically_irrep",
-    # spgrep.symmetry.enumerate
     "enumerate_small_representations",
     "enumerate_unitary_irreps",
+    "enumerate_unitary_irreps_from_regular_representation",
     "enumerate_unitary_irreps_from_solvable_group_chain",
+    "get_physically_irrep",
     "purify_irrep_value",
     "purify_real_irrep_value",
 ]

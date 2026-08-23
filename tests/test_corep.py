@@ -78,7 +78,7 @@ def check_corep_cocycle_condition(
 def test_corep_spinor_factor_system(request, symmetry_and_lattice):
     rotations, _, time_reversals, lattice = request.getfixturevalue(symmetry_and_lattice)
 
-    corep_spinor_factor_system, unitary_rotations, anti_linear = get_corep_spinor_factor_system(
+    corep_spinor_factor_system, unitary_rotations, _anti_linear = get_corep_spinor_factor_system(
         lattice, rotations, time_reversals
     )
 
@@ -111,9 +111,9 @@ def test_get_crystallographic_pointgroup_spinor_irreps_from_symmetry(
     # TODO: Add more tests
     (
         co_irreps,
-        indicators,
+        _indicators,
         factor_system,
-        unitary_rotations,
+        _unitary_rotations,
         anti_linear,
     ) = get_crystallographic_pointgroup_spinor_irreps_from_symmetry(
         lattice,
@@ -149,15 +149,15 @@ def test_get_crystallographic_pointgroup_spinor_irreps_from_symmetry(
 def test_get_magnetic_spacegroup_coreps_from_primitive_symmetry(
     request, kpoint: NDArrayFloat, method, symmetry_and_lattice
 ):
-    rotations, translations, time_reversals, lattice = request.getfixturevalue(
+    rotations, translations, time_reversals, _lattice = request.getfixturevalue(
         symmetry_and_lattice
     )
 
     # TODO: Add more tests
     (
-        co_irreps,
-        anti_linear,
-        mapping_little_group,
+        _co_irreps,
+        _anti_linear,
+        _mapping_little_group,
     ) = get_magnetic_spacegroup_coreps_from_primitive_symmetry(
         rotations=rotations,
         translations=translations,

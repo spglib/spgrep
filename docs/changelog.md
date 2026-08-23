@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v0.7.0 (23 Aug. 2026)
+
+### Changed
+
+- Speed up point-subgroup enumeration by avoiding duplicate traversal work and replacing the thread-safe queue with `collections.deque`.
+
 ## v0.6.0 (27 Apr. 2026)
 
 ### Changed

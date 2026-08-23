@@ -153,10 +153,7 @@ def frobenius_schur_indicator(irrep: NDArrayComplex) -> int:
 def is_equivalent_irrep(character1: NDArrayComplex, character2: NDArrayComplex) -> bool:
     """Return true if two irreps are equivalent."""
     order = character1.shape[0]
-    if np.around(np.sum(np.conj(character1) * character2)) == order:
-        return True
-    else:
-        return False
+    return bool(np.around(np.sum(np.conj(character1) * character2)) == order)
 
 
 def is_unique_irreps(irreps: list[NDArrayComplex]):

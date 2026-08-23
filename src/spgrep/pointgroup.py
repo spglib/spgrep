@@ -17,8 +17,8 @@ from spgrep.symmetry.pointgroup import (  # noqa: E402
 )
 
 __all__ = [
-    "pg_dataset",
-    "pg_solvable_chain",
     "get_generators",
     "get_pointgroup_chain_generators",
+    "pg_dataset",
+    "pg_solvable_chain",
 ]

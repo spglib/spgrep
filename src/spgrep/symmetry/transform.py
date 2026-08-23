@@ -186,7 +186,7 @@ def get_crystal_system(
     }
 
     for csystem, (lb, ub) in crystal_system_range.items():
-        if (lb <= hall_number) and (hall_number <= ub):
+        if lb <= hall_number <= ub:
             return csystem  # type: ignore
 
     raise ValueError(f"Unknown Hall number: {hall_number}")
