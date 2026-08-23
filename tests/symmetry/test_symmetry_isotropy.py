@@ -13,4 +13,5 @@ def test_enumerate_point_subgroup():
     flags = [True for _ in range(len(pointgroup))]
     subgroups_actual = enumerate_point_subgroup(table, flags, return_conjugacy_class=False)
     subgroups_expect = enumerate_point_subgroup_naive(table, flags)
-    assert len(subgroups_actual) == len(subgroups_expect)
+    subgroup_bits_actual = [sum(1 << idx for idx in subgroup) for subgroup in subgroups_actual]
+    assert subgroup_bits_actual == subgroups_expect
