@@ -60,7 +60,8 @@ def test_decompose_dense_non_regular_representation(rng, layout):
     assert all(is_unitary(irrep) for irrep in irreps)
 
 
-def test_complex_projective_regular_representation():
+@pytest.mark.parametrize("layout", ["C", "F", "strided"])
+def test_complex_projective_regular_representation(layout):
     # C2 x C2 with a Pauli cocycle has one two-dimensional projective irrep.
     elements = np.arange(4)
     table = elements[:, None] ^ elements[None, :]
@@ -74,6 +75,12 @@ def test_complex_projective_regular_representation():
     representation = np.zeros((4, 4, 4), dtype=complex)
     for i in elements:
         representation[i, table[i], elements] = factor_system[i]
+    if layout == "strided":
+        padded = np.zeros((4, 8, 8), dtype=complex)
+        padded[:, ::2, ::2] = representation
+        representation = padded[:, ::2, ::2]
+    else:
+        representation = np.array(representation, order=layout)
 
     irreps = enumerate_unitary_irreps_from_regular_representation(representation)
 
@@ -82,6 +89,21 @@ def test_complex_projective_regular_representation():
         np.testing.assert_allclose(get_character(irrep), [2, 0, 0, 0], atol=1e-8)
         assert is_unitary(irrep)
         assert is_representation(irrep, table, factor_system)
+
+
+@pytest.mark.parametrize(
+    "matrix",
+    [
+        pytest.param([[1, 0], [0, 0]], id="zero-row"),
+        pytest.param([[1, 1], [0, 1]], id="multiple-entries"),
+        pytest.param([[1, 1], [0, 0]], id="redistributed-nonzeros"),
+    ],
+)
+def test_regular_representation_requires_one_nonzero_per_row(matrix):
+    representation = np.array([matrix, [[0, 1], [1, 0]]], dtype=complex)
+
+    with pytest.raises(ValueError):
+        enumerate_unitary_irreps_from_regular_representation(representation)
 
 
 def test_complex_conjugate_irreps_are_distinct():
