@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-from itertools import product
 from warnings import warn
 
 import numpy as np
@@ -35,12 +34,11 @@ def enumerate_unitary_irreps_from_regular_representation(
 
     # For (m, i), reg[m, i, :] has only one nonzero entry.
     # To reduce computational time, suppress reg to only nonzero elements
-    reg_nonzero = np.zeros((n, n), dtype=np.complex128)
-    lookup = np.zeros((n, n), dtype=int)
-    for m, i in product(range(n), repeat=2):
-        idx = np.nonzero(reg[m, i, :])[0].item()
-        reg_nonzero[m, i] = reg[m, i, idx]
-        lookup[m, i] = idx
+    nonzero = reg != 0
+    if not np.all(np.count_nonzero(nonzero, axis=2) == 1):
+        raise ValueError("Each row of the regular representation must have one nonzero entry.")
+    lookup = np.argmax(nonzero, axis=2)
+    reg_nonzero = np.take_along_axis(reg, lookup[..., None], axis=2)[..., 0].astype(np.complex128)
 
     rng = np.random.default_rng(seed=0)
     for _ in range(max_num_random_generations):
