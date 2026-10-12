@@ -100,19 +100,9 @@ def get_factor_system_from_little_group(
     factor_system: array, (order, order)
         Factor system of representations of little co-group that have one-to-one correspondence to small representations
     """
-    n = len(little_rotations)
-
-    residuals = np.zeros((n, 3))
-    for i, rotation in enumerate(little_rotations):
-        # Never take modulus!
-        residuals[i] = rotation.T @ kpoint - kpoint
-
-    factor_system = np.zeros((n, n), dtype=np.complex128)
-    for i, residual in enumerate(residuals):
-        for j, translation in enumerate(little_translations):
-            factor_system[i, j] = np.exp(-2j * np.pi * np.dot(residual, translation))
-
-    return factor_system
+    # Never take modulus!
+    residuals = (little_rotations.transpose(0, 2, 1) @ kpoint - kpoint).astype(np.float64)
+    return np.exp(-2j * np.pi * (residuals @ little_translations.T)).astype(np.complex128)
 
 
 def get_little_group(
