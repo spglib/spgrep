@@ -101,6 +101,21 @@ def test_get_little_group_and_factor_system(P42mnm):
     assert check_cocycle_condition(little_rotations, factor_system)
 
 
+@pytest.mark.parametrize(
+    "rotation_dtype,float_dtype", [(np.int8, np.float32), (np.int64, np.float64)]
+)
+def test_factor_system_preserves_reciprocal_lattice_shift(rotation_dtype, float_dtype):
+    glide = np.array([[-1, 2, 0], [0, 1, 0], [0, 0, 1]], dtype=rotation_dtype)
+    rotations = np.array([glide, np.eye(3, dtype=rotation_dtype)])
+    translations = np.array([[0, 0.5, 0.5], [0, 0, 0]], dtype=float_dtype)
+    kpoint = np.array([0.5, 0.25, 0.5], dtype=float_dtype)
+
+    factor_system = get_factor_system_from_little_group(rotations, translations, kpoint)
+
+    np.testing.assert_allclose(factor_system, [[-1, 1], [1, 1]], rtol=0, atol=1e-15)
+    assert factor_system.dtype == np.complex128
+
+
 def test_get_little_group_of_pm_k_coincides_with_little_group_when_2k_is_zero(P42mnm):
     # X = (0, 1/2, 0): 2k is a reciprocal lattice vector, so G^{k,k-bar} = G^k.
     rotations, translations = P42mnm
