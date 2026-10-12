@@ -56,6 +56,20 @@ def test_spinor_factor_system_symmorphic(C3v, hexagonal_lattice):
     assert np.allclose(spinor_factor_system[:, identity_idx], 1)
 
 
+def test_spinor_factor_system_reordered_twofold_rotation():
+    rotations = np.array([np.diag([-1, -1, 1]), np.eye(3, dtype=int)])
+
+    factor_system, unitary_rotations = get_spinor_factor_system(np.eye(3), rotations)
+
+    np.testing.assert_array_equal(factor_system, [[-1, 1], [1, 1]])
+    assert factor_system.dtype == np.complex128
+    np.testing.assert_allclose(
+        unitary_rotations,
+        [[[-1j, 0], [0, 1j]], [[1, 0], [0, 1]]],
+        atol=1e-15,
+    )
+
+
 @pytest.mark.parametrize("method", [("Neto"), ("random")])
 def test_spinor_irreps(method, C3v, hexagonal_lattice):
     # P3m1 (No. 156)
