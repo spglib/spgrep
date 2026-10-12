@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-from itertools import product
 from typing import Literal
 
 import numpy as np
@@ -132,16 +131,13 @@ def get_spinor_factor_system(
 
     # Factor system from spin
     table = get_cayley_table(rotations)
-    spinor_factor_system = np.zeros((order, order), dtype=np.complex128)
-    for (i, ui), (j, uj) in product(enumerate(unitary_rotations), repeat=2):
-        # si @ sj = sk in O(3)
-        k = table[i, j]
-        uiuj = ui @ uj
-        # Multiplier should be -1 or 1
-        for multiplier in [-1, 1]:
-            if np.allclose(uiuj, multiplier * unitary_rotations[k]):
-                spinor_factor_system[i, j] = multiplier
-                break
+    products = unitary_rotations[:, None] @ unitary_rotations[None, :]
+    product_rotations = unitary_rotations[table]
+    negative_matches = np.all(np.isclose(products, -product_rotations), axis=(-2, -1))
+    positive_matches = np.all(np.isclose(products, product_rotations), axis=(-2, -1))
+    spinor_factor_system = np.select(
+        [negative_matches, positive_matches], [-1, 1], default=0
+    ).astype(np.complex128)
 
     return spinor_factor_system, unitary_rotations
 
