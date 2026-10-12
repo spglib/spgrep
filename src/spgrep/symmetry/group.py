@@ -35,21 +35,27 @@ def get_cayley_table(
     if time_reversals is None:
         time_reversals = np.zeros((order,), dtype=np.int_)
 
-    operations_list = [
-        (ndarray2d_to_integer_tuple(r), tr) for r, tr in zip(rotations, time_reversals)
-    ]
+    rotations_int = np.around(rotations).astype(int).reshape(order, 9).tolist()
+    operation_indices: dict[tuple[tuple[int, ...], int], int] = {}
+    for i, (rotation, time_reversal) in enumerate(zip(rotations_int, time_reversals)):
+        operation_indices.setdefault((tuple(rotation), time_reversal), i)
 
-    table = [[-1 for _ in range(order)] for _ in range(order)]
-    for i, (ri, tri) in enumerate(zip(rotations, time_reversals)):
-        for j, (rj, trj) in enumerate(zip(rotations, time_reversals)):
-            rk = ri @ rj
-            trk = tri != trj
-            k = operations_list.index((ndarray2d_to_integer_tuple(rk), trk))
-            if table[i][j] != -1:
-                raise ValueError("Should specify a matrix group.")
-            table[i][j] = k
+    products = rotations[:, None] @ rotations[None, :]
+    products_int = np.around(products).astype(int).reshape(order * order, 9).tolist()
+    product_time_reversals = np.not_equal.outer(time_reversals, time_reversals).ravel()
+    try:
+        table = np.fromiter(
+            (
+                operation_indices[(tuple(rotation), time_reversal)]
+                for rotation, time_reversal in zip(products_int, product_time_reversals)
+            ),
+            dtype=int,
+            count=order * order,
+        )
+    except KeyError as exc:
+        raise ValueError("Should specify a matrix group.") from exc
 
-    return np.array(table)
+    return table.reshape(order, order)
 
 
 def is_matrix_group(rotations: NDArrayInt) -> bool:
