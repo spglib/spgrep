@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v0.8.0 (12 Oct. 2026)
+
+### Changed
+
+- Speed up irrep extraction from commuting matrices by using sorted eigenspaces, batched character comparisons, and matrix multiplication ([#352](https://github.com/spglib/spgrep/pull/352)).
+- Speed up ordinary and magnetic Cayley-table construction with batched matrix products and indexed operation lookup ([#353](https://github.com/spglib/spgrep/pull/353)).
+- Speed up spinor factor-system construction with batched SU(2) products and sign comparisons ([#354](https://github.com/spglib/spgrep/pull/354)).
+- Speed up nonsymmorphic factor-system construction with batched reciprocal-space residuals and phase factors ([#355](https://github.com/spglib/spgrep/pull/355)).
+- Speed up random-method irrep enumeration by extracting regular-representation nonzero entries in bulk. Empty regular representations now raise `ValueError` ([#356](https://github.com/spglib/spgrep/pull/356)).
+
+### Added
+
+- Reproducible benchmarks for irrep extraction, Cayley tables, and public irrep calls, with a [performance comparison against v0.7.0](development/performance-v0.8.0.md).
+
 ## v0.7.0 (23 Aug. 2026)
 
 ### Changed

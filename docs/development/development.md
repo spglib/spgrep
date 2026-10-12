@@ -54,4 +54,5 @@ git push origin <next-version>
 ```{toctree}
   :maxdepth: 1
   Memo <memo>
+  v0.8.0 performance comparison <performance-v0.8.0>
 ```

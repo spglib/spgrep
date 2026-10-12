@@ -22,16 +22,40 @@ from statistics import median
 from timeit import repeat
 
 import numpy as np
+import spglib
 
-from spgrep import get_spacegroup_irreps
+import spgrep
+from spgrep import get_spacegroup_irreps, get_spacegroup_irreps_from_primitive_symmetry
 from spgrep.core import get_crystallographic_pointgroup_spinor_irreps_from_symmetry
 from spgrep.symmetry.group import get_cayley_table
 from spgrep.symmetry.pointgroup import pg_dataset
+from spgrep.utils import get_symmetry_from_hall_number
 
-CASES = ("table-C3v", "table-Oh", "table-gray-Oh", "crystal-Neto", "crystal-random", "spinor-Oh")
+CASES = (
+    "table-C3v",
+    "table-Oh",
+    "table-gray-Oh",
+    "crystal-Neto",
+    "crystal-random",
+    "spinor-Oh",
+    "nonsymmorphic-Neto",
+    "nonsymmorphic-random",
+)
 
 
 def make_case(name):
+    if name.startswith("nonsymmorphic-"):
+        rotations, translations = get_symmetry_from_hall_number(419)
+        return (
+            partial(
+                get_spacegroup_irreps_from_primitive_symmetry,
+                rotations,
+                translations,
+                np.array([0, 0, 0.5]),
+                method="random" if name.endswith("random") else "Neto",
+            ),
+            len(rotations),
+        )
     rotations = np.array(pg_dataset["3m" if name == "table-C3v" else "m-3m"][0])
     if name == "table-gray-Oh":
         time_reversals = np.repeat([0, 1], len(rotations))
@@ -72,6 +96,8 @@ def main():
     metadata = {
         "python": platform.python_version(),
         "numpy": np.__version__,
+        "spglib": spglib.__version__,
+        "source": spgrep.__file__,
         "platform": platform.platform(),
         "thread_limits": {
             name: os.environ.get(name)
@@ -93,6 +119,8 @@ def main():
             )
         else:
             irreps = result[0]
+            if name.startswith("nonsymmorphic-"):
+                assert sorted(irrep.shape[1] for irrep in irreps) == [2, 2, 2, 2]
             assert sum(irrep.shape[1] ** 2 for irrep in irreps) == order
             characters = np.array([np.trace(irrep, axis1=1, axis2=2) for irrep in irreps])
             np.testing.assert_allclose(
