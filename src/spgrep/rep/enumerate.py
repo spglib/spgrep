@@ -126,19 +126,17 @@ def _get_irreps_from_matrix(
     # eigvecs[:, i] is the normalized eigenvector to eigvals[i]
     eigvals, eigvecs = np.linalg.eigh(matrix)
 
-    # Group by eigenvectors by eigenvalues
+    # eigh sorts eigenvalues, so only the latest eigenspace can match.
+    # Compare with its first eigenvalue, not the preceding eigenvalue.
     eigenspaces: list[(float, list[NDArrayFloat])] = []  # type: ignore
     for eigval, eigvec in zip(eigvals, eigvecs.T):
-        is_new_space = True
-        for i, (eigval2, _) in enumerate(eigenspaces):
-            if np.isclose(eigval, eigval2, rtol=rtol):
-                eigenspaces[i][1].append(eigvec)
-                is_new_space = False
-                break
-        if is_new_space:
+        if eigenspaces and np.isclose(eigval, eigenspaces[-1][0], rtol=rtol):
+            eigenspaces[-1][1].append(eigvec)
+        else:
             eigenspaces.append((eigval, [eigvec]))
 
     order = reg.shape[0]
+    reg_flat = reg.reshape(order, -1)
     irreps: list[NDArrayComplex] = []
     characters: list[NDArrayFloat] = []
     for eigval, list_eigvecs in eigenspaces:
@@ -149,7 +147,8 @@ def _get_irreps_from_matrix(
         # character = np.einsum("li,klm,mi->k", np.conj(transformation), reg, transformation)
         #           = np.einsum("klm,ml->k", reg, proj)
         proj = transformation @ np.conj(transformation.T)
-        character = np.einsum("klm,ml->k", reg, proj, optimize="greedy")
+        # Reuse the flattened representation instead of repacking it for each eigenspace.
+        character = reg_flat @ proj.T.reshape(-1)
 
         # Check if this is really irrep by character
         if not is_equivalent_irrep(character, character):
@@ -157,18 +156,14 @@ def _get_irreps_from_matrix(
 
         # Multi-dimensional irreps appeared several times in `eigenspaces`.
         # Therefore, we pick one of them by checking character of each irrep.
-        is_unique = True
-        for character2 in characters:
-            product = np.around(np.sum(np.conj(character) * character2))
-            if np.isclose(product, order, rtol=rtol):
-                is_unique = False
-                break
-        if not is_unique:
-            continue
+        if characters:
+            products = np.around(np.sum(np.conj(character) * characters, axis=1))
+            if np.any(np.isclose(products, order, rtol=rtol)):
+                continue
 
         # irrep = np.einsum("li,klm,mj->kij", np.conj(transformation), reg, transformation)
         tmp = reg @ transformation  # (order, order, dim)
-        irrep = np.einsum("li,klj->kij", np.conj(transformation), tmp, optimize="greedy")
+        irrep = np.conj(transformation.T) @ tmp
         irreps.append(irrep)
         characters.append(character)
 
