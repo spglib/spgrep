@@ -1,16 +1,81 @@
 from __future__ import annotations
 
 import numpy as np
+import pytest
 
 from spgrep.symmetry.group import (
     check_cocycle_condition,
     decompose_by_maximal_space_subgroup,
+    get_cayley_table,
     get_factor_system_from_little_group,
     get_little_group,
     get_little_group_of_pm_k,
     is_matrix_group,
 )
 from spgrep.utils import get_symmetry_from_hall_number
+
+
+def test_cayley_table_noncommutative():
+    cycle = np.array([[0, 0, 1], [1, 0, 0], [0, 1, 0]])
+    swap = np.array([[0, 1, 0], [1, 0, 0], [0, 0, 1]])
+    rotations = np.array(
+        [np.eye(3, dtype=int), cycle, cycle @ cycle, swap, cycle @ swap, cycle @ cycle @ swap]
+    )
+    table = get_cayley_table(rotations)
+
+    assert np.issubdtype(table.dtype, np.integer)
+    np.testing.assert_array_equal(
+        table,
+        [
+            [0, 1, 2, 3, 4, 5],
+            [1, 2, 0, 4, 5, 3],
+            [2, 0, 1, 5, 3, 4],
+            [3, 5, 4, 0, 2, 1],
+            [4, 3, 5, 1, 0, 2],
+            [5, 4, 3, 2, 1, 0],
+        ],
+    )
+
+
+@pytest.mark.parametrize("layout", ["C", "F", "strided"])
+def test_cayley_table_preserves_operation_order(layout):
+    quarter_turn = np.array([[0, -1, 0], [1, 0, 0], [0, 0, 1]])
+    rotations = np.array([np.linalg.matrix_power(quarter_turn, power) for power in [2, 0, 3, 1]])
+    if layout == "strided":
+        padded = np.zeros((4, 6, 6), dtype=int)
+        padded[:, ::2, ::2] = rotations
+        rotations = padded[:, ::2, ::2]
+    else:
+        rotations = np.array(rotations, order=layout)
+
+    np.testing.assert_array_equal(
+        get_cayley_table(rotations),
+        [[1, 0, 3, 2], [0, 1, 2, 3], [3, 2, 0, 1], [2, 3, 1, 0]],
+    )
+
+
+def test_cayley_table_distinguishes_time_reversals():
+    rotations = np.array([np.eye(3, dtype=int), np.eye(3, dtype=int)])
+    np.testing.assert_array_equal(get_cayley_table(rotations, np.array([1, 0])), [[1, 0], [0, 1]])
+
+
+def test_cayley_table_preserves_first_duplicate():
+    rotations = np.array([np.eye(3, dtype=int), np.eye(3, dtype=int)])
+    np.testing.assert_array_equal(get_cayley_table(rotations), [[0, 0], [0, 0]])
+    assert not is_matrix_group(rotations)
+
+
+@pytest.mark.parametrize(
+    "rotations",
+    [
+        np.array([[[0, -1, 0], [1, 0, 0], [0, 0, 1]]]),
+        np.array([0.6 * np.eye(3)]),
+    ],
+)
+def test_cayley_table_requires_closure_after_multiplication(rotations):
+    with pytest.raises(ValueError):
+        get_cayley_table(rotations)
+    assert not is_matrix_group(rotations)
 
 
 def test_is_matrix_group(C3v):
