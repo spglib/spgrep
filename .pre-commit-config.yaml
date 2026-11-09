@@ -16,7 +16,7 @@ repos:
       - id: check-merge-conflict
       - id: detect-private-key
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.17.2
+    rev: v0.17.3
     hooks:
       - id: ruff-format
         types_or: [python, pyi, jupyter]
@@ -24,16 +24,16 @@ repos:
         args: [ "--fix", "--show-fixes"]
         types_or: [python, pyi]
   - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v2.4.0
+    rev: v2.4.1
     hooks:
     - id: mypy
       exclude: ^docs/
   - repo: https://github.com/astral-sh/uv-pre-commit
-    rev: 0.13.5
+    rev: 0.13.6
     hooks:
       - id: uv-lock
   - repo: https://github.com/python-jsonschema/check-jsonschema
-    rev: 0.38.2
+    rev: 0.39.0
     hooks:
       - id: check-github-workflows
   - repo: https://github.com/tox-dev/pyproject-fmt
