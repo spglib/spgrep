@@ -74,10 +74,18 @@ def is_matrix_group(rotations: NDArrayInt) -> bool:
     return True
 
 
+def _time_reversal_signs(time_reversals: NDArrayInt | None, order: int) -> NDArrayInt:
+    """Return -1 for anti-unitary and +1 for unitary operations."""
+    if time_reversals is None:
+        return np.ones(order, dtype=int)
+    return 1 - 2 * np.asarray(time_reversals, dtype=int)
+
+
 def get_factor_system_from_little_group(
     little_rotations: NDArrayInt,
     little_translations: NDArrayFloat,
     kpoint: NDArrayFloat,
+    little_time_reversals: NDArrayInt | None = None,
 ) -> NDArrayComplex:
     r"""Calculate factor system of projective representation of little co-group.
 
@@ -86,6 +94,8 @@ def get_factor_system_from_little_group(
        = \exp \left( -i \mathbf{g}_{i} \cdot \mathbf{w}_{j} \right) D^{\mathbf{k}}_{p}(S_{k})
 
     where :math:`S_{i}S_{j} = S_{k}` and :math:`\mathbf{g}_{i} = S_{i}^{-1} \mathbf{k} - \mathbf{k}`.
+    For an anti-unitary operation :math:`S_{i}\theta`, the Bloch phase of the right operand is
+    complex conjugated and :math:`\mathbf{g}_{i} = S_{i}^{-1} \mathbf{k} + \mathbf{k}`.
 
     Parameters
     ----------
@@ -94,6 +104,9 @@ def get_factor_system_from_little_group(
     little_translations: array, (order, 3)
         Translation parts of coset of little group stabilizing ``kpoint``.
     kpoint: array, (3, )
+    little_time_reversals: array[int] | None, (order, )
+        If ``little_time_reversals[i] == 1``, the ``i``-th operation is anti-unitary.
+        If None, all operations are treated as unitary.
 
     Returns
     -------
@@ -101,7 +114,10 @@ def get_factor_system_from_little_group(
         Factor system of representations of little co-group that have one-to-one correspondence to small representations
     """
     # Never take modulus!
-    residuals = (little_rotations.transpose(0, 2, 1) @ kpoint - kpoint).astype(np.float64)
+    signs = _time_reversal_signs(little_time_reversals, len(little_rotations))
+    residuals = (little_rotations.transpose(0, 2, 1) @ kpoint - signs[:, None] * kpoint).astype(
+        np.float64
+    )
     return np.exp(-2j * np.pi * (residuals @ little_translations.T)).astype(np.complex128)
 
 
@@ -110,14 +126,22 @@ def get_little_group(
     translations: NDArrayFloat,
     kpoint: NDArrayFloat,
     atol: float = ATOL,
+    time_reversals: NDArrayInt | None = None,
 ) -> tuple[NDArrayInt, NDArrayFloat, NDArrayInt]:
-    """Return coset of little group of given space group which stabilize kpoint under rotations.
+    r"""Return coset of little group of given space group which stabilize kpoint under rotations.
+
+    An anti-unitary operation :math:`S\theta` maps :math:`\mathbf{k}` to
+    :math:`-S\mathbf{k}`, so it belongs to the little group when
+    :math:`S^{\top}\mathbf{k} \equiv -\mathbf{k}`.
 
     Parameters
     ----------
     rotations: array, (order, 3, 3)
     translations: array, (order, 3)
     kpoint: array, (3, )
+    time_reversals: array[int] | None, (order, )
+        If ``time_reversals[i] == 1``, the ``i``-th operation is anti-unitary.
+        If None, all operations are treated as unitary.
 
     Returns
     -------
@@ -131,8 +155,9 @@ def get_little_group(
     little_translations = []
     mapping_little_group = []
 
-    for i, (rotation, translation) in enumerate(zip(rotations, translations)):
-        residual = rotation.T @ kpoint - kpoint
+    signs = _time_reversal_signs(time_reversals, len(rotations))
+    for i, (rotation, translation, sign) in enumerate(zip(rotations, translations, signs)):
+        residual = rotation.T @ kpoint - sign * kpoint
         residual = residual - np.rint(residual)
         if not np.allclose(residual, 0, atol=atol):
             continue
