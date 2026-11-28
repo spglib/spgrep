@@ -25,6 +25,9 @@
         <loc>https://spglib.github.io/spgrep/changelog.html</loc>
       </url>
       <url>
+        <loc>https://spglib.github.io/spgrep/conventions.html</loc>
+      </url>
+      <url>
         <loc>https://spglib.github.io/spgrep/development/development.html</loc>
       </url>
       <url>
@@ -79,7 +82,16 @@
         <loc>https://spglib.github.io/spgrep/formulation/projection.html</loc>
       </url>
       <url>
+        <loc>https://spglib.github.io/spgrep/howto/index.html</loc>
+      </url>
+      <url>
+        <loc>https://spglib.github.io/spgrep/howto/primitive-symmetry.html</loc>
+      </url>
+      <url>
         <loc>https://spglib.github.io/spgrep/index.html</loc>
+      </url>
+      <url>
+        <loc>https://spglib.github.io/spgrep/quickstart.html</loc>
       </url>
       <url>
         <loc>https://spglib.github.io/spgrep/references.html</loc>
