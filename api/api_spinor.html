@@ -1,542 +1,2346 @@
 
-<!DOCTYPE html>
 
 
-<html lang="en" data-content_root="../" >
-
+<!doctype html>
+<html lang="en" class="no-js">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="On-the-fly generator of space-group irreducible representations">
+      
+      
+        <meta name="author" content="Kohei Shinohara">
+      
+      
+        <link rel="canonical" href="https://spglib.github.io/spgrep/api/api_spinor.html">
+      
+      
+      
+      
+        <link rel="prev" href="./api_symmetry.html">
+      
+      
+        <link rel="next" href="./api_corep.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../_static/icon.svg">
+      <meta name="generator" content="zensical-0.1.3">
+    
+    
+      
+        <title>Spinor - spgrep</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.e2cf241e.min.css">
+      
+        
+          
+        
+        <link rel="stylesheet" href="../assets/stylesheets/modern/palette.b60ce83d.min.css">
+      
+      
+      
 
-    <title>Representation for spinor &#8212; spgrep 0.3.8</title>
-  
-  
-  
-  <script data-cfasync="false">
-    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
-  </script>
-  <!--
-    this give us a css class that will be invisible only if js is disabled
-  -->
-  <noscript>
-    <style>
-      .pst-js-only { display: none !important; }
 
-    </style>
-  </noscript>
-  
-  <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
-  
-  <!-- So that users can add custom icons -->
-  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
-  <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
-
-    <script src="../_static/documentation_options.js?v=b6fef582"></script>
-    <script src="../_static/doctools.js?v=9bcbadda"></script>
-    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
-    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'api/api_spinor';</script>
-    <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Co-representation for spinor" href="api_corep.html" />
-    <link rel="prev" title="Irreps" href="api_irreps.html" />
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="0.3.8" />
+    
+    
   </head>
   
   
-  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
-
-  
-  
-  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
-  
-  <div id="pst-scroll-pixel-helper"></div>
-  
-  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
-    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
-
-  
-  <dialog id="pst-search-dialog">
     
-<form class="bd-search d-flex align-items-center"
-      action="../search.html"
-      method="get">
-  <i class="fa-solid fa-magnifying-glass"></i>
-  <input type="search"
-         class="form-control"
-         name="q"
-         placeholder="Search..."
-         aria-label="Search..."
-         autocomplete="off"
-         autocorrect="off"
-         autocapitalize="off"
-         spellcheck="false"/>
-  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form>
-  </dialog>
-
-  <div class="pst-async-banner-revealer d-none">
-  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
-</div>
-
-  
-    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
-    </header>
-  
-
-  <div class="bd-container">
-    <div class="bd-container__inner bd-page-width">
+    
       
-      
-      
-      <dialog id="pst-primary-sidebar-modal"></dialog>
-      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
-        
-
-  
-  <div class="sidebar-header-items sidebar-primary__section">
     
     
     
     
-  </div>
-  
-    <div class="sidebar-primary-items__start sidebar-primary__section">
-        <div class="sidebar-primary-item">
-
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
   
     
-  
-
-<a class="navbar-brand logo" href="../index.html">
-  
-  
-  
-  
-  
-  
-    <p class="title logo__title">spgrep 0.3.8</p>
-  
-</a></div>
-        <div class="sidebar-primary-item">
-
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
- <i class="fa-solid fa-magnifying-glass"></i>
- <span class="search-button__default-text">Search</span>
- <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-</button></div>
-        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
-    <div class="bd-toc-item navbar-nav active">
-        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Contents</span></p>
-<ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../index.html">   Introduction</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../examples/examples.html">   Examples</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../examples/symmetry_adapted_tensor.html">  Symmetry-adapted tensors</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../examples/lattice_vibration.html">  Application of space-group irreps to lattice vibration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../examples/spin_representation.html">  Spin representation</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../formulation/formulation.html">   Formulation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../formulation/irreps/irreps.html">  Irreducible representation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l3"><a class="reference internal" href="../formulation/irreps/spacegroup_irreps.html">  Irreps of space group</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../formulation/irreps/reality.html">  Physically irreps</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../formulation/irreps/spinor.html">  Spin representation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../formulation/irreps/corep.html">  Co-representation</a></li>
-</ul>
-</details></li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../formulation/algorithm/algorithm.html">  Algorithm for enumerating irreps</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l3"><a class="reference internal" href="../formulation/algorithm/irreps_from_regular.html">  On-the-fly irreps generation from regular representation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../formulation/algorithm/irreps_from_chain.html">  On-the-fly irreps generation from solvable group chain</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../formulation/algorithm/intertwiner.html">  Intertwiner</a></li>
-</ul>
-</details></li>
-<li class="toctree-l2"><a class="reference internal" href="../formulation/projection.html">  Symmetry-adapted basis</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 current active has-children"><a class="reference internal" href="api.html">   API Reference</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="api_core.html">    Core functions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api_group.html">    Group</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api_pointgroup.html">    Point group</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api_transformation.html">    Transformation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api_representation.html">    Representation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api_irreps.html">    Irreps</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">    Spinor</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api_corep.html">    Co-representation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api_tensor.html">    Tensor</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api_utils.html">    Utility functions</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1"><a class="reference internal" href="../changelog.html">   Change Log</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../development/development.html">   Development</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../development/memo.html">  Memo</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1"><a class="reference internal" href="../genindex.html">   Index</a></li>
-</ul>
-
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-hidden="true"></label>
+    <div data-md-component="skip">
+      <a href="#__skip" class="md-skip">
+        Skip to content
+      </a>
     </div>
-</nav></div>
-    </div>
-  
-  
-  <div class="sidebar-primary-items__end sidebar-primary__section">
-      <div class="sidebar-primary-item">
-<div id="ethical-ad-placement"
-      class="flat"
-      data-ea-publisher="readthedocs"
-      data-ea-type="readthedocs-sidebar"
-      data-ea-manual="true">
-</div></div>
-  </div>
-
-
-      </div>
-      
-      <main id="main-content" class="bd-main" role="main">
-        
-        
-
-<div class="sbt-scroll-pixel-helper"></div>
-
-          <div class="bd-content">
-            <div class="bd-article-container">
-              
-              <div class="bd-header-article d-print-none">
-<div class="header-article-items header-article__inner">
-  
-    <div class="header-article-items__start">
-      
-        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <span class="fa-solid fa-bars"></span>
-</button></div>
+    <div data-md-component="announce">
       
     </div>
-  
-  
-    <div class="header-article-items__end">
+    
+    
       
-        <div class="header-article-item">
 
-<div class="article-header-buttons">
-
-
-<a href="https://github.com/spglib/spgrep" target="_blank"
-   class="btn btn-sm btn-source-repository-button"
-   title="Source repository"
-   data-bs-placement="bottom" data-bs-toggle="tooltip"
->
   
 
-<span class="btn__icon-container">
-  <i class="fab fa-github"></i>
-  </span>
-
-</a>
-
-
-
-
-
-
-<div class="dropdown dropdown-download-buttons">
-  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
-    <i class="fas fa-download"></i>
-  </button>
-  <ul class="dropdown-menu">
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../index.html" title="spgrep" class="md-header__button md-logo" aria-label="spgrep" data-md-component="logo">
       
+  <img src="../_static/icon.svg" alt="spgrep">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
       
-      
-      <li><a href="../_sources/api/api_spinor.md" target="_blank"
-   class="btn btn-sm btn-download-source-button dropdown-item"
-   title="Download source file"
-   data-bs-placement="left" data-bs-toggle="tooltip"
->
-  
-
-<span class="btn__icon-container">
-  <i class="fas fa-file"></i>
-  </span>
-<span class="btn__text-container">.md</span>
-</a>
-</li>
-      
-      
-      
-      
-      <li>
-<button onclick="window.print()"
-  class="btn btn-sm btn-download-pdf-button dropdown-item"
-  title="Print to PDF"
-  data-bs-placement="left" data-bs-toggle="tooltip"
->
-  
-
-<span class="btn__icon-container">
-  <i class="fas fa-file-pdf"></i>
-  </span>
-<span class="btn__text-container">.pdf</span>
-</button>
-</li>
-      
-  </ul>
-</div>
-
-
-
-
-<button onclick="toggleFullScreen()"
-  class="btn btn-sm btn-fullscreen-button"
-  title="Fullscreen mode"
-  data-bs-placement="bottom" data-bs-toggle="tooltip"
->
-  
-
-<span class="btn__icon-container">
-  <i class="fas fa-expand"></i>
-  </span>
-
-</button>
-
-
-
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button>
-
-
-<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-</button>
-<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="fa-solid fa-list"></span>
-</button>
-</div></div>
-      
-    </div>
-  
-</div>
-</div>
-              
-              
-
-<div id="jb-print-docs-body" class="onlyprint">
-    <h1>Representation for spinor</h1>
-    <!-- Table of contents -->
-    <div id="print-main-content">
-        <div id="jb-print-toc">
-            
-            <div>
-                <h2> Contents </h2>
-            </div>
-            <nav aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spgrep.spinor.enumerate_spinor_small_representations"><code class="docutils literal notranslate"><span class="pre">enumerate_spinor_small_representations()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spgrep.spinor.get_spinor_factor_system"><code class="docutils literal notranslate"><span class="pre">get_spinor_factor_system()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spgrep.spinor.get_spinor_unitary_rotation"><code class="docutils literal notranslate"><span class="pre">get_spinor_unitary_rotation()</span></code></a></li>
-</ul>
-            </nav>
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+      <span class="md-visually-hidden">Navigation</span>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            spgrep
+          </span>
         </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Spinor
+            
+          </span>
+        </div>
+      </div>
     </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="none" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="none" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-moon" viewBox="0 0 24 24"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+          <span class="md-visually-hidden">Search</span>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
 </div>
+      
+    
+    <div class="md-header__source">
+      
+        <a href="https://github.com/spglib/spgrep" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    spglib/spgrep
+  </div>
+</a>
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
 
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="spgrep" class="md-nav__button md-logo" aria-label="spgrep" data-md-component="logo">
+      
+  <img src="../_static/icon.svg" alt="spgrep">
+
+    </a>
+    spgrep
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/spglib/spgrep" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    spglib/spgrep
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Introduction
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Examples
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_2">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Examples
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
               
                 
-<div id="searchbox"></div>
-                <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="representation-for-spinor">
-<h1>Representation for spinor<a class="headerlink" href="#representation-for-spinor" title="Link to this heading">#</a></h1>
-<blockquote>
-<div><dl class="py function">
-<dt class="sig sig-object py" id="spgrep.spinor.enumerate_spinor_small_representations">
-<span class="sig-prename descclassname"><span class="pre">spgrep.spinor.</span></span><span class="sig-name descname"><span class="pre">enumerate_spinor_small_representations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lattice</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">little_rotations</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">little_translations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kpoint</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Neto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rtol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-08</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_num_random_generations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/spgrep/spinor.html#enumerate_spinor_small_representations"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spgrep.spinor.enumerate_spinor_small_representations" title="Link to this definition">#</a></dt>
-<dd><p>Enumerate all unitary irreps <span class="math notranslate nohighlight">\(\mathbf{D}^{\mathbf{k}\alpha}\)</span> of little group for spinor.</p>
-<div class="math notranslate nohighlight">
-\[\mathbf{D}^{\mathbf{k}\alpha}(\mathbf{S}_{i}) \mathbf{D}^{\mathbf{k}\alpha}(\mathbf{S}_{j})
-= z(\mathbf{S}_{i}, \mathbf{S}_{j}) e^{ -i \mathbf{g}_{i} \cdot \mathbf{w}_{j} } \mathbf{D}^{\mathbf{k}\alpha}(\mathbf{S}_{k}),\]</div>
-<p>where <span class="math notranslate nohighlight">\(\mathbf{g}_{i} = \mathbf{S}_{i}^{-1} \mathbf{k} - \mathbf{k}\)</span>.</p>
-<p>See <a class="reference internal" href="../formulation/irreps/spinor.html#spin-representation"><span class="std std-ref">Spin representation</span></a> for Spgrep’s convention of spinor-derived factor system.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>lattice</strong> (<em>array</em><em>, </em><em>(</em><em>3</em><em>, </em><em>3</em><em>)</em>) – Row-wise basis vectors. <code class="docutils literal notranslate"><span class="pre">lattice[i,</span> <span class="pre">:]</span></code> is the i-th lattice vector.</p></li>
-<li><p><strong>little_rotations</strong> (<em>array</em><em>[</em><em>int</em><em>]</em><em>, </em><em>(</em><em>order</em><em>, </em><em>3</em><em>, </em><em>3</em><em>)</em>)</p></li>
-<li><p><strong>little_translations</strong> (<em>array</em><em>, </em><em>(</em><em>order</em><em>, </em><em>3</em><em>)</em>)</p></li>
-<li><p><strong>kpoint</strong> (<em>array</em><em>, </em><em>(</em><em>3</em><em>, </em><em>)</em>)</p></li>
-<li><p><strong>method</strong> (<em>str</em><em>, </em><em>'Neto'</em><em> or </em><em>'random'</em>) – ‘Neto’: construct irreps from a fixed chain of subgroups of little co-group
-‘random’: construct irreps by numerically diagonalizing a random matrix commute with regular representation</p></li>
-<li><p><strong>rtol</strong> (<em>float</em>) – Relative tolerance to distinguish difference eigenvalues</p></li>
-<li><p><strong>atol</strong> (<em>float</em>) – Relative tolerance to compare</p></li>
-<li><p><strong>max_num_random_generations</strong> (<em>int</em>) – Maximum number of trials to generate random matrix</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><ul class="simple">
-<li><p><strong>irreps</strong> (<em>list of unitary small representations (irreps of little group) with (order, dim, dim)</em>)</p></li>
-<li><p><strong>spinor_factor_system</strong> (<em>array, (order, order)</em>) – <code class="docutils literal notranslate"><span class="pre">spinor_factor_system[i,</span> <span class="pre">j]</span></code> stands for factor system <span class="math notranslate nohighlight">\(z(\mathbf{S}_{i}, \mathbf{S}_{j})\)</span></p></li>
-<li><p><strong>unitary_rotations</strong> (<em>array, (order, 2, 2)</em>) – SU(2) rotations on spinor.</p></li>
-</ul>
-</p>
-</dd>
-</dl>
-</dd></dl>
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/examples.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Examples
 
-</div></blockquote>
-<blockquote>
-<div><dl class="py function">
-<dt class="sig sig-object py" id="spgrep.spinor.get_spinor_factor_system">
-<span class="sig-prename descclassname"><span class="pre">spgrep.spinor.</span></span><span class="sig-name descname"><span class="pre">get_spinor_factor_system</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lattice</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rotations</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/spgrep/spinor.html#get_spinor_factor_system"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spgrep.spinor.get_spinor_factor_system" title="Link to this definition">#</a></dt>
-<dd><p>Calculate spin-derived factor system of spin representation.</p>
-<div class="math notranslate nohighlight">
-\[\mathbf{U}(\mathbf{S}_{i}) \mathbf{U}(\mathbf{S}_{j})
-= z(\mathbf{S}_{i}, \mathbf{S}_{j}) \mathbf{U}(\mathbf{S}_{k})\]</div>
-<p>where <span class="math notranslate nohighlight">\(\mathbf{S}_{i} \mathbf{S}_{j} = \mathbf{S}_{k}\)</span>.
-See <a class="reference internal" href="../formulation/irreps/spinor.html#spin-representation"><span class="std std-ref">Spin representation</span></a> for Spgrep’s convention of spinor-derived factor system <span class="math notranslate nohighlight">\(z(S_{i}, S_{j})\)</span> and a map from orthogonal matrix <span class="math notranslate nohighlight">\(\mathbf{S}_{i} \in O(3)\)</span> to unitary matrix <span class="math notranslate nohighlight">\(\mathbf{U}(\mathbf{S}_{i}) \in SU(2)\)</span>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>lattice</strong> (<em>array</em><em>, </em><em>(</em><em>3</em><em>, </em><em>3</em><em>)</em>) – Row-wise basis vectors. <code class="docutils literal notranslate"><span class="pre">lattice[i,</span> <span class="pre">:]</span></code> is the i-th lattice vector.</p></li>
-<li><p><strong>rotations</strong> (<em>array</em><em>, </em><em>(</em><em>order</em><em>, </em><em>3</em><em>, </em><em>3</em><em>)</em>) – Matrix group of <span class="math notranslate nohighlight">\(\{ \mathbf{S}_{i} \}_{i}\)</span></p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><ul class="simple">
-<li><p><strong>spinor_factor_system</strong> (<em>array, (order, order)</em>) – <code class="docutils literal notranslate"><span class="pre">factor_system[i,</span> <span class="pre">j]</span></code> stands for <span class="math notranslate nohighlight">\(z(\mathbf{S}_{i}, \mathbf{S}_{j})\)</span></p></li>
-<li><p><strong>unitary_rotations</strong> (<em>array, (order, 2, 2)</em>) – <code class="docutils literal notranslate"><span class="pre">unitary_rotations[i]</span></code> stands for <span class="math notranslate nohighlight">\(\mathbf{U}(\mathbf{S}_{i}) \in SU(2)\)</span>.
-SU(2) rotations on spinor.</p></li>
-</ul>
-</p>
-</dd>
-</dl>
-</dd></dl>
+    
+  </span>
+  
+  
 
-</div></blockquote>
-<blockquote>
-<div><dl class="py function">
-<dt class="sig sig-object py" id="spgrep.spinor.get_spinor_unitary_rotation">
-<span class="sig-prename descclassname"><span class="pre">spgrep.spinor.</span></span><span class="sig-name descname"><span class="pre">get_spinor_unitary_rotation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lattice</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rotation</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/spgrep/spinor.html#get_spinor_unitary_rotation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spgrep.spinor.get_spinor_unitary_rotation" title="Link to this definition">#</a></dt>
-<dd><p>Return unitary matrix for given orthogonal matrix.</p>
-</dd></dl>
+      </a>
+    </li>
+  
 
-</div></blockquote>
-</section>
-
-
-                </article>
+                
               
-
-              
-              
-              
-              
-                <footer class="prev-next-footer d-print-none">
+                
                   
-<div class="prev-next-area">
-    <a class="left-prev"
-       href="api_irreps.html"
-       title="previous page">
-      <i class="fa-solid fa-angle-left"></i>
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Irreps</p>
-      </div>
-    </a>
-    <a class="right-next"
-       href="api_corep.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Co-representation for spinor</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
-    </a>
-</div>
-                </footer>
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/symmetry_adapted_tensor.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Symmetry-adapted tensors
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
               
-            </div>
-            
-            
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/lattice_vibration.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Lattice vibration
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
               
-                <dialog id="pst-secondary-sidebar-modal"></dialog>
-                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/spin_representation.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Spin representation
 
+    
+  </span>
+  
+  
 
-  <div class="sidebar-secondary-item">
-  <div class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> Contents
-  </div>
-  <nav class="bd-toc-nav page-toc">
-    <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spgrep.spinor.enumerate_spinor_small_representations"><code class="docutils literal notranslate"><span class="pre">enumerate_spinor_small_representations()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spgrep.spinor.get_spinor_factor_system"><code class="docutils literal notranslate"><span class="pre">get_spinor_factor_system()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spgrep.spinor.get_spinor_unitary_rotation"><code class="docutils literal notranslate"><span class="pre">get_spinor_unitary_rotation()</span></code></a></li>
-</ul>
-  </nav></div>
+      </a>
+    </li>
+  
 
-</div></div>
+                
               
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
             
-          </div>
-          <footer class="bd-footer-content">
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Formulation
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_3">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Formulation
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../formulation/formulation.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Formulation
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
             
-<div class="bd-footer-content__inner container">
   
-  <div class="footer-item">
+  
+  <span class="md-ellipsis">
     
-<p class="component-author">
-By Kohei Shinohara
-</p>
+  
+  Irreducible representations
 
-  </div>
-  
-  <div class="footer-item">
     
+  </span>
+  
+  
 
-  <p class="copyright">
-    
-      © Copyright 2022, Kohei Shinohara.
-      <br/>
-    
-  </p>
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_3_2">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Irreducible representations
 
-  </div>
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
   
-  <div class="footer-item">
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../formulation/irreps/irreps.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
     
-  </div>
   
-  <div class="footer-item">
+  Formulation of irreducible representations
+
     
-  </div>
+  </span>
   
-</div>
-          </footer>
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../formulation/irreps/spacegroup_irreps.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Irreps of space group
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../formulation/irreps/reality.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Physically irreducible representations
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../formulation/irreps/spinor.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Spin representation
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../formulation/irreps/corep.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Co-representation
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Algorithms
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_3_3">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Algorithms
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../formulation/algorithm/algorithm.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Algorithm for enumerating irreps
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../formulation/algorithm/irreps_from_regular.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Regular representation
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../formulation/algorithm/irreps_from_chain.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Solvable group chain
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../formulation/algorithm/intertwiner.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Intertwiner
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../formulation/projection.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Symmetry-adapted basis
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  API reference
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+            <label class="md-nav__title" for="__nav_4">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  API reference
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./api.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  API Reference
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./api_core.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Core functions
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./api_rep.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Representation theory
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./api_symmetry.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Representation theory for symmetry
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Spinor
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="api_spinor.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Spinor
+
+    
+  </span>
+  
+  
+
+      </a>
+      
         
 
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#spgrep.spinor.enumerate_spinor_small_representations" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code class="doc-symbol doc-symbol-toc doc-symbol-function"></code>&nbsp;enumerate_spinor_small_representations
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#spgrep.spinor.get_spinor_factor_system" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code class="doc-symbol doc-symbol-toc doc-symbol-function"></code>&nbsp;get_spinor_factor_system
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#spgrep.spinor.get_spinor_unitary_rotation" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code class="doc-symbol doc-symbol-toc doc-symbol-function"></code>&nbsp;get_spinor_unitary_rotation
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./api_corep.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Co-representation
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./api_utils.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Utility functions
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../changelog.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Change log
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Development
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_6">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Development
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/development.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Development
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/memo.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Memo
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/performance-v0.8.0.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  v0.8.0 performance comparison
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../references.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  References
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                      
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#spgrep.spinor.enumerate_spinor_small_representations" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code class="doc-symbol doc-symbol-toc doc-symbol-function"></code>&nbsp;enumerate_spinor_small_representations
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#spgrep.spinor.get_spinor_factor_system" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code class="doc-symbol doc-symbol-toc doc-symbol-function"></code>&nbsp;get_spinor_factor_system
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#spgrep.spinor.get_spinor_unitary_rotation" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code class="doc-symbol doc-symbol-toc doc-symbol-function"></code>&nbsp;get_spinor_unitary_rotation
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                <a id="__skip" tabindex="-1"></a>
+                
+                  
+
+  
+  
+
+
+<h1 id="representation-for-spinor">Representation for spinor<a class="headerlink" href="#representation-for-spinor" title="Permanent link">&para;</a></h1>
+
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="spgrep.spinor.enumerate_spinor_small_representations" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>            <span class="doc doc-object-name doc-function-name">spgrep.spinor.enumerate_spinor_small_representations</span>
+
+
+<a href="#spgrep.spinor.enumerate_spinor_small_representations" class="headerlink" title="Permanent link">&para;</a></h2>
+<div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">enumerate_spinor_small_representations</span><span class="p">(</span><span class="n">lattice</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">,</span> <span class="n">little_rotations</span><span class="p">:</span> <span class="n">NDArrayInt</span><span class="p">,</span> <span class="n">little_translations</span><span class="p">:</span> <span class="n">NDArrayFloat</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">kpoint</span><span class="p">:</span> <span class="n">NDArrayFloat</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">method</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s1">'Neto'</span><span class="p">,</span> <span class="s1">'random'</span><span class="p">]</span> <span class="o">=</span> <span class="s1">'Neto'</span><span class="p">,</span> <span class="n">rtol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">RTOL</span><span class="p">,</span> <span class="n">atol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">ATOL</span><span class="p">,</span> <span class="n">max_num_random_generations</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">MAX_NUM_RANDOM_GENERATIONS</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="n">NDArrayComplex</span><span class="p">],</span> <span class="n">NDArrayComplex</span><span class="p">,</span> <span class="n">NDArrayComplex</span><span class="p">]</span>
+</span></code></pre></div>
+
+    <div class="doc doc-contents first">
+
+        <p>Enumerate all unitary irreps <span class="arithmatex">\(\mathbf{D}^{\mathbf{k}\alpha}\)</span> of little group for spinor.</p>
+<div class="arithmatex">\[
+\begin{aligned}
+\mathbf{D}^{\mathbf{k}\alpha}(\mathbf{S}_{i}) \mathbf{D}^{\mathbf{k}\alpha}(\mathbf{S}_{j})
+= z(\mathbf{S}_{i}, \mathbf{S}_{j}) e^{ -i \mathbf{g}_{i} \cdot \mathbf{w}_{j} } \mathbf{D}^{\mathbf{k}\alpha}(\mathbf{S}_{k}),
+\end{aligned}
+\]</div>
+<p>where <span class="arithmatex">\(\mathbf{g}_{i} = \mathbf{S}_{i}^{-1} \mathbf{k} - \mathbf{k}\)</span>.</p>
+<p>See <a class="autorefs autorefs-internal" href="../formulation/irreps/spinor.html#spin_representation">Spin representation</a> for Spgrep's convention of spinor-derived factor system.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>lattice</code>
+            </td>
+            <td>
+                  <code><span title="spgrep.utils.NDArrayFloat">NDArrayFloat</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Row-wise basis vectors. <code>lattice[i, :]</code> is the i-th lattice vector.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>little_rotations</code>
+            </td>
+            <td>
+                  <code><span title="spgrep.utils.NDArrayInt">NDArrayInt</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>little_translations</code>
+            </td>
+            <td>
+                  <code><span title="spgrep.utils.NDArrayFloat">NDArrayFloat</span> | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>kpoint</code>
+            </td>
+            <td>
+                  <code><span title="spgrep.utils.NDArrayFloat">NDArrayFloat</span> | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>method</code>
+            </td>
+            <td>
+                  <code><span title="typing.Literal">Literal</span>[&#39;Neto&#39;, &#39;random&#39;]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>'Neto': construct irreps from a fixed chain of subgroups of little co-group
+'random': construct irreps by numerically diagonalizing a random matrix commute with regular representation</p>
+              </div>
+            </td>
+            <td>
+                  <code>&#39;Neto&#39;</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>rtol</code>
+            </td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Relative tolerance to distinguish difference eigenvalues</p>
+              </div>
+            </td>
+            <td>
+                  <code><span title="spgrep._constants.RTOL">RTOL</span></code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>atol</code>
+            </td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Relative tolerance to compare</p>
+              </div>
+            </td>
+            <td>
+                  <code><span title="spgrep._constants.ATOL">ATOL</span></code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>max_num_random_generations</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Maximum number of trials to generate random matrix</p>
+              </div>
+            </td>
+            <td>
+                  <code><span title="spgrep._constants.MAX_NUM_RANDOM_GENERATIONS">MAX_NUM_RANDOM_GENERATIONS</span></code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+<th>Name</th>          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+<td><code>irreps</code></td>            <td>
+                  <code>list of unitary small representations (irreps of little group) with (order, dim, dim)</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+<td><code>spinor_factor_system</code></td>            <td>
+                  <code>(array, (order, order))</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p><code>spinor_factor_system[i, j]</code> stands for factor system <span class="arithmatex">\(z(\mathbf{S}_{i}, \mathbf{S}_{j})\)</span></p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+<td><code>unitary_rotations</code></td>            <td>
+                  <code>(array, (order, 2, 2))</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>SU(2) rotations on spinor.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>src/spgrep/spinor.py</code></summary>
+              <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-15">15</a></span>
+<span class="normal"><a href="#spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-16">16</a></span>
+<span class="normal"><a href="#spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-17">17</a></span>
+<span class="normal"><a href="#spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-18">18</a></span>
+<span class="normal"><a href="#spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-19">19</a></span>
+<span class="normal"><a href="#spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-20">20</a></span>
+<span class="normal"><a href="#spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-21">21</a></span>
+<span class="normal"><a href="#spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-22">22</a></span>
+<span class="normal"><a href="#spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-23">23</a></span>
+<span class="normal"><a href="#spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-24">24</a></span>
+<span class="normal"><a href="#spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-25">25</a></span>
+<span class="normal"><a href="#spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-26">26</a></span>
+<span class="normal"><a href="#spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-27">27</a></span>
+<span class="normal"><a href="#spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-28">28</a></span>
+<span class="normal"><a href="#spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-29">29</a></span>
+<span class="normal"><a href="#spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-30">30</a></span>
+<span class="normal"><a href="#spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-31">31</a></span>
+<span class="normal"><a href="#spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-32">32</a></span>
+<span class="normal"><a href="#spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-33">33</a></span>
+<span class="normal"><a href="#spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-34">34</a></span>
+<span class="normal"><a href="#spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-35">35</a></span>
+<span class="normal"><a href="#spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-36">36</a></span>
+<span class="normal"><a href="#spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-37">37</a></span>
+<span class="normal"><a href="#spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-38">38</a></span>
+<span class="normal"><a href="#spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-39">39</a></span>
+<span class="normal"><a href="#spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-40">40</a></span>
+<span class="normal"><a href="#spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-41">41</a></span>
+<span class="normal"><a href="#spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-42">42</a></span>
+<span class="normal"><a href="#spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-43">43</a></span>
+<span class="normal"><a href="#spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-44">44</a></span>
+<span class="normal"><a href="#spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-45">45</a></span>
+<span class="normal"><a href="#spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-46">46</a></span>
+<span class="normal"><a href="#spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-47">47</a></span>
+<span class="normal"><a href="#spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-48">48</a></span>
+<span class="normal"><a href="#spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-49">49</a></span>
+<span class="normal"><a href="#spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-50">50</a></span>
+<span class="normal"><a href="#spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-51">51</a></span>
+<span class="normal"><a href="#spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-52">52</a></span>
+<span class="normal"><a href="#spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-53">53</a></span>
+<span class="normal"><a href="#spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-54">54</a></span>
+<span class="normal"><a href="#spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-55">55</a></span>
+<span class="normal"><a href="#spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-56">56</a></span>
+<span class="normal"><a href="#spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-57">57</a></span>
+<span class="normal"><a href="#spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-58">58</a></span>
+<span class="normal"><a href="#spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-59">59</a></span>
+<span class="normal"><a href="#spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-60">60</a></span>
+<span class="normal"><a href="#spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-61">61</a></span>
+<span class="normal"><a href="#spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-62">62</a></span>
+<span class="normal"><a href="#spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-63">63</a></span>
+<span class="normal"><a href="#spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-64">64</a></span>
+<span class="normal"><a href="#spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-65">65</a></span>
+<span class="normal"><a href="#spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-66">66</a></span>
+<span class="normal"><a href="#spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-67">67</a></span>
+<span class="normal"><a href="#spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-68">68</a></span>
+<span class="normal"><a href="#spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-69">69</a></span>
+<span class="normal"><a href="#spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-70">70</a></span>
+<span class="normal"><a href="#spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-71">71</a></span>
+<span class="normal"><a href="#spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-72">72</a></span>
+<span class="normal"><a href="#spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-73">73</a></span>
+<span class="normal"><a href="#spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-74">74</a></span>
+<span class="normal"><a href="#spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-75">75</a></span>
+<span class="normal"><a href="#spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-76">76</a></span>
+<span class="normal"><a href="#spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-77">77</a></span>
+<span class="normal"><a href="#spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-78">78</a></span>
+<span class="normal"><a href="#spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-79">79</a></span>
+<span class="normal"><a href="#spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-80">80</a></span>
+<span class="normal"><a href="#spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-81">81</a></span>
+<span class="normal"><a href="#spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-82">82</a></span>
+<span class="normal"><a href="#spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-83">83</a></span>
+<span class="normal"><a href="#spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-84">84</a></span>
+<span class="normal"><a href="#spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-85">85</a></span>
+<span class="normal"><a href="#spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-86">86</a></span>
+<span class="normal"><a href="#spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-87">87</a></span>
+<span class="normal"><a href="#spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-88">88</a></span>
+<span class="normal"><a href="#spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-89">89</a></span>
+<span class="normal"><a href="#spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-90">90</a></span>
+<span class="normal"><a href="#spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-91">91</a></span>
+<span class="normal"><a href="#spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-92">92</a></span>
+<span class="normal"><a href="#spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-93">93</a></span>
+<span class="normal"><a href="#spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-94">94</a></span>
+<span class="normal"><a href="#spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-95">95</a></span>
+<span class="normal"><a href="#spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-96">96</a></span>
+<span class="normal"><a href="#spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-97">97</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="spgrep.spinor.enumerate_spinor_small_representations--source--__span-0-15"><a id="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-15" name="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-15"></a><span class="k">def</span><span class="w"> </span><span class="nf">enumerate_spinor_small_representations</span><span class="p">(</span>
+</span><span id="spgrep.spinor.enumerate_spinor_small_representations--source--__span-0-16"><a id="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-16" name="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-16"></a>    <span class="n">lattice</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">,</span>
+</span><span id="spgrep.spinor.enumerate_spinor_small_representations--source--__span-0-17"><a id="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-17" name="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-17"></a>    <span class="n">little_rotations</span><span class="p">:</span> <span class="n">NDArrayInt</span><span class="p">,</span>
+</span><span id="spgrep.spinor.enumerate_spinor_small_representations--source--__span-0-18"><a id="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-18" name="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-18"></a>    <span class="n">little_translations</span><span class="p">:</span> <span class="n">NDArrayFloat</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span id="spgrep.spinor.enumerate_spinor_small_representations--source--__span-0-19"><a id="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-19" name="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-19"></a>    <span class="n">kpoint</span><span class="p">:</span> <span class="n">NDArrayFloat</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span id="spgrep.spinor.enumerate_spinor_small_representations--source--__span-0-20"><a id="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-20" name="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-20"></a>    <span class="n">method</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">"Neto"</span><span class="p">,</span> <span class="s2">"random"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"Neto"</span><span class="p">,</span>
+</span><span id="spgrep.spinor.enumerate_spinor_small_representations--source--__span-0-21"><a id="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-21" name="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-21"></a>    <span class="n">rtol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">RTOL</span><span class="p">,</span>
+</span><span id="spgrep.spinor.enumerate_spinor_small_representations--source--__span-0-22"><a id="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-22" name="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-22"></a>    <span class="n">atol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">ATOL</span><span class="p">,</span>
+</span><span id="spgrep.spinor.enumerate_spinor_small_representations--source--__span-0-23"><a id="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-23" name="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-23"></a>    <span class="n">max_num_random_generations</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">MAX_NUM_RANDOM_GENERATIONS</span><span class="p">,</span>
+</span><span id="spgrep.spinor.enumerate_spinor_small_representations--source--__span-0-24"><a id="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-24" name="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-24"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="n">NDArrayComplex</span><span class="p">],</span> <span class="n">NDArrayComplex</span><span class="p">,</span> <span class="n">NDArrayComplex</span><span class="p">]:</span>
+</span><span id="spgrep.spinor.enumerate_spinor_small_representations--source--__span-0-25"><a id="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-25" name="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-25"></a><span class="w">    </span><span class="sa">r</span><span class="sd">"""Enumerate all unitary irreps $\mathbf{D}^{\mathbf{k}\alpha}$ of little group for spinor.</span>
+</span><span id="spgrep.spinor.enumerate_spinor_small_representations--source--__span-0-26"><a id="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-26" name="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-26"></a>
+</span><span id="spgrep.spinor.enumerate_spinor_small_representations--source--__span-0-27"><a id="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-27" name="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-27"></a><span class="sd">    $$</span>
+</span><span id="spgrep.spinor.enumerate_spinor_small_representations--source--__span-0-28"><a id="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-28" name="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-28"></a><span class="sd">    \begin{aligned}</span>
+</span><span id="spgrep.spinor.enumerate_spinor_small_representations--source--__span-0-29"><a id="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-29" name="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-29"></a><span class="sd">    \mathbf{D}^{\mathbf{k}\alpha}(\mathbf{S}_{i}) \mathbf{D}^{\mathbf{k}\alpha}(\mathbf{S}_{j})</span>
+</span><span id="spgrep.spinor.enumerate_spinor_small_representations--source--__span-0-30"><a id="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-30" name="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-30"></a><span class="sd">    = z(\mathbf{S}_{i}, \mathbf{S}_{j}) e^{ -i \mathbf{g}_{i} \cdot \mathbf{w}_{j} } \mathbf{D}^{\mathbf{k}\alpha}(\mathbf{S}_{k}),</span>
+</span><span id="spgrep.spinor.enumerate_spinor_small_representations--source--__span-0-31"><a id="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-31" name="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-31"></a><span class="sd">    \end{aligned}</span>
+</span><span id="spgrep.spinor.enumerate_spinor_small_representations--source--__span-0-32"><a id="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-32" name="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-32"></a><span class="sd">    $$</span>
+</span><span id="spgrep.spinor.enumerate_spinor_small_representations--source--__span-0-33"><a id="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-33" name="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-33"></a>
+</span><span id="spgrep.spinor.enumerate_spinor_small_representations--source--__span-0-34"><a id="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-34" name="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-34"></a><span class="sd">    where $\mathbf{g}_{i} = \mathbf{S}_{i}^{-1} \mathbf{k} - \mathbf{k}$.</span>
+</span><span id="spgrep.spinor.enumerate_spinor_small_representations--source--__span-0-35"><a id="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-35" name="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-35"></a>
+</span><span id="spgrep.spinor.enumerate_spinor_small_representations--source--__span-0-36"><a id="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-36" name="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-36"></a><span class="sd">    See [Spin representation][spin_representation] for Spgrep's convention of spinor-derived factor system.</span>
+</span><span id="spgrep.spinor.enumerate_spinor_small_representations--source--__span-0-37"><a id="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-37" name="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-37"></a>
+</span><span id="spgrep.spinor.enumerate_spinor_small_representations--source--__span-0-38"><a id="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-38" name="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-38"></a><span class="sd">    Parameters</span>
+</span><span id="spgrep.spinor.enumerate_spinor_small_representations--source--__span-0-39"><a id="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-39" name="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-39"></a><span class="sd">    ----------</span>
+</span><span id="spgrep.spinor.enumerate_spinor_small_representations--source--__span-0-40"><a id="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-40" name="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-40"></a><span class="sd">    lattice: array, (3, 3)</span>
+</span><span id="spgrep.spinor.enumerate_spinor_small_representations--source--__span-0-41"><a id="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-41" name="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-41"></a><span class="sd">        Row-wise basis vectors. ``lattice[i, :]`` is the i-th lattice vector.</span>
+</span><span id="spgrep.spinor.enumerate_spinor_small_representations--source--__span-0-42"><a id="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-42" name="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-42"></a><span class="sd">    little_rotations: array[int], (order, 3, 3)</span>
+</span><span id="spgrep.spinor.enumerate_spinor_small_representations--source--__span-0-43"><a id="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-43" name="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-43"></a><span class="sd">    little_translations: array, (order, 3)</span>
+</span><span id="spgrep.spinor.enumerate_spinor_small_representations--source--__span-0-44"><a id="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-44" name="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-44"></a><span class="sd">    kpoint: array, (3, )</span>
+</span><span id="spgrep.spinor.enumerate_spinor_small_representations--source--__span-0-45"><a id="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-45" name="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-45"></a><span class="sd">    method: str, 'Neto' or 'random'</span>
+</span><span id="spgrep.spinor.enumerate_spinor_small_representations--source--__span-0-46"><a id="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-46" name="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-46"></a><span class="sd">        'Neto': construct irreps from a fixed chain of subgroups of little co-group</span>
+</span><span id="spgrep.spinor.enumerate_spinor_small_representations--source--__span-0-47"><a id="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-47" name="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-47"></a><span class="sd">        'random': construct irreps by numerically diagonalizing a random matrix commute with regular representation</span>
+</span><span id="spgrep.spinor.enumerate_spinor_small_representations--source--__span-0-48"><a id="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-48" name="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-48"></a><span class="sd">    rtol: float</span>
+</span><span id="spgrep.spinor.enumerate_spinor_small_representations--source--__span-0-49"><a id="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-49" name="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-49"></a><span class="sd">        Relative tolerance to distinguish difference eigenvalues</span>
+</span><span id="spgrep.spinor.enumerate_spinor_small_representations--source--__span-0-50"><a id="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-50" name="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-50"></a><span class="sd">    atol: float</span>
+</span><span id="spgrep.spinor.enumerate_spinor_small_representations--source--__span-0-51"><a id="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-51" name="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-51"></a><span class="sd">        Relative tolerance to compare</span>
+</span><span id="spgrep.spinor.enumerate_spinor_small_representations--source--__span-0-52"><a id="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-52" name="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-52"></a><span class="sd">    max_num_random_generations: int</span>
+</span><span id="spgrep.spinor.enumerate_spinor_small_representations--source--__span-0-53"><a id="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-53" name="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-53"></a><span class="sd">        Maximum number of trials to generate random matrix</span>
+</span><span id="spgrep.spinor.enumerate_spinor_small_representations--source--__span-0-54"><a id="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-54" name="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-54"></a>
+</span><span id="spgrep.spinor.enumerate_spinor_small_representations--source--__span-0-55"><a id="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-55" name="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-55"></a><span class="sd">    Returns</span>
+</span><span id="spgrep.spinor.enumerate_spinor_small_representations--source--__span-0-56"><a id="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-56" name="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-56"></a><span class="sd">    -------</span>
+</span><span id="spgrep.spinor.enumerate_spinor_small_representations--source--__span-0-57"><a id="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-57" name="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-57"></a><span class="sd">    irreps: list of unitary small representations (irreps of little group) with (order, dim, dim)</span>
+</span><span id="spgrep.spinor.enumerate_spinor_small_representations--source--__span-0-58"><a id="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-58" name="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-58"></a><span class="sd">    spinor_factor_system: array, (order, order)</span>
+</span><span id="spgrep.spinor.enumerate_spinor_small_representations--source--__span-0-59"><a id="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-59" name="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-59"></a><span class="sd">        ``spinor_factor_system[i, j]`` stands for factor system $z(\mathbf{S}_{i}, \mathbf{S}_{j})$</span>
+</span><span id="spgrep.spinor.enumerate_spinor_small_representations--source--__span-0-60"><a id="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-60" name="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-60"></a><span class="sd">    unitary_rotations: array, (order, 2, 2)</span>
+</span><span id="spgrep.spinor.enumerate_spinor_small_representations--source--__span-0-61"><a id="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-61" name="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-61"></a><span class="sd">        SU(2) rotations on spinor.</span>
+</span><span id="spgrep.spinor.enumerate_spinor_small_representations--source--__span-0-62"><a id="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-62" name="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-62"></a><span class="sd">    """</span>
+</span><span id="spgrep.spinor.enumerate_spinor_small_representations--source--__span-0-63"><a id="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-63" name="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-63"></a>    <span class="k">if</span> <span class="n">little_translations</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="spgrep.spinor.enumerate_spinor_small_representations--source--__span-0-64"><a id="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-64" name="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-64"></a>        <span class="n">little_translations</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">little_rotations</span><span class="p">),</span> <span class="mi">3</span><span class="p">))</span>
+</span><span id="spgrep.spinor.enumerate_spinor_small_representations--source--__span-0-65"><a id="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-65" name="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-65"></a>    <span class="k">if</span> <span class="n">kpoint</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="spgrep.spinor.enumerate_spinor_small_representations--source--__span-0-66"><a id="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-66" name="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-66"></a>        <span class="n">kpoint</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</span><span id="spgrep.spinor.enumerate_spinor_small_representations--source--__span-0-67"><a id="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-67" name="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-67"></a>
+</span><span id="spgrep.spinor.enumerate_spinor_small_representations--source--__span-0-68"><a id="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-68" name="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-68"></a>    <span class="c1"># Factor system from spinor</span>
+</span><span id="spgrep.spinor.enumerate_spinor_small_representations--source--__span-0-69"><a id="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-69" name="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-69"></a>    <span class="n">spinor_factor_system</span><span class="p">,</span> <span class="n">unitary_rotations</span> <span class="o">=</span> <span class="n">get_spinor_factor_system</span><span class="p">(</span><span class="n">lattice</span><span class="p">,</span> <span class="n">little_rotations</span><span class="p">)</span>
+</span><span id="spgrep.spinor.enumerate_spinor_small_representations--source--__span-0-70"><a id="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-70" name="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-70"></a>    <span class="c1"># Factor system from nonsymmorphic</span>
+</span><span id="spgrep.spinor.enumerate_spinor_small_representations--source--__span-0-71"><a id="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-71" name="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-71"></a>    <span class="n">nonsymmorphic_factor_system</span> <span class="o">=</span> <span class="n">get_factor_system_from_little_group</span><span class="p">(</span>
+</span><span id="spgrep.spinor.enumerate_spinor_small_representations--source--__span-0-72"><a id="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-72" name="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-72"></a>        <span class="n">little_rotations</span><span class="p">,</span>
+</span><span id="spgrep.spinor.enumerate_spinor_small_representations--source--__span-0-73"><a id="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-73" name="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-73"></a>        <span class="n">little_translations</span><span class="p">,</span>
+</span><span id="spgrep.spinor.enumerate_spinor_small_representations--source--__span-0-74"><a id="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-74" name="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-74"></a>        <span class="n">kpoint</span><span class="p">,</span>
+</span><span id="spgrep.spinor.enumerate_spinor_small_representations--source--__span-0-75"><a id="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-75" name="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-75"></a>    <span class="p">)</span>
+</span><span id="spgrep.spinor.enumerate_spinor_small_representations--source--__span-0-76"><a id="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-76" name="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-76"></a>    <span class="n">factor_system</span> <span class="o">=</span> <span class="n">spinor_factor_system</span> <span class="o">*</span> <span class="n">nonsymmorphic_factor_system</span>
+</span><span id="spgrep.spinor.enumerate_spinor_small_representations--source--__span-0-77"><a id="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-77" name="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-77"></a>
+</span><span id="spgrep.spinor.enumerate_spinor_small_representations--source--__span-0-78"><a id="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-78" name="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-78"></a>    <span class="c1"># Compute irreps of little co-group</span>
+</span><span id="spgrep.spinor.enumerate_spinor_small_representations--source--__span-0-79"><a id="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-79" name="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-79"></a>    <span class="n">little_cogroup_irreps</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">enumerate_unitary_irreps</span><span class="p">(</span>
+</span><span id="spgrep.spinor.enumerate_spinor_small_representations--source--__span-0-80"><a id="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-80" name="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-80"></a>        <span class="n">little_rotations</span><span class="p">,</span>
+</span><span id="spgrep.spinor.enumerate_spinor_small_representations--source--__span-0-81"><a id="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-81" name="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-81"></a>        <span class="n">factor_system</span><span class="p">,</span>
+</span><span id="spgrep.spinor.enumerate_spinor_small_representations--source--__span-0-82"><a id="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-82" name="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-82"></a>        <span class="n">real</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>  <span class="c1"># Nonsense to consider real-value irreps</span>
+</span><span id="spgrep.spinor.enumerate_spinor_small_representations--source--__span-0-83"><a id="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-83" name="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-83"></a>        <span class="n">method</span><span class="o">=</span><span class="n">method</span><span class="p">,</span>
+</span><span id="spgrep.spinor.enumerate_spinor_small_representations--source--__span-0-84"><a id="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-84" name="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-84"></a>        <span class="n">rtol</span><span class="o">=</span><span class="n">rtol</span><span class="p">,</span>
+</span><span id="spgrep.spinor.enumerate_spinor_small_representations--source--__span-0-85"><a id="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-85" name="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-85"></a>        <span class="n">atol</span><span class="o">=</span><span class="n">atol</span><span class="p">,</span>
+</span><span id="spgrep.spinor.enumerate_spinor_small_representations--source--__span-0-86"><a id="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-86" name="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-86"></a>        <span class="n">max_num_random_generations</span><span class="o">=</span><span class="n">max_num_random_generations</span><span class="p">,</span>
+</span><span id="spgrep.spinor.enumerate_spinor_small_representations--source--__span-0-87"><a id="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-87" name="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-87"></a>    <span class="p">)</span>
+</span><span id="spgrep.spinor.enumerate_spinor_small_representations--source--__span-0-88"><a id="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-88" name="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-88"></a>
+</span><span id="spgrep.spinor.enumerate_spinor_small_representations--source--__span-0-89"><a id="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-89" name="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-89"></a>    <span class="c1"># Small representations of little group</span>
+</span><span id="spgrep.spinor.enumerate_spinor_small_representations--source--__span-0-90"><a id="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-90" name="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-90"></a>    <span class="n">phases</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+</span><span id="spgrep.spinor.enumerate_spinor_small_representations--source--__span-0-91"><a id="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-91" name="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-91"></a>        <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="n">j</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">kpoint</span><span class="p">,</span> <span class="n">translation</span><span class="p">))</span> <span class="k">for</span> <span class="n">translation</span> <span class="ow">in</span> <span class="n">little_translations</span><span class="p">]</span>
+</span><span id="spgrep.spinor.enumerate_spinor_small_representations--source--__span-0-92"><a id="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-92" name="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-92"></a>    <span class="p">)</span>
+</span><span id="spgrep.spinor.enumerate_spinor_small_representations--source--__span-0-93"><a id="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-93" name="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-93"></a>    <span class="n">irreps</span> <span class="o">=</span> <span class="p">[]</span>
+</span><span id="spgrep.spinor.enumerate_spinor_small_representations--source--__span-0-94"><a id="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-94" name="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-94"></a>    <span class="k">for</span> <span class="n">rep</span> <span class="ow">in</span> <span class="n">little_cogroup_irreps</span><span class="p">:</span>
+</span><span id="spgrep.spinor.enumerate_spinor_small_representations--source--__span-0-95"><a id="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-95" name="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-95"></a>        <span class="n">irreps</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rep</span> <span class="o">*</span> <span class="n">phases</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">])</span>
+</span><span id="spgrep.spinor.enumerate_spinor_small_representations--source--__span-0-96"><a id="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-96" name="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-96"></a>
+</span><span id="spgrep.spinor.enumerate_spinor_small_representations--source--__span-0-97"><a id="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-97" name="spgrep.spinor.enumerate_spinor_small_representations--source--__codelineno-0-97"></a>    <span class="k">return</span> <span class="n">irreps</span><span class="p">,</span> <span class="n">spinor_factor_system</span><span class="p">,</span> <span class="n">unitary_rotations</span>
+</span></code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="spgrep.spinor.get_spinor_factor_system" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>            <span class="doc doc-object-name doc-function-name">spgrep.spinor.get_spinor_factor_system</span>
+
+
+<a href="#spgrep.spinor.get_spinor_factor_system" class="headerlink" title="Permanent link">&para;</a></h2>
+<div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">get_spinor_factor_system</span><span class="p">(</span><span class="n">lattice</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">,</span> <span class="n">rotations</span><span class="p">:</span> <span class="n">NDArrayInt</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">NDArrayComplex</span><span class="p">,</span> <span class="n">NDArrayComplex</span><span class="p">]</span>
+</span></code></pre></div>
+
+    <div class="doc doc-contents first">
+
+        <p>Calculate spin-derived factor system of spin representation.</p>
+<div class="arithmatex">\[
+\begin{aligned}
+\mathbf{U}(\mathbf{S}_{i}) \mathbf{U}(\mathbf{S}_{j})
+= z(\mathbf{S}_{i}, \mathbf{S}_{j}) \mathbf{U}(\mathbf{S}_{k})
+\end{aligned}
+\]</div>
+<p>where <span class="arithmatex">\(\mathbf{S}_{i} \mathbf{S}_{j} = \mathbf{S}_{k}\)</span>.
+See <a class="autorefs autorefs-internal" href="../formulation/irreps/spinor.html#spin_representation">Spin representation</a> for Spgrep's convention of spinor-derived factor system <span class="arithmatex">\(z(S_{i}, S_{j})\)</span> and a map from orthogonal matrix <span class="arithmatex">\(\mathbf{S}_{i} \in O(3)\)</span> to unitary matrix <span class="arithmatex">\(\mathbf{U}(\mathbf{S}_{i}) \in SU(2)\)</span>.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>lattice</code>
+            </td>
+            <td>
+                  <code><span title="spgrep.utils.NDArrayFloat">NDArrayFloat</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Row-wise basis vectors. <code>lattice[i, :]</code> is the i-th lattice vector.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>rotations</code>
+            </td>
+            <td>
+                  <code><span title="spgrep.utils.NDArrayInt">NDArrayInt</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Matrix group of <span class="arithmatex">\(\{ \mathbf{S}_{i} \}_{i}\)</span></p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+<th>Name</th>          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+<td><code>spinor_factor_system</code></td>            <td>
+                  <code>(array, (order, order))</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p><code>factor_system[i, j]</code> stands for <span class="arithmatex">\(z(\mathbf{S}_{i}, \mathbf{S}_{j})\)</span></p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+<td><code>unitary_rotations</code></td>            <td>
+                  <code>(array, (order, 2, 2))</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p><code>unitary_rotations[i]</code> stands for <span class="arithmatex">\(\mathbf{U}(\mathbf{S}_{i}) \in SU(2)\)</span>.
+SU(2) rotations on spinor.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>src/spgrep/spinor.py</code></summary>
+              <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-100">100</a></span>
+<span class="normal"><a href="#spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-101">101</a></span>
+<span class="normal"><a href="#spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-102">102</a></span>
+<span class="normal"><a href="#spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-103">103</a></span>
+<span class="normal"><a href="#spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-104">104</a></span>
+<span class="normal"><a href="#spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-105">105</a></span>
+<span class="normal"><a href="#spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-106">106</a></span>
+<span class="normal"><a href="#spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-107">107</a></span>
+<span class="normal"><a href="#spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-108">108</a></span>
+<span class="normal"><a href="#spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-109">109</a></span>
+<span class="normal"><a href="#spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-110">110</a></span>
+<span class="normal"><a href="#spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-111">111</a></span>
+<span class="normal"><a href="#spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-112">112</a></span>
+<span class="normal"><a href="#spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-113">113</a></span>
+<span class="normal"><a href="#spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-114">114</a></span>
+<span class="normal"><a href="#spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-115">115</a></span>
+<span class="normal"><a href="#spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-116">116</a></span>
+<span class="normal"><a href="#spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-117">117</a></span>
+<span class="normal"><a href="#spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-118">118</a></span>
+<span class="normal"><a href="#spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-119">119</a></span>
+<span class="normal"><a href="#spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-120">120</a></span>
+<span class="normal"><a href="#spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-121">121</a></span>
+<span class="normal"><a href="#spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-122">122</a></span>
+<span class="normal"><a href="#spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-123">123</a></span>
+<span class="normal"><a href="#spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-124">124</a></span>
+<span class="normal"><a href="#spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-125">125</a></span>
+<span class="normal"><a href="#spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-126">126</a></span>
+<span class="normal"><a href="#spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-127">127</a></span>
+<span class="normal"><a href="#spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-128">128</a></span>
+<span class="normal"><a href="#spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-129">129</a></span>
+<span class="normal"><a href="#spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-130">130</a></span>
+<span class="normal"><a href="#spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-131">131</a></span>
+<span class="normal"><a href="#spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-132">132</a></span>
+<span class="normal"><a href="#spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-133">133</a></span>
+<span class="normal"><a href="#spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-134">134</a></span>
+<span class="normal"><a href="#spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-135">135</a></span>
+<span class="normal"><a href="#spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-136">136</a></span>
+<span class="normal"><a href="#spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-137">137</a></span>
+<span class="normal"><a href="#spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-138">138</a></span>
+<span class="normal"><a href="#spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-139">139</a></span>
+<span class="normal"><a href="#spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-140">140</a></span>
+<span class="normal"><a href="#spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-141">141</a></span>
+<span class="normal"><a href="#spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-142">142</a></span>
+<span class="normal"><a href="#spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-143">143</a></span>
+<span class="normal"><a href="#spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-144">144</a></span>
+<span class="normal"><a href="#spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-145">145</a></span>
+<span class="normal"><a href="#spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-146">146</a></span>
+<span class="normal"><a href="#spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-147">147</a></span>
+<span class="normal"><a href="#spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-148">148</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="spgrep.spinor.get_spinor_factor_system--source--__span-0-100"><a id="spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-100" name="spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-100"></a><span class="k">def</span><span class="w"> </span><span class="nf">get_spinor_factor_system</span><span class="p">(</span>
+</span><span id="spgrep.spinor.get_spinor_factor_system--source--__span-0-101"><a id="spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-101" name="spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-101"></a>    <span class="n">lattice</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">,</span>
+</span><span id="spgrep.spinor.get_spinor_factor_system--source--__span-0-102"><a id="spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-102" name="spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-102"></a>    <span class="n">rotations</span><span class="p">:</span> <span class="n">NDArrayInt</span><span class="p">,</span>
+</span><span id="spgrep.spinor.get_spinor_factor_system--source--__span-0-103"><a id="spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-103" name="spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-103"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">NDArrayComplex</span><span class="p">,</span> <span class="n">NDArrayComplex</span><span class="p">]:</span>
+</span><span id="spgrep.spinor.get_spinor_factor_system--source--__span-0-104"><a id="spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-104" name="spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-104"></a><span class="w">    </span><span class="sa">r</span><span class="sd">"""Calculate spin-derived factor system of spin representation.</span>
+</span><span id="spgrep.spinor.get_spinor_factor_system--source--__span-0-105"><a id="spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-105" name="spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-105"></a>
+</span><span id="spgrep.spinor.get_spinor_factor_system--source--__span-0-106"><a id="spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-106" name="spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-106"></a><span class="sd">    $$</span>
+</span><span id="spgrep.spinor.get_spinor_factor_system--source--__span-0-107"><a id="spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-107" name="spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-107"></a><span class="sd">    \begin{aligned}</span>
+</span><span id="spgrep.spinor.get_spinor_factor_system--source--__span-0-108"><a id="spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-108" name="spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-108"></a><span class="sd">    \mathbf{U}(\mathbf{S}_{i}) \mathbf{U}(\mathbf{S}_{j})</span>
+</span><span id="spgrep.spinor.get_spinor_factor_system--source--__span-0-109"><a id="spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-109" name="spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-109"></a><span class="sd">    = z(\mathbf{S}_{i}, \mathbf{S}_{j}) \mathbf{U}(\mathbf{S}_{k})</span>
+</span><span id="spgrep.spinor.get_spinor_factor_system--source--__span-0-110"><a id="spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-110" name="spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-110"></a><span class="sd">    \end{aligned}</span>
+</span><span id="spgrep.spinor.get_spinor_factor_system--source--__span-0-111"><a id="spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-111" name="spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-111"></a><span class="sd">    $$</span>
+</span><span id="spgrep.spinor.get_spinor_factor_system--source--__span-0-112"><a id="spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-112" name="spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-112"></a>
+</span><span id="spgrep.spinor.get_spinor_factor_system--source--__span-0-113"><a id="spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-113" name="spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-113"></a><span class="sd">    where $\mathbf{S}_{i} \mathbf{S}_{j} = \mathbf{S}_{k}$.</span>
+</span><span id="spgrep.spinor.get_spinor_factor_system--source--__span-0-114"><a id="spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-114" name="spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-114"></a><span class="sd">    See [Spin representation][spin_representation] for Spgrep's convention of spinor-derived factor system $z(S_{i}, S_{j})$ and a map from orthogonal matrix $\mathbf{S}_{i} \in O(3)$ to unitary matrix $\mathbf{U}(\mathbf{S}_{i}) \in SU(2)$.</span>
+</span><span id="spgrep.spinor.get_spinor_factor_system--source--__span-0-115"><a id="spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-115" name="spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-115"></a>
+</span><span id="spgrep.spinor.get_spinor_factor_system--source--__span-0-116"><a id="spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-116" name="spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-116"></a><span class="sd">    Parameters</span>
+</span><span id="spgrep.spinor.get_spinor_factor_system--source--__span-0-117"><a id="spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-117" name="spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-117"></a><span class="sd">    ----------</span>
+</span><span id="spgrep.spinor.get_spinor_factor_system--source--__span-0-118"><a id="spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-118" name="spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-118"></a><span class="sd">    lattice: array, (3, 3)</span>
+</span><span id="spgrep.spinor.get_spinor_factor_system--source--__span-0-119"><a id="spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-119" name="spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-119"></a><span class="sd">        Row-wise basis vectors. ``lattice[i, :]`` is the i-th lattice vector.</span>
+</span><span id="spgrep.spinor.get_spinor_factor_system--source--__span-0-120"><a id="spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-120" name="spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-120"></a><span class="sd">    rotations: array, (order, 3, 3)</span>
+</span><span id="spgrep.spinor.get_spinor_factor_system--source--__span-0-121"><a id="spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-121" name="spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-121"></a><span class="sd">        Matrix group of $\{ \mathbf{S}_{i} \}_{i}$</span>
+</span><span id="spgrep.spinor.get_spinor_factor_system--source--__span-0-122"><a id="spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-122" name="spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-122"></a>
+</span><span id="spgrep.spinor.get_spinor_factor_system--source--__span-0-123"><a id="spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-123" name="spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-123"></a><span class="sd">    Returns</span>
+</span><span id="spgrep.spinor.get_spinor_factor_system--source--__span-0-124"><a id="spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-124" name="spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-124"></a><span class="sd">    -------</span>
+</span><span id="spgrep.spinor.get_spinor_factor_system--source--__span-0-125"><a id="spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-125" name="spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-125"></a><span class="sd">    spinor_factor_system: array, (order, order)</span>
+</span><span id="spgrep.spinor.get_spinor_factor_system--source--__span-0-126"><a id="spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-126" name="spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-126"></a><span class="sd">        ``factor_system[i, j]`` stands for $z(\mathbf{S}_{i}, \mathbf{S}_{j})$</span>
+</span><span id="spgrep.spinor.get_spinor_factor_system--source--__span-0-127"><a id="spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-127" name="spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-127"></a><span class="sd">    unitary_rotations: array, (order, 2, 2)</span>
+</span><span id="spgrep.spinor.get_spinor_factor_system--source--__span-0-128"><a id="spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-128" name="spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-128"></a><span class="sd">        ``unitary_rotations[i]`` stands for $\mathbf{U}(\mathbf{S}_{i}) \in SU(2)$.</span>
+</span><span id="spgrep.spinor.get_spinor_factor_system--source--__span-0-129"><a id="spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-129" name="spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-129"></a><span class="sd">        SU(2) rotations on spinor.</span>
+</span><span id="spgrep.spinor.get_spinor_factor_system--source--__span-0-130"><a id="spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-130" name="spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-130"></a><span class="sd">    """</span>
+</span><span id="spgrep.spinor.get_spinor_factor_system--source--__span-0-131"><a id="spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-131" name="spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-131"></a>    <span class="n">order</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">rotations</span><span class="p">)</span>
+</span><span id="spgrep.spinor.get_spinor_factor_system--source--__span-0-132"><a id="spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-132" name="spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-132"></a>
+</span><span id="spgrep.spinor.get_spinor_factor_system--source--__span-0-133"><a id="spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-133" name="spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-133"></a>    <span class="c1"># Assign a SU(2) rotation for each O(3) operation</span>
+</span><span id="spgrep.spinor.get_spinor_factor_system--source--__span-0-134"><a id="spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-134" name="spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-134"></a>    <span class="n">unitary_rotations</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">order</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">)</span>
+</span><span id="spgrep.spinor.get_spinor_factor_system--source--__span-0-135"><a id="spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-135" name="spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-135"></a>    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">rotation</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">rotations</span><span class="p">):</span>
+</span><span id="spgrep.spinor.get_spinor_factor_system--source--__span-0-136"><a id="spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-136" name="spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-136"></a>        <span class="n">unitary_rotations</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">get_spinor_unitary_rotation</span><span class="p">(</span><span class="n">lattice</span><span class="p">,</span> <span class="n">rotation</span><span class="p">)</span>
+</span><span id="spgrep.spinor.get_spinor_factor_system--source--__span-0-137"><a id="spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-137" name="spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-137"></a>
+</span><span id="spgrep.spinor.get_spinor_factor_system--source--__span-0-138"><a id="spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-138" name="spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-138"></a>    <span class="c1"># Factor system from spin</span>
+</span><span id="spgrep.spinor.get_spinor_factor_system--source--__span-0-139"><a id="spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-139" name="spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-139"></a>    <span class="n">table</span> <span class="o">=</span> <span class="n">get_cayley_table</span><span class="p">(</span><span class="n">rotations</span><span class="p">)</span>
+</span><span id="spgrep.spinor.get_spinor_factor_system--source--__span-0-140"><a id="spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-140" name="spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-140"></a>    <span class="n">products</span> <span class="o">=</span> <span class="n">unitary_rotations</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">@</span> <span class="n">unitary_rotations</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="p">:]</span>
+</span><span id="spgrep.spinor.get_spinor_factor_system--source--__span-0-141"><a id="spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-141" name="spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-141"></a>    <span class="n">product_rotations</span> <span class="o">=</span> <span class="n">unitary_rotations</span><span class="p">[</span><span class="n">table</span><span class="p">]</span>
+</span><span id="spgrep.spinor.get_spinor_factor_system--source--__span-0-142"><a id="spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-142" name="spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-142"></a>    <span class="n">negative_matches</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="n">products</span><span class="p">,</span> <span class="o">-</span><span class="n">product_rotations</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+</span><span id="spgrep.spinor.get_spinor_factor_system--source--__span-0-143"><a id="spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-143" name="spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-143"></a>    <span class="n">positive_matches</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="n">products</span><span class="p">,</span> <span class="n">product_rotations</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+</span><span id="spgrep.spinor.get_spinor_factor_system--source--__span-0-144"><a id="spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-144" name="spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-144"></a>    <span class="n">spinor_factor_system</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">select</span><span class="p">(</span>
+</span><span id="spgrep.spinor.get_spinor_factor_system--source--__span-0-145"><a id="spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-145" name="spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-145"></a>        <span class="p">[</span><span class="n">negative_matches</span><span class="p">,</span> <span class="n">positive_matches</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">default</span><span class="o">=</span><span class="mi">0</span>
+</span><span id="spgrep.spinor.get_spinor_factor_system--source--__span-0-146"><a id="spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-146" name="spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-146"></a>    <span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">)</span>
+</span><span id="spgrep.spinor.get_spinor_factor_system--source--__span-0-147"><a id="spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-147" name="spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-147"></a>
+</span><span id="spgrep.spinor.get_spinor_factor_system--source--__span-0-148"><a id="spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-148" name="spgrep.spinor.get_spinor_factor_system--source--__codelineno-0-148"></a>    <span class="k">return</span> <span class="n">spinor_factor_system</span><span class="p">,</span> <span class="n">unitary_rotations</span>
+</span></code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="spgrep.spinor.get_spinor_unitary_rotation" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>            <span class="doc doc-object-name doc-function-name">spgrep.spinor.get_spinor_unitary_rotation</span>
+
+
+<a href="#spgrep.spinor.get_spinor_unitary_rotation" class="headerlink" title="Permanent link">&para;</a></h2>
+<div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">get_spinor_unitary_rotation</span><span class="p">(</span><span class="n">lattice</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">,</span> <span class="n">rotation</span><span class="p">:</span> <span class="n">NDArrayInt</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NDArrayComplex</span>
+</span></code></pre></div>
+
+    <div class="doc doc-contents first">
+
+        <p>Return unitary matrix for given orthogonal matrix.</p>
+
+
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>src/spgrep/spinor.py</code></summary>
+              <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#spgrep.spinor.get_spinor_unitary_rotation--source--__codelineno-0-151">151</a></span>
+<span class="normal"><a href="#spgrep.spinor.get_spinor_unitary_rotation--source--__codelineno-0-152">152</a></span>
+<span class="normal"><a href="#spgrep.spinor.get_spinor_unitary_rotation--source--__codelineno-0-153">153</a></span>
+<span class="normal"><a href="#spgrep.spinor.get_spinor_unitary_rotation--source--__codelineno-0-154">154</a></span>
+<span class="normal"><a href="#spgrep.spinor.get_spinor_unitary_rotation--source--__codelineno-0-155">155</a></span>
+<span class="normal"><a href="#spgrep.spinor.get_spinor_unitary_rotation--source--__codelineno-0-156">156</a></span>
+<span class="normal"><a href="#spgrep.spinor.get_spinor_unitary_rotation--source--__codelineno-0-157">157</a></span>
+<span class="normal"><a href="#spgrep.spinor.get_spinor_unitary_rotation--source--__codelineno-0-158">158</a></span>
+<span class="normal"><a href="#spgrep.spinor.get_spinor_unitary_rotation--source--__codelineno-0-159">159</a></span>
+<span class="normal"><a href="#spgrep.spinor.get_spinor_unitary_rotation--source--__codelineno-0-160">160</a></span>
+<span class="normal"><a href="#spgrep.spinor.get_spinor_unitary_rotation--source--__codelineno-0-161">161</a></span>
+<span class="normal"><a href="#spgrep.spinor.get_spinor_unitary_rotation--source--__codelineno-0-162">162</a></span>
+<span class="normal"><a href="#spgrep.spinor.get_spinor_unitary_rotation--source--__codelineno-0-163">163</a></span>
+<span class="normal"><a href="#spgrep.spinor.get_spinor_unitary_rotation--source--__codelineno-0-164">164</a></span>
+<span class="normal"><a href="#spgrep.spinor.get_spinor_unitary_rotation--source--__codelineno-0-165">165</a></span>
+<span class="normal"><a href="#spgrep.spinor.get_spinor_unitary_rotation--source--__codelineno-0-166">166</a></span>
+<span class="normal"><a href="#spgrep.spinor.get_spinor_unitary_rotation--source--__codelineno-0-167">167</a></span>
+<span class="normal"><a href="#spgrep.spinor.get_spinor_unitary_rotation--source--__codelineno-0-168">168</a></span>
+<span class="normal"><a href="#spgrep.spinor.get_spinor_unitary_rotation--source--__codelineno-0-169">169</a></span>
+<span class="normal"><a href="#spgrep.spinor.get_spinor_unitary_rotation--source--__codelineno-0-170">170</a></span>
+<span class="normal"><a href="#spgrep.spinor.get_spinor_unitary_rotation--source--__codelineno-0-171">171</a></span>
+<span class="normal"><a href="#spgrep.spinor.get_spinor_unitary_rotation--source--__codelineno-0-172">172</a></span>
+<span class="normal"><a href="#spgrep.spinor.get_spinor_unitary_rotation--source--__codelineno-0-173">173</a></span>
+<span class="normal"><a href="#spgrep.spinor.get_spinor_unitary_rotation--source--__codelineno-0-174">174</a></span>
+<span class="normal"><a href="#spgrep.spinor.get_spinor_unitary_rotation--source--__codelineno-0-175">175</a></span>
+<span class="normal"><a href="#spgrep.spinor.get_spinor_unitary_rotation--source--__codelineno-0-176">176</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="spgrep.spinor.get_spinor_unitary_rotation--source--__span-0-151"><a id="spgrep.spinor.get_spinor_unitary_rotation--source--__codelineno-0-151" name="spgrep.spinor.get_spinor_unitary_rotation--source--__codelineno-0-151"></a><span class="k">def</span><span class="w"> </span><span class="nf">get_spinor_unitary_rotation</span><span class="p">(</span><span class="n">lattice</span><span class="p">:</span> <span class="n">NDArrayFloat</span><span class="p">,</span> <span class="n">rotation</span><span class="p">:</span> <span class="n">NDArrayInt</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NDArrayComplex</span><span class="p">:</span>
+</span><span id="spgrep.spinor.get_spinor_unitary_rotation--source--__span-0-152"><a id="spgrep.spinor.get_spinor_unitary_rotation--source--__codelineno-0-152" name="spgrep.spinor.get_spinor_unitary_rotation--source--__codelineno-0-152"></a><span class="w">    </span><span class="sd">"""Return unitary matrix for given orthogonal matrix."""</span>
+</span><span id="spgrep.spinor.get_spinor_unitary_rotation--source--__span-0-153"><a id="spgrep.spinor.get_spinor_unitary_rotation--source--__codelineno-0-153" name="spgrep.spinor.get_spinor_unitary_rotation--source--__codelineno-0-153"></a>    <span class="c1"># Ignore inversion parts</span>
+</span><span id="spgrep.spinor.get_spinor_unitary_rotation--source--__span-0-154"><a id="spgrep.spinor.get_spinor_unitary_rotation--source--__codelineno-0-154" name="spgrep.spinor.get_spinor_unitary_rotation--source--__codelineno-0-154"></a>    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">det</span><span class="p">(</span><span class="n">rotation</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+</span><span id="spgrep.spinor.get_spinor_unitary_rotation--source--__span-0-155"><a id="spgrep.spinor.get_spinor_unitary_rotation--source--__codelineno-0-155" name="spgrep.spinor.get_spinor_unitary_rotation--source--__codelineno-0-155"></a>        <span class="n">sign</span> <span class="o">=</span> <span class="mi">1</span>
+</span><span id="spgrep.spinor.get_spinor_unitary_rotation--source--__span-0-156"><a id="spgrep.spinor.get_spinor_unitary_rotation--source--__codelineno-0-156" name="spgrep.spinor.get_spinor_unitary_rotation--source--__codelineno-0-156"></a>    <span class="k">else</span><span class="p">:</span>
+</span><span id="spgrep.spinor.get_spinor_unitary_rotation--source--__span-0-157"><a id="spgrep.spinor.get_spinor_unitary_rotation--source--__codelineno-0-157" name="spgrep.spinor.get_spinor_unitary_rotation--source--__codelineno-0-157"></a>        <span class="n">sign</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+</span><span id="spgrep.spinor.get_spinor_unitary_rotation--source--__span-0-158"><a id="spgrep.spinor.get_spinor_unitary_rotation--source--__codelineno-0-158" name="spgrep.spinor.get_spinor_unitary_rotation--source--__codelineno-0-158"></a>    <span class="n">proper_rotation</span> <span class="o">=</span> <span class="n">rotation</span> <span class="o">*</span> <span class="n">sign</span>
+</span><span id="spgrep.spinor.get_spinor_unitary_rotation--source--__span-0-159"><a id="spgrep.spinor.get_spinor_unitary_rotation--source--__codelineno-0-159" name="spgrep.spinor.get_spinor_unitary_rotation--source--__codelineno-0-159"></a>
+</span><span id="spgrep.spinor.get_spinor_unitary_rotation--source--__span-0-160"><a id="spgrep.spinor.get_spinor_unitary_rotation--source--__codelineno-0-160" name="spgrep.spinor.get_spinor_unitary_rotation--source--__codelineno-0-160"></a>    <span class="n">cart_rotation</span> <span class="o">=</span> <span class="n">lattice</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">proper_rotation</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">lattice</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+</span><span id="spgrep.spinor.get_spinor_unitary_rotation--source--__span-0-161"><a id="spgrep.spinor.get_spinor_unitary_rotation--source--__codelineno-0-161" name="spgrep.spinor.get_spinor_unitary_rotation--source--__codelineno-0-161"></a>    <span class="n">theta</span><span class="p">,</span> <span class="n">cart_axis</span> <span class="o">=</span> <span class="n">get_rotation_angle_and_axis</span><span class="p">(</span><span class="n">cart_rotation</span><span class="p">)</span>
+</span><span id="spgrep.spinor.get_spinor_unitary_rotation--source--__span-0-162"><a id="spgrep.spinor.get_spinor_unitary_rotation--source--__codelineno-0-162" name="spgrep.spinor.get_spinor_unitary_rotation--source--__codelineno-0-162"></a>    <span class="n">cos_half</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">theta</span><span class="p">)</span>
+</span><span id="spgrep.spinor.get_spinor_unitary_rotation--source--__span-0-163"><a id="spgrep.spinor.get_spinor_unitary_rotation--source--__codelineno-0-163" name="spgrep.spinor.get_spinor_unitary_rotation--source--__codelineno-0-163"></a>    <span class="n">sin_half</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">theta</span><span class="p">)</span>
+</span><span id="spgrep.spinor.get_spinor_unitary_rotation--source--__span-0-164"><a id="spgrep.spinor.get_spinor_unitary_rotation--source--__codelineno-0-164" name="spgrep.spinor.get_spinor_unitary_rotation--source--__codelineno-0-164"></a>    <span class="n">unitary_rotation</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+</span><span id="spgrep.spinor.get_spinor_unitary_rotation--source--__span-0-165"><a id="spgrep.spinor.get_spinor_unitary_rotation--source--__codelineno-0-165" name="spgrep.spinor.get_spinor_unitary_rotation--source--__codelineno-0-165"></a>        <span class="p">[</span>
+</span><span id="spgrep.spinor.get_spinor_unitary_rotation--source--__span-0-166"><a id="spgrep.spinor.get_spinor_unitary_rotation--source--__codelineno-0-166" name="spgrep.spinor.get_spinor_unitary_rotation--source--__codelineno-0-166"></a>            <span class="p">[</span>
+</span><span id="spgrep.spinor.get_spinor_unitary_rotation--source--__span-0-167"><a id="spgrep.spinor.get_spinor_unitary_rotation--source--__codelineno-0-167" name="spgrep.spinor.get_spinor_unitary_rotation--source--__codelineno-0-167"></a>                <span class="n">cos_half</span> <span class="o">-</span> <span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="n">cart_axis</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="n">sin_half</span><span class="p">,</span>
+</span><span id="spgrep.spinor.get_spinor_unitary_rotation--source--__span-0-168"><a id="spgrep.spinor.get_spinor_unitary_rotation--source--__codelineno-0-168" name="spgrep.spinor.get_spinor_unitary_rotation--source--__codelineno-0-168"></a>                <span class="n">sin_half</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="n">cart_axis</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">cart_axis</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span>
+</span><span id="spgrep.spinor.get_spinor_unitary_rotation--source--__span-0-169"><a id="spgrep.spinor.get_spinor_unitary_rotation--source--__codelineno-0-169" name="spgrep.spinor.get_spinor_unitary_rotation--source--__codelineno-0-169"></a>            <span class="p">],</span>
+</span><span id="spgrep.spinor.get_spinor_unitary_rotation--source--__span-0-170"><a id="spgrep.spinor.get_spinor_unitary_rotation--source--__codelineno-0-170" name="spgrep.spinor.get_spinor_unitary_rotation--source--__codelineno-0-170"></a>            <span class="p">[</span>
+</span><span id="spgrep.spinor.get_spinor_unitary_rotation--source--__span-0-171"><a id="spgrep.spinor.get_spinor_unitary_rotation--source--__codelineno-0-171" name="spgrep.spinor.get_spinor_unitary_rotation--source--__codelineno-0-171"></a>                <span class="n">sin_half</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="n">cart_axis</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">cart_axis</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span>
+</span><span id="spgrep.spinor.get_spinor_unitary_rotation--source--__span-0-172"><a id="spgrep.spinor.get_spinor_unitary_rotation--source--__codelineno-0-172" name="spgrep.spinor.get_spinor_unitary_rotation--source--__codelineno-0-172"></a>                <span class="n">cos_half</span> <span class="o">+</span> <span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="n">cart_axis</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="n">sin_half</span><span class="p">,</span>
+</span><span id="spgrep.spinor.get_spinor_unitary_rotation--source--__span-0-173"><a id="spgrep.spinor.get_spinor_unitary_rotation--source--__codelineno-0-173" name="spgrep.spinor.get_spinor_unitary_rotation--source--__codelineno-0-173"></a>            <span class="p">],</span>
+</span><span id="spgrep.spinor.get_spinor_unitary_rotation--source--__span-0-174"><a id="spgrep.spinor.get_spinor_unitary_rotation--source--__codelineno-0-174" name="spgrep.spinor.get_spinor_unitary_rotation--source--__codelineno-0-174"></a>        <span class="p">]</span>
+</span><span id="spgrep.spinor.get_spinor_unitary_rotation--source--__span-0-175"><a id="spgrep.spinor.get_spinor_unitary_rotation--source--__codelineno-0-175" name="spgrep.spinor.get_spinor_unitary_rotation--source--__codelineno-0-175"></a>    <span class="p">)</span>
+</span><span id="spgrep.spinor.get_spinor_unitary_rotation--source--__span-0-176"><a id="spgrep.spinor.get_spinor_unitary_rotation--source--__codelineno-0-176" name="spgrep.spinor.get_spinor_unitary_rotation--source--__codelineno-0-176"></a>    <span class="k">return</span> <span class="n">unitary_rotation</span>
+</span></code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-circle-arrow-up" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16 12-4-4-4 4M12 16V8"/></svg>
+  Back to top
+</button>
+        
       </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="./api_symmetry.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Representation theory for symmetry">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7M19 12H5"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Representation theory for symmetry
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="./api_corep.html" class="md-footer__link md-footer__link--next" aria-label="Next: Co-representation">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Co-representation
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2022, Kohei Shinohara
+    </div>
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
     </div>
   </div>
-  
-  <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
-<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
-
-  <footer class="bd-footer">
-  </footer>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["content.code.copy","navigation.footer","navigation.indexes","navigation.instant","navigation.top","navigation.tracking","search.highlight","toc.follow"],"redirect":null,"search":"../assets/javascripts/workers/search.719e0d91.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.9e76c64c.min.js"></script>
+      
+      
+        <script src="../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js"></script>
+      
+    
   </body>
 </html>

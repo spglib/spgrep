@@ -1,663 +1,1912 @@
 
-<!DOCTYPE html>
 
 
-<html lang="en" data-content_root="../../" >
-
+<!doctype html>
+<html lang="en" class="no-js">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="On-the-fly generator of space-group irreducible representations">
+      
+      
+        <meta name="author" content="Kohei Shinohara">
+      
+      
+        <link rel="canonical" href="https://spglib.github.io/spgrep/formulation/irreps/spacegroup_irreps.html">
+      
+      
+      
+      
+        <link rel="prev" href="./irreps.html">
+      
+      
+        <link rel="next" href="./reality.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../_static/icon.svg">
+      <meta name="generator" content="zensical-0.1.3">
+    
+    
+      
+        <title>Irreps of space group - spgrep</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../../assets/stylesheets/modern/main.e2cf241e.min.css">
+      
+        
+          
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/modern/palette.b60ce83d.min.css">
+      
+      
+      
 
-    <title>Irreps of space group &#8212; spgrep 0.3.8</title>
-  
-  
-  
-  <script data-cfasync="false">
-    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
-  </script>
-  <!--
-    this give us a css class that will be invisible only if js is disabled
-  -->
-  <noscript>
-    <style>
-      .pst-js-only { display: none !important; }
 
-    </style>
-  </noscript>
-  
-  <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
 
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
-    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
-  
-  <!-- So that users can add custom icons -->
-  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
-  <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
-<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
-
-    <script src="../../_static/documentation_options.js?v=b6fef582"></script>
-    <script src="../../_static/doctools.js?v=9bcbadda"></script>
-    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
-    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'formulation/irreps/spacegroup_irreps';</script>
-    <link rel="index" title="Index" href="../../genindex.html" />
-    <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Physically irreducible representation (PIR)" href="reality.html" />
-    <link rel="prev" title="Formulation of irreducible representations" href="irreps.html" />
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="0.3.8" />
+    
+    
   </head>
   
   
-  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
-
-  
-  
-  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
-  
-  <div id="pst-scroll-pixel-helper"></div>
-  
-  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
-    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
-
-  
-  <dialog id="pst-search-dialog">
     
-<form class="bd-search d-flex align-items-center"
-      action="../../search.html"
-      method="get">
-  <i class="fa-solid fa-magnifying-glass"></i>
-  <input type="search"
-         class="form-control"
-         name="q"
-         placeholder="Search..."
-         aria-label="Search..."
-         autocomplete="off"
-         autocorrect="off"
-         autocapitalize="off"
-         spellcheck="false"/>
-  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form>
-  </dialog>
-
-  <div class="pst-async-banner-revealer d-none">
-  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
-</div>
-
-  
-    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
-    </header>
-  
-
-  <div class="bd-container">
-    <div class="bd-container__inner bd-page-width">
+    
       
-      
-      
-      <dialog id="pst-primary-sidebar-modal"></dialog>
-      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
-        
-
-  
-  <div class="sidebar-header-items sidebar-primary__section">
     
     
     
     
-  </div>
-  
-    <div class="sidebar-primary-items__start sidebar-primary__section">
-        <div class="sidebar-primary-item">
-
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
   
     
-  
-
-<a class="navbar-brand logo" href="../../index.html">
-  
-  
-  
-  
-  
-  
-    <p class="title logo__title">spgrep 0.3.8</p>
-  
-</a></div>
-        <div class="sidebar-primary-item">
-
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
- <i class="fa-solid fa-magnifying-glass"></i>
- <span class="search-button__default-text">Search</span>
- <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-</button></div>
-        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
-    <div class="bd-toc-item navbar-nav active">
-        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Contents</span></p>
-<ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../../index.html">   Introduction</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../examples/examples.html">   Examples</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../examples/symmetry_adapted_tensor.html">  Symmetry-adapted tensors</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../examples/lattice_vibration.html">  Application of space-group irreps to lattice vibration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../examples/spin_representation.html">  Spin representation</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 current active has-children"><a class="reference internal" href="../formulation.html">   Formulation</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
-<li class="toctree-l2 current active has-children"><a class="reference internal" href="irreps.html">  Irreducible representation</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
-<li class="toctree-l3 current active"><a class="current reference internal" href="#">  Irreps of space group</a></li>
-<li class="toctree-l3"><a class="reference internal" href="reality.html">  Physically irreps</a></li>
-<li class="toctree-l3"><a class="reference internal" href="spinor.html">  Spin representation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="corep.html">  Co-representation</a></li>
-</ul>
-</details></li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../algorithm/algorithm.html">  Algorithm for enumerating irreps</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l3"><a class="reference internal" href="../algorithm/irreps_from_regular.html">  On-the-fly irreps generation from regular representation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../algorithm/irreps_from_chain.html">  On-the-fly irreps generation from solvable group chain</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../algorithm/intertwiner.html">  Intertwiner</a></li>
-</ul>
-</details></li>
-<li class="toctree-l2"><a class="reference internal" href="../projection.html">  Symmetry-adapted basis</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../api/api.html">   API Reference</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../api/api_core.html">    Core functions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../api/api_group.html">    Group</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../api/api_pointgroup.html">    Point group</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../api/api_transformation.html">    Transformation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../api/api_representation.html">    Representation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../api/api_irreps.html">    Irreps</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../api/api_spinor.html">    Spinor</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../api/api_corep.html">    Co-representation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../api/api_tensor.html">    Tensor</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../api/api_utils.html">    Utility functions</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">   Change Log</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../development/development.html">   Development</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../development/memo.html">  Memo</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1"><a class="reference internal" href="../../genindex.html">   Index</a></li>
-</ul>
-
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-hidden="true"></label>
+    <div data-md-component="skip">
+      <a href="#__skip" class="md-skip">
+        Skip to content
+      </a>
     </div>
-</nav></div>
-    </div>
-  
-  
-  <div class="sidebar-primary-items__end sidebar-primary__section">
-      <div class="sidebar-primary-item">
-<div id="ethical-ad-placement"
-      class="flat"
-      data-ea-publisher="readthedocs"
-      data-ea-type="readthedocs-sidebar"
-      data-ea-manual="true">
-</div></div>
-  </div>
-
-
-      </div>
-      
-      <main id="main-content" class="bd-main" role="main">
-        
-        
-
-<div class="sbt-scroll-pixel-helper"></div>
-
-          <div class="bd-content">
-            <div class="bd-article-container">
-              
-              <div class="bd-header-article d-print-none">
-<div class="header-article-items header-article__inner">
-  
-    <div class="header-article-items__start">
-      
-        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <span class="fa-solid fa-bars"></span>
-</button></div>
+    <div data-md-component="announce">
       
     </div>
-  
-  
-    <div class="header-article-items__end">
+    
+    
       
-        <div class="header-article-item">
 
-<div class="article-header-buttons">
-
-
-<a href="https://github.com/spglib/spgrep" target="_blank"
-   class="btn btn-sm btn-source-repository-button"
-   title="Source repository"
-   data-bs-placement="bottom" data-bs-toggle="tooltip"
->
   
 
-<span class="btn__icon-container">
-  <i class="fab fa-github"></i>
-  </span>
-
-</a>
-
-
-
-
-
-
-<div class="dropdown dropdown-download-buttons">
-  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
-    <i class="fas fa-download"></i>
-  </button>
-  <ul class="dropdown-menu">
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../index.html" title="spgrep" class="md-header__button md-logo" aria-label="spgrep" data-md-component="logo">
       
+  <img src="../../_static/icon.svg" alt="spgrep">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
       
-      
-      <li><a href="../../_sources/formulation/irreps/spacegroup_irreps.md" target="_blank"
-   class="btn btn-sm btn-download-source-button dropdown-item"
-   title="Download source file"
-   data-bs-placement="left" data-bs-toggle="tooltip"
->
-  
-
-<span class="btn__icon-container">
-  <i class="fas fa-file"></i>
-  </span>
-<span class="btn__text-container">.md</span>
-</a>
-</li>
-      
-      
-      
-      
-      <li>
-<button onclick="window.print()"
-  class="btn btn-sm btn-download-pdf-button dropdown-item"
-  title="Print to PDF"
-  data-bs-placement="left" data-bs-toggle="tooltip"
->
-  
-
-<span class="btn__icon-container">
-  <i class="fas fa-file-pdf"></i>
-  </span>
-<span class="btn__text-container">.pdf</span>
-</button>
-</li>
-      
-  </ul>
-</div>
-
-
-
-
-<button onclick="toggleFullScreen()"
-  class="btn btn-sm btn-fullscreen-button"
-  title="Fullscreen mode"
-  data-bs-placement="bottom" data-bs-toggle="tooltip"
->
-  
-
-<span class="btn__icon-container">
-  <i class="fas fa-expand"></i>
-  </span>
-
-</button>
-
-
-
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button>
-
-
-<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-</button>
-<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="fa-solid fa-list"></span>
-</button>
-</div></div>
-      
-    </div>
-  
-</div>
-</div>
-              
-              
-
-<div id="jb-print-docs-body" class="onlyprint">
-    <h1>Irreps of space group</h1>
-    <!-- Table of contents -->
-    <div id="print-main-content">
-        <div id="jb-print-toc">
-            
-            <div>
-                <h2> Contents </h2>
-            </div>
-            <nav aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reciprocal-lattice-and-transformation">Reciprocal lattice and transformation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#irreps-of-translation-subgroup">Irreps of translation subgroup</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#little-group">Little group</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#projective-representation">Projective representation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#small-representation">Small representation</a></li>
-</ul>
-            </nav>
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+      <span class="md-visually-hidden">Navigation</span>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            spgrep
+          </span>
         </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Irreps of space group
+            
+          </span>
+        </div>
+      </div>
     </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="none" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="none" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-moon" viewBox="0 0 24 24"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+          <span class="md-visually-hidden">Search</span>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
 </div>
+      
+    
+    <div class="md-header__source">
+      
+        <a href="https://github.com/spglib/spgrep" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    spglib/spgrep
+  </div>
+</a>
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
 
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../index.html" title="spgrep" class="md-nav__button md-logo" aria-label="spgrep" data-md-component="logo">
+      
+  <img src="../../_static/icon.svg" alt="spgrep">
+
+    </a>
+    spgrep
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/spglib/spgrep" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    spglib/spgrep
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Introduction
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Examples
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_2">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Examples
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
               
                 
-<div id="searchbox"></div>
-                <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="irreps-of-space-group">
-<span id="space-group-irreps"></span><h1>Irreps of space group<a class="headerlink" href="#irreps-of-space-group" title="Link to this heading">#</a></h1>
-<p>This page formulates little group, small representation, and irreducible representations (irreps) of space groups.</p>
-<section id="reciprocal-lattice-and-transformation">
-<h2>Reciprocal lattice and transformation<a class="headerlink" href="#reciprocal-lattice-and-transformation" title="Link to this heading">#</a></h2>
-<p>Let <span class="math notranslate nohighlight">\(\mathbf{A} = (\mathbf{a}_{1}, \mathbf{a}_{2}, \mathbf{a}_{3})\)</span> be basis of <span class="math notranslate nohighlight">\(L_{\mathcal{T}}\)</span>, which is lattice of translational group <span class="math notranslate nohighlight">\({\mathcal{T}}\)</span>.
-We choose basis of the (crystallographic) reciprocal vectors as
-<div class="math notranslate nohighlight">
-\[\begin{split}
-  \mathbf{B} &amp;= (\mathbf{b}_{1}, \mathbf{b}_{2}, \mathbf{b}_{3}) = A^{-\top} \\
-  \mathbf{b}_{i} \cdot \mathbf{a}_{j} &amp;= \delta_{ij}.
-\end{split}\]</div>
-</p>
-<p>When basis vectors <span class="math notranslate nohighlight">\(\mathbf{A}\)</span> is transformed to <span class="math notranslate nohighlight">\(\mathbf{A}' := \mathbf{AP}\)</span>,</p>
-<ul>
-<li><p>its dual basis vectors in reciprocal space is transformed from <span class="math notranslate nohighlight">\(\mathbf{B}=\mathbf{A}^{-\top}\)</span> to <span class="math notranslate nohighlight">\(\mathbf{B}' := \mathbf{B}\mathbf{P}^{-\top}\)</span>.</p></li>
-<li><p>symmetry operation <span class="math notranslate nohighlight">\((\mathbf{R}, \mathbf{v})\)</span> is transformed to</p>
-<div class="math notranslate nohighlight">
-\[    (\mathbf{P}, \mathbf{0})^{-1} (\mathbf{R}, \mathbf{v}) (\mathbf{P}, \mathbf{0})
-        = (\mathbf{P}^{-1}\mathbf{RP}, \mathbf{P}^{-1}\mathbf{v}).\]</div>
-</li>
-<li><p>Coefficients of reciprocal vector <span class="math notranslate nohighlight">\(\mathbf{k} = 2 \pi \mathbf{B} \mathbf{k}_{f}\)</span> is transformed to <span class="math notranslate nohighlight">\(\mathbf{k}_{f}' := \mathbf{P}^{\top} \mathbf{k}_{f}\)</span>.</p></li>
-</ul>
-</section>
-<section id="irreps-of-translation-subgroup">
-<h2>Irreps of translation subgroup<a class="headerlink" href="#irreps-of-translation-subgroup" title="Link to this heading">#</a></h2>
-<p>Consider the following irreps of translation subgroup <span class="math notranslate nohighlight">\(\mathcal{T}\)</span> of space group <span class="math notranslate nohighlight">\(\mathcal{G}\)</span>,
-<div class="math notranslate nohighlight">
-\[
-  \Gamma^{(\mathbf{k})} ((\mathbf{E}, \mathbf{t}))
-  = \exp \left( -i \mathbf{k} \cdot \mathbf{t} \right)
-  \quad ( \mathbf{t} \in L_{\mathcal{T}} ),
-\]</div>
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/examples.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Examples
 
-where <span class="math notranslate nohighlight">\(L_{\mathcal{T}}\)</span> is a lattice formed by <span class="math notranslate nohighlight">\(\mathcal{T}\)</span>.
-Let <span class="math notranslate nohighlight">\(L_{\mathcal{T}}^{\ast}\)</span> be a reciprocal lattice of <span class="math notranslate nohighlight">\(L_{\mathcal{T}}\)</span>.
-We can confine <span class="math notranslate nohighlight">\(\mathbf{k}\)</span> within or the surface of a primitive cell of the reciprocal space because, for <span class="math notranslate nohighlight">\(\mathbf{g} \in L_{\mathcal{T}}^{\ast}\)</span>, <span class="math notranslate nohighlight">\(\Gamma^{(\mathbf{k})} = \Gamma^{(\mathbf{k} + \mathbf{g})}\)</span>.
-Any Bloch function with <span class="math notranslate nohighlight">\(\mathbf{k}\)</span>
-<div class="math notranslate nohighlight">
-\[
-  \Psi_{\mathbf{k}}(\mathbf{r}) = e^{ i \mathbf{k} \cdot \mathbf{r} } u_{\mathbf{k}}(\mathbf{r}),
-\]</div>
+    
+  </span>
+  
+  
 
-where <span class="math notranslate nohighlight">\(u_{\mathbf{k}}(\mathbf{r})\)</span> is periodic with <span class="math notranslate nohighlight">\(L_{\mathcal{T}}\)</span>, can be taken as (one-dimensional) basis of <span class="math notranslate nohighlight">\(\Gamma^{\mathbf{k}}\)</span>:
-<div class="math notranslate nohighlight">
-\[\begin{split}
-  (\mathbf{E}, \mathbf{t}) \Psi_{\mathbf{k}}(\mathbf{r})
-    &amp;= \Psi_{\mathbf{k}}( (\mathbf{E}, \mathbf{t})^{-1} \mathbf{r}) \\
-    &amp;= e^{-i\mathbf{k}\cdot\mathbf{t}} \Psi_{\mathbf{k}}(\mathbf{r}).
-\end{split}\]</div>
-</p>
-<p>We write point group of space group <span class="math notranslate nohighlight">\(\mathcal{G}\)</span> as <span class="math notranslate nohighlight">\(\mathcal{P}\)</span>.
-For <span class="math notranslate nohighlight">\((\mathbf{R}, \mathbf{v}) \in \mathcal{G}\)</span>, <span class="math notranslate nohighlight">\((\mathbf{R}, \mathbf{v}) \Psi_{\mathbf{k}}(\mathbf{r})\)</span> is Bloch function with <span class="math notranslate nohighlight">\(\mathbf{Rk}\)</span>:</p>
-<div class="math notranslate nohighlight" id="equation-eqn-point-group-in-bloch-function">
-<span class="eqno">(1)<a class="headerlink" href="#equation-eqn-point-group-in-bloch-function" title="Link to this equation">#</a></span>\[\begin{split}
-  (\mathbf{E}, \mathbf{t}) (\mathbf{R}, \mathbf{v}) \Psi_{\mathbf{k}}(\mathbf{r})
-  &amp;= (\mathbf{R}, \mathbf{v}) (\mathbf{E}, \mathbf{R}^{-1}\mathbf{t}) \Psi_{\mathbf{k}}(\mathbf{r}) \nonumber \\
-  &amp;= \exp \left( -i \mathbf{k} \cdot \mathbf{R}^{-1} \mathbf{t} \right) (\mathbf{R}, \mathbf{v}) \Psi_{\mathbf{k}}(\mathbf{r}) \nonumber \\
-  &amp;= \exp \left( -i \mathbf{Rk} \cdot \mathbf{t} \right) (\mathbf{R}, \mathbf{v}) \Psi_{\mathbf{k}}(\mathbf{r}) \quad (\because \mathbf{R} \in O(3) ).
-\end{split}\]</div>
-<p>Be careful the basis for calculating inner product in Eq. <a class="reference internal" href="#equation-eqn-point-group-in-bloch-function">(1)</a>, when you use crystallographic coordinates <a class="footnote-reference brackets" href="#footnote1" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>:
-<div class="math notranslate nohighlight">
-\[\begin{split}
-  \mathbf{v} &amp;=: \mathbf{A} \mathbf{v}_{f} \\
-  \mathbf{A}^{-1} \mathbf{R} \mathbf{A} &amp;=: \mathbf{R}_{f} \quad \in \mathrm{SL}(3) \\
-  (\mathbf{k}, \mathbf{R}^{-1} \mathbf{v})
-    &amp;= (\mathbf{R} \mathbf{k}, \mathbf{v}) \nonumber \\
-    &amp;= 2 \pi \left( ( \mathbf{A}^{\top} \mathbf{A}^{-1} ) \mathbf{R}_{f} ( \mathbf{A}^{\top} \mathbf{A}^{-1} )^{-1} \mathbf{k}_{f}, \mathbf{v}_{f} \right) \nonumber \\
-    &amp;= 2 \pi \left( \mathbf{R}_{f}^{\top} \mathbf{k}_{f}, \mathbf{v}_{f} \right)
-    \quad (\because \mathbf{R}_{f}^{\top} = \mathbf{A}^{\top} \mathbf{R}^{-1} \mathbf{A}^{-\top} ).
-\end{split}\]</div>
-</p>
-</section>
-<section id="little-group">
-<h2>Little group<a class="headerlink" href="#little-group" title="Link to this heading">#</a></h2>
-<p>Let <span class="math notranslate nohighlight">\(\mathcal{P}\)</span> be point group of space group <span class="math notranslate nohighlight">\(\mathcal{G}\)</span>.
-We define little co-group of <span class="math notranslate nohighlight">\(\mathbf{k}\)</span>,
-<div class="math notranslate nohighlight">
-\[
-  \overline{\mathcal{G}}^{\mathbf{k}} = \left\{ \mathbf{R} \in \mathcal{P} \mid \mathbf{Rk} \equiv \mathbf{k} \right\},
-\]</div>
+      </a>
+    </li>
+  
 
-where <span class="math notranslate nohighlight">\(\equiv\)</span> is up to reciprocal vectors in <span class="math notranslate nohighlight">\(L_{\mathcal{T}}^{\ast}\)</span>.
-When we use crystallographic coordinates w.r.t. <strong>primitive</strong> basis vectors, the condition <span class="math notranslate nohighlight">\(\mathbf{Rk} \equiv \mathbf{k}\)</span> is written as
-<div class="math notranslate nohighlight">
-\[
-    \mathbf{Rk} \equiv \mathbf{k}
-    \Longleftrightarrow
-    \mathbf{R}_{f}^{\top} \mathbf{k}_{f} - \mathbf{k}_{f} \in \mathbb{Z}^{3}.
-\]</div>
-</p>
-<p>Because lattice <span class="math notranslate nohighlight">\(L_{\mathcal{T}}\)</span> is invariant with <span class="math notranslate nohighlight">\(\mathbf{R} \in \mathcal{P}\)</span>, we obtain
-<div class="math notranslate nohighlight">
-\[
-  \mathbf{R} \mathbf{k}_{1} \equiv \mathbf{k}_{2}
-  \Rightarrow
-  \overline{\mathcal{G}}^{\mathbf{k}_{2}} = \mathbf{R} \overline{\mathcal{G}}^{\mathbf{k}_{1}} \mathbf{R}^{-1}.
-\]</div>
-
-When we decompose point group <span class="math notranslate nohighlight">\(\mathcal{P}\)</span> as
-<div class="math notranslate nohighlight">
-\[
-  \mathcal{P} = \coprod_{i=1}^{q} \mathbf{P}_{i} \overline{\mathcal{G}}^{\mathbf{k}_{1}},
-\]</div>
-
-<span class="math notranslate nohighlight">\(\mathbf{P}_{i}\mathbf{k}_{1} \equiv \mathbf{k}_{i}\)</span> with star of <span class="math notranslate nohighlight">\(\mathbf{k}_{1}\)</span>, <span class="math notranslate nohighlight">\(\left\{ \mathbf{k}_{1}, \dots, \mathbf{k}_{q} \right\}\)</span>.</p>
-<p>We define little group (of the first kind) of <span class="math notranslate nohighlight">\(\mathbf{k}\)</span> as
-<div class="math notranslate nohighlight">
-\[
-  \mathcal{G}^{\mathbf{k}} = \coprod_{ \{ i \mid \mathbf{S}_{i} \in \overline{\mathcal{G}}^{\mathbf{k}} \} } (\mathbf{S}_{i}, \mathbf{w}_{i}) \mathcal{T},
-\]</div>
-
-where <span class="math notranslate nohighlight">\(\mathcal{G} = \coprod_{i} (\mathbf{S}_{i}, \mathbf{w}_{i}) \mathcal{T}\)</span>.
-We can decompose space group <span class="math notranslate nohighlight">\(\mathcal{G}\)</span> as
-<div class="math notranslate nohighlight">
-\[
-  \mathcal{G} = \coprod_{i=1}^{q} (\mathbf{P}_{i}, \mathbf{x}_{i}) \mathcal{G}^{\mathbf{k}_{1}}.
-\]</div>
-
-Then, for Bloch function <span class="math notranslate nohighlight">\(\Psi_{\mathbf{k}_{1}}(\mathbf{r})\)</span>, <span class="math notranslate nohighlight">\((\mathbf{P}_{i}, \mathbf{x}_{i}) \mathcal{G}^{\mathbf{k}_{1}} \Psi_{\mathbf{k}_{1}}(\mathbf{r})\)</span> is Bloch function for <span class="math notranslate nohighlight">\(\mathbf{k}_{i}\)</span>.
-Thus, our task to calculate irreps of <span class="math notranslate nohighlight">\(\mathcal{G}\)</span> is boiled down to calculating irreps of little group <span class="math notranslate nohighlight">\(\mathcal{G}^{\mathbf{k}}\)</span>, which is called small representation.</p>
-</section>
-<section id="projective-representation">
-<h2>Projective representation<a class="headerlink" href="#projective-representation" title="Link to this heading">#</a></h2>
-<p>A projective representation of group <span class="math notranslate nohighlight">\(G\)</span> is a non-singular matrix function <span class="math notranslate nohighlight">\(\Delta\)</span> on <span class="math notranslate nohighlight">\(G\)</span> if it satisfied the following conditions:
-For each group product <span class="math notranslate nohighlight">\(G_{k} = G_{i}G_{j}\)</span>, there exists scalar function <span class="math notranslate nohighlight">\(\mu\)</span> (factor system) such that
-<div class="math notranslate nohighlight">
-\[
-  \Delta(G_{i}) \Delta(G_{j}) = \mu(G_{i}, G_{j}) \Delta(G_{k}),
-\]</div>
-
-and
-<div class="math notranslate nohighlight">
-\[
-  \mu(G_{i}, G_{j}G_{k}) \mu(G_{j}, G_{k}) = \mu(G_{i}G_{j}, G_{k}) \mu(G_{i}, G_{j})
-  \quad \mbox{(cocycle condition)}.
-\]</div>
-</p>
-</section>
-<section id="small-representation">
-<h2>Small representation<a class="headerlink" href="#small-representation" title="Link to this heading">#</a></h2>
-<p>Let <span class="math notranslate nohighlight">\(\Gamma^{\mathbf{k}}_{p}\)</span> be irrep of <span class="math notranslate nohighlight">\(\mathcal{G}^{\mathbf{k}}\)</span>, for <span class="math notranslate nohighlight">\(\mathbf{S}_{i} \mathbf{S}_{j} = \mathbf{S}_{k}\)</span>,
-<div class="math notranslate nohighlight">
-\[
-  \mathbf{\Gamma}^{\mathbf{k}}_{p}((\mathbf{S}_{i}, \mathbf{w}_{i})) \mathbf{\Gamma}^{\mathbf{k}}_{p}((\mathbf{S}_{j}, \mathbf{w}_{j}))
-    = \exp \left( -i \mathbf{k} \cdot ( \mathbf{w}_{i} + \mathbf{S}_{i} \mathbf{w}_{j} - \mathbf{w}_{k} ) \right) \mathbf{\Gamma}^{\mathbf{k}}_{p}((\mathbf{S}_{k}, \mathbf{w}_{k})).
-\]</div>
-
-Then, Simplifying by
-<div class="math notranslate nohighlight">
-\[\begin{split}
-  \mathbf{\Gamma}^{\mathbf{k}}_{p}((\mathbf{R}, \mathbf{v})) &amp;=: \exp \left( -i \mathbf{k} \cdot \mathbf{v} \right) \mathbf{D}^{\mathbf{k}}_{p}((\mathbf{R}, \mathbf{v})) \\
-  \mathbf{D}^{\mathbf{k}}_{p}((\mathbf{S}_{i}, \mathbf{w}_{i})) \mathbf{D}^{\mathbf{k}}_{p}((\mathbf{S}_{j}, \mathbf{w}_{j}))
-    &amp;= \exp \left( -i \mathbf{g}_{i} \cdot \mathbf{w}_{j} \right) \mathbf{D}^{\mathbf{k}}_{p}((\mathbf{S}_{k}, \mathbf{w}_{k})),
-\end{split}\]</div>
-
-where
-<div class="math notranslate nohighlight">
-\[\begin{split}
-  \mathbf{g}_{i}
-    &amp;= \mathbf{S}_{i}^{-1} \mathbf{k} - \mathbf{k} \\
-    &amp;= 2 \pi \mathbf{B} \left( \mathbf{S}_{i, f}^{\top} \mathbf{k}_{f} - \mathbf{k}_{f} \right)
-        \quad (\mathbf{S}_{i, f} = \mathbf{A} \mathbf{S}_{i} \mathbf{A}^{-1}).
-\end{split}\]</div>
-</p>
-<p><strong>If we choose origin such that <span class="math notranslate nohighlight">\((\mathbf{E}, \mathbf{t}) \in \mathcal{G}\)</span></strong>, <span class="math notranslate nohighlight">\(\mathbf{D}^{\mathbf{k}}_{p}((\mathbf{E}, \mathbf{t})) = \mathbf{1}\)</span> and <span class="math notranslate nohighlight">\(\exp \left( -i \mathbf{g}_{i} \cdot (\mathbf{w}_{j} + \mathbf{t}) \right) =\exp \left( -i \mathbf{g}_{i} \cdot \mathbf{w}_{j} \right) \)</span> hold.
-Then, it is sufficient to consider on <span class="math notranslate nohighlight">\(\overline{\mathcal{G}}^{\mathbf{k}}\)</span>,
-<div class="math notranslate nohighlight">
-\[
-  \mathbf{D}^{\mathbf{k}}_{p}(\mathbf{S}_{i}) \mathbf{D}^{\mathbf{k}}_{p}(\mathbf{S}_{j})
-    = \exp \left( -i \mathbf{g}_{i} \cdot \mathbf{w}_{j} \right) \mathbf{D}^{\mathbf{k}}_{p}(\mathbf{S}_{k})
-\]</div>
-
-Here, <span class="math notranslate nohighlight">\(\mu_{\mathbf{k}}(S_{i}, S_{j}) := \exp \left( -i \mathbf{g}_{i} \cdot \mathbf{w}_{j} \right)\)</span> holds the cocycle condition and <span class="math notranslate nohighlight">\(\mu_{\mathbf{k}}(\mathbf{E}, \mathbf{E}) = 1\)</span>.
-Now, our task is to enumerate projective irreps of little co-group <span class="math notranslate nohighlight">\(\overline{\mathcal{G}}^{\mathbf{k}}\)</span> with factor system <span class="math notranslate nohighlight">\(\mu_{\mathbf{k}}\)</span>.</p>
-<p>When we use crystallographic coordinates, the factor system is written as
-<div class="math notranslate nohighlight">
-\[\begin{split}
-    \mu_{\mathbf{k}}(\mathbf{S}_{i}, \mathbf{S}_{j})
-        &amp;= \exp \left( -i (\mathbf{g}_{i}, \mathbf{w}_{j}) \right) \\
-        &amp;= \exp \left( -2 \pi i (\mathbf{S}_{i, f}^{\top} \mathbf{k}_{f} - \mathbf{k}_{f}, \mathbf{w}_{j, f}) \right)
-            \quad (\mathbf{w}_{j} =: \mathbf{A} \mathbf{w}_{j, f}).
-\end{split}\]</div>
-</p>
-</section>
-</section>
-<hr class="footnotes docutils" />
-<aside class="footnote-list brackets">
-<aside class="footnote brackets" id="footnote1" role="doc-footnote">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
-<p>We interchangeably denote an inner product of two vectors as <span class="math notranslate nohighlight">\(\mathbf{a} \cdot \mathbf{b}\)</span> or <span class="math notranslate nohighlight">\((\mathbf{a}, \mathbf{b})\)</span>.</p>
-</aside>
-</aside>
-
-
-                </article>
+                
               
-
-              
-              
-              
-              
-                <footer class="prev-next-footer d-print-none">
+                
                   
-<div class="prev-next-area">
-    <a class="left-prev"
-       href="irreps.html"
-       title="previous page">
-      <i class="fa-solid fa-angle-left"></i>
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Formulation of irreducible representations</p>
-      </div>
-    </a>
-    <a class="right-next"
-       href="reality.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Physically irreducible representation (PIR)</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
-    </a>
-</div>
-                </footer>
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/symmetry_adapted_tensor.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Symmetry-adapted tensors
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
               
-            </div>
-            
-            
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/lattice_vibration.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Lattice vibration
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
               
-                <dialog id="pst-secondary-sidebar-modal"></dialog>
-                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/spin_representation.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Spin representation
 
+    
+  </span>
+  
+  
 
-  <div class="sidebar-secondary-item">
-  <div class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> Contents
-  </div>
-  <nav class="bd-toc-nav page-toc">
-    <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reciprocal-lattice-and-transformation">Reciprocal lattice and transformation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#irreps-of-translation-subgroup">Irreps of translation subgroup</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#little-group">Little group</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#projective-representation">Projective representation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#small-representation">Small representation</a></li>
-</ul>
-  </nav></div>
+      </a>
+    </li>
+  
 
-</div></div>
+                
               
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
             
-          </div>
-          <footer class="bd-footer-content">
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Formulation
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+            <label class="md-nav__title" for="__nav_3">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Formulation
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../formulation.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Formulation
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
             
-<div class="bd-footer-content__inner container">
   
-  <div class="footer-item">
+  
+  <span class="md-ellipsis">
     
-<p class="component-author">
-By Kohei Shinohara
-</p>
+  
+  Irreducible representations
 
-  </div>
-  
-  <div class="footer-item">
     
+  </span>
+  
+  
 
-  <p class="copyright">
-    
-      © Copyright 2022, Kohei Shinohara.
-      <br/>
-    
-  </p>
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="true">
+            <label class="md-nav__title" for="__nav_3_2">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Irreducible representations
 
-  </div>
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
   
-  <div class="footer-item">
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./irreps.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
     
-  </div>
   
-  <div class="footer-item">
+  Formulation of irreducible representations
+
     
-  </div>
+  </span>
   
-</div>
-          </footer>
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Irreps of space group
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="spacegroup_irreps.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Irreps of space group
+
+    
+  </span>
+  
+  
+
+      </a>
+      
         
 
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#reciprocal-lattice-and-transformation" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Reciprocal lattice and transformation
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#irreps-of-translation-subgroup" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Irreps of translation subgroup
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#little-group" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Little group
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#projective-representation" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Projective representation
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#small-representation" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Small representation
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./reality.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Physically irreducible representations
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./spinor.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Spin representation
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./corep.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Co-representation
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Algorithms
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_3_3">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Algorithms
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../algorithm/algorithm.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Algorithm for enumerating irreps
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../algorithm/irreps_from_regular.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Regular representation
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../algorithm/irreps_from_chain.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Solvable group chain
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../algorithm/intertwiner.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Intertwiner
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../projection.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Symmetry-adapted basis
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  API reference
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_4">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  API reference
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/api.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  API Reference
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/api_core.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Core functions
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/api_rep.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Representation theory
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/api_symmetry.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Representation theory for symmetry
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/api_spinor.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Spinor
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/api_corep.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Co-representation
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/api_utils.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Utility functions
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Change log
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Development
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_6">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Development
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/development.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Development
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/memo.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Memo
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/performance-v0.8.0.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  v0.8.0 performance comparison
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../references.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  References
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                      
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#reciprocal-lattice-and-transformation" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Reciprocal lattice and transformation
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#irreps-of-translation-subgroup" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Irreps of translation subgroup
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#little-group" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Little group
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#projective-representation" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Projective representation
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#small-representation" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Small representation
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                <a id="__skip" tabindex="-1"></a>
+                
+                  
+
+  
+  
+
+
+<h1 id="space_group_irreps">Irreps of space group<a class="headerlink" href="#space_group_irreps" title="Permanent link">&para;</a></h1>
+<p>This page formulates little group, small representation, and irreducible representations (irreps) of space groups.</p>
+<h2 id="reciprocal-lattice-and-transformation">Reciprocal lattice and transformation<a class="headerlink" href="#reciprocal-lattice-and-transformation" title="Permanent link">&para;</a></h2>
+<p>Let <span class="arithmatex">\(\mathbf{A} = (\mathbf{a}_{1}, \mathbf{a}_{2}, \mathbf{a}_{3})\)</span> be basis of <span class="arithmatex">\(L_{\mathcal{T}}\)</span>, which is lattice of translational group <span class="arithmatex">\({\mathcal{T}}\)</span>.
+We choose basis of the (crystallographic) reciprocal vectors as</p>
+<div class="arithmatex">\[
+\begin{aligned}
+\mathbf{B} &amp;= (\mathbf{b}_{1}, \mathbf{b}_{2}, \mathbf{b}_{3}) = A^{-\top} \\
+\mathbf{b}_{i} \cdot \mathbf{a}_{j} &amp;= \delta_{ij}.
+\end{aligned}
+\]</div>
+<p>When basis vectors <span class="arithmatex">\(\mathbf{A}\)</span> is transformed to <span class="arithmatex">\(\mathbf{A}' := \mathbf{AP}\)</span>,</p>
+<ul>
+<li>its dual basis vectors in reciprocal space is transformed from <span class="arithmatex">\(\mathbf{B}=\mathbf{A}^{-\top}\)</span> to <span class="arithmatex">\(\mathbf{B}' := \mathbf{B}\mathbf{P}^{-\top}\)</span>.</li>
+<li>
+<p>symmetry operation <span class="arithmatex">\((\mathbf{R}, \mathbf{v})\)</span> is transformed to</p>
+<div class="arithmatex">\[
+\begin{aligned}
+(\mathbf{P}, \mathbf{0})^{-1} (\mathbf{R}, \mathbf{v}) (\mathbf{P}, \mathbf{0})
+    = (\mathbf{P}^{-1}\mathbf{RP}, \mathbf{P}^{-1}\mathbf{v}).
+\end{aligned}
+\]</div>
+</li>
+<li>
+<p>Coefficients of reciprocal vector <span class="arithmatex">\(\mathbf{k} = 2 \pi \mathbf{B} \mathbf{k}_{f}\)</span> is transformed to <span class="arithmatex">\(\mathbf{k}_{f}' := \mathbf{P}^{\top} \mathbf{k}_{f}\)</span>.</p>
+</li>
+</ul>
+<h2 id="irreps-of-translation-subgroup">Irreps of translation subgroup<a class="headerlink" href="#irreps-of-translation-subgroup" title="Permanent link">&para;</a></h2>
+<p>Consider the following irreps of translation subgroup <span class="arithmatex">\(\mathcal{T}\)</span> of space group <span class="arithmatex">\(\mathcal{G}\)</span>,</p>
+<div class="arithmatex">\[
+\begin{aligned}
+\Gamma^{(\mathbf{k})} ((\mathbf{E}, \mathbf{t}))
+= \exp \left( -i \mathbf{k} \cdot \mathbf{t} \right)
+\quad ( \mathbf{t} \in L_{\mathcal{T}} ),
+\end{aligned}
+\]</div>
+<p>where <span class="arithmatex">\(L_{\mathcal{T}}\)</span> is a lattice formed by <span class="arithmatex">\(\mathcal{T}\)</span>.
+Let <span class="arithmatex">\(L_{\mathcal{T}}^{\ast}\)</span> be a reciprocal lattice of <span class="arithmatex">\(L_{\mathcal{T}}\)</span>.
+We can confine <span class="arithmatex">\(\mathbf{k}\)</span> within or the surface of a primitive cell of the reciprocal space because, for <span class="arithmatex">\(\mathbf{g} \in L_{\mathcal{T}}^{\ast}\)</span>, <span class="arithmatex">\(\Gamma^{(\mathbf{k})} = \Gamma^{(\mathbf{k} + \mathbf{g})}\)</span>.
+Any Bloch function with <span class="arithmatex">\(\mathbf{k}\)</span></p>
+<div class="arithmatex">\[
+\begin{aligned}
+\Psi_{\mathbf{k}}(\mathbf{r}) = e^{ i \mathbf{k} \cdot \mathbf{r} } u_{\mathbf{k}}(\mathbf{r}),
+\end{aligned}
+\]</div>
+<p>where <span class="arithmatex">\(u_{\mathbf{k}}(\mathbf{r})\)</span> is periodic with <span class="arithmatex">\(L_{\mathcal{T}}\)</span>, can be taken as (one-dimensional) basis of <span class="arithmatex">\(\Gamma^{\mathbf{k}}\)</span>:</p>
+<div class="arithmatex">\[
+\begin{aligned}
+(\mathbf{E}, \mathbf{t}) \Psi_{\mathbf{k}}(\mathbf{r})
+  &amp;= \Psi_{\mathbf{k}}( (\mathbf{E}, \mathbf{t})^{-1} \mathbf{r}) \\
+  &amp;= e^{-i\mathbf{k}\cdot\mathbf{t}} \Psi_{\mathbf{k}}(\mathbf{r}).
+\end{aligned}
+\]</div>
+<p>We write point group of space group <span class="arithmatex">\(\mathcal{G}\)</span> as <span class="arithmatex">\(\mathcal{P}\)</span>.
+For <span class="arithmatex">\((\mathbf{R}, \mathbf{v}) \in \mathcal{G}\)</span>, <span class="arithmatex">\((\mathbf{R}, \mathbf{v}) \Psi_{\mathbf{k}}(\mathbf{r})\)</span> is Bloch function with <span class="arithmatex">\(\mathbf{Rk}\)</span>:</p>
+<p><a id="eqn:point_group_in_bloch_function"></a></p>
+<div class="arithmatex">\[
+\begin{aligned}
+(\mathbf{E}, \mathbf{t}) (\mathbf{R}, \mathbf{v}) \Psi_{\mathbf{k}}(\mathbf{r})
+&amp;= (\mathbf{R}, \mathbf{v}) (\mathbf{E}, \mathbf{R}^{-1}\mathbf{t}) \Psi_{\mathbf{k}}(\mathbf{r}) \nonumber \\
+&amp;= \exp \left( -i \mathbf{k} \cdot \mathbf{R}^{-1} \mathbf{t} \right) (\mathbf{R}, \mathbf{v}) \Psi_{\mathbf{k}}(\mathbf{r}) \nonumber \\
+&amp;= \exp \left( -i \mathbf{Rk} \cdot \mathbf{t} \right) (\mathbf{R}, \mathbf{v}) \Psi_{\mathbf{k}}(\mathbf{r}) \quad (\because \mathbf{R} \in O(3) ).
+\end{aligned}
+\tag{1}
+\]</div>
+<p>Be careful the basis for calculating inner product in Eq. <a href="#eqn:point_group_in_bloch_function">(1)</a>, when you use crystallographic coordinates <sup id="fnref:footnote1"><a class="footnote-ref" href="#fn:footnote1">1</a></sup>:</p>
+<div class="arithmatex">\[
+\begin{aligned}
+\mathbf{v} &amp;=: \mathbf{A} \mathbf{v}_{f} \\
+\mathbf{A}^{-1} \mathbf{R} \mathbf{A} &amp;=: \mathbf{R}_{f} \quad \in \mathrm{SL}(3) \\
+(\mathbf{k}, \mathbf{R}^{-1} \mathbf{v})
+  &amp;= (\mathbf{R} \mathbf{k}, \mathbf{v}) \nonumber \\
+  &amp;= 2 \pi \left( ( \mathbf{A}^{\top} \mathbf{A}^{-1} ) \mathbf{R}_{f} ( \mathbf{A}^{\top} \mathbf{A}^{-1} )^{-1} \mathbf{k}_{f}, \mathbf{v}_{f} \right) \nonumber \\
+  &amp;= 2 \pi \left( \mathbf{R}_{f}^{\top} \mathbf{k}_{f}, \mathbf{v}_{f} \right)
+  \quad (\because \mathbf{R}_{f}^{\top} = \mathbf{A}^{\top} \mathbf{R}^{-1} \mathbf{A}^{-\top} ).
+\end{aligned}
+\]</div>
+<h2 id="little-group">Little group<a class="headerlink" href="#little-group" title="Permanent link">&para;</a></h2>
+<p>Let <span class="arithmatex">\(\mathcal{P}\)</span> be point group of space group <span class="arithmatex">\(\mathcal{G}\)</span>.
+We define little co-group of <span class="arithmatex">\(\mathbf{k}\)</span>,</p>
+<div class="arithmatex">\[
+\begin{aligned}
+\overline{\mathcal{G}}^{\mathbf{k}} = \left\{ \mathbf{R} \in \mathcal{P} \mid \mathbf{Rk} \equiv \mathbf{k} \right\},
+\end{aligned}
+\]</div>
+<p>where <span class="arithmatex">\(\equiv\)</span> is up to reciprocal vectors in <span class="arithmatex">\(L_{\mathcal{T}}^{\ast}\)</span>.
+When we use crystallographic coordinates w.r.t. <strong>primitive</strong> basis vectors, the condition <span class="arithmatex">\(\mathbf{Rk} \equiv \mathbf{k}\)</span> is written as</p>
+<div class="arithmatex">\[
+\begin{aligned}
+\mathbf{Rk} \equiv \mathbf{k}
+\Longleftrightarrow
+\mathbf{R}_{f}^{\top} \mathbf{k}_{f} - \mathbf{k}_{f} \in \mathbb{Z}^{3}.
+\end{aligned}
+\]</div>
+<p>Because lattice <span class="arithmatex">\(L_{\mathcal{T}}\)</span> is invariant with <span class="arithmatex">\(\mathbf{R} \in \mathcal{P}\)</span>, we obtain</p>
+<div class="arithmatex">\[
+\begin{aligned}
+\mathbf{R} \mathbf{k}_{1} \equiv \mathbf{k}_{2}
+\Rightarrow
+\overline{\mathcal{G}}^{\mathbf{k}_{2}} = \mathbf{R} \overline{\mathcal{G}}^{\mathbf{k}_{1}} \mathbf{R}^{-1}.
+\end{aligned}
+\]</div>
+<p>When we decompose point group <span class="arithmatex">\(\mathcal{P}\)</span> as</p>
+<div class="arithmatex">\[
+\begin{aligned}
+\mathcal{P} = \coprod_{i=1}^{q} \mathbf{P}_{i} \overline{\mathcal{G}}^{\mathbf{k}_{1}},
+\end{aligned}
+\]</div>
+<p><span class="arithmatex">\(\mathbf{P}_{i}\mathbf{k}_{1} \equiv \mathbf{k}_{i}\)</span> with star of <span class="arithmatex">\(\mathbf{k}_{1}\)</span>, <span class="arithmatex">\(\left\{ \mathbf{k}_{1}, \dots, \mathbf{k}_{q} \right\}\)</span>.</p>
+<p>We define little group (of the first kind) of <span class="arithmatex">\(\mathbf{k}\)</span> as</p>
+<div class="arithmatex">\[
+\begin{aligned}
+\mathcal{G}^{\mathbf{k}} = \coprod_{ \{ i \mid \mathbf{S}_{i} \in \overline{\mathcal{G}}^{\mathbf{k}} \} } (\mathbf{S}_{i}, \mathbf{w}_{i}) \mathcal{T},
+\end{aligned}
+\]</div>
+<p>where <span class="arithmatex">\(\mathcal{G} = \coprod_{i} (\mathbf{S}_{i}, \mathbf{w}_{i}) \mathcal{T}\)</span>.
+We can decompose space group <span class="arithmatex">\(\mathcal{G}\)</span> as</p>
+<div class="arithmatex">\[
+\begin{aligned}
+\mathcal{G} = \coprod_{i=1}^{q} (\mathbf{P}_{i}, \mathbf{x}_{i}) \mathcal{G}^{\mathbf{k}_{1}}.
+\end{aligned}
+\]</div>
+<p>Then, for Bloch function <span class="arithmatex">\(\Psi_{\mathbf{k}_{1}}(\mathbf{r})\)</span>, <span class="arithmatex">\((\mathbf{P}_{i}, \mathbf{x}_{i}) \mathcal{G}^{\mathbf{k}_{1}} \Psi_{\mathbf{k}_{1}}(\mathbf{r})\)</span> is Bloch function for <span class="arithmatex">\(\mathbf{k}_{i}\)</span>.
+Thus, our task to calculate irreps of <span class="arithmatex">\(\mathcal{G}\)</span> is boiled down to calculating irreps of little group <span class="arithmatex">\(\mathcal{G}^{\mathbf{k}}\)</span>, which is called small representation.</p>
+<h2 id="projective-representation">Projective representation<a class="headerlink" href="#projective-representation" title="Permanent link">&para;</a></h2>
+<p>A projective representation of group <span class="arithmatex">\(G\)</span> is a non-singular matrix function <span class="arithmatex">\(\Delta\)</span> on <span class="arithmatex">\(G\)</span> if it satisfied the following conditions:
+For each group product <span class="arithmatex">\(G_{k} = G_{i}G_{j}\)</span>, there exists scalar function <span class="arithmatex">\(\mu\)</span> (factor system) such that</p>
+<div class="arithmatex">\[
+\begin{aligned}
+\Delta(G_{i}) \Delta(G_{j}) = \mu(G_{i}, G_{j}) \Delta(G_{k}),
+\end{aligned}
+\]</div>
+<p>and</p>
+<div class="arithmatex">\[
+\begin{aligned}
+\mu(G_{i}, G_{j}G_{k}) \mu(G_{j}, G_{k}) = \mu(G_{i}G_{j}, G_{k}) \mu(G_{i}, G_{j})
+\quad \mbox{(cocycle condition)}.
+\end{aligned}
+\]</div>
+<h2 id="small-representation">Small representation<a class="headerlink" href="#small-representation" title="Permanent link">&para;</a></h2>
+<p>Let <span class="arithmatex">\(\Gamma^{\mathbf{k}}_{p}\)</span> be irrep of <span class="arithmatex">\(\mathcal{G}^{\mathbf{k}}\)</span>, for <span class="arithmatex">\(\mathbf{S}_{i} \mathbf{S}_{j} = \mathbf{S}_{k}\)</span>,</p>
+<div class="arithmatex">\[
+\begin{aligned}
+\mathbf{\Gamma}^{\mathbf{k}}_{p}((\mathbf{S}_{i}, \mathbf{w}_{i})) \mathbf{\Gamma}^{\mathbf{k}}_{p}((\mathbf{S}_{j}, \mathbf{w}_{j}))
+  = \exp \left( -i \mathbf{k} \cdot ( \mathbf{w}_{i} + \mathbf{S}_{i} \mathbf{w}_{j} - \mathbf{w}_{k} ) \right) \mathbf{\Gamma}^{\mathbf{k}}_{p}((\mathbf{S}_{k}, \mathbf{w}_{k})).
+\end{aligned}
+\]</div>
+<p>Then, Simplifying by</p>
+<div class="arithmatex">\[
+\begin{aligned}
+\mathbf{\Gamma}^{\mathbf{k}}_{p}((\mathbf{R}, \mathbf{v})) &amp;=: \exp \left( -i \mathbf{k} \cdot \mathbf{v} \right) \mathbf{D}^{\mathbf{k}}_{p}((\mathbf{R}, \mathbf{v})) \\
+\mathbf{D}^{\mathbf{k}}_{p}((\mathbf{S}_{i}, \mathbf{w}_{i})) \mathbf{D}^{\mathbf{k}}_{p}((\mathbf{S}_{j}, \mathbf{w}_{j}))
+  &amp;= \exp \left( -i \mathbf{g}_{i} \cdot \mathbf{w}_{j} \right) \mathbf{D}^{\mathbf{k}}_{p}((\mathbf{S}_{k}, \mathbf{w}_{k})),
+\end{aligned}
+\]</div>
+<p>where</p>
+<div class="arithmatex">\[
+\begin{aligned}
+\mathbf{g}_{i}
+  &amp;= \mathbf{S}_{i}^{-1} \mathbf{k} - \mathbf{k} \\
+  &amp;= 2 \pi \mathbf{B} \left( \mathbf{S}_{i, f}^{\top} \mathbf{k}_{f} - \mathbf{k}_{f} \right)
+      \quad (\mathbf{S}_{i, f} = \mathbf{A} \mathbf{S}_{i} \mathbf{A}^{-1}).
+\end{aligned}
+\]</div>
+<p><strong>If we choose origin such that <span class="arithmatex">\((\mathbf{E}, \mathbf{t}) \in \mathcal{G}\)</span></strong>, <span class="arithmatex">\(\mathbf{D}^{\mathbf{k}}_{p}((\mathbf{E}, \mathbf{t})) = \mathbf{1}\)</span> and $\exp \left( -i \mathbf{g}<em j>{i} \cdot (\mathbf{w}</em>} + \mathbf{t}) \right) =\exp \left( -i \mathbf{g<em j>{i} \cdot \mathbf{w}</em> \right) $ hold.
+Then, it is sufficient to consider on <span class="arithmatex">\(\overline{\mathcal{G}}^{\mathbf{k}}\)</span>,</p>
+<div class="arithmatex">\[
+\begin{aligned}
+\mathbf{D}^{\mathbf{k}}_{p}(\mathbf{S}_{i}) \mathbf{D}^{\mathbf{k}}_{p}(\mathbf{S}_{j})
+  = \exp \left( -i \mathbf{g}_{i} \cdot \mathbf{w}_{j} \right) \mathbf{D}^{\mathbf{k}}_{p}(\mathbf{S}_{k})
+\end{aligned}
+\]</div>
+<p>Here, <span class="arithmatex">\(\mu_{\mathbf{k}}(S_{i}, S_{j}) := \exp \left( -i \mathbf{g}_{i} \cdot \mathbf{w}_{j} \right)\)</span> holds the cocycle condition and <span class="arithmatex">\(\mu_{\mathbf{k}}(\mathbf{E}, \mathbf{E}) = 1\)</span>.
+Now, our task is to enumerate projective irreps of little co-group <span class="arithmatex">\(\overline{\mathcal{G}}^{\mathbf{k}}\)</span> with factor system <span class="arithmatex">\(\mu_{\mathbf{k}}\)</span>.</p>
+<p>When we use crystallographic coordinates, the factor system is written as</p>
+<div class="arithmatex">\[
+\begin{aligned}
+\mu_{\mathbf{k}}(\mathbf{S}_{i}, \mathbf{S}_{j})
+    &amp;= \exp \left( -i (\mathbf{g}_{i}, \mathbf{w}_{j}) \right) \\
+    &amp;= \exp \left( -2 \pi i (\mathbf{S}_{i, f}^{\top} \mathbf{k}_{f} - \mathbf{k}_{f}, \mathbf{w}_{j, f}) \right)
+        \quad (\mathbf{w}_{j} =: \mathbf{A} \mathbf{w}_{j, f}).
+\end{aligned}
+\]</div>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:footnote1">
+<p>We interchangeably denote an inner product of two vectors as <span class="arithmatex">\(\mathbf{a} \cdot \mathbf{b}\)</span> or <span class="arithmatex">\((\mathbf{a}, \mathbf{b})\)</span>.&#160;<a class="footnote-backref" href="#fnref:footnote1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-circle-arrow-up" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16 12-4-4-4 4M12 16V8"/></svg>
+  Back to top
+</button>
+        
       </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="./irreps.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Formulation of irreducible representations">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7M19 12H5"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Formulation of irreducible representations
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="./reality.html" class="md-footer__link md-footer__link--next" aria-label="Next: Physically irreducible representations">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Physically irreducible representations
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2022, Kohei Shinohara
+    </div>
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
     </div>
   </div>
-  
-  <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
-<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
-
-  <footer class="bd-footer">
-  </footer>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"../..","features":["content.code.copy","navigation.footer","navigation.indexes","navigation.instant","navigation.top","navigation.tracking","search.highlight","toc.follow"],"redirect":null,"search":"../../assets/javascripts/workers/search.719e0d91.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.9e76c64c.min.js"></script>
+      
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js"></script>
+      
+    
   </body>
 </html>
