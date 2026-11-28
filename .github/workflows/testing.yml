@@ -73,13 +73,19 @@ jobs:
       run: |
         uv run python scripts/prepare_docs.py
         uv run zensical build --clean --strict
-    # Generated documents are push to `gh-pages` branch
-    # `ACTIONS_DEPLOY_KEY` is set by following: https://github.com/peaceiris/actions-gh-pages#%EF%B8%8F-create-ssh-deploy-key
+    - name: Create docs deployment token
+      if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/develop' }}
+      uses: actions/create-github-app-token@f418cff399f7aef4c2f0ad47e25ca7a6abbdd6fc # v3.4.0
+      id: docs-token
+      with:
+        client-id: ${{ vars.TAGPR_APP_CLIENT_ID }}
+        private-key: ${{ secrets.TAGPR_APP_PRIVATE_KEY }}
+        permission-contents: write
     - name: Deploy
       if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/develop' }}
       uses: peaceiris/actions-gh-pages@84c30a85c19949d7eee79c4ff27748b70285e453 # v4
       with:
-        deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+        github_token: ${{ steps.docs-token.outputs.token }}
         publish_dir: ./site
 
   pass:
