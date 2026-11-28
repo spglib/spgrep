@@ -1,5 +1,12 @@
 # On-the-fly irreps generation from regular representation
 
+Understand how diagonalizing a matrix that commutes with the regular representation produces irreps.
+
+!!! info "Before you start"
+
+    Read the [algorithm overview](algorithm.md) and [projective representations](../irreps/spacegroup_irreps.md#projective-representation).
+    The worked cases below illustrate the mathematics. For runnable Python, use the [quickstart](../../quickstart.md).
+
 This page describes an algorithm for generating all irreps by random matrix.
 
 ## Regular representation
@@ -215,3 +222,7 @@ $$
 \Gamma^{(\mathrm{reg})} = 2\Gamma^{(H_{1})} + 2\Gamma^{(H_{2})} + 6\Gamma^{(H_{3})}
 \end{aligned}
 $$
+
+## Next steps
+
+Compare the [subgroup-chain construction](irreps_from_chain.md), or consult the [enumeration reference](../../api/api_rep.md#spgrep.rep.enumerate) for the implementation.

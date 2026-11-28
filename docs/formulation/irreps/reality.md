@@ -1,11 +1,18 @@
 # Physically irreducible representation (PIR) {#physically_irreps}
 
+Understand how complex irreps give physically irreducible representations on real vector spaces.
+
+!!! info "Before you start"
+
+    Read [space-group irreps](spacegroup_irreps.md) first, including little groups and projective representations.
+    For the `real` argument and return arrays, consult the [core API reference](../../api/api_core.md).
+
 Let $(\Gamma, \mathrm{Span}_{\mathbb{C}} \{ \mathbf{v}_{i} \}_{i=1}^{d} )$ be a unitary (projective) irrep of group $G$.
 Then, its conjugate (projective) representation is $(\Gamma^{\ast}, \mathrm{Span}_{\mathbb{C}} \{ \mathbf{v}_{i}^{\ast} \}_{i=1}^{d} )$.
 There are three cases for $\Gamma$ and $\Gamma^{\ast}$:
 
   1. $\Gamma$ is real: $\Gamma$ and $\Gamma^{\ast}$ are equivalent and can be taken as real matrices.
-  2. $\Gamma$ is pseudo-real: $\Gamma$ and $\Gamma^{\ast}$ are equivalent but can be taken as real matrices.
+  2. $\Gamma$ is pseudo-real: $\Gamma$ and $\Gamma^{\ast}$ are equivalent but cannot be taken as real matrices.
   3. $\Gamma$ is not equivalent to $\Gamma^{\ast}$.
 
 We sometimes need to restrict irrep under a vector space over $\mathbb{R}$ (instead of $\mathbb{C}$), which is called physically irreducible representation (PIR) [Stokes et al., 1991](../../references.md#PhysRevB.43.11010).
@@ -268,3 +275,7 @@ $$
 $$
 
 The corep multiplication law (with $\ast$ applied iff the left factor is antilinear) is reproduced by ordinary matrix multiplication of these $2d \times 2d$ real blocks, so the resulting matrices form a real linear representation of $\mathcal{G}^{\mathbf{k}\bar{\mathbf{k}}}$.
+
+## Next steps
+
+Apply real representations in the [tensor tutorial](../../examples/symmetry_adapted_tensor.md), or use the [core API reference](../../api/api_core.md) for primitive space-group input.

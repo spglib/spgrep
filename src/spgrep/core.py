@@ -202,7 +202,7 @@ def get_spacegroup_irreps_from_primitive_symmetry(
     Returns
     -------
     irreps: list of Irreps with (little_group_order, dim, dim)
-        Let ``i = mapping_little_group[idx]``. ``irreps[alpha][i, :, :]`` is the ``alpha``-th irreducible matrix representation of ``(rotations[i], translations[i])``.
+        Let ``i = mapping_little_group[idx]``. ``irreps[alpha][idx, :, :]`` is the ``alpha``-th irreducible matrix representation of ``(rotations[i], translations[i])``.
     mapping_little_group: array, (little_group_order, )
         Let ``i = mapping_little_group[idx]``.
         ``(rotations[i], translations[i])`` belongs to the little group of given space space group and kpoint.
@@ -358,7 +358,7 @@ def get_magnetic_spacegroup_coreps_from_primitive_symmetry(
     Returns
     -------
     irreps: list of Irreps with (little_group_order, dim, dim)
-        Let ``i = mapping_little_group[idx]``. ``irreps[alpha][i, :, :]`` is the ``alpha``-th irreducible matrix representation of ``(rotations[i], translations[i])``.
+        Let ``i = mapping_little_group[idx]``. ``irreps[alpha][idx, :, :]`` is the ``alpha``-th irreducible matrix representation of ``(rotations[i], translations[i])``.
     anti_linear: array[bool], (order, )
         If ``anti_linear[i] == True``, the ``i``-th operator is anti-linear.
     mapping_little_group: array, (little_group_order, )
@@ -666,7 +666,7 @@ def get_spacegroup_spinor_irreps_from_primitive_symmetry(
     Returns
     -------
     irreps: list of Irreps with (little_group_order, dim, dim)
-        Let ``i = mapping_little_group[idx]``. ``irreps[alpha][i, :, :]`` is the ``alpha``-th irreducible matrix representation of ``(rotations[i], translations[i])``.
+        Let ``i = mapping_little_group[idx]``. ``irreps[alpha][idx, :, :]`` is the ``alpha``-th irreducible matrix representation of ``(rotations[i], translations[i])``.
     indicators: (Optional) list[int]
         Appeared when ``time_reversal`` is specified.
         Frobenius-Schur indicators for each small representation
