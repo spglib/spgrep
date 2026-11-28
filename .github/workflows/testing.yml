@@ -25,7 +25,7 @@ jobs:
 
   tests:
     needs: path-filter
-    if: ${{ needs.path-filter.outputs.python == 'true' }}
+    if: ${{ needs.path-filter.outputs.python == 'true' || startsWith(github.head_ref, 'tagpr-from-') }}
     runs-on: ubuntu-latest
     strategy:
       matrix:
