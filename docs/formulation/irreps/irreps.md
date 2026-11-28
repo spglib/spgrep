@@ -4,10 +4,7 @@ We give formulation of irreps of space groups, physically irreducible representa
 
 ## Subpages
 
-```{toctree}
-  :maxdepth: 1
-  Irreps of space group <spacegroup_irreps>
-  Physically irreps <reality>
-  Spin representation <spinor>
-  Co-representation <corep>
-```
+- [Irreps of space group](spacegroup_irreps.md)
+- [Physically irreps](reality.md)
+- [Spin representation](spinor.md)
+- [Co-representation](corep.md)

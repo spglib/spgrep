@@ -2,55 +2,27 @@
 
 ## Group
 
-```{eval-rst}
-    .. automodule:: spgrep.symmetry.group
-        :members:
-        :undoc-members:
-```
+::: spgrep.symmetry.group
 ## Representation
 
-```{eval-rst}
-    .. automodule:: spgrep.symmetry.representation
-        :members:
-        :undoc-members:
-```
+::: spgrep.symmetry.representation
 
 ## Enumeration of irreps
 
-```{eval-rst}
-    .. automodule:: spgrep.symmetry.enumerate
-        :members:
-        :undoc-members:
-```
+::: spgrep.symmetry.enumerate
 
 ## Point group database
 
-```{eval-rst}
-    .. automodule:: spgrep.symmetry.pointgroup
-        :members:
-        :undoc-members:
-```
+::: spgrep.symmetry.pointgroup
 
 ## Symmetry-adapted tensor
 
-```{eval-rst}
-    .. automodule:: spgrep.symmetry.tensor
-        :members:
-        :undoc-members:
-```
+::: spgrep.symmetry.tensor
 
 ## Transformation of symmetry operations
 
-```{eval-rst}
-    .. automodule:: spgrep.symmetry.transformation
-        :members:
-        :undoc-members:
-```
+::: spgrep.symmetry.transform
 
 ## Subgroup enumeration
 
-```{eval-rst}
-    .. automodule:: spgrep.symmetry.subgroup
-        :members:
-        :undoc-members:
-```
+::: spgrep.symmetry.subgroup

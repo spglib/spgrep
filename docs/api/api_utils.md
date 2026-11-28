@@ -1,5 +1,3 @@
 # Utility functions
 
-```{eval-rst}
-    .. autofunction:: spgrep.utils.grassmann_distance
-```
+::: spgrep.utils.grassmann_distance

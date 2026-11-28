@@ -16,7 +16,8 @@ The project uses `uv` for environment management and `prek` (a pre-commit reimpl
 mise run install     # uv sync --all-extras
 mise run test        # uv run pytest -v
 mise run prek        # prek run --all-files (ruff-format, ruff, mypy, uv-lock, ...)
-mise run docs        # uv run sphinx-autobuild docs docs_build
+mise run docs        # Generate notebook pages and serve with Zensical
+mise run docs-build  # Generate pages and run a strict Zensical build
 ```
 
 Direct equivalents (use these if `mise` is unavailable):
@@ -29,7 +30,7 @@ uv run pytest -v --cov=spgrep --cov-report=xml tests/             # CI invocatio
 prek run --all-files                                              # lint + format + mypy
 ```
 
-CI (`.github/workflows/testing.yml`) runs the matrix over Python 3.10/3.11/3.12/3.13 and a separate docs build job; pandoc is required for docs builds.
+CI (`.github/workflows/testing.yml`) runs the matrix over Python 3.10/3.11/3.12/3.13 and a separate strict Zensical docs build. `scripts/prepare_docs.py` renders saved notebook outputs without executing cells. Pushes to `develop` publish `site/` to `gh-pages`.
 
 Releases are tag-driven: move `[Unreleased]` entries under a dated `## vX.Y.Z` heading in `docs/changelog.md`, then `git tag <version> && git push origin <version>`. Version is derived by `setuptools-scm`.
 

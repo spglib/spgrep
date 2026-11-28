@@ -66,23 +66,21 @@ jobs:
       with:
         enable-cache: true
         python-version: ${{ env.PYTHON_VERSION }}
-    - name: Install dependencies
-      run: |
-        sudo apt-get install -y pandoc
     - name: Install
       run: |
-        uv sync --extra docs
+        uv sync --locked --extra docs
     - name: Build
       run: |
-        uv run sphinx-build docs docs_build
+        uv run python scripts/prepare_docs.py
+        uv run zensical build --clean --strict
     # Generated documents are push to `gh-pages` branch
     # `ACTIONS_DEPLOY_KEY` is set by following: https://github.com/peaceiris/actions-gh-pages#%EF%B8%8F-create-ssh-deploy-key
     - name: Deploy
-      if: ${{ github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags') }}
+      if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/develop' }}
       uses: peaceiris/actions-gh-pages@84c30a85c19949d7eee79c4ff27748b70285e453 # v4
       with:
         deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
-        publish_dir: ./docs_build
+        publish_dir: ./site
 
   pass:
     if: always()

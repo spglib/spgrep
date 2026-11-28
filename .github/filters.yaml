@@ -7,6 +7,10 @@ python:
   - '.github/filters.yaml'
 docs:
   - 'docs/**'
+  - 'README.md'
+  - 'scripts/prepare_docs.py'
+  - 'zensical.toml'
+  - 'mise.toml'
   - 'src/spgrep/**'
   - 'pyproject.toml'
   - 'uv.lock'

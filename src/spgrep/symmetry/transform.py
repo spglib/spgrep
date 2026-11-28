@@ -20,11 +20,11 @@ def transform_symmetry_and_kpoint(
 
     This function does not unique duplicated symmetry operations after applying transformation_matrix.
 
-    Let a given transformation_matrix be :math:`\mathbf{P}`.
-    Symmetry operation :math:`(\mathbf{R}, \mathbf{v})` is transformed to
-    :math:`(\mathbf{P}, 0)^{-1} (\mathbf{R}, \mathbf{v}) (\mathbf{P}, 0) = (\mathbf{P}^{-1} \mathbf{R} \mathbf{P}, \mathbf{P}^{-1} \mathbf{v})`.
-    Coefficients of k-vector :math:`\mathbf{k}` are transformed
-    to :math:`\mathbf{P}^{T} \mathbf{k}`.
+    Let a given transformation_matrix be $\mathbf{P}$.
+    Symmetry operation $(\mathbf{R}, \mathbf{v})$ is transformed to
+    $(\mathbf{P}, 0)^{-1} (\mathbf{R}, \mathbf{v}) (\mathbf{P}, 0) = (\mathbf{P}^{-1} \mathbf{R} \mathbf{P}, \mathbf{P}^{-1} \mathbf{v})$.
+    Coefficients of k-vector $\mathbf{k}$ are transformed
+    to $\mathbf{P}^{T} \mathbf{k}$.
 
     Parameters
     ----------

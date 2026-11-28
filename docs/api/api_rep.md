@@ -2,39 +2,19 @@
 
 ## Group
 
-```{eval-rst}
-    .. automodule:: spgrep.rep.group
-        :members:
-        :undoc-members:
-```
+::: spgrep.rep.group
 ## Representation
 
-```{eval-rst}
-    .. automodule:: spgrep.rep.representation
-        :members:
-        :undoc-members:
-```
+::: spgrep.rep.representation
 
 ## Irreducible representations (irreps)
 
-```{eval-rst}
-    .. automodule:: spgrep.rep.irreps
-        :members:
-        :undoc-members:
-```
+::: spgrep.rep.irreps
 
 ## Physically irreducible representation (PIR)
 
-```{eval-rst}
-    .. automodule:: spgrep.rep.pir
-        :members:
-        :undoc-members:
-```
+::: spgrep.rep.pir
 
 ## Enumeration of irreps
 
-```{eval-rst}
-    .. automodule:: spgrep.rep.enumerate
-        :members:
-        :undoc-members:
-```
+::: spgrep.rep.enumerate

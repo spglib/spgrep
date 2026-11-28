@@ -47,15 +47,10 @@ optional-dependencies.dev = [
   "snakeviz",
 ]
 optional-dependencies.docs = [
-  "docutils",
-  "linkify-it-py",
-  "myst-parser",
-  "nbsphinx",
-  "spgrep[dev]",
-  "sphinx",
-  "sphinx-autobuild",
-  "sphinx-book-theme>=0.8",
-  "sphinxcontrib-bibtex>=2.6.2",
+  "mkdocstrings-python>=2",
+  "nbconvert",
+  "pybtex",
+  "zensical>=0.0.46",
 ]
 # Enable version inference
 optional-dependencies.testing = [
@@ -70,7 +65,7 @@ urls.homepage = "https://github.com/spglib/spgrep"
 exclude-newer = "1 week"
 # Override the cutoff for security patches that are newer than the window above.
 # CVE-2026-40171 (GHSA-rch3-82jr-f9w9): jupyterlab >= 4.5.7, notebook >= 7.5.6.
-exclude-newer-package = { jupyterlab = "2026-05-01", notebook = "2026-05-01" }
+exclude-newer-package = { jupyterlab = "2026-05-02T00:00:00Z", notebook = "2026-05-02T00:00:00Z" }
 
 [tool.ruff]
 line-length = 99
@@ -91,6 +86,9 @@ lint.extend-ignore = [
   "D213", # Conflict with D212
   "E501",
 ]
+
+[tool.pyproject-fmt]
+max_supported_python = "3.14"
 
 [tool.mypy]
 exclude = [

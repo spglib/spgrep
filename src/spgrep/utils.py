@@ -83,10 +83,10 @@ def grassmann_distance(
     Parameters
     ----------
     basis1: array, (k, n)
-        ``k``-dimensional subspace in :math:`\mathbb{C}^{n}`.
+        ``k``-dimensional subspace in $\mathbb{C}^{n}$.
         ``basis1[i]`` is the ``i``-th basis vector.
     basis2: array, (l, n)
-        ``l``-dimensional subspace in :math:`\mathbb{C}^{n}`.
+        ``l``-dimensional subspace in $\mathbb{C}^{n}$.
         ``basis2[i]`` is the ``i``-th basis vector.
     ord: str
         Kind of Grassmann distance to be calculated

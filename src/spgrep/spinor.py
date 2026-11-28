@@ -22,15 +22,18 @@ def enumerate_spinor_small_representations(
     atol: float = ATOL,
     max_num_random_generations: int = MAX_NUM_RANDOM_GENERATIONS,
 ) -> tuple[list[NDArrayComplex], NDArrayComplex, NDArrayComplex]:
-    r"""Enumerate all unitary irreps :math:`\mathbf{D}^{\mathbf{k}\alpha}` of little group for spinor.
+    r"""Enumerate all unitary irreps $\mathbf{D}^{\mathbf{k}\alpha}$ of little group for spinor.
 
-    .. math::
-       \mathbf{D}^{\mathbf{k}\alpha}(\mathbf{S}_{i}) \mathbf{D}^{\mathbf{k}\alpha}(\mathbf{S}_{j})
-       = z(\mathbf{S}_{i}, \mathbf{S}_{j}) e^{ -i \mathbf{g}_{i} \cdot \mathbf{w}_{j} } \mathbf{D}^{\mathbf{k}\alpha}(\mathbf{S}_{k}),
+    $$
+    \begin{aligned}
+    \mathbf{D}^{\mathbf{k}\alpha}(\mathbf{S}_{i}) \mathbf{D}^{\mathbf{k}\alpha}(\mathbf{S}_{j})
+    = z(\mathbf{S}_{i}, \mathbf{S}_{j}) e^{ -i \mathbf{g}_{i} \cdot \mathbf{w}_{j} } \mathbf{D}^{\mathbf{k}\alpha}(\mathbf{S}_{k}),
+    \end{aligned}
+    $$
 
-    where :math:`\mathbf{g}_{i} = \mathbf{S}_{i}^{-1} \mathbf{k} - \mathbf{k}`.
+    where $\mathbf{g}_{i} = \mathbf{S}_{i}^{-1} \mathbf{k} - \mathbf{k}$.
 
-    See :ref:`spin_representation` for Spgrep's convention of spinor-derived factor system.
+    See [Spin representation][spin_representation] for Spgrep's convention of spinor-derived factor system.
 
     Parameters
     ----------
@@ -53,7 +56,7 @@ def enumerate_spinor_small_representations(
     -------
     irreps: list of unitary small representations (irreps of little group) with (order, dim, dim)
     spinor_factor_system: array, (order, order)
-        ``spinor_factor_system[i, j]`` stands for factor system :math:`z(\mathbf{S}_{i}, \mathbf{S}_{j})`
+        ``spinor_factor_system[i, j]`` stands for factor system $z(\mathbf{S}_{i}, \mathbf{S}_{j})$
     unitary_rotations: array, (order, 2, 2)
         SU(2) rotations on spinor.
     """
@@ -100,26 +103,29 @@ def get_spinor_factor_system(
 ) -> tuple[NDArrayComplex, NDArrayComplex]:
     r"""Calculate spin-derived factor system of spin representation.
 
-    .. math::
-       \mathbf{U}(\mathbf{S}_{i}) \mathbf{U}(\mathbf{S}_{j})
-       = z(\mathbf{S}_{i}, \mathbf{S}_{j}) \mathbf{U}(\mathbf{S}_{k})
+    $$
+    \begin{aligned}
+    \mathbf{U}(\mathbf{S}_{i}) \mathbf{U}(\mathbf{S}_{j})
+    = z(\mathbf{S}_{i}, \mathbf{S}_{j}) \mathbf{U}(\mathbf{S}_{k})
+    \end{aligned}
+    $$
 
-    where :math:`\mathbf{S}_{i} \mathbf{S}_{j} = \mathbf{S}_{k}`.
-    See :ref:`spin_representation` for Spgrep's convention of spinor-derived factor system :math:`z(S_{i}, S_{j})` and a map from orthogonal matrix :math:`\mathbf{S}_{i} \in O(3)` to unitary matrix :math:`\mathbf{U}(\mathbf{S}_{i}) \in SU(2)`.
+    where $\mathbf{S}_{i} \mathbf{S}_{j} = \mathbf{S}_{k}$.
+    See [Spin representation][spin_representation] for Spgrep's convention of spinor-derived factor system $z(S_{i}, S_{j})$ and a map from orthogonal matrix $\mathbf{S}_{i} \in O(3)$ to unitary matrix $\mathbf{U}(\mathbf{S}_{i}) \in SU(2)$.
 
     Parameters
     ----------
     lattice: array, (3, 3)
         Row-wise basis vectors. ``lattice[i, :]`` is the i-th lattice vector.
     rotations: array, (order, 3, 3)
-        Matrix group of :math:`\{ \mathbf{S}_{i} \}_{i}`
+        Matrix group of $\{ \mathbf{S}_{i} \}_{i}$
 
     Returns
     -------
     spinor_factor_system: array, (order, order)
-        ``factor_system[i, j]`` stands for :math:`z(\mathbf{S}_{i}, \mathbf{S}_{j})`
+        ``factor_system[i, j]`` stands for $z(\mathbf{S}_{i}, \mathbf{S}_{j})$
     unitary_rotations: array, (order, 2, 2)
-        ``unitary_rotations[i]`` stands for :math:`\mathbf{U}(\mathbf{S}_{i}) \in SU(2)`.
+        ``unitary_rotations[i]`` stands for $\mathbf{U}(\mathbf{S}_{i}) \in SU(2)$.
         SU(2) rotations on spinor.
     """
     order = len(rotations)

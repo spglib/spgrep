@@ -40,15 +40,18 @@ def enumerate_small_representations(
     kpoint: array, (3, )
     real: bool, default=False
         If True, return irreps over real vector space (so called physically irreducible representations).
-        For type-II and type-III cases, representation matrix for translation :math:`(\mathbf{E}, \mathbf{t})` is chosen as
+        For type-II and type-III cases, representation matrix for translation $(\mathbf{E}, \mathbf{t})$ is chosen as
 
-        .. math::
-           \begin{pmatrix}
-           \cos (\mathbf{k} \cdot \mathbf{t}) \mathbf{1}_{d} & -\sin (\mathbf{k} \cdot \mathbf{t}) \mathbf{1}_{d} \\
-           \sin (\mathbf{k} \cdot \mathbf{t}) \mathbf{1}_{d} & \cos (\mathbf{k} \cdot \mathbf{t}) \mathbf{1}_{d} \\
-           \end{pmatrix}
+        $$
+        \begin{aligned}
+        \begin{pmatrix}
+        \cos (\mathbf{k} \cdot \mathbf{t}) \mathbf{1}_{d} & -\sin (\mathbf{k} \cdot \mathbf{t}) \mathbf{1}_{d} \\
+        \sin (\mathbf{k} \cdot \mathbf{t}) \mathbf{1}_{d} & \cos (\mathbf{k} \cdot \mathbf{t}) \mathbf{1}_{d} \\
+        \end{pmatrix}
+        \end{aligned}
+        $$
 
-        where :math:`\mathbf{k}` is `kpoint`.
+        where $\mathbf{k}$ is `kpoint`.
 
     method: str, 'Neto' or 'random'
         'Neto': construct irreps from a fixed chain of subgroups of little co-group
@@ -182,9 +185,9 @@ def enumerate_unitary_irreps_from_solvable_group_chain(
     table: array, (order, order)
         Cayley table
     factor_system: array, (order, order)
-    solvable_group_chain: list of single generator of coset
-        Let :math:`G_{0} := G` and :math:`G_{i} := G_{i-1} / \langle` ``solvable_chain_generators[i]`` :math:`\rangle` (i = 0, 1, ...).
-        Then, :math:`G_{i}` is normal subgroup of :math:`G_{i-1}` and factor group :math:`G_{i-1}/G_{i}` is Abelian.
+    solvable_chain_generators: list of single generator of coset
+        Let $G_{0} := G$ and $G_{i} := G_{i-1} / \langle$ ``solvable_chain_generators[i]`` $\rangle$ (i = 0, 1, ...).
+        Then, $G_{i}$ is normal subgroup of $G_{i-1}$ and factor group $G_{i-1}/G_{i}$ is Abelian.
 
     atol: float
         Absolute tolerance to distinguish difference eigenvalues
