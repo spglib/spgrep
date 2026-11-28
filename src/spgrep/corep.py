@@ -100,6 +100,7 @@ def enumerate_spinor_small_corepresentations(
         little_rotations,
         little_translations,
         kpoint,
+        little_time_reversals,
     )
     factor_system = corep_spinor_factor_system * nonsymmorphic_factor_system
 
@@ -231,6 +232,7 @@ def enumerate_small_corepresentations(
         little_rotations,
         little_translations,
         kpoint,
+        little_time_reversals,
     )
 
     small_coreps, _ = _enumerate_small_corepresentations_with_factor_system(
@@ -377,7 +379,7 @@ def _enumerate_small_corepresentations_with_factor_system(
     for indicator, irrep, conj_irrep in conj_pairs:
         dim = irrep.shape[1]
         if indicator == 1:
-            # Unitary matrix s.t. irrep @ U = conj_irrep @ U
+            # Unitary matrix s.t. irrep @ U == U @ conj_irrep
             U = get_intertwiner(irrep, conj_irrep, atol, max_num_random_generations)
             corep = np.zeros((order, dim, dim), dtype=np.complex128)
             corep[xsg_indices] = irrep
@@ -391,9 +393,12 @@ def _enumerate_small_corepresentations_with_factor_system(
             corep = np.zeros((order, 2 * dim, 2 * dim), dtype=np.complex128)
 
             # [ [irrep, 0],
-            #   [0, conj_irrep]]
+            #   [0, irrep]]
+            # Both diagonal blocks are ``irrep``, unlike the indicator-0 case. Since
+            # ``irrep @ U == U @ conj_irrep``, the anti-unitary block [[0, -U], [U, 0]]
+            # below then satisfies the co-representation condition in this basis.
             corep[xsg_indices, :dim, :dim] = irrep
-            corep[xsg_indices, dim:, dim:] = conj_irrep
+            corep[xsg_indices, dim:, dim:] = irrep
 
             # [ [0, -U],
             #   [U, 0] ]

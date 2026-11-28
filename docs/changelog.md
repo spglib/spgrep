@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Fixed
+
+- Little groups of magnetic space groups now contain an anti-unitary operation $S\theta$ exactly when $S^{\top}\mathbf{k} \equiv -\mathbf{k}$. The nonsymmorphic factor system of co-representations uses the same signed residual, which changes the result at TRIM points with nonsymmorphic anti-unitary operations.
+- Co-representations with Wigner indicator $-1$ now use two identical copies of the irrep in their unitary blocks, matching the basis of their anti-unitary block. Previously the second block held the conjugated irrep.
+
 ## v0.8.0 (12 Oct. 2026)
 
 ### Changed
