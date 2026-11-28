@@ -89,13 +89,16 @@ def get_factor_system_from_little_group(
 ) -> NDArrayComplex:
     r"""Calculate factor system of projective representation of little co-group.
 
-    .. math::
-       D^{\mathbf{k}}_{p}(S_{i}) D^{\mathbf{k}}_{p}(S_{j})
-       = \exp \left( -i \mathbf{g}_{i} \cdot \mathbf{w}_{j} \right) D^{\mathbf{k}}_{p}(S_{k})
+    $$
+    \begin{aligned}
+    D^{\mathbf{k}}_{p}(S_{i}) D^{\mathbf{k}}_{p}(S_{j})
+    = \exp \left( -i \mathbf{g}_{i} \cdot \mathbf{w}_{j} \right) D^{\mathbf{k}}_{p}(S_{k})
+    \end{aligned}
+    $$
 
-    where :math:`S_{i}S_{j} = S_{k}` and :math:`\mathbf{g}_{i} = S_{i}^{\top} \mathbf{k} - \mathbf{k}`.
-    For an anti-unitary operation :math:`S_{i}\theta`, the Bloch phase of the right operand is
-    complex conjugated and :math:`\mathbf{g}_{i} = S_{i}^{\top} \mathbf{k} + \mathbf{k}`.
+    where $S_{i}S_{j} = S_{k}$ and $\mathbf{g}_{i} = S_{i}^{\top} \mathbf{k} - \mathbf{k}$.
+    For an anti-unitary operation $S_{i}\theta$, the Bloch phase of the right operand is
+    complex conjugated and $\mathbf{g}_{i} = S_{i}^{\top} \mathbf{k} + \mathbf{k}$.
 
     Parameters
     ----------
@@ -130,9 +133,9 @@ def get_little_group(
 ) -> tuple[NDArrayInt, NDArrayFloat, NDArrayInt]:
     r"""Return coset of little group of given space group which stabilize kpoint under rotations.
 
-    In fractional reciprocal coordinates, an anti-unitary operation :math:`S\theta` maps
-    :math:`\mathbf{k}` to :math:`-S^{-\top}\mathbf{k}`, so it belongs to the little group when
-    :math:`S^{\top}\mathbf{k} \equiv -\mathbf{k}`.
+    In fractional reciprocal coordinates, an anti-unitary operation $S\theta$ maps
+    $\mathbf{k}$ to $-S^{-\top}\mathbf{k}$, so it belongs to the little group when
+    $S^{\top}\mathbf{k} \equiv -\mathbf{k}$.
 
     Parameters
     ----------
@@ -178,11 +181,11 @@ def get_little_group_of_pm_k(
     kpoint: NDArrayFloat,
     atol: float = ATOL,
 ) -> tuple[NDArrayInt, NDArrayFloat, NDArrayInt, NDArrayBool]:
-    r"""Return coset of little group of :math:`\pm \mathbf{k}`.
+    r"""Return coset of little group of $\pm \mathbf{k}$.
 
-    Returns operations that stabilize :math:`\{\mathbf{k}, -\mathbf{k}\}` as a
-    set (i.e. :math:`\mathbf{S}^{\top}\mathbf{k} \equiv \pm \mathbf{k}` mod
-    reciprocal lattice). See :ref:`pir_kbark`.
+    Returns operations that stabilize $\{\mathbf{k}, -\mathbf{k}\}$ as a
+    set (i.e. $\mathbf{S}^{\top}\mathbf{k} \equiv \pm \mathbf{k}$ mod
+    reciprocal lattice). See [Little group $\mathcal{G}^{\mathbf{k}\bar{\mathbf{k}}}$ of $\pm\mathbf{k}$][pir_kbark].
 
     Parameters
     ----------
@@ -196,14 +199,14 @@ def get_little_group_of_pm_k(
     little_translations: array, (little_group_order, 3)
     mapping_little_group: array, (little_group_order, )
         ``(rotations[mapping_little_group[idx]], translations[mapping_little_group[idx]])``
-        belongs to the little group of :math:`\pm \mathbf{k}`.
+        belongs to the little group of $\pm \mathbf{k}$.
     flip_k: array[bool], (little_group_order, )
         ``flip_k[idx]`` is ``False`` iff the ``idx``-th operation stabilizes
-        :math:`\mathbf{k}` itself, and ``True`` iff it maps
-        :math:`\mathbf{k} \to -\mathbf{k}` (but not :math:`\mathbf{k}`).
-        When :math:`2\mathbf{k} \equiv \mathbf{0}` every stabilizing operation
+        $\mathbf{k}$ itself, and ``True`` iff it maps
+        $\mathbf{k} \to -\mathbf{k}$ (but not $\mathbf{k}$).
+        When $2\mathbf{k} \equiv \mathbf{0}$ every stabilizing operation
         counts as ``False``, so ``flip_k`` is all ``False`` and the output
-        agrees with :func:`get_little_group`.
+        agrees with [`get_little_group`][spgrep.symmetry.group.get_little_group].
     """
     little_rotations = []
     little_translations = []
@@ -262,22 +265,25 @@ def decompose_by_maximal_space_subgroup(
     translations: NDArrayFloat,
     time_reversals: NDArrayInt,
 ) -> tuple[list[int], list[int], int] | None:
-    r"""Coset-decompose magnetic space group :math:`M` by its maximal space subgroup (XSG) :math:`D(M)`.
+    r"""Coset-decompose magnetic space group $M$ by its maximal space subgroup (XSG) $D(M)$.
 
     If given magnetic space group is type I, return None.
 
-    .. math::
-        M = D(M) \sqcup D(M) a_{0}
+    $$
+    \begin{aligned}
+    M = D(M) \sqcup D(M) a_{0}
+    \end{aligned}
+    $$
 
     Returns
     -------
     xsg_indices: list[int]
         List of indices for XSG
     time_reversal_indices: list[int]
-        Let ``xsg_indices[i]`` = :math:`(\mathbf{W}_{i}, \mathbf{w}_{i})`.
-        Then, ``time_reversal_indices[i]`` :math:`\equiv (\mathbf{W}_{i}, \mathbf{w}_{i}) a_{0}`.
+        Let ``xsg_indices[i]`` = $(\mathbf{W}_{i}, \mathbf{w}_{i})$.
+        Then, ``time_reversal_indices[i]`` $\equiv (\mathbf{W}_{i}, \mathbf{w}_{i}) a_{0}$.
     a0_idx: int
-        Index of :math:`a_{0}` in given list of symmetries
+        Index of $a_{0}$ in given list of symmetries
     """
     if np.all(time_reversals == 1):
         # Type-I MSG

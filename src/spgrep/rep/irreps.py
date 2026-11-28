@@ -25,7 +25,7 @@ def project_to_irrep(
     ----------
     representation: array, (order, dim, dim)
     irrep: array, (order, dim_irrep, dim_irrep)
-        Unitary (projective) irrep with factor system s.t. :math:`\mu(E, E) = 1`.
+        Unitary (projective) irrep with factor system s.t. $\mu(E, E) = 1$.
     atol: float, default=1e-5
         Absolute tolerance to compare basis vectors
     max_num_trials: int, default=10
@@ -125,9 +125,12 @@ def project_to_irrep(
 def frobenius_schur_indicator(irrep: NDArrayComplex) -> int:
     r"""Inspect given unitary (projective) irrep is real, pseudo-real, or not unitary equivalent.
 
-    .. math::
-       \mathrm{indicator} =
-       \frac{1}{|G|} \sum_{ g \in G } \chi(g^{2})
+    $$
+    \begin{aligned}
+    \mathrm{indicator} =
+    \frac{1}{|G|} \sum_{ g \in G } \chi(g^{2})
+    \end{aligned}
+    $$
 
     Parameters
     ----------

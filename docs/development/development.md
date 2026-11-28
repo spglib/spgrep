@@ -21,12 +21,27 @@ mise run test
 mise run
 ```
 
-## How to compile documents
+## Build and preview the documentation
+
+The site uses Zensical and mkdocstrings. Generate the introduction from `README.md`,
+the example pages from the notebooks' saved outputs, and the bibliography from
+`docs/references.bib` before building:
 
 ```shell
+mise run docs-build
 mise run docs
-# open localhost:8000 in your browser
 ```
+
+Open the URL printed by `zensical serve`. Rerun `scripts/prepare_docs.py` after
+editing the README, notebooks, or bibliography. The generated Markdown and images
+are ignored by Git. Notebook cells are not executed during the documentation build;
+run and save a notebook to update its displayed results.
+
+Without mise, run `uv sync --extra docs`, `uv run python scripts/prepare_docs.py`,
+then `uv run zensical build --clean --strict` or `uv run zensical serve`.
+
+Write docstrings in NumPy style with Markdown links and dollar-delimited math.
+The API reference is generated directly from `src/spgrep`.
 
 ### How to generate diagram from Mermaid file
 
@@ -60,8 +75,5 @@ git push origin <next-version>
 
 ## Subpages
 
-```{toctree}
-  :maxdepth: 1
-  Memo <memo>
-  v0.8.0 performance comparison <performance-v0.8.0>
-```
+- [Memo](memo.md)
+- [v0.8.0 performance comparison](performance-v0.8.0.md)

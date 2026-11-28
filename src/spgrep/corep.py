@@ -36,13 +36,16 @@ def enumerate_spinor_small_corepresentations(
 ) -> tuple[list[NDArrayComplex], list[int], NDArrayComplex, NDArrayComplex, NDArrayBool]:
     r"""Enumerate all unitary co-irreps of little group for spinor.
 
-    .. math::
-       \overline{\mathbf{D}}^{\mathbf{k}\alpha}(\mathbf{S}_{i}1) \overline{\mathbf{D}}^{\mathbf{k}\alpha}(\mathbf{S}_{j}\theta_{j})
-            = \omega(\mathbf{S}_{i}1, \mathbf{S}_{j}\theta_{j}) e^{ -i \mathbf{g}_{i} \cdot \mathbf{w}_{j} } \overline{\mathbf{D}}^{\mathbf{k}\alpha}(\mathbf{S}_{k}\theta_{k}) \\
-       \overline{\mathbf{D}}^{\mathbf{k}\alpha}(\mathbf{S}_{i}1') \overline{\mathbf{D}}^{\mathbf{k}\alpha}(\mathbf{S}_{j}\theta_{j})^{\ast}
-            = \omega(\mathbf{S}_{i}1', \mathbf{S}_{j}\theta_{j}) e^{ -i \mathbf{g}_{i} \cdot \mathbf{w}_{j} } \overline{\mathbf{D}}^{\mathbf{k}\alpha}(\mathbf{S}_{k}\theta_{k}) \\
+    $$
+    \begin{aligned}
+    \overline{\mathbf{D}}^{\mathbf{k}\alpha}(\mathbf{S}_{i}1) \overline{\mathbf{D}}^{\mathbf{k}\alpha}(\mathbf{S}_{j}\theta_{j})
+         = \omega(\mathbf{S}_{i}1, \mathbf{S}_{j}\theta_{j}) e^{ -i \mathbf{g}_{i} \cdot \mathbf{w}_{j} } \overline{\mathbf{D}}^{\mathbf{k}\alpha}(\mathbf{S}_{k}\theta_{k}) \\
+    \overline{\mathbf{D}}^{\mathbf{k}\alpha}(\mathbf{S}_{i}1') \overline{\mathbf{D}}^{\mathbf{k}\alpha}(\mathbf{S}_{j}\theta_{j})^{\ast}
+         = \omega(\mathbf{S}_{i}1', \mathbf{S}_{j}\theta_{j}) e^{ -i \mathbf{g}_{i} \cdot \mathbf{w}_{j} } \overline{\mathbf{D}}^{\mathbf{k}\alpha}(\mathbf{S}_{k}\theta_{k}) \\
+    \end{aligned}
+    $$
 
-    See :ref:`corep_spinor_factor_system` for spinor-derived factor system :math:`\omega`.
+    See [Convention of anti-linear operators in spgrep][corep_spinor_factor_system] for spinor-derived factor system $\omega$.
 
     Parameters
     ----------
@@ -65,13 +68,13 @@ def enumerate_spinor_small_corepresentations(
     Returns
     -------
     small_coreps: list of array
-        Unitary small co-representations (irreps of little group), :math:`\{ \overline{\mathbf{D}}^{\mathbf{k}\alpha} \}_{\alpha}`
+        Unitary small co-representations (irreps of little group), $\{ \overline{\mathbf{D}}^{\mathbf{k}\alpha} \}_{\alpha}$
     indicators: list[int]
         Frobenius-Schur indicators for each small representation
     corep_spinor_factor_system: array, (order, order)
-        ``factor_system[i, j]`` stands for :math:`\omega(\mathbf{S}_{i}\theta_{i}, \mathbf{S}_{j}\theta_{j})`
+        ``factor_system[i, j]`` stands for $\omega(\mathbf{S}_{i}\theta_{i}, \mathbf{S}_{j}\theta_{j})$
     unitary_rotations: array, (order, 2, 2)
-        ``unitary_rotations[i]`` stands for :math:`\mathbf{U}(\mathbf{S}_{i}) \in SU(2)`.
+        ``unitary_rotations[i]`` stands for $\mathbf{U}(\mathbf{S}_{i}) \in SU(2)$.
     anti_linear: array[bool], (order, )
         If ``anti_linear[i] == True``, the ``i``-th operator is anti-linear.
     """
@@ -126,25 +129,25 @@ def get_corep_spinor_factor_system(
 ) -> tuple[NDArrayComplex, NDArrayComplex, NDArrayBool]:
     r"""Calculate spin-derived factor system of spin co-representation.
 
-    See :ref:`corep_spinor_factor_system` for spinor-derived factor system :math:`\omega`.
-    An ordinary symmetry operation :math:`\mathbf{S}_{i}1` maps to unitary operator :math:`\mathbf{U}(\mathbf{S}_{i})`.
-    An antisymmetry operation :math:`\mathbf{S}_{i}1'` maps to
+    See [Convention of anti-linear operators in spgrep][corep_spinor_factor_system] for spinor-derived factor system $\omega$.
+    An ordinary symmetry operation $\mathbf{S}_{i}1$ maps to unitary operator $\mathbf{U}(\mathbf{S}_{i})$.
+    An antisymmetry operation $\mathbf{S}_{i}1'$ maps to
 
     Parameters
     ----------
     lattice: array, (3, 3)
         Row-wise basis vectors. ``lattice[i, :]`` is the i-th lattice vector.
     rotations: array[int], (order, 3, 3)
-        Rotation parts of magnetic point group, :math:`\mathbf{S}_{i}`
+        Rotation parts of magnetic point group, $\mathbf{S}_{i}$
     time_reversals: array[int], (order, )
-        Time-reversal parts of magnetic point group, :math:`\theta_{i}`
+        Time-reversal parts of magnetic point group, $\theta_{i}$
 
     Returns
     -------
     corep_spinor_factor_system: array, (order, order)
-        ``factor_system[i, j]`` stands for :math:`\omega(\mathbf{S}_{i}\theta_{i}, \mathbf{S}_{j}\theta_{j})`
+        ``factor_system[i, j]`` stands for $\omega(\mathbf{S}_{i}\theta_{i}, \mathbf{S}_{j}\theta_{j})$
     unitary_rotations: array, (order, 2, 2)
-        ``unitary_rotations[i]`` stands for :math:`\mathbf{U}(\mathbf{S}_{i}) \in SU(2)`.
+        ``unitary_rotations[i]`` stands for $\mathbf{U}(\mathbf{S}_{i}) \in SU(2)$.
     anti_linear: array[bool], (order, )
         If ``anti_linear[i] == True``, the ``i``-th operator is anti-linear.
     """
@@ -263,11 +266,14 @@ def _enumerate_small_corepresentations_with_factor_system(
 ) -> tuple[list[NDArrayComplex], list[int]]:
     r"""Enumerate all unitary co-irreps of little group with given factor system.
 
-    .. math::
-       \overline{\mathbf{D}}^{\mathbf{k}\alpha}(\mathbf{S}_{i}1) \overline{\mathbf{D}}^{\mathbf{k}\alpha}(\mathbf{S}_{j}\theta_{j})
-            = \omega(\mathbf{S}_{i}1, \mathbf{S}_{j}\theta_{j}) e^{ -i \mathbf{g}_{i} \cdot \mathbf{w}_{j} } \overline{\mathbf{D}}^{\mathbf{k}\alpha}(\mathbf{S}_{k}\theta_{k}) \\
-       \overline{\mathbf{D}}^{\mathbf{k}\alpha}(\mathbf{S}_{i}1') \overline{\mathbf{D}}^{\mathbf{k}\alpha}(\mathbf{S}_{j}\theta_{j})^{\ast}
-            = \omega(\mathbf{S}_{i}1', \mathbf{S}_{j}\theta_{j}) e^{ -i \mathbf{g}_{i} \cdot \mathbf{w}_{j} } \overline{\mathbf{D}}^{\mathbf{k}\alpha}(\mathbf{S}_{k}\theta_{k}) \\
+    $$
+    \begin{aligned}
+    \overline{\mathbf{D}}^{\mathbf{k}\alpha}(\mathbf{S}_{i}1) \overline{\mathbf{D}}^{\mathbf{k}\alpha}(\mathbf{S}_{j}\theta_{j})
+         = \omega(\mathbf{S}_{i}1, \mathbf{S}_{j}\theta_{j}) e^{ -i \mathbf{g}_{i} \cdot \mathbf{w}_{j} } \overline{\mathbf{D}}^{\mathbf{k}\alpha}(\mathbf{S}_{k}\theta_{k}) \\
+    \overline{\mathbf{D}}^{\mathbf{k}\alpha}(\mathbf{S}_{i}1') \overline{\mathbf{D}}^{\mathbf{k}\alpha}(\mathbf{S}_{j}\theta_{j})^{\ast}
+         = \omega(\mathbf{S}_{i}1', \mathbf{S}_{j}\theta_{j}) e^{ -i \mathbf{g}_{i} \cdot \mathbf{w}_{j} } \overline{\mathbf{D}}^{\mathbf{k}\alpha}(\mathbf{S}_{k}\theta_{k}) \\
+    \end{aligned}
+    $$
 
     Parameters
     ----------
@@ -276,7 +282,7 @@ def _enumerate_small_corepresentations_with_factor_system(
     little_time_reversals: array[int], (order)
     kpoint: array, (3, )
     factor_system: array, (order, order)
-        ``factor_system[i, j]`` stands for :math:`\omega(\mathbf{S}_{i}\theta_{i}, \mathbf{S}_{j}\theta_{j})`
+        ``factor_system[i, j]`` stands for $\omega(\mathbf{S}_{i}\theta_{i}, \mathbf{S}_{j}\theta_{j})$
     method: str, 'Neto' or 'random'
         'Neto': construct irreps from a fixed chain of subgroups of little co-group
         'random': construct irreps by numerically diagonalizing a random matrix commute with regular representation
@@ -290,7 +296,7 @@ def _enumerate_small_corepresentations_with_factor_system(
     Returns
     -------
     small_coreps: list of array
-        Unitary small co-representations (irreps of little group), :math:`\{ \overline{\mathbf{D}}^{\mathbf{k}\alpha} \}_{\alpha}`
+        Unitary small co-representations (irreps of little group), $\{ \overline{\mathbf{D}}^{\mathbf{k}\alpha} \}_{\alpha}$
     indicators: list[int]
         Frobenius-Schur indicators for each small representation
     """

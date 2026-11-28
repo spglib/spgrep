@@ -16,4 +16,14 @@ run = "uv run pytest -v"
 
 [tasks.docs]
 description = "Serve documentation with live reload"
-run = "uv run sphinx-autobuild docs docs_build"
+run = [
+  "uv run --extra docs python scripts/prepare_docs.py",
+  "uv run --extra docs zensical serve",
+]
+
+[tasks.docs-build]
+description = "Build documentation with strict validation"
+run = [
+  "uv run --extra docs python scripts/prepare_docs.py",
+  "uv run --extra docs zensical build --clean --strict",
+]

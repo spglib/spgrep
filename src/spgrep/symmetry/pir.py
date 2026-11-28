@@ -36,7 +36,7 @@ def _make_physically_irreps_from_complex(
     """Convert a list of complex unitary irreps into physically irreducible real forms.
 
     Pairs conjugate irreps, computes the Frobenius-Schur indicator of each, and
-    realifies via :func:`spgrep.rep.pir.get_physically_irrep`. When ``kpoint`` is
+    realifies via [`spgrep.rep.pir.get_physically_irrep`][spgrep.rep.pir.get_physically_irrep]. When ``kpoint`` is
     given the caller is operating on a small representation of a little group
     and the character-sum formula for the indicator vanishes unless
     ``2 * kpoint`` is an integer vector; in that case the indicator is forced to
@@ -89,28 +89,27 @@ def _realify_corep_to_real_rep(
 ) -> NDArrayFloat:
     r"""Realise a complex corepresentation as a real linear matrix representation.
 
-    Follows the change of basis used in the finite-group :math:`(2, 3)` block
-    of :ref:`physically_irreps` and its extension to
-    :math:`\mathcal{G}^{\mathbf{k}\bar{\mathbf{k}}}`: the doubled basis
-    :math:`(\mathbf{v}_{1}, \dots, \mathbf{v}_{d}, \mathbf{v}_{1}^{\ast}, \dots,
-    \mathbf{v}_{d}^{\ast}) \mathbf{U}` is rotated to the real basis by
+    Follows the change of basis used in the finite-group $(2, 3)$ block
+    of [Physically irreducible representation (PIR)][physically_irreps] and its extension to
+    $\mathcal{G}^{\mathbf{k}\bar{\mathbf{k}}}$: the doubled basis
+    $(\mathbf{v}_{1}, \dots, \mathbf{v}_{d}, \mathbf{v}_{1}^{\ast}, \dots, \mathbf{v}_{d}^{\ast}) \mathbf{U}$ is rotated to the real basis by
 
-    .. math::
+    $$
+    \begin{aligned}
+    \mathbf{U} = \frac{1}{\sqrt{2}}
+        \begin{pmatrix} \mathbf{1}_d & -i \mathbf{1}_d \\
+                        \mathbf{1}_d &  i \mathbf{1}_d \end{pmatrix}.
+    \end{aligned}
+    $$
 
-        \mathbf{U} = \frac{1}{\sqrt{2}}
-            \begin{pmatrix} \mathbf{1}_d & -i \mathbf{1}_d \\
-                            \mathbf{1}_d &  i \mathbf{1}_d \end{pmatrix}.
-
-    For a linear op :math:`g \in \mathcal{G}^{\mathbf{k}}`,
-    :math:`\mathbf{U}^{-1} \mathrm{diag}(D, D^{\ast}) \mathbf{U}` gives
-    :math:`\bigl[\begin{smallmatrix} \mathrm{Re}\,D & \mathrm{Im}\,D \\
-    -\mathrm{Im}\,D & \mathrm{Re}\,D \end{smallmatrix}\bigr]`.
-    For an antilinear op :math:`g \in a\mathcal{G}^{\mathbf{k}}` the action
-    :math:`\mathbf{v} \mapsto D(g)\mathbf{v}^{\ast}` is the off-diagonal block
-    :math:`\bigl[\begin{smallmatrix} & D(g) \\ D(g)^{\ast} & \end{smallmatrix}\bigr]`
-    on the doubled basis, and conjugating by :math:`\mathbf{U}` gives
-    :math:`\bigl[\begin{smallmatrix} \mathrm{Re}\,D & -\mathrm{Im}\,D \\
-    -\mathrm{Im}\,D & -\mathrm{Re}\,D \end{smallmatrix}\bigr]`.
+    For a linear op $g \in \mathcal{G}^{\mathbf{k}}$,
+    $\mathbf{U}^{-1} \mathrm{diag}(D, D^{\ast}) \mathbf{U}$ gives
+    $\bigl[\begin{smallmatrix} \mathrm{Re}\,D & \mathrm{Im}\,D \\ -\mathrm{Im}\,D & \mathrm{Re}\,D \end{smallmatrix}\bigr]$.
+    For an antilinear op $g \in a\mathcal{G}^{\mathbf{k}}$ the action
+    $\mathbf{v} \mapsto D(g)\mathbf{v}^{\ast}$ is the off-diagonal block
+    $\bigl[\begin{smallmatrix} & D(g) \\ D(g)^{\ast} & \end{smallmatrix}\bigr]$
+    on the doubled basis, and conjugating by $\mathbf{U}$ gives
+    $\bigl[\begin{smallmatrix} \mathrm{Re}\,D & -\mathrm{Im}\,D \\ -\mathrm{Im}\,D & -\mathrm{Re}\,D \end{smallmatrix}\bigr]$.
 
     Parameters
     ----------

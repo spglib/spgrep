@@ -1,0 +1,116 @@
+[project]
+site_name = "spgrep"
+site_description = "On-the-fly generator of space-group irreducible representations"
+site_author = "Kohei Shinohara"
+site_url = "https://spglib.github.io/spgrep/"
+repo_url = "https://github.com/spglib/spgrep"
+repo_name = "spglib/spgrep"
+copyright = "Copyright &copy; 2022, Kohei Shinohara"
+use_directory_urls = false
+exclude_docs = """
+paper/
+"""
+nav = [
+  { "Introduction" = "index.md" },
+  { "Examples" = [
+    "examples/examples.md",
+    { "Symmetry-adapted tensors" = "examples/symmetry_adapted_tensor.md" },
+    { "Lattice vibration" = "examples/lattice_vibration.md" },
+    { "Spin representation" = "examples/spin_representation.md" },
+  ] },
+  { "Formulation" = [
+    "formulation/formulation.md",
+    { "Irreducible representations" = [
+      "formulation/irreps/irreps.md",
+      { "Irreps of space group" = "formulation/irreps/spacegroup_irreps.md" },
+      { "Physically irreducible representations" = "formulation/irreps/reality.md" },
+      { "Spin representation" = "formulation/irreps/spinor.md" },
+      { "Co-representation" = "formulation/irreps/corep.md" },
+    ] },
+    { "Algorithms" = [
+      "formulation/algorithm/algorithm.md",
+      { "Regular representation" = "formulation/algorithm/irreps_from_regular.md" },
+      { "Solvable group chain" = "formulation/algorithm/irreps_from_chain.md" },
+      { "Intertwiner" = "formulation/algorithm/intertwiner.md" },
+    ] },
+    { "Symmetry-adapted basis" = "formulation/projection.md" },
+  ] },
+  { "API reference" = [
+    "api/api.md",
+    { "Core functions" = "api/api_core.md" },
+    { "Representation theory" = "api/api_rep.md" },
+    { "Representation theory for symmetry" = "api/api_symmetry.md" },
+    { "Spinor" = "api/api_spinor.md" },
+    { "Co-representation" = "api/api_corep.md" },
+    { "Utility functions" = "api/api_utils.md" },
+  ] },
+  { "Change log" = "changelog.md" },
+  { "Development" = [
+    "development/development.md",
+    { "Memo" = "development/memo.md" },
+    { "v0.8.0 performance comparison" = "development/performance-v0.8.0.md" },
+  ] },
+  { "References" = "references.md" },
+]
+extra_javascript = [
+  "javascripts/mathjax.js",
+  "https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js",
+]
+
+[project.theme]
+language = "en"
+features = [
+  "content.code.copy",
+  "navigation.footer",
+  "navigation.indexes",
+  "navigation.instant",
+  "navigation.top",
+  "navigation.tracking",
+  "search.highlight",
+  "toc.follow",
+]
+
+[[project.theme.palette]]
+scheme = "default"
+primary = "indigo"
+accent = "indigo"
+toggle.icon = "lucide/sun"
+toggle.name = "Switch to dark mode"
+
+[[project.theme.palette]]
+scheme = "slate"
+primary = "indigo"
+accent = "indigo"
+toggle.icon = "lucide/moon"
+toggle.name = "Switch to light mode"
+
+[project.markdown_extensions]
+admonition = {}
+attr_list = {}
+def_list = {}
+footnotes = {}
+md_in_html = {}
+tables = {}
+toc.permalink = true
+pymdownx.arithmatex.generic = true
+pymdownx.details = {}
+pymdownx.highlight = { anchor_linenums = true, line_spans = "__span", pygments_lang_class = true }
+pymdownx.inlinehilite = {}
+pymdownx.magiclink = {}
+pymdownx.superfences = {}
+
+[project.plugins.mkdocstrings.handlers.python]
+paths = ["src"]
+
+[project.plugins.mkdocstrings.handlers.python.options]
+docstring_style = "numpy"
+docstring_section_style = "table"
+members_order = "source"
+show_source = true
+allow_inspection = false
+show_root_heading = true
+show_root_full_path = true
+show_signature_annotations = true
+separate_signature = true
+show_symbol_type_heading = true
+show_symbol_type_toc = true

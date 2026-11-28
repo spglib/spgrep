@@ -68,8 +68,13 @@ instance/
 # Scrapy stuff:
 .scrapy
 
-# Sphinx documentation
-docs/_build/
+# Generated documentation sources
+docs/index.md
+docs/references.md
+docs/examples/lattice_vibration.md
+docs/examples/spin_representation.md
+docs/examples/symmetry_adapted_tensor.md
+docs/examples/*_files/
 
 # PyBuilder
 target/
@@ -117,7 +122,7 @@ venv.bak/
 # Rope project settings
 .ropeproject
 
-# mkdocs documentation
+# Zensical documentation
 /site
 
 # mypy
@@ -127,9 +132,6 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
-
-# Document
-docs_build
 
 .vscode/
 .DS_Store

@@ -58,10 +58,13 @@ def get_spacegroup_irreps(
         Integer list specifying atomic species
     kpoint: array, (3, )
         Reciprocal vector with respect to ``reciprocal_lattice``
-        For pure translation :math:`\mathbf{t}`, returned irrep :math:`\Gamma^{(\alpha)}` takes
+        For pure translation $\mathbf{t}$, returned irrep $\Gamma^{(\alpha)}$ takes
 
-        .. math::
-            \Gamma^{(\alpha)}((E, \mathbf{t})) = e^{ -i\mathbf{k}\cdot\mathbf{t} } \mathbf{1}.
+        $$
+        \begin{aligned}
+        \Gamma^{(\alpha)}((E, \mathbf{t})) = e^{ -i\mathbf{k}\cdot\mathbf{t} } \mathbf{1}.
+        \end{aligned}
+        $$
 
     method: str, 'Neto' or 'random'
         'Neto': construct irreps from a fixed chain of subgroups of little co-group
@@ -158,28 +161,34 @@ def get_spacegroup_irreps_from_primitive_symmetry(
     translations: array, (order, 3)
     kpoint: array, (3, )
         Reciprocal vector with respect to reciprocal lattice.
-        For pure translation :math:`\mathbf{t}`, returned irrep :math:`\Gamma^{(\alpha)}` takes
+        For pure translation $\mathbf{t}$, returned irrep $\Gamma^{(\alpha)}$ takes
 
-        .. math::
-            \Gamma^{(\alpha)}((E, \mathbf{t})) = e^{ -i\mathbf{k}\cdot\mathbf{t} } \mathbf{1}.
+        $$
+        \begin{aligned}
+        \Gamma^{(\alpha)}((E, \mathbf{t})) = e^{ -i\mathbf{k}\cdot\mathbf{t} } \mathbf{1}.
+        \end{aligned}
+        $$
 
-        See :ref:`physically_irreps` for details.
+        See [Physically irreducible representation (PIR)][physically_irreps] for details.
 
     real: bool, default=False
         If True, return irreps over real vector space (so called physically irreducible representations).
-        For type-II and type-III cases, representation matrix for translation :math:`(\mathbf{E}, \mathbf{t})` is chosen as
+        For type-II and type-III cases, representation matrix for translation $(\mathbf{E}, \mathbf{t})$ is chosen as
 
-        .. math::
-           \begin{pmatrix}
-           \cos (\mathbf{k} \cdot \mathbf{t}) \mathbf{1}_{d} & -\sin (\mathbf{k} \cdot \mathbf{t}) \mathbf{1}_{d} \\
-           \sin (\mathbf{k} \cdot \mathbf{t}) \mathbf{1}_{d} & \cos (\mathbf{k} \cdot \mathbf{t}) \mathbf{1}_{d} \\
-           \end{pmatrix}
+        $$
+        \begin{aligned}
+        \begin{pmatrix}
+        \cos (\mathbf{k} \cdot \mathbf{t}) \mathbf{1}_{d} & -\sin (\mathbf{k} \cdot \mathbf{t}) \mathbf{1}_{d} \\
+        \sin (\mathbf{k} \cdot \mathbf{t}) \mathbf{1}_{d} & \cos (\mathbf{k} \cdot \mathbf{t}) \mathbf{1}_{d} \\
+        \end{pmatrix}
+        \end{aligned}
+        $$
 
-        where :math:`\mathbf{k}` is `kpoint`.
+        where $\mathbf{k}$ is `kpoint`.
         When ``real=True``, the physically irreducible representations are
-        defined on the little group of :math:`\pm\mathbf{k}` (G^{k,k-bar});
+        defined on the little group of $\pm\mathbf{k}$ (G^{k,k-bar});
         ``mapping_little_group`` reflects that. G^{k,k-bar} coincides with
-        the ordinary little group when :math:`2\mathbf{k} \equiv \mathbf{0}`.
+        the ordinary little group when $2\mathbf{k} \equiv \mathbf{0}$.
     method: str, 'Neto' or 'random'
         'Neto': construct irreps from a fixed chain of subgroups of little co-group
         'random': construct irreps by numerically diagonalizing a random matrix commute with regular representation
@@ -197,7 +206,7 @@ def get_spacegroup_irreps_from_primitive_symmetry(
     mapping_little_group: array, (little_group_order, )
         Let ``i = mapping_little_group[idx]``.
         ``(rotations[i], translations[i])`` belongs to the little group of given space space group and kpoint.
-        When ``real=True``, it refers to the little group of :math:`\pm\mathbf{k}` instead.
+        When ``real=True``, it refers to the little group of $\pm\mathbf{k}$ instead.
     """
     kpoint = np.asarray(kpoint, dtype=float)
 
@@ -274,7 +283,7 @@ def get_crystallographic_pointgroup_irreps_from_symmetry(
         Assume a point coordinates ``x`` are transformed into ``np.dot(rotations[i, :, :], x)`` by the ``i``-th symmetry operation.
     real: bool, default=False
         If True, return irreps over real vector space (so called physically irreducible representations).
-        See :ref:`physically_irreps` for details.
+        See [Physically irreducible representation (PIR)][physically_irreps] for details.
     method: str, 'Neto' or 'random'
         'Neto': construct irreps from a fixed chain of subgroups of little co-group
         'random': construct irreps by numerically diagonalizing a random matrix commute with regular representation
@@ -326,12 +335,15 @@ def get_magnetic_spacegroup_coreps_from_primitive_symmetry(
     translations: array, (order, 3)
     kpoint: array, (3, )
         Reciprocal vector with respect to reciprocal lattice.
-        For pure translation :math:`\mathbf{t}`, returned irrep :math:`\Gamma^{(\alpha)}` takes
+        For pure translation $\mathbf{t}$, returned irrep $\Gamma^{(\alpha)}$ takes
 
-        .. math::
-            \Gamma^{(\alpha)}((E, \mathbf{t})) = e^{ -i\mathbf{k}\cdot\mathbf{t} } \mathbf{1}.
+        $$
+        \begin{aligned}
+        \Gamma^{(\alpha)}((E, \mathbf{t})) = e^{ -i\mathbf{k}\cdot\mathbf{t} } \mathbf{1}.
+        \end{aligned}
+        $$
 
-        See :ref:`physically_irreps` for details.
+        See [Physically irreducible representation (PIR)][physically_irreps] for details.
 
     method: str, 'Neto' or 'random'
         'Neto': construct irreps from a fixed chain of subgroups of little co-group
@@ -419,15 +431,18 @@ def get_spacegroup_spinor_irreps(
         NDArrayInt,
     ]
 ):
-    r"""Compute all irreducible representations :math:`\mathbf{\Gamma}^{\mathbf{k}\alpha}` of space group of given structure up to unitary transformation for spinor.
+    r"""Compute all irreducible representations $\mathbf{\Gamma}^{\mathbf{k}\alpha}$ of space group of given structure up to unitary transformation for spinor.
 
-    Each irrep :math:`\mathbf{\Gamma}^{\mathbf{k}\alpha}` satisfies
+    Each irrep $\mathbf{\Gamma}^{\mathbf{k}\alpha}$ satisfies
 
-    .. math::
-       \mathbf{\Gamma}^{\mathbf{k}\alpha}((\mathbf{S}_{i}, \mathbf{w}_{i})) \mathbf{\Gamma}^{\mathbf{k}\alpha}((\mathbf{S}_{j}, \mathbf{w}_{j}))
-       = z(\mathbf{S}_{i}, \mathbf{S}_{j}) \mathbf{\Gamma}^{\mathbf{k}\alpha}((\mathbf{S}_{i}, \mathbf{w}_{i})(\mathbf{S}_{j}, \mathbf{w}_{j})).
+    $$
+    \begin{aligned}
+    \mathbf{\Gamma}^{\mathbf{k}\alpha}((\mathbf{S}_{i}, \mathbf{w}_{i})) \mathbf{\Gamma}^{\mathbf{k}\alpha}((\mathbf{S}_{j}, \mathbf{w}_{j}))
+    = z(\mathbf{S}_{i}, \mathbf{S}_{j}) \mathbf{\Gamma}^{\mathbf{k}\alpha}((\mathbf{S}_{i}, \mathbf{w}_{i})(\mathbf{S}_{j}, \mathbf{w}_{j})).
+    \end{aligned}
+    $$
 
-    See :ref:`spin_representation` for Spgrep's convention of spin-derived factor system :math:`z(\mathbf{S}_{i}, \mathbf{S}_{j})`.
+    See [Spin representation][spin_representation] for Spgrep's convention of spin-derived factor system $z(\mathbf{S}_{i}, \mathbf{S}_{j})$.
 
     Parameters
     ----------
@@ -439,13 +454,16 @@ def get_spacegroup_spinor_irreps(
         Integer list specifying atomic species
     magmoms: (Optional) array, (num_atoms, )
         Collinear magnetic moments. If specified, return co-representations.
-        See :ref:{corep} for details.
+        See [Co-representation of magnetic point and space group][corep] for details.
     kpoint: array, (3, )
         Reciprocal vector with respect to ``reciprocal_lattice``
-        For pure translation :math:`\mathbf{t}`, returned irrep :math:`\Gamma^{(\alpha)}` takes
+        For pure translation $\mathbf{t}$, returned irrep $\Gamma^{(\alpha)}$ takes
 
-        .. math::
-            \Gamma^{(\alpha)}((E, \mathbf{t})) = e^{ -i\mathbf{k}\cdot\mathbf{t} } \mathbf{1}.
+        $$
+        \begin{aligned}
+        \Gamma^{(\alpha)}((E, \mathbf{t})) = e^{ -i\mathbf{k}\cdot\mathbf{t} } \mathbf{1}.
+        \end{aligned}
+        $$
 
     method: str, 'Neto' or 'random'
         'Neto': construct irreps from a fixed chain of subgroups of little co-group
@@ -467,7 +485,7 @@ def get_spacegroup_spinor_irreps(
     irreps: list of Irreps with (little_group_order, dim, dim)
         ``irreps[alpha][i, :, :]`` is the ``alpha``-th irreducible matrix representation of ``(little_rotations[i], little_translations[i])``.
     little_spinor_factor_system: array, (little_group_order, little_group_order)
-        ``spinor_factor_system[i, j]`` stands for factor system :math:`z(\mathbf{S}_{i}, \mathbf{S}_{j})`
+        ``spinor_factor_system[i, j]`` stands for factor system $z(\mathbf{S}_{i}, \mathbf{S}_{j})$
     little_unitary_rotations: array, (little_group_order, 2, 2)
         SU(2) rotations on spinor.
     anti_linear: (Optional) array[bool], (little_group_order, )
@@ -600,16 +618,19 @@ def get_spacegroup_spinor_irreps_from_primitive_symmetry(
         list[NDArrayComplex], list[int], NDArrayComplex, NDArrayComplex, NDArrayBool, NDArrayInt
     ]
 ):
-    r"""Compute all irreducible representations :math:`\mathbf{\Gamma}^{\mathbf{k}\alpha}` of given space group up to unitary transformation for spinor.
+    r"""Compute all irreducible representations $\mathbf{\Gamma}^{\mathbf{k}\alpha}$ of given space group up to unitary transformation for spinor.
 
-    Each irrep :math:`\mathbf{\Gamma}^{\mathbf{k}\alpha}` satisfies
+    Each irrep $\mathbf{\Gamma}^{\mathbf{k}\alpha}$ satisfies
 
-    .. math::
-       \mathbf{\Gamma}^{\mathbf{k}\alpha}((\mathbf{S}_{i}, \mathbf{w}_{i})) \mathbf{\Gamma}^{\mathbf{k}\alpha}((\mathbf{S}_{j}, \mathbf{w}_{j}))
-       = z(\mathbf{S}_{i}, \mathbf{S}_{j}) \mathbf{\Gamma}^{\mathbf{k}\alpha}((\mathbf{S}_{i}, \mathbf{w}_{i})(\mathbf{S}_{j}, \mathbf{w}_{j})).
+    $$
+    \begin{aligned}
+    \mathbf{\Gamma}^{\mathbf{k}\alpha}((\mathbf{S}_{i}, \mathbf{w}_{i})) \mathbf{\Gamma}^{\mathbf{k}\alpha}((\mathbf{S}_{j}, \mathbf{w}_{j}))
+    = z(\mathbf{S}_{i}, \mathbf{S}_{j}) \mathbf{\Gamma}^{\mathbf{k}\alpha}((\mathbf{S}_{i}, \mathbf{w}_{i})(\mathbf{S}_{j}, \mathbf{w}_{j})).
+    \end{aligned}
+    $$
 
     Note that rotations and translations should be specified in a primitive cell.
-    See :ref:`spin_representation` for Spgrep's convention of spin-derived factor system :math:`z(\mathbf{S}_{i}, \mathbf{S}_{j})`.
+    See [Spin representation][spin_representation] for Spgrep's convention of spin-derived factor system $z(\mathbf{S}_{i}, \mathbf{S}_{j})$.
 
     Parameters
     ----------
@@ -621,13 +642,17 @@ def get_spacegroup_spinor_irreps_from_primitive_symmetry(
     translations: array, (order, 3)
     time_reversals: array[int] | None, (order, )
         If specified, return co-representations
-        See :ref:{corep} for details.
+        See [Co-representation of magnetic point and space group][corep] for details.
     kpoint: array, (3, )
         Reciprocal vector with respect to reciprocal lattice.
-        For pure translation :math:`\mathbf{t}`, returned irrep :math:`\Gamma^{(\alpha)}` takes
+        For pure translation $\mathbf{t}$, returned irrep $\Gamma^{(\alpha)}$ takes
 
-        .. math::
-            \mathbf{\Gamma}^{\mathbf{k}\alpha}((E, \mathbf{t})) = e^{ -i\mathbf{k}\cdot\mathbf{t} } \mathbf{1}.
+        $$
+        \begin{aligned}
+        \mathbf{\Gamma}^{\mathbf{k}\alpha}((E, \mathbf{t})) = e^{ -i\mathbf{k}\cdot\mathbf{t} } \mathbf{1}.
+        \end{aligned}
+        $$
+
     method: str, 'Neto' or 'random'
         'Neto': construct irreps from a fixed chain of subgroups of little co-group
         'random': construct irreps by numerically diagonalizing a random matrix commute with regular representation
@@ -646,7 +671,7 @@ def get_spacegroup_spinor_irreps_from_primitive_symmetry(
         Appeared when ``time_reversal`` is specified.
         Frobenius-Schur indicators for each small representation
     little_spinor_factor_system: array, (little_group_order, little_group_order)
-        ``spinor_factor_system[i, j]`` stands for factor system :math:`z(\mathbf{S}_{i}, \mathbf{S}_{j})`
+        ``spinor_factor_system[i, j]`` stands for factor system $z(\mathbf{S}_{i}, \mathbf{S}_{j})$
     little_unitary_rotations: array, (little_group_order, 2, 2)
         SU(2) rotations on spinor.
     anti_linear: (Optional) array[bool], (order, )
@@ -731,17 +756,20 @@ def get_crystallographic_pointgroup_spinor_irreps_from_symmetry(
     tuple[list[NDArrayComplex], NDArrayComplex, NDArrayComplex]
     | tuple[list[NDArrayComplex], list[int], NDArrayComplex, NDArrayComplex, NDArrayBool]
 ):
-    r"""Compute all irreducible representations :math:`\mathbf{D}^{\alpha}` of given crystallographic point group up to unitary transformation for spinor.
+    r"""Compute all irreducible representations $\mathbf{D}^{\alpha}$ of given crystallographic point group up to unitary transformation for spinor.
 
-    Each irrep :math:`\mathbf{D}^{\alpha}` satisfies
+    Each irrep $\mathbf{D}^{\alpha}$ satisfies
 
-    .. math::
-       \mathbf{D}^{\alpha}(\mathbf{S}_{i}) \mathbf{D}^{\alpha}(\mathbf{S}_{j})
-       = z(\mathbf{S}_{i}, \mathbf{S}_{j}) \mathbf{D}^{\alpha}(\mathbf{S}_{k}).
+    $$
+    \begin{aligned}
+    \mathbf{D}^{\alpha}(\mathbf{S}_{i}) \mathbf{D}^{\alpha}(\mathbf{S}_{j})
+    = z(\mathbf{S}_{i}, \mathbf{S}_{j}) \mathbf{D}^{\alpha}(\mathbf{S}_{k}).
+    \end{aligned}
+    $$
 
     Assume matrix representation of given crystallographic point group is in "standard" setting shown in Table 3.2.3.3 of International Table for Crystallography Vol. A (2016).
 
-    See :ref:`spin_representation` for Spgrep's convention of spinor-derived factor system :math:`z(\mathbf{S}_{i}, \mathbf{S}_{j})`.
+    See [Spin representation][spin_representation] for Spgrep's convention of spinor-derived factor system $z(\mathbf{S}_{i}, \mathbf{S}_{j})$.
 
     Parameters
     ----------
@@ -751,7 +779,7 @@ def get_crystallographic_pointgroup_spinor_irreps_from_symmetry(
         Assume a point coordinates ``x`` are transformed into ``np.dot(rotations[i, :, :], x)`` by the ``i``-th symmetry operation.
     time_reversals: array[int] | None, (order, )
         If specified, return co-representations
-        See :ref:{corep} for details.
+        See [Co-representation of magnetic point and space group][corep] for details.
     method: str, 'Neto' or 'random'
         'Neto': construct irreps from a fixed chain of subgroups of little co-group
         'random': construct irreps by numerically diagonalizing a random matrix commute with regular representation
@@ -769,7 +797,7 @@ def get_crystallographic_pointgroup_spinor_irreps_from_symmetry(
         Appeared when ``time_reversal`` is specified.
         Frobenius-Schur indicators for each small representation
     factor_system: array, (order, order)
-        ``factor_system[i, j]`` stands for factor system :math:`z(\mathbf{S}_{i}, \mathbf{S}_{j})`
+        ``factor_system[i, j]`` stands for factor system $z(\mathbf{S}_{i}, \mathbf{S}_{j})$
     unitary_rotations: array, (order, 2, 2)
         SU(2) rotations on spinor.
     anti_linear: (Optional) array[bool], (order, )
