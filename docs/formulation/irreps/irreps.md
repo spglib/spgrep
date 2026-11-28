@@ -1,10 +1,20 @@
-# Formulation of irreducible representations
+# Choose a representation theory topic
 
-We give formulation of irreps of space groups, physically irreducible representations, spin representations for spinor wave functions, and co-representations for magnetic space groups.
+Find the explanation for the vector space and symmetry operations in your calculation.
 
-## Subpages
+!!! info "Before you start"
 
-- [Irreps of space group](spacegroup_irreps.md)
-- [Physically irreps](reality.md)
-- [Spin representation](spinor.md)
-- [Co-representation](corep.md)
+    You need linear algebra and crystallographic symmetry, plus the
+    [spgrep conventions](../../conventions.md). These pages develop the theory;
+    the [core API reference](../../api/api_core.md) lists callable functions.
+
+Read [space-group irreps](spacegroup_irreps.md) first for translation phases,
+little groups, and projective representations. Then choose the relevant extension:
+
+- [Physically irreducible representations](reality.md) explains real vector spaces
+  and the role of the pair of wave vectors $\pm\mathbf{k}$.
+- [Spinor representations](spinor.md) explains the spinor factor system and rotation conventions.
+- [Co-representations](corep.md) explains anti-linear symmetry operations and magnetic groups.
+
+Once the representation type is clear, read [enumeration algorithms](../algorithm/algorithm.md)
+or [symmetry-adapted bases](../projection.md) for how spgrep calculates and uses it.

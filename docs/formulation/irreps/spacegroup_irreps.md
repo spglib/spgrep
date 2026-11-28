@@ -1,6 +1,11 @@
 # Irreps of space group {#space_group_irreps}
 
-This page formulates little group, small representation, and irreducible representations (irreps) of space groups.
+Understand how translation symmetry leads to little groups, factor systems, and small representations.
+
+!!! info "Before you start"
+
+    You need linear algebra and crystallographic symmetry. Read the [software conventions](../../conventions.md) for how the notation maps to arrays.
+    For a calculation without the derivation, use the [quickstart](../../quickstart.md).
 
 ## Reciprocal lattice and transformation
 
@@ -229,3 +234,7 @@ $$
         \quad (\mathbf{w}_{j} =: \mathbf{A} \mathbf{w}_{j, f}).
 \end{aligned}
 $$
+
+## Next steps
+
+Continue with [real representations](reality.md), [spinor representations](spinor.md), or [enumeration algorithms](../algorithm/algorithm.md), depending on your calculation.

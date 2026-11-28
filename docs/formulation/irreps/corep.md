@@ -1,5 +1,12 @@
 # Co-representation of magnetic point and space group {#corep}
 
+Understand co-representations for magnetic symmetry and spgrep's convention for anti-linear operators.
+
+!!! info "Before you start"
+
+    Read [projective representations](spacegroup_irreps.md#projective-representation) and [spinor representations](spinor.md) first.
+    Function arguments and return arrays are in the [co-representation API](../../api/api_corep.md).
+
 Refs: [Watanabe et al., 2018](../../references.md#doi:10.1126/sciadv.aat8685), [Wigner, 1959](../../references.md#wigner1959group)
 
 ## Anti-linear operator
@@ -184,3 +191,7 @@ $$
 where $\mathbf{U}: \mathrm{O}(3) \to \mathrm{SU}(2)$ is defined [here](spinor.md#spin_representation).
 $\sigma_{y}$ is the Pauli matrix.
 $K$ is an anti-linear operator that takes complex conjugate.
+
+## Next steps
+
+Use the [core API](../../api/api_core.md) to calculate spinor co-representations from magnetic symmetry, or consult the [lower-level co-representation functions](../../api/api_corep.md).

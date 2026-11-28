@@ -11,15 +11,21 @@ exclude_docs = """
 paper/
 """
 nav = [
-  { "Introduction" = "index.md" },
-  { "Examples" = [
+  { "Start here" = "index.md" },
+  { "Quickstart" = "quickstart.md" },
+  { "Tutorials" = [
     "examples/examples.md",
-    { "Symmetry-adapted tensors" = "examples/symmetry_adapted_tensor.md" },
-    { "Lattice vibration" = "examples/lattice_vibration.md" },
-    { "Spin representation" = "examples/spin_representation.md" },
+    { "Construct symmetry-adapted tensors" = "examples/symmetry_adapted_tensor.md" },
+    { "Block-diagonalize a dynamical matrix" = "examples/lattice_vibration.md" },
+    { "Calculate spinor representations" = "examples/spin_representation.md" },
   ] },
-  { "Formulation" = [
+  { "How-to guides" = [
+    "howto/index.md",
+    { "Calculate irreps from primitive symmetry" = "howto/primitive-symmetry.md" },
+  ] },
+  { "Explanation" = [
     "formulation/formulation.md",
+    { "How spgrep represents symmetry" = "conventions.md" },
     { "Irreducible representations" = [
       "formulation/irreps/irreps.md",
       { "Irreps of space group" = "formulation/irreps/spacegroup_irreps.md" },

@@ -1,5 +1,12 @@
 # On-the-fly irreps generation from solvable group chain
 
+Understand how a solvable-group chain builds irreps from representations of successive subgroups.
+
+!!! info "Before you start"
+
+    Read the [algorithm overview](algorithm.md) and [projective representations](../irreps/spacegroup_irreps.md#projective-representation). Familiarity with subgroups is assumed.
+    For a calculation using this algorithm, use the [quickstart](../../quickstart.md).
+
 This page describes an algorithm to generate irreps for solvable groups [Neto, 1973](../../references.md#Neto:a09740).
 
 ## Subduced and induced representations for solvable group
@@ -120,3 +127,7 @@ A crystallographic point group $G$ can always be decomposed as Eq. [(1)](#decomp
 spgrep adapts the following decomposition [Aroyo, 2016](../../references.md#ITA2016):
 
 ![point_group_chain](point_group_chain.mmd.svg)
+
+## Next steps
+
+Read about [intertwiners](intertwiner.md) for the equivalence step, or compare the [regular-representation method](irreps_from_regular.md).

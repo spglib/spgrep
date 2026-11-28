@@ -1,5 +1,12 @@
 # Spin representation {#spin_representation}
 
+Understand the spinor factor system and the rotation conventions used by spgrep.
+
+!!! info "Before you start"
+
+    Read [projective representations](spacegroup_irreps.md#projective-representation) first. Familiarity with spin-1/2 wave functions and Pauli matrices is assumed.
+    For an executable calculation, use the [spinor tutorial](../../examples/spin_representation.md).
+
 A spin representation is a projective representation with a factor system for spinor wave functions.
 Here, we give the convention to choose the factor system for spinor in spgrep.
 
@@ -219,3 +226,7 @@ $$
         \end{pmatrix}.
 \end{aligned}
 $$
+
+## Next steps
+
+Run the [spinor tutorial](../../examples/spin_representation.md), or continue to [co-representations](corep.md) for anti-linear symmetry.

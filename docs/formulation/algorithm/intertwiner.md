@@ -1,5 +1,12 @@
 # Numerically obtain intertwiner between equivalent representations {#intertwiner}
 
+Understand the intertwiner construction used to relate equivalent irreducible representations.
+
+!!! info "Before you start"
+
+    Read [projective representations](../irreps/spacegroup_irreps.md#projective-representation) and the [algorithm overview](algorithm.md).
+    For callable functions, see the [representation API](../../api/api_rep.md).
+
 ## Intertwiner between two projective representations of finite group
 
 Let $\Delta^{(0)}$ and $\Delta^{(1)}$ be projective representations of a finite group $H$.
@@ -61,3 +68,7 @@ $$
         \mathbf{\Gamma}^{(\mathbf{k}, 1)}\left( (\mathbf{S}_{i}, \mathbf{w}_{i}) \right)^{-1} \\
 \end{aligned}
 $$
+
+## Next steps
+
+Return to the [subgroup-chain algorithm](irreps_from_chain.md), or look up [get_intertwiner](../../api/api_rep.md#spgrep.rep.representation.get_intertwiner).

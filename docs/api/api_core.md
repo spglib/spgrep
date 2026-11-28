@@ -1,5 +1,12 @@
 # Core functions
 
+Look up irrep enumeration functions for structures, primitive space-group operations, and point-group operations.
+
+!!! info "Before you start"
+
+    This reference assumes the [coordinate and array conventions](../conventions.md).
+    For background or a worked example, use the [quickstart](../quickstart.md).
+
 ## Summary
 
 Spgrep provides its core functions to enumerate irreducible representations (irreps) from given
@@ -11,7 +18,7 @@ Spgrep provides its core functions to enumerate irreducible representations (irr
 For a given crystal structure or symmetry operations, Spgrep calculates the following representations:
 
 - Linear irreps (See [Irreps of space group](../formulation/irreps/spacegroup_irreps.md#space_group_irreps))
-- Physically irreps (See [Physically irreducible representation (PIR)](../formulation/irreps/reality.md#physically_irreps))
+- Physically irreducible representations (See [Physically irreducible representation (PIR)](../formulation/irreps/reality.md#physically_irreps))
 - Projective irreps for spinor (See [Spin representation](../formulation/irreps/spinor.md#spin_representation))
 - Projective irreducible co-representation (co-reps) for spinor (See [Co-representation of magnetic point and space group](../formulation/irreps/corep.md#corep))
 
@@ -30,7 +37,7 @@ The following tables summarize core functions for a combination of representatio
 | Tasks                         | (Magnetic) space group                                                                    |
 |-------------------------------|-------------------------------------------------------------------------------------------|
 | Linear irreps                 | [`spgrep.get_spacegroup_irreps_from_primitive_symmetry`][spgrep.get_spacegroup_irreps_from_primitive_symmetry]                              |
-| Physically irreps             | [`spgrep.get_spacegroup_irreps_from_primitive_symmetry`][spgrep.get_spacegroup_irreps_from_primitive_symmetry] with `real=True`             |
+| Physically irreducible representations             | [`spgrep.get_spacegroup_irreps_from_primitive_symmetry`][spgrep.get_spacegroup_irreps_from_primitive_symmetry] with `real=True`             |
 | Projective irreps for spinor  | [`spgrep.get_spacegroup_spinor_irreps_from_primitive_symmetry`][spgrep.get_spacegroup_spinor_irreps_from_primitive_symmetry]                       |
 | Projective co-reps for spinor | [`spgrep.get_spacegroup_spinor_irreps_from_primitive_symmetry`][spgrep.get_spacegroup_spinor_irreps_from_primitive_symmetry] with `time_reversals` |
 
@@ -39,7 +46,7 @@ The following tables summarize core functions for a combination of representatio
 | Tasks                         | (Magnetic) point group                                                                           |
 |-------------------------------|--------------------------------------------------------------------------------------------------|
 | Linear irreps                 | [`spgrep.get_crystallographic_pointgroup_irreps_from_symmetry`][spgrep.get_crystallographic_pointgroup_irreps_from_symmetry]                              |
-| Physically irreps             | [`spgrep.get_crystallographic_pointgroup_irreps_from_symmetry`][spgrep.get_crystallographic_pointgroup_irreps_from_symmetry] with `real=True`             |
+| Physically irreducible representations             | [`spgrep.get_crystallographic_pointgroup_irreps_from_symmetry`][spgrep.get_crystallographic_pointgroup_irreps_from_symmetry] with `real=True`             |
 | Projective irreps for spinor  | [`spgrep.get_crystallographic_pointgroup_spinor_irreps_from_symmetry`][spgrep.get_crystallographic_pointgroup_spinor_irreps_from_symmetry]                       |
 | Projective co-reps for spinor | [`spgrep.get_crystallographic_pointgroup_spinor_irreps_from_symmetry`][spgrep.get_crystallographic_pointgroup_spinor_irreps_from_symmetry] with `time_reversals` |
 
@@ -66,3 +73,7 @@ The following tables summarize core functions for a combination of representatio
 ### Crystallographic point group
 
 ::: spgrep.get_crystallographic_pointgroup_spinor_irreps_from_symmetry
+
+## Next steps
+
+Continue with the [primitive-symmetry how-to](../howto/primitive-symmetry.md).

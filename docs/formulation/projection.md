@@ -1,5 +1,12 @@
 # Constructing symmetry-adapted basis
 
+Understand how projection extracts basis functions that transform as a chosen irrep.
+
+!!! info "Before you start"
+
+    Read [space-group irreps](irreps/spacegroup_irreps.md) and the [array conventions](../conventions.md). You need a representation of the physical objects being projected.
+    For executable applications, use the [tensor](../examples/symmetry_adapted_tensor.md) or [phonon](../examples/lattice_vibration.md) tutorial.
+
 A typical procedure to use irreps is as follows:
 
 1. Define an action of symmetry operations of a space group $\mathcal{G}$ on your interested objects
@@ -17,7 +24,7 @@ A typical procedure to use irreps is as follows:
 
 1. Compute unitary small representations $\Gamma^{ (\mathbf{k}, \alpha) }$ of little group $\mathcal{G}^{\mathbf{k}}$ by [`spgrep.get_spacegroup_irreps_from_primitive_symmetry`][spgrep.get_spacegroup_irreps_from_primitive_symmetry] in primitive cell
 
-1. Apply projection operator by [`spgrep.representation.project_to_irrep`][spgrep.rep.irreps.project_to_irrep]
+1. Apply projection operator by [`spgrep.rep.irreps.project_to_irrep`][spgrep.rep.irreps.project_to_irrep]
 
 ## Projection operator
 
@@ -79,3 +86,7 @@ $$
 
     Here we assume the factor system is chosen as $\mu(E, E) = 1$.
     Then, we use $\mu(S, S^{-1}) = \mu(S^{-1}, S)$.
+
+## Next steps
+
+Apply the projection in the [tensor tutorial](../examples/symmetry_adapted_tensor.md) or the [phonon tutorial](../examples/lattice_vibration.md). The [representation API](../api/api_rep.md#spgrep.rep.irreps.project_to_irrep) documents `project_to_irrep`.
