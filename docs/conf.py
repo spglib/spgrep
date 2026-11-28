@@ -97,7 +97,12 @@ html_theme_options = {
     "repository_url": repository_url,
     "use_repository_button": True,
     "show_toc_level": 3,
+    "logo": {
+        "image_light": "_static/logo.svg",
+        "image_dark": "_static/logo-dark.svg",
+    },
 }
+html_favicon = "_static/icon.svg"
 
 # hide sphinx footer
 html_show_sphinx = False
