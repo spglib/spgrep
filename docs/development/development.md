@@ -2,20 +2,29 @@
 
 ## Installation
 
+Install [mise](https://mise.jdx.dev/getting-started.html), [uv](https://docs.astral.sh/uv/getting-started/installation/), and [prek](https://prek.j178.dev/installation/) before running these commands.
+
 ```shell
 git clone git@github.com:spglib/spgrep.git
 cd spgrep
-uv sync --all-extras
+mise trust
+mise run install
 prek install
 
 # Run prek manually
-prek run --all-file
+mise run prek
+
+# Run tests
+mise run test
+
+# List available tasks
+mise run
 ```
 
 ## How to compile documents
 
 ```shell
-sphinx-autobuild docs docs_build
+mise run docs
 # open localhost:8000 in your browser
 ```
 
