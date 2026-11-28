@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Project logo (`docs/_static/logo.svg`, `logo-dark.svg`, `icon.svg`), shown in the README and the documentation header, and used as the docs favicon.
+
 ### Fixed
 
 - Little groups of magnetic space groups now contain an anti-unitary operation $S\theta$ exactly when $S^{\top}\mathbf{k} \equiv -\mathbf{k}$. The nonsymmorphic factor system of co-representations uses the same signed residual, which changes the result at TRIM points with nonsymmorphic anti-unitary operations.

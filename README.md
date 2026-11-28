@@ -1,5 +1,12 @@
 # Spgrep
 
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/spglib/spgrep/develop/docs/_static/logo-dark.svg">
+    <img alt="spgrep" src="https://raw.githubusercontent.com/spglib/spgrep/develop/docs/_static/logo.svg" width="360">
+  </picture>
+</p>
+
 [![testing](https://github.com/spglib/spgrep/actions/workflows/testing.yml/badge.svg)](https://github.com/spglib/spgrep/actions/workflows/testing.yml)
 [![codecov](https://codecov.io/gh/spglib/spgrep/graph/badge.svg?token=DQGVFCTB1P)](https://codecov.io/gh/spglib/spgrep)
 [![License](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)

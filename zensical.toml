@@ -59,6 +59,8 @@ extra_javascript = [
 
 [project.theme]
 language = "en"
+logo = "_static/icon.svg"
+favicon = "_static/icon.svg"
 features = [
   "content.code.copy",
   "navigation.footer",

@@ -1,0 +1,7 @@
+[tagpr]
+    releaseBranch = develop
+    vPrefix = true
+    versionFile = -
+    changelog = false
+    release = false
+    template = .github/tagpr-release.md

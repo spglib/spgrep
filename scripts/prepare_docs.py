@@ -1,5 +1,6 @@
 """Generate the introduction, notebook pages, and bibliography before running Zensical."""
 
+import re
 from pathlib import Path
 
 from nbconvert import MarkdownExporter
@@ -14,6 +15,15 @@ def main() -> None:
     """Render saved notebook outputs without executing the examples."""
     # README links are relative to the repository root, while index.md is in docs/.
     introduction = (ROOT / "README.md").read_text().replace("](docs/", "](")
+    # Follow the site's theme toggle instead of the README's OS theme preference.
+    introduction = re.sub(
+        r"<picture>.*?</picture>",
+        '<img alt="spgrep" src="_static/logo.svg#only-light" width="360">\n'
+        '  <img alt="spgrep" src="_static/logo-dark.svg#only-dark" width="360">',
+        introduction,
+        count=1,
+        flags=re.DOTALL,
+    )
     (DOCS / "index.md").write_text(introduction)
 
     exporter = MarkdownExporter()

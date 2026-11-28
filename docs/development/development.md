@@ -61,17 +61,45 @@ docker run --rm --volume $PWD/docs/paper:/data --user $(id -u):$(id -g) --env JO
 
 ## Release
 
-```shell
-# Confirm the version number via `setuptools-scm`
-python -m setuptools_scm
+[tagpr](https://github.com/Songmu/tagpr) maintains a release pull request after pushes
+to `develop`. Merging that pull request creates a `vX.Y.Z` tag and starts
+`.github/workflows/deploy.yml`. The deploy workflow publishes the package to PyPI,
+then creates the GitHub Release with generated release notes.
 
-# Update changelog here
-vim docs/changelog.md
+The package version comes from Git tags through `setuptools-scm`, so tagpr does not
+update a version file. The curated `docs/changelog.md` remains manually maintained.
 
-# Push with tag
-git tag <next-version>
-git push origin <next-version>
-```
+### Configure the release app
+
+1. Install a GitHub App on `spglib/spgrep` with **Contents: Read and write**,
+   **Pull requests: Read and write**, and **Issues: Read-only** permissions.
+   An existing release App can be reused if its installation includes this repository.
+2. Set the Actions repository variable `TAGPR_APP_CLIENT_ID` to the App's client ID.
+3. Set the Actions repository secret `TAGPR_APP_PRIVATE_KEY` to the App's private key.
+4. Run the **Prepare release** workflow on `develop` to prepare the first release PR.
+
+The workflow skips the job until `TAGPR_APP_CLIENT_ID` is set. The App token lets
+release PRs trigger CI and tags trigger the separate deploy workflow. Tags created
+with the default `GITHUB_TOKEN` do not trigger that workflow.
+
+PyPI publishing continues to use Trusted Publishing through the `release`
+environment and `deploy.yml`.
+
+### Publish a release
+
+1. Review the release PR's proposed version. The default is a patch release.
+   For a minor or major release, add `tagpr:minor` or `tagpr:major` to the release PR,
+   then rerun **Prepare release** on `develop` to refresh the proposal.
+   In tag-only mode, these labels determine the final version when the PR is merged.
+2. Update `docs/changelog.md` with a dated entry for that version when needed.
+   Commit the entry to the release PR branch or merge it into `develop` and let tagpr
+   refresh the release PR.
+3. Wait for the release PR's CI to pass, then merge it.
+4. Check that **Prepare release** creates the tag and **deploy** publishes the package
+   and GitHub Release.
+
+For a release candidate, retain the manual `vX.Y.Z-rcN` tag workflow. These tags
+publish to TestPyPI and create a prerelease on GitHub.
 
 ## Subpages
 
