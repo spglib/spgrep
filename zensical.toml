@@ -13,15 +13,15 @@ paper/
 nav = [
   { "Start here" = "index.md" },
   { "Quickstart" = "quickstart.md" },
-  { "How-to guides" = [
-    "howto/index.md",
-    { "Calculate irreps from primitive symmetry" = "howto/primitive-symmetry.md" },
-  ] },
   { "Tutorials" = [
     "examples/examples.md",
     { "Construct symmetry-adapted tensors" = "examples/symmetry_adapted_tensor.md" },
     { "Block-diagonalize a dynamical matrix" = "examples/lattice_vibration.md" },
     { "Calculate spinor representations" = "examples/spin_representation.md" },
+  ] },
+  { "How-to guides" = [
+    "howto/index.md",
+    { "Calculate irreps from primitive symmetry" = "howto/primitive-symmetry.md" },
   ] },
   { "Explanation" = [
     "formulation/formulation.md",
