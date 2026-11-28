@@ -1,9 +1,11 @@
 import numpy as np
 import pytest
+import spglib
 
 from spgrep.core import (
     get_crystallographic_pointgroup_spinor_irreps_from_symmetry,
     get_magnetic_spacegroup_coreps_from_primitive_symmetry,
+    get_spacegroup_spinor_irreps_from_primitive_symmetry,
 )
 from spgrep.corep import (
     _enumerate_small_corepresentations_with_factor_system,
@@ -220,3 +222,90 @@ def test_corep_composition_law_221_lambda():
     for corep in coreps:
         bare = corep / phases[:, None, None]
         _assert_corep_composition_law(bare, anti_linear, factor_system, table)
+
+
+def _assert_small_corep_law(
+    rotations: NDArrayInt,
+    translations: NDArrayFloat,
+    time_reversals: NDArrayInt,
+    kpoint: NDArrayFloat,
+    corep: NDArrayComplex,
+    spinor_factor_system: NDArrayComplex,
+) -> None:
+    """Verify the co-rep law of the little group, including the Bloch phases of translations.
+
+    For operations :math:`g_i = (R_i, t_i) \\theta^{a_i}` this checks
+    ``D(g_i) @ D(g_j)^(a_i) == spinor_factor_system[i, j] * D(g_i g_j)``, where ``D(g_i g_j)``
+    is obtained from the stored operation by a lattice translation.
+    """
+    order = len(rotations)
+    index = {(r.tobytes(), int(a)): i for i, (r, a) in enumerate(zip(rotations, time_reversals))}
+    for i in range(order):
+        for j in range(order):
+            ij = index[
+                (
+                    (rotations[i] @ rotations[j]).tobytes(),
+                    int(time_reversals[i] ^ time_reversals[j]),
+                )
+            ]
+            lattice_translation = (
+                rotations[i] @ translations[j] + translations[i] - translations[ij]
+            )
+            right = np.conj(corep[j]) if time_reversals[i] else corep[j]
+            expected = (
+                spinor_factor_system[i, j]
+                * np.exp(-2j * np.pi * np.dot(kpoint, lattice_translation))
+                * corep[ij]
+            )
+            assert np.allclose(corep[i] @ right, expected), f"corep law violated at (i={i}, j={j})"
+
+
+@pytest.mark.parametrize(
+    "uni_number,hall_number,kpoint",
+    [
+        # Grey P2_1/m at a TRIM point: T and the screw do not commute up to the unsigned
+        # Bloch residual, and the co-rep has Wigner indicator -1.
+        (58, 0, np.array([0.5, 0.5, 0.5])),
+        # Grey P2 at a generic in-plane k: C2z T stabilizes k, T does not.
+        (9, 4, np.array([1 / 7, 2 / 9, 0])),
+    ],
+)
+def test_magnetic_small_coreps_with_antiunitary_operations(uni_number, hall_number, kpoint):
+    group = spglib.get_magnetic_symmetry_from_database(uni_number, hall_number=hall_number)
+    rotations = group["rotations"]
+    translations = group["translations"]
+    time_reversals = group["time_reversals"]
+
+    # An anti-unitary operation (R, t) theta maps fractional reciprocal coordinates k to -R^{-T} k.
+    signs = 1 - 2 * time_reversals
+    residuals = rotations.transpose(0, 2, 1) @ kpoint - signs[:, None] * kpoint
+    expected_little_group = np.flatnonzero(
+        np.all(np.isclose(residuals, np.rint(residuals)), axis=1)
+    )
+
+    coreps, anti_linear, little = get_magnetic_spacegroup_coreps_from_primitive_symmetry(
+        rotations, translations, time_reversals, kpoint
+    )
+    assert np.array_equal(little, expected_little_group)
+    assert np.array_equal(anti_linear, time_reversals[little] == 1)
+    ones = np.ones((len(little), len(little)), dtype=np.complex128)
+    for corep in coreps:
+        _assert_small_corep_law(
+            rotations[little], translations[little], time_reversals[little], kpoint, corep, ones
+        )
+
+    coreps, _, spinor_factor_system, _, _, little = (
+        get_spacegroup_spinor_irreps_from_primitive_symmetry(
+            np.eye(3), rotations, translations, time_reversals, kpoint=kpoint
+        )
+    )
+    assert np.array_equal(little, expected_little_group)
+    for corep in coreps:
+        _assert_small_corep_law(
+            rotations[little],
+            translations[little],
+            time_reversals[little],
+            kpoint,
+            corep,
+            spinor_factor_system,
+        )

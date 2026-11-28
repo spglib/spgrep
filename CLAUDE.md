@@ -10,16 +10,16 @@ Python 3.10+. Runtime deps are intentionally minimal: `numpy`, `spglib`, `hsnf`,
 
 ## Commands
 
-The project uses `uv` for environment management and `prek` (a pre-commit reimpl) for hooks. A `justfile` wraps the common ones.
+The project uses `uv` for environment management and `prek` (a pre-commit reimpl) for hooks. Tasks in `mise.toml` wrap the common commands.
 
 ```shell
-just install         # uv sync --all-extras
-just test            # uv run pytest -v
-just prek            # prek run --all-files (ruff-format, ruff, mypy, uv-lock, ...)
-just docs            # uv run sphinx-autobuild docs docs_build
+mise run install     # uv sync --all-extras
+mise run test        # uv run pytest -v
+mise run prek        # prek run --all-files (ruff-format, ruff, mypy, uv-lock, ...)
+mise run docs        # uv run sphinx-autobuild docs docs_build
 ```
 
-Direct equivalents (use these if `just` is unavailable):
+Direct equivalents (use these if `mise` is unavailable):
 
 ```shell
 uv sync --all-extras

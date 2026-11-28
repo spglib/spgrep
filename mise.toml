@@ -1,0 +1,19 @@
+[tasks.default]
+description = "List available tasks"
+run = "mise tasks"
+
+[tasks.prek]
+description = "Run pre-commit hooks"
+run = "prek run --all-files"
+
+[tasks.install]
+description = "Install all dependencies"
+run = "uv sync --all-extras"
+
+[tasks.test]
+description = "Run the test suite"
+run = "uv run pytest -v"
+
+[tasks.docs]
+description = "Serve documentation with live reload"
+run = "uv run sphinx-autobuild docs docs_build"

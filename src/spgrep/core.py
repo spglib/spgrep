@@ -365,7 +365,7 @@ def get_magnetic_spacegroup_coreps_from_primitive_symmetry(
             raise ValueError("Specify magnetic symmetry operations in primitive cell!")
 
     little_rotations, little_translations, mapping_little_group = get_little_group(
-        rotations, translations, kpoint, atol=atol
+        rotations, translations, kpoint, atol=atol, time_reversals=time_reversals
     )
     little_time_reversals = time_reversals[mapping_little_group]
 
@@ -669,7 +669,7 @@ def get_spacegroup_spinor_irreps_from_primitive_symmetry(
             raise ValueError("Specify symmetry operations in primitive cell!")
 
     little_rotations, little_translations, mapping_little_group = get_little_group(
-        rotations, translations, kpoint, atol=atol
+        rotations, translations, kpoint, atol=atol, time_reversals=time_reversals
     )
 
     if time_reversals is None:
