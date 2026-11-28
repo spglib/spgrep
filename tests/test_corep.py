@@ -276,7 +276,7 @@ def test_magnetic_small_coreps_with_antiunitary_operations(uni_number, hall_numb
     translations = group["translations"]
     time_reversals = group["time_reversals"]
 
-    # An anti-unitary operation (R, t) theta maps k to -R k.
+    # An anti-unitary operation (R, t) theta maps fractional reciprocal coordinates k to -R^{-T} k.
     signs = 1 - 2 * time_reversals
     residuals = rotations.transpose(0, 2, 1) @ kpoint - signs[:, None] * kpoint
     expected_little_group = np.flatnonzero(
