@@ -93,9 +93,9 @@ def get_factor_system_from_little_group(
        D^{\mathbf{k}}_{p}(S_{i}) D^{\mathbf{k}}_{p}(S_{j})
        = \exp \left( -i \mathbf{g}_{i} \cdot \mathbf{w}_{j} \right) D^{\mathbf{k}}_{p}(S_{k})
 
-    where :math:`S_{i}S_{j} = S_{k}` and :math:`\mathbf{g}_{i} = S_{i}^{-1} \mathbf{k} - \mathbf{k}`.
+    where :math:`S_{i}S_{j} = S_{k}` and :math:`\mathbf{g}_{i} = S_{i}^{\top} \mathbf{k} - \mathbf{k}`.
     For an anti-unitary operation :math:`S_{i}\theta`, the Bloch phase of the right operand is
-    complex conjugated and :math:`\mathbf{g}_{i} = S_{i}^{-1} \mathbf{k} + \mathbf{k}`.
+    complex conjugated and :math:`\mathbf{g}_{i} = S_{i}^{\top} \mathbf{k} + \mathbf{k}`.
 
     Parameters
     ----------
@@ -130,8 +130,8 @@ def get_little_group(
 ) -> tuple[NDArrayInt, NDArrayFloat, NDArrayInt]:
     r"""Return coset of little group of given space group which stabilize kpoint under rotations.
 
-    An anti-unitary operation :math:`S\theta` maps :math:`\mathbf{k}` to
-    :math:`-S\mathbf{k}`, so it belongs to the little group when
+    In fractional reciprocal coordinates, an anti-unitary operation :math:`S\theta` maps
+    :math:`\mathbf{k}` to :math:`-S^{-\top}\mathbf{k}`, so it belongs to the little group when
     :math:`S^{\top}\mathbf{k} \equiv -\mathbf{k}`.
 
     Parameters
